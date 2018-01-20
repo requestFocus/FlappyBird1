@@ -25,7 +25,7 @@ public class PlayerProfileController {
 
 	void Load()
 	{
-		string jsonData = PlayerPrefs.GetString("MySettings");                                          //Load saved Json, czyli pobierz string z playerprefs i zapisz do stringa json
+		string jsonData = PlayerPrefs.GetString("MySettings");                                          //Load saved Json, czyli pobierz string z playerprefs i zapisz string do json
 		PlayerProfileController loadedData = JsonUtility.FromJson<PlayerProfileController>(jsonData);   //Convert to Class, czyli skonwertuj łańcuch znaków json na obiekt
 
 		//Display saved data
