@@ -36,7 +36,6 @@ public class Login : MonoBehaviour {
 	private void Update()
 	{
 		PlayerPrefs.SetString("Name", playerName);      // zapisz USERNAME do PlayerPrefs
-
 	}
 
 	private void OnGUI()
