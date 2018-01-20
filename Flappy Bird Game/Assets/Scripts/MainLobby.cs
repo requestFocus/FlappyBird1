@@ -52,7 +52,6 @@ public class MainLobby : MonoBehaviour {
 
 		else if (MainMenu) {
 			DrawMainMenu();
-	
 		}
 
 		else if (Help)

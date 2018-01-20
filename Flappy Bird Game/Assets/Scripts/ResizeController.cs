@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ResizeController : MonoBehaviour
 {
-	public Rect ResizeGUI(Rect _rect)
+	public Rect ResizeGUI(Rect rect)
 	{
-		float FilScreenWidth = _rect.width / 800;
-		float rectWidth = FilScreenWidth * Screen.width;
-		float FilScreenHeight = _rect.height / 600;
-		float rectHeight = FilScreenHeight * Screen.height;
-		float rectX = (_rect.x / 800) * Screen.width;
-		float rectY = (_rect.y / 600) * Screen.height;
+		float OrigScreenWidthRatio = rect.width / 800;				// liczy wspolczynnik wymiaru recta do domyslnej szerokości ekranu
+		float rectWidth = OrigScreenWidthRatio * Screen.width;		// liczy wyskalowaną szerokość recta na podstawie wspolczynnika i aktualnej szerokości ekranu
+		float OrigScreenHeightRatio = rect.height / 600;            // liczy wspolczynnik wymiaru recta do domyslnej wysokości ekranu
+		float rectHeight = OrigScreenHeightRatio * Screen.height;   // liczy wyskalowaną szerokość recta na podstawie wspolczynnika i aktualnej wysokości ekranu
+		float rectX = (rect.x / 800) * Screen.width;				// liczy wspolrzedną X recta (przysłane X dzielone przez domyslną szerokośc razy aktualna szerokość ekranu)
+		float rectY = (rect.y / 600) * Screen.height;               // liczy współrzędną Y recta (przysłane Y dzielone przez domyslną wysokosc razy aktualna wysokość ekranu)
 
 		return new Rect(rectX, rectY, rectWidth, rectHeight);
 	}
