@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Login : MonoBehaviour {
+public class MainLobby : MonoBehaviour {
 
 	public Texture viento; 
 	public Texture vientoR;
 	public Texture vientoG;
 	public Texture vientoB;
-	  
+	public ResizeController resizeController;
+
 	private Vector3 myMousePosition;
 
 	private static bool LoginMenu;
@@ -22,6 +23,7 @@ public class Login : MonoBehaviour {
 	private string playerName;
 	private string loginField;
 	private string loginButton;
+
 
 	private void Start()
 	{
@@ -78,7 +80,7 @@ public class Login : MonoBehaviour {
 			throw new Exception();
 		}
 
-		Rect buttonScalableDimensions = ResizeGUI(new Rect(x, y, width, height));
+		Rect buttonScalableDimensions = resizeController.ResizeGUI(new Rect(x, y, width, height));
 
 		//GUI.DrawTexture(ResizeGUI(new Rect(x, y, width, height)), graphicViento);
 		GUI.DrawTexture(buttonScalableDimensions, graphicViento);
@@ -162,9 +164,8 @@ public class Login : MonoBehaviour {
 			}
 			//else if (myMousePosition.x >= 400 && myMousePosition.x <= 500 && myMousePosition.y >= 100 && myMousePosition.y <= 200)
 			else if ((myMousePosition.x >= Fourth.x) && (myMousePosition.x <= (Fourth.x + Fourth.width)) && (myMousePosition.y >= Fourth.y) && (myMousePosition.y <= (Fourth.y + Fourth.height)))
-
-				{
-					LoginMenu = false;
+			{
+				LoginMenu = false;
 				MainMenu = false;
 				Help = false;
 				Credits = false;
@@ -191,17 +192,5 @@ public class Login : MonoBehaviour {
 				Debug.Log("bad login");
 			}
 		}
-	}
-
-	private Rect ResizeGUI(Rect _rect)
-	{
-		float FilScreenWidth = _rect.width / 800;
-		float rectWidth = FilScreenWidth * Screen.width;
-		float FilScreenHeight = _rect.height / 600;
-		float rectHeight = FilScreenHeight * Screen.height;
-		float rectX = (_rect.x / 800) * Screen.width;
-		float rectY = (_rect.y / 600) * Screen.height;
-
-		return new Rect(rectX, rectY, rectWidth, rectHeight);
 	}
 }
