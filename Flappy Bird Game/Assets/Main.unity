@@ -368,6 +368,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &935452400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 935452402}
+  - component: {fileID: 935452401}
+  m_Layer: 0
+  m_Name: PlayerProfileController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &935452401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 935452400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc288b088c94e542b2b7140ac82e5c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
+  highScore: 0
+  complete10: 0
+  complete25: 0
+  complete50: 0
+  complete100: 0
+--- !u!4 &935452402
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 935452400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 457.5, y: 235, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1551131927
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +445,7 @@ MonoBehaviour:
   vientoR: {fileID: 2800000, guid: 721218008d9dfa240ac20a6514f4f416, type: 3}
   vientoG: {fileID: 2800000, guid: 255d2f68627c4d54ba480378c1577f09, type: 3}
   vientoB: {fileID: 2800000, guid: 602955de65271ce44b9adde51d47f7f0, type: 3}
+  playerProfileController: {fileID: 935452401}
   resizeController: {fileID: 519641751}
 --- !u!4 &1551131929
 Transform:

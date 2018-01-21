@@ -9,35 +9,36 @@ public class MainLobby : MonoBehaviour {
 	public Texture vientoR;
 	public Texture vientoG;
 	public Texture vientoB;
+
+	public PlayerProfileController playerProfileController;
 	public ResizeController resizeController;
 
 	private Vector3 myMousePosition;
 
-	private static bool LoginMenu;
+	private static bool NameMenu;
 	private static bool MainMenu;
 	private static bool Help;
 	private static bool Credits;
 	private static bool Achievements;
 
 	private bool isButtonClicked;
-	private string playerName;
-	private string loginField;
-	private string loginButton;
+	private string nameField;
+	private string nameButton;
 
 
 	private void Start()
 	{
-		playerName = "";
-		loginField = "Your name: ";
-		loginButton = "Click to log in";
-		LoginMenu = true;
+		playerProfileController.playerName = "";
+		nameField = "Your name: ";
+		nameButton = "Click to log in";
+		NameMenu = true;
 
 		//PlayerPrefs.DeleteAll();
 	}
 
 	private void Update()
 	{
-		PlayerPrefs.SetString("Name", playerName);      // zapisz USERNAME do PlayerPrefs
+		//PlayerPrefs.SetString("Name", playerName);      // zapisz USERNAME do PlayerPrefs
 	}
 
 	private void OnGUI()
@@ -45,7 +46,7 @@ public class MainLobby : MonoBehaviour {
 
 		GUI.color = Color.white;
 
-		if (LoginMenu)
+		if (NameMenu)
 		{
 			DrawLoginMenu();
 		}
@@ -67,7 +68,6 @@ public class MainLobby : MonoBehaviour {
 		else if (Achievements)
 		{
 			DrawMenu(400, vientoB);
-			PlayerPrefs.SetInt("Visited", 1);
 		}
 	}	
 
@@ -89,8 +89,8 @@ public class MainLobby : MonoBehaviour {
 
 	private void DrawMenu(int xposition, Texture graphicViento)				// obsluga BACK buttona i pojedynczego MENU
 	{
-		GUI.Label(new Rect(10, 10, 100, 100), "Logged as: " + PlayerPrefs.GetString("Name", playerName) + " // " + PlayerPrefs.GetInt("Visited", 0));
-
+		//GUI.Label(new Rect(10, 10, 100, 100), "Logged as: " + PlayerPrefs.GetString("Name", playerName) + " // " + PlayerPrefs.GetInt("Visited", 0));
+		GUI.Label(new Rect(10, 10, 100, 100), "Your name is: " + playerProfileController.playerName + " // Highscore: " + playerProfileController.highScore);
 		Rect First = DrawElement(100, 100, 100, 100, viento);
 		DrawElement(xposition, 100, 100, 100, graphicViento);
 
@@ -101,7 +101,7 @@ public class MainLobby : MonoBehaviour {
 		{
 			if ((myMousePosition.x >= First.x) && (myMousePosition.x <= (First.x + First.width)) && (myMousePosition.y >= First.y) && (myMousePosition.y <= (First.y + First.height)))
 			{
-				LoginMenu = false;
+				NameMenu = false;
 				MainMenu = true;
 				Help = false;
 				Credits = false;
@@ -113,14 +113,15 @@ public class MainLobby : MonoBehaviour {
 	private void DrawMainMenu()								// obsluga MAIN MENU
 	{
 
-		GUI.Label(new Rect(10, 10, 100, 100), "Logged as: " + PlayerPrefs.GetString("Name", playerName) + " // " + PlayerPrefs.GetInt("Visited", 0));
-		isButtonClicked = GUI.Button(new Rect(10, 60, 100, 25), "Logout?");
+		//GUI.Label(new Rect(10, 10, 100, 100), "Logged as: " + PlayerPrefs.GetString("Name", playerName) + " // " + PlayerPrefs.GetInt("Visited", 0));
+		GUI.Label(new Rect(10, 10, 100, 100), "Your name is: " + playerProfileController.playerName + " // Highscore: " + playerProfileController.highScore);
+		isButtonClicked = GUI.Button(new Rect(10, 60, 100, 25), "Change user?");
 
 		if (isButtonClicked)
 		{
-			LoginMenu = true;
+			NameMenu = true;
 			MainMenu = false;
-			playerName = "";
+			playerProfileController.playerName = "";
 		}
 
 		Rect First = DrawElement(100, 100, 100, 100, viento);            // x y w h img
@@ -136,60 +137,65 @@ public class MainLobby : MonoBehaviour {
 
 			if ((myMousePosition.x >= First.x) && (myMousePosition.x <= (First.x + First.width)) && (myMousePosition.y >= First.y) && (myMousePosition.y <= (First.y + First.height)))
 			{
-				LoginMenu = false;
+				NameMenu = false;
 				MainMenu = true;
 				Help = false;
 				Credits = false;
 				Achievements = false;
-				//Debug.Log("MousePosition X: " + myMousePosition.x + " Y: " + myMousePosition.y + " // " + "RectDimensions X: " + First.x + " do " + (First.x + First.width) + " Y: " + First.y + " do " + (First.y + First.height));
 			}
-			//else if (myMousePosition.x >= 200 && myMousePosition.x <= 300 && myMousePosition.y >= 100 && myMousePosition.y <= 200)
 			else if ((myMousePosition.x >= Second.x) && (myMousePosition.x <= (Second.x + Second.width)) && (myMousePosition.y >= Second.y) && (myMousePosition.y <= (Second.y + Second.height)))
 			{
-				LoginMenu = false;
+				NameMenu = false;
 				MainMenu = false;
 				Help = true;
 				Credits = false;
 				Achievements = false;
 			}
-			//else if (myMousePosition.x >= 300 && myMousePosition.x <= 400 && myMousePosition.y >= 100 && myMousePosition.y <= 200)
 			else if ((myMousePosition.x >= Third.x) && (myMousePosition.x <= (Third.x + Third.width)) && (myMousePosition.y >= Third.y) && (myMousePosition.y <= (Third.y + Third.height)))
 			{
-				LoginMenu = false;
+				NameMenu = false;
 				MainMenu = false;
 				Help = false;
 				Credits = true;
 				Achievements = false;
 			}
-			//else if (myMousePosition.x >= 400 && myMousePosition.x <= 500 && myMousePosition.y >= 100 && myMousePosition.y <= 200)
 			else if ((myMousePosition.x >= Fourth.x) && (myMousePosition.x <= (Fourth.x + Fourth.width)) && (myMousePosition.y >= Fourth.y) && (myMousePosition.y <= (Fourth.y + Fourth.height)))
 			{
-				LoginMenu = false;
+				NameMenu = false;
 				MainMenu = false;
 				Help = false;
 				Credits = false;
 				Achievements = true;
+
+				playerProfileController.highScore++;
+				playerProfileController.SaveProfile(playerProfileController);
+				playerProfileController.LoadProfile();
 			}
 		}
 	}
 
 	private void DrawLoginMenu()
 	{
-		GUI.Label(new Rect(10, 10, 100, 25), loginField);
-		playerName = GUI.TextField(new Rect(80, 10, 100, 25), playerName, 10);
-		isButtonClicked = GUI.Button(new Rect(10, 35, 100, 25), loginButton);
+		GUI.Label(new Rect(10, 10, 100, 25), nameField);
+		playerProfileController.playerName = GUI.TextField(new Rect(80, 10, 100, 25), playerProfileController.playerName, 10);
+		isButtonClicked = GUI.Button(new Rect(10, 35, 100, 25), nameButton);
 
-		if (isButtonClicked)									// czy kliknieto button ZALOGUJ?
+		if (isButtonClicked)									
 		{
-			if (playerName.Length > 0)							// wpisano USERNAME
+			if (playerProfileController.playerName.Length > 0)	// wpisano USERNAME
 			{
-				LoginMenu = false;								// wylacz tryb LOGIN MENU
+				playerProfileController.SaveProfile(playerProfileController);
+				// SPRAWDZANIE JSONA =====================================================================
+
+				NameMenu = false;								// wylacz tryb LOGIN MENU
 				MainMenu = true;								// aktywuj tryb MAIN MENU
 			}
 			else												// NIE WPISANO USERNAME
 			{
 				Debug.Log("bad login");
+				/* kod obslugi bledu */
 			}
+			playerProfileController.LoadProfile();
 		}
 	}
 }
