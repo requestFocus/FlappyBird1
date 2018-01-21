@@ -10,6 +10,7 @@ public class MainLobby : MonoBehaviour {
 	public Texture vientoG;
 	public Texture vientoB;
 
+	public PlayerProfile playerProfile;
 	public PlayerProfileController playerProfileController;
 	public ResizeController resizeController;
 
@@ -28,7 +29,8 @@ public class MainLobby : MonoBehaviour {
 
 	private void Start()
 	{
-		playerProfileController.playerName = "";
+		playerProfile = new PlayerProfile();
+		playerProfile.playerName = "";
 		nameField = "Your name: ";
 		nameButton = "Click to log in";
 		NameMenu = true;
@@ -38,7 +40,7 @@ public class MainLobby : MonoBehaviour {
 
 	private void Update()
 	{
-		//PlayerPrefs.SetString("Name", playerName);      // zapisz USERNAME do PlayerPrefs
+
 	}
 
 	private void OnGUI()
@@ -90,7 +92,7 @@ public class MainLobby : MonoBehaviour {
 	private void DrawMenu(int xposition, Texture graphicViento)				// obsluga BACK buttona i pojedynczego MENU
 	{
 		//GUI.Label(new Rect(10, 10, 100, 100), "Logged as: " + PlayerPrefs.GetString("Name", playerName) + " // " + PlayerPrefs.GetInt("Visited", 0));
-		GUI.Label(new Rect(10, 10, 100, 100), "Your name is: " + playerProfileController.playerName + " // Highscore: " + playerProfileController.highScore);
+		GUI.Label(new Rect(10, 10, 100, 100), "Your name is: " + playerProfile.playerName + " // Highscore: " + playerProfile.highScore);
 		Rect First = DrawElement(100, 100, 100, 100, viento);
 		DrawElement(xposition, 100, 100, 100, graphicViento);
 
@@ -114,14 +116,15 @@ public class MainLobby : MonoBehaviour {
 	{
 
 		//GUI.Label(new Rect(10, 10, 100, 100), "Logged as: " + PlayerPrefs.GetString("Name", playerName) + " // " + PlayerPrefs.GetInt("Visited", 0));
-		GUI.Label(new Rect(10, 10, 100, 100), "Your name is: " + playerProfileController.playerName + " // Highscore: " + playerProfileController.highScore);
+		GUI.Label(new Rect(10, 10, 100, 100), "Your name is: " + playerProfile.playerName + " // Highscore: " + playerProfile.highScore);
 		isButtonClicked = GUI.Button(new Rect(10, 60, 100, 25), "Change user?");
 
 		if (isButtonClicked)
 		{
 			NameMenu = true;
 			MainMenu = false;
-			playerProfileController.playerName = "";
+			playerProfileController.SaveProfile(playerProfile);
+			playerProfile.playerName = "";
 		}
 
 		Rect First = DrawElement(100, 100, 100, 100, viento);            // x y w h img
@@ -167,9 +170,8 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = true;
 
-				playerProfileController.highScore++;
-				playerProfileController.SaveProfile(playerProfileController);
-				playerProfileController.LoadProfile();
+				playerProfile.highScore++;
+				playerProfileController.SaveProfile(playerProfile);
 			}
 		}
 	}
@@ -177,15 +179,17 @@ public class MainLobby : MonoBehaviour {
 	private void DrawLoginMenu()
 	{
 		GUI.Label(new Rect(10, 10, 100, 25), nameField);
-		playerProfileController.playerName = GUI.TextField(new Rect(80, 10, 100, 25), playerProfileController.playerName, 10);
+		playerProfile.playerName = GUI.TextField(new Rect(80, 10, 100, 25), playerProfile.playerName, 10);
 		isButtonClicked = GUI.Button(new Rect(10, 35, 100, 25), nameButton);
 
 		if (isButtonClicked)									
 		{
-			if (playerProfileController.playerName.Length > 0)	// wpisano USERNAME
+			if (playerProfile.playerName.Length > 0)	// wpisano USERNAME
 			{
-				playerProfileController.SaveProfile(playerProfileController);
-				// SPRAWDZANIE JSONA =====================================================================
+
+				/* sprawdzanie jsona */
+				if (playerProfileController.CheckIfProfileExist(playerProfile.playerName))
+					playerProfileController.LoadProfile();
 
 				NameMenu = false;								// wylacz tryb LOGIN MENU
 				MainMenu = true;								// aktywuj tryb MAIN MENU
@@ -195,7 +199,7 @@ public class MainLobby : MonoBehaviour {
 				Debug.Log("bad login");
 				/* kod obslugi bledu */
 			}
-			playerProfileController.LoadProfile();
 		}
+
 	}
 }

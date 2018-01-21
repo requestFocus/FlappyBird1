@@ -5,35 +5,30 @@ using UnityEngine;
 //[System.Serializable]
 public class PlayerProfileController : MonoBehaviour {
 
-	public string playerName = "";
-	public int highScore = 0;
-	public int complete10 = 0;
-	public int complete25 = 0;
-	public int complete50 = 0;
-	public int complete100 = 0;
 
-	public void SaveProfile(PlayerProfileController playerProfileController)
+	public void SaveProfile(PlayerProfile playerProfileToSave)
 	{
-		PlayerProfileController savedProfileData = playerProfileController;
-		string jsonData = JsonUtility.ToJson(savedProfileData);                                         //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
-		PlayerPrefs.SetString("ProfileSettings", jsonData);                                            //Save Json string, łańcuch znaków opisujący obiekt zostaje zapisany w playerprefs
-		PlayerPrefs.Save();
+		string jsonDataToSet = JsonUtility.ToJson(playerProfileToSave);                                         //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
+		PlayerPrefs.SetString("ProfileSettings", jsonDataToSet);                                                //Load saved Json, czyli pobierz string z playerprefs i zapisz string do json
+
+		Debug.Log("jsonDataToSet: " + jsonDataToSet);
+		Debug.Log("PlayerPrefs.GetString(\"ProfileSettings\"): " + PlayerPrefs.GetString("ProfileSettings"));
 	}
 
 	public void LoadProfile()
 	{
-		string jsonData = PlayerPrefs.GetString("ProfileSettings");                                          //Load saved Json, czyli pobierz string z playerprefs i zapisz string do json
-		//PlayerProfileController loadedProfileData = JsonUtility.FromJson<PlayerProfileController>(jsonData);   //Convert to Class, czyli skonwertuj łańcuch znaków json na obiekt
+		string jsonDataFromGet = PlayerPrefs.GetString("ProfileSettings");                                    //Load saved Json, czyli pobierz string z playerprefs i zapisz string do json
+		PlayerProfile loadedProfileData = JsonUtility.FromJson<PlayerProfile>(jsonDataFromGet);				  //Convert to Class, czyli skonwertuj łańcuch znaków json na obiekt
 
-		//Display saved data
-		//Debug.Log("playerName: " + loadedProfileData.playerName);
-		//Debug.Log("highScore: " + loadedProfileData.highScore);
-		//Debug.Log("complete10: " + loadedProfileData.complete10);
-		//Debug.Log("complete25: " + loadedProfileData.complete25);
-		//Debug.Log("complete50: " + loadedProfileData.complete50);
-		//Debug.Log("complete100: " + loadedProfileData.complete100);
+		Debug.Log("playerName: " + loadedProfileData.playerName);
+		Debug.Log("highScore: " + loadedProfileData.highScore);
+		Debug.Log("highScore: " + loadedProfileData.complete10);
+		//Debug.Log(jsonDataFromGet);
+	}
 
-		Debug.Log(jsonData);
-
+	public bool CheckIfProfileExist(string playerName)
+	{
+		Debug.Log("CheckIfProfileExist dla " + playerName);
+		return PlayerPrefs.GetString("ProfileSettings").Contains(playerName);
 	}
 }
