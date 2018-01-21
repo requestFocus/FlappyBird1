@@ -32,3 +32,4 @@ public class PlayerProfileController : MonoBehaviour {
 		return PlayerPrefs.GetString("ProfileSettings").Contains(playerName);
 	}
 }
+ 
