@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class MainLobby : MonoBehaviour {
 
-	public Texture viento; 
-	public Texture vientoR;
-	public Texture vientoG;
-	public Texture vientoB;
+	public Texture LogoButton; 
+	public Texture BackButton;
+	public Texture AchievementsButton;
+	public Texture CreditsButton;
+	public Texture HowtoPlayButton;
+	public Texture NewGameButton;
+	public Texture StartButton;
 
 	public PlayerProfile playerProfile;
 	public PlayerProfileController playerProfileController;
@@ -16,11 +19,12 @@ public class MainLobby : MonoBehaviour {
 
 	private Vector3 myMousePosition;
 
-	private static bool NameMenu;
 	private static bool MainMenu;
-	private static bool Help;
+	private static bool HowtoPlay;
 	private static bool Credits;
 	private static bool Achievements;
+	private static bool NewGame;
+	private static bool NameMenu;
 
 	private bool isButtonClicked;
 	private string nameField;
@@ -33,7 +37,7 @@ public class MainLobby : MonoBehaviour {
 		playerProfile.playerName = "";
 		nameField = "Your name: ";
 		nameButton = "Click to log in";
-		NameMenu = true;
+		MainMenu = true;
 
 		//PlayerPrefs.DeleteAll();
 	}
@@ -48,66 +52,58 @@ public class MainLobby : MonoBehaviour {
 
 		GUI.color = Color.white;
 
-		if (NameMenu)
-		{
-			DrawLoginMenu();
-		}
-
-		else if (MainMenu) {
+		if (MainMenu) {
 			DrawMainMenu();
 		}
 
-		else if (Help)
+		else if (HowtoPlay)
 		{
-			DrawMenu(200, vientoR);
+			DrawChosenMenu(HowtoPlayButton);
 		}
 
-		else if (Credits)
+		else if (Credits)					
 		{
-			DrawMenu(300, vientoG);
+			DrawChosenMenu(CreditsButton);
 		}
 
 		else if (Achievements)
 		{
-			DrawMenu(400, vientoB);
+			DrawChosenMenu(AchievementsButton);
+		}
+
+		else if (NewGame)						// zawiera ekran wpisania imienia i przycisk Start!
+		{
+			DrawChosenMenu(NewGameButton);
 		}
 	}	
 
-	private Rect DrawElement(int x, int y, int width, int height, Texture graphicViento)
+	private Rect DrawElement(int x, int y, int width, int height, Texture menuElement)
 	{
-		if (!graphicViento)
-		{
-			Debug.Log("No texture assigned");
-			throw new Exception();
-		}
-
 		Rect buttonScalableDimensions = resizeController.ResizeGUI(new Rect(x, y, width, height));
-
-		//GUI.DrawTexture(ResizeGUI(new Rect(x, y, width, height)), graphicViento);
-		GUI.DrawTexture(buttonScalableDimensions, graphicViento);
+		GUI.DrawTexture(buttonScalableDimensions, menuElement);
 
 		return buttonScalableDimensions;
 	}
 
-	private void DrawMenu(int xposition, Texture graphicViento)				// obsluga BACK buttona i pojedynczego MENU
+	private void DrawChosenMenu(Texture menuElement)				// obsluga pojedynczego MENU i back buttona pod postacią LOGO
 	{
-		//GUI.Label(new Rect(10, 10, 100, 100), "Logged as: " + PlayerPrefs.GetString("Name", playerName) + " // " + PlayerPrefs.GetInt("Visited", 0));
 		GUI.Label(new Rect(10, 10, 100, 100), "Your name is: " + playerProfile.playerName + " // Highscore: " + playerProfile.highScore);
-		Rect First = DrawElement(100, 100, 100, 100, viento);
-		DrawElement(xposition, 100, 100, 100, graphicViento);
+		Rect logoRect = DrawElement(330, 20, 186, 186, LogoButton);
+		DrawElement(310, 250, 200, 60, menuElement);
 
-		//myMousePosition = Input.mousePosition;		// Input.mousePosition operuje w przestrzeni bottom left to top right
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 	
 		if (Input.GetMouseButtonDown(0))
 		{
-			if ((myMousePosition.x >= First.x) && (myMousePosition.x <= (First.x + First.width)) && (myMousePosition.y >= First.y) && (myMousePosition.y <= (First.y + First.height)))
+			if ((myMousePosition.x >= logoRect.x) && (myMousePosition.x <= (logoRect.x + logoRect.width)) && (myMousePosition.y >= logoRect.y) && (myMousePosition.y <= (logoRect.y + logoRect.height)))
 			{
 				NameMenu = false;
 				MainMenu = true;
-				Help = false;
+				HowtoPlay = false;
 				Credits = false;
 				Achievements = false;
+				NewGame = false;
+
 			}
 		}
 	}
@@ -115,7 +111,6 @@ public class MainLobby : MonoBehaviour {
 	private void DrawMainMenu()								// obsluga MAIN MENU
 	{
 
-		//GUI.Label(new Rect(10, 10, 100, 100), "Logged as: " + PlayerPrefs.GetString("Name", playerName) + " // " + PlayerPrefs.GetInt("Visited", 0));
 		GUI.Label(new Rect(10, 10, 100, 100), "Your name is: " + playerProfile.playerName + " // Highscore: " + playerProfile.highScore);
 		isButtonClicked = GUI.Button(new Rect(10, 60, 100, 25), "Change user?");
 
@@ -127,48 +122,76 @@ public class MainLobby : MonoBehaviour {
 			playerProfile.playerName = "";
 		}
 
-		Rect First = DrawElement(100, 100, 100, 100, viento);            // x y w h img
-		Rect Second = DrawElement(200, 100, 100, 100, vientoR);
-		Rect Third = DrawElement(300, 100, 100, 100, vientoG);
-		Rect Fourth = DrawElement(400, 100, 100, 100, vientoB);
+		Rect logoRect = DrawElement(330, 20, 186, 186, LogoButton);
+		Rect newGameRect = DrawElement(310, 250, 200, 60, NewGameButton);            // x y w h img
+		Rect howtoPlayRect = DrawElement(310, 330, 200, 60, HowtoPlayButton);
+		Rect creditsRect = DrawElement(310, 410, 200, 60, CreditsButton);
+		Rect achievementsRect = DrawElement(310, 490, 200, 60, AchievementsButton);
 
-		//myMousePosition = Input.mousePosition;		// Input.mousePosition operuje w przestrzeni bottom left to top right
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
 		if (Input.GetMouseButtonDown(0))
 		{
 
-			if ((myMousePosition.x >= First.x) && (myMousePosition.x <= (First.x + First.width)) && (myMousePosition.y >= First.y) && (myMousePosition.y <= (First.y + First.height)))
+			// LOGO - MAIN MENU
+			if ((myMousePosition.x >= logoRect.x) && (myMousePosition.x <= (logoRect.x + logoRect.width)) && (myMousePosition.y >= logoRect.y) && (myMousePosition.y <= (logoRect.y + logoRect.height)))
 			{
 				NameMenu = false;
 				MainMenu = true;
-				Help = false;
+				HowtoPlay = true;
 				Credits = false;
 				Achievements = false;
+				NewGame = false;
+				Debug.Log("logo");
+
 			}
-			else if ((myMousePosition.x >= Second.x) && (myMousePosition.x <= (Second.x + Second.width)) && (myMousePosition.y >= Second.y) && (myMousePosition.y <= (Second.y + Second.height)))
+
+			// NEW GAME
+			else if ((myMousePosition.x >= newGameRect.x) && (myMousePosition.x <= (newGameRect.x + newGameRect.width)) && (myMousePosition.y >= newGameRect.y) && (myMousePosition.y <= (newGameRect.y + newGameRect.height)))
 			{
 				NameMenu = false;
 				MainMenu = false;
-				Help = true;
+				HowtoPlay = false;
 				Credits = false;
 				Achievements = false;
+				NewGame = true;
+				Debug.Log("new game");
 			}
-			else if ((myMousePosition.x >= Third.x) && (myMousePosition.x <= (Third.x + Third.width)) && (myMousePosition.y >= Third.y) && (myMousePosition.y <= (Third.y + Third.height)))
+
+			// HOW TO PLAY
+			else if ((myMousePosition.x >= howtoPlayRect.x) && (myMousePosition.x <= (howtoPlayRect.x + howtoPlayRect.width)) && (myMousePosition.y >= howtoPlayRect.y) && (myMousePosition.y <= (howtoPlayRect.y + howtoPlayRect.height)))
 			{
 				NameMenu = false;
 				MainMenu = false;
-				Help = false;
+				HowtoPlay = true;
+				Credits = false;
+				Achievements = false;
+				NewGame = false;
+				Debug.Log("how to play");
+			}
+
+			// CREDITS
+			else if ((myMousePosition.x >= creditsRect.x) && (myMousePosition.x <= (creditsRect.x + creditsRect.width)) && (myMousePosition.y >= creditsRect.y) && (myMousePosition.y <= (creditsRect.y + creditsRect.height)))
+			{
+				NameMenu = false;
+				MainMenu = false;
+				HowtoPlay = false;
 				Credits = true;
 				Achievements = false;
+				NewGame = false;
+				Debug.Log("credits");
 			}
-			else if ((myMousePosition.x >= Fourth.x) && (myMousePosition.x <= (Fourth.x + Fourth.width)) && (myMousePosition.y >= Fourth.y) && (myMousePosition.y <= (Fourth.y + Fourth.height)))
+
+			// ACHIEVEMENTS
+			else if ((myMousePosition.x >= achievementsRect.x) && (myMousePosition.x <= (achievementsRect.x + achievementsRect.width)) && (myMousePosition.y >= achievementsRect.y) && (myMousePosition.y <= (achievementsRect.y + achievementsRect.height)))
 			{
 				NameMenu = false;
 				MainMenu = false;
-				Help = false;
+				HowtoPlay = false;
 				Credits = false;
 				Achievements = true;
+				NewGame = false;
+				Debug.Log("achievements");
 
 				playerProfile.highScore++;
 				playerProfileController.SaveProfile(playerProfile);
@@ -176,7 +199,7 @@ public class MainLobby : MonoBehaviour {
 		}
 	}
 
-	private void DrawLoginMenu()
+	private void DrawLoginMenu()								// wchodzi dopiero po wybraniu NEW GAME
 	{
 		GUI.Label(new Rect(10, 10, 100, 25), nameField);
 		playerProfile.playerName = GUI.TextField(new Rect(80, 10, 100, 25), playerProfile.playerName, 10);

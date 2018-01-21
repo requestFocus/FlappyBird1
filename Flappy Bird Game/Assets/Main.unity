@@ -435,10 +435,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d186ff7f8eeb14409a82d650a06e7dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viento: {fileID: 2800000, guid: fdcd990fb35a6114c8a10b3effc70f31, type: 3}
-  vientoR: {fileID: 2800000, guid: 721218008d9dfa240ac20a6514f4f416, type: 3}
-  vientoG: {fileID: 2800000, guid: 255d2f68627c4d54ba480378c1577f09, type: 3}
-  vientoB: {fileID: 2800000, guid: 602955de65271ce44b9adde51d47f7f0, type: 3}
+  LogoButton: {fileID: 2800000, guid: 49a00a537e632384e8da2e56f4305772, type: 3}
+  BackButton: {fileID: 2800000, guid: 612876593656a834cb22179cffd4cd11, type: 3}
+  AchievementsButton: {fileID: 2800000, guid: 1a7b17fc12f0897479585846b4d08e14, type: 3}
+  CreditsButton: {fileID: 2800000, guid: 3a6ca23f47d36fe4fb6e30ad74236ce3, type: 3}
+  HowtoPlayButton: {fileID: 2800000, guid: d9ae27da54418404ca009dd482a3fd21, type: 3}
+  NewGameButton: {fileID: 2800000, guid: f82c404c88949d045ac843b2c554aae8, type: 3}
+  StartButton: {fileID: 2800000, guid: d87936e478a9dc14d930c5ffd491451a, type: 3}
   playerProfile:
     playerName: 
     highScore: 0
@@ -521,7 +524,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 420ace5768705584ebfaccbcc5ee3ffb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b4bb57818b1ef59438008762e39b5dc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
