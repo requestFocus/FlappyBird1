@@ -6,26 +6,40 @@ using UnityEngine;
 public class PlayerProfileController : MonoBehaviour {
 
 
-	public void SaveProfile(PlayerProfile playerProfileToSave)
+
+
+
+	public void SaveProfile(PlayersProfiles playersProfilesToSave)
 	{
-		string jsonDataToSet = JsonUtility.ToJson(playerProfileToSave);                                         //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
+		string jsonDataToSet = JsonUtility.ToJson(playersProfilesToSave);                                         //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
 		PlayerPrefs.SetString("ProfileSettings", jsonDataToSet);                                                //Load saved Json, czyli pobierz string z playerprefs i zapisz string do json
 
-		Debug.Log("jsonDataToSet: " + jsonDataToSet);
-		Debug.Log("PlayerPrefs.GetString(\"ProfileSettings\"): " + PlayerPrefs.GetString("ProfileSettings"));
+		//Debug.Log("jsonDataToSet: " + jsonDataToSet);
+		Debug.Log("saved PlayerPrefs.GetString(\"ProfileSettings\"): " + PlayerPrefs.GetString("ProfileSettings"));
 	}
 
-	public PlayerProfile LoadProfile()
+
+
+
+
+
+
+	public PlayersProfiles LoadProfiles()
 	{
 		string jsonDataFromGet = PlayerPrefs.GetString("ProfileSettings");                                    //Load saved Json, czyli pobierz string z playerprefs i zapisz string do json
-		PlayerProfile loadedProfileData = JsonUtility.FromJson<PlayerProfile>(jsonDataFromGet);				  //Convert to Class, czyli skonwertuj łańcuch znaków json na obiekt
+		PlayersProfiles loadedProfilesData = JsonUtility.FromJson<PlayersProfiles>(jsonDataFromGet);               //Convert to Class, czyli skonwertuj łańcuch znaków json na obiekt
 
-		Debug.Log("Loaded profile: playerName: " + loadedProfileData.playerName + " // " + "highScore: " + loadedProfileData.highScore + " // " + "complete10: " + loadedProfileData.complete10);
+		Debug.Log("jsonDataFromGet: " + jsonDataFromGet);
 
-		return loadedProfileData;
+		return loadedProfilesData;
 	}
 
-	public bool CheckIfProfileExist(string playerName)
+
+
+
+
+
+	public bool CheckIfProfileExist(string playerName)									// szybkie sprawdzenie czy podane NAME istnieje w PlayerPrefs
 	{
 		Debug.Log("CheckIfProfileExist dla " + playerName + ": " + PlayerPrefs.GetString("ProfileSettings").Contains(playerName));
 		return PlayerPrefs.GetString("ProfileSettings").Contains(playerName);

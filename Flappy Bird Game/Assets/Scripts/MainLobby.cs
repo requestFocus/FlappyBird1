@@ -20,6 +20,8 @@ public class MainLobby : MonoBehaviour {
 	public Texture NewGameButtonInactive;
 
 	public PlayerProfile playerProfile;
+	public PlayersProfiles playersProfiles;                             // lista profili tworzona podczas gry
+	//public PlayersProfiles loadedProfilesData;							// lista profili wczytana z playerprefs
 	public PlayerProfileController playerProfileController;
 	public ResizeController resizeController;
 
@@ -176,12 +178,8 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = false;
 				NewGame = false;
-
 			}
-		}
 
-		if (Input.GetMouseButtonDown(0))
-		{
 			if ((myMousePosition.x >= startRect.x) && (myMousePosition.x <= (startRect.x + startRect.width)) && (myMousePosition.y >= startRect.y) && (myMousePosition.y <= (startRect.y + startRect.height)))
 			{
 				if (playerProfile.playerName.Length > 0)
@@ -210,7 +208,7 @@ public class MainLobby : MonoBehaviour {
 	{
 		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
 		GUI.Label(resizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Name: " + playerProfile.playerName + " // Highscore: " + playerProfile.highScore);
-		DrawElement(315, 300, 170, 170, LogoButton);                       
+		Rect gamePlayRect = DrawElement(315, 400, 170, 170, LogoButton);                       
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
@@ -223,10 +221,15 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = false;
 				NewGame = false;
+				playerProfileController.SaveProfile(playersProfiles);
+			}
 
+			if ((myMousePosition.x >= gamePlayRect.x) && (myMousePosition.x <= (gamePlayRect.x + gamePlayRect.width)) && (myMousePosition.y >= gamePlayRect.y) && (myMousePosition.y <= (gamePlayRect.y + gamePlayRect.height)))
+			{
 				playerProfile.highScore = playerProfile.highScore + 1;                                          // DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
-				playerProfileController.SaveProfile(playerProfile);
-				Debug.Log("zwiekszam wartosc hiscore");
+				playerProfileController.SaveProfile(playersProfiles);
+
+				//Debug.Log("zwiekszam wartosc hiscore");
 			}
 		}
 	}
@@ -299,8 +302,40 @@ public class MainLobby : MonoBehaviour {
 
 	private void CheckPlayerPrefs()								// ładowane po kliknieciu buttona START w menu NEW GAME
 	{
-				/* sprawdzanie jsona */
-				if (playerProfileController.CheckIfProfileExist(playerProfile.playerName))
-					playerProfile = playerProfileController.LoadProfile();
+		/* sprawdzanie jsona */
+
+		bool isOnTheList = false;
+
+		//if (playerProfileController.LoadProfiles() is PlayersProfiles)						// jesli istnieje lista w pamieci
+		if (PlayerPrefs.GetString("ProfileSettings").Length > 0)						// jeśli PlayerPrefs zawiera dane
+		{
+			playersProfiles = playerProfileController.LoadProfiles();
+
+			for (int i = 0; i < playersProfiles.listOfProfiles.Count; i++)
+			{
+				if (playersProfiles.listOfProfiles[i].playerName.Equals(playerProfile.playerName))            // jeśli na liście wystepuje podane NAME
+				{
+					playerProfile = playersProfiles.listOfProfiles[i];
+					Debug.Log("podane Name wystepuje na liscie: " + playerProfile.playerName);
+					isOnTheList = true;
+					break;
+				}
+			}
+
+			if (!isOnTheList)                                                                               // jesli na liscie nie wystepuje podane NAME
+			{
+				Debug.Log("playerName nie ma na liście, dodaje: " + playerProfile.playerName);
+				playersProfiles.listOfProfiles.Add(playerProfile);
+			}
+			isOnTheList = false;
+			Debug.Log("w pamięci istnieje lista, elementow: " + playersProfiles.listOfProfiles.Count);
+
+		}
+		else																				// jesli nie istnieje lista w pamieci
+		{
+			playersProfiles.listOfProfiles.Add(playerProfile);								// tworzy liste i dopisuje aktualnego playerProfile
+
+			Debug.Log("brak listy w pamięci");
+		}
 	}
 }

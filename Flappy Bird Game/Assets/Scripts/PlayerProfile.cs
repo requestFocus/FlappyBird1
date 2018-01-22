@@ -8,5 +8,5 @@ public class PlayerProfile {
 	public string playerName = "";
 	public int highScore = 0;
 	public int complete10 = 0;
-
 }
+
