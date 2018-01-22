@@ -96,6 +96,8 @@ public class MainLobby : MonoBehaviour {
 		Rect creditsRect = DrawElement(300, 410, 200, 60, CreditsButton);
 		Rect achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton);
 
+		//GUI.Button resetPlayerPrefs = Button(new Rect(Screen.width - 10, Screen.height - 10, 10, 10), "");
+
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
 		if (Input.GetMouseButtonDown(0))
@@ -198,7 +200,7 @@ public class MainLobby : MonoBehaviour {
 				else                                                // NIE WPISANO USERNAME
 				{
 					Debug.Log("bad login");
-					/* kod obslugi bledu */
+					// kod obslugi bledu, JAK POKAZAC? ====================================================================================================
 				}
 			}
 		}
@@ -227,9 +229,8 @@ public class MainLobby : MonoBehaviour {
 			if ((myMousePosition.x >= gamePlayRect.x) && (myMousePosition.x <= (gamePlayRect.x + gamePlayRect.width)) && (myMousePosition.y >= gamePlayRect.y) && (myMousePosition.y <= (gamePlayRect.y + gamePlayRect.height)))
 			{
 				playerProfile.highScore = playerProfile.highScore + 1;                                          // DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
+				// dlaczego dodaje sie dwa razy po jednym kliknieciu? =====================================================================================================
 				playerProfileController.SaveProfile(playersProfiles);
-
-				//Debug.Log("zwiekszam wartosc hiscore");
 			}
 		}
 	}
@@ -302,12 +303,10 @@ public class MainLobby : MonoBehaviour {
 
 	private void CheckPlayerPrefs()								// ładowane po kliknieciu buttona START w menu NEW GAME
 	{
-		/* sprawdzanie jsona */
-
 		bool isOnTheList = false;
 
-		//if (playerProfileController.LoadProfiles() is PlayersProfiles)						// jesli istnieje lista w pamieci
-		if (PlayerPrefs.GetString("ProfileSettings").Length > 0)						// jeśli PlayerPrefs zawiera dane
+		if (playerProfileController.LoadProfiles() is PlayersProfiles)                      // jesli istnieje lista w pamieci
+		//if (PlayerPrefs.GetString("ProfileSettings").Length > 0)						// jeśli PlayerPrefs zawiera dane====================================================
 		{
 			playersProfiles = playerProfileController.LoadProfiles();
 
@@ -325,9 +324,11 @@ public class MainLobby : MonoBehaviour {
 			if (!isOnTheList)                                                                               // jesli na liscie nie wystepuje podane NAME
 			{
 				Debug.Log("playerName nie ma na liście, dodaje: " + playerProfile.playerName);
+				playerProfile.highScore = 0;																// zerowanie instancji obiektu poza nazwą, ZASTAPIC TO FUNKCJĄ?==================
+				// moge też przypisywać NAME do stringa playerName (bez PlayerProfile object) i dopiero tutaj tworzyć new PlayerProfile wypelniajac go danymi===============================
+				Debug.Log("highScore playera, ktorego nie ma na liscie: " + playerProfile.highScore);
 				playersProfiles.listOfProfiles.Add(playerProfile);
 			}
-			isOnTheList = false;
 			Debug.Log("w pamięci istnieje lista, elementow: " + playersProfiles.listOfProfiles.Count);
 
 		}
