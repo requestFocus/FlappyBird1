@@ -12,6 +12,7 @@ public class MainLobby : MonoBehaviour {
 	public Texture HowtoPlayButton;
 	public Texture NewGameButton;
 	public Texture StartButton;
+	public Texture HighscoreBoost;
 
 	public Texture BackButtonInactive;
 	public Texture AchievementsButtonInactive;
@@ -21,7 +22,6 @@ public class MainLobby : MonoBehaviour {
 
 	public PlayerProfile playerProfile;
 	public PlayersProfiles playersProfiles;                             // lista profili tworzona podczas gry
-	//public PlayersProfiles loadedProfilesData;							// lista profili wczytana z playerprefs
 	public PlayerProfileController playerProfileController;
 	public ResizeController resizeController;
 
@@ -39,7 +39,7 @@ public class MainLobby : MonoBehaviour {
 		MainMenu = true;
 		playerProfile = new PlayerProfile();
 
-		PlayerPrefs.DeleteAll();
+		//PlayerPrefs.DeleteAll();
 	}
 
 	private void Update()
@@ -109,8 +109,6 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = false;
 				NewGame = false;
-				//Debug.Log("logo");
-
 			}
 
 			// NEW GAME
@@ -121,7 +119,6 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = false;
 				NewGame = true;
-				//Debug.Log("new game");
 			}
 
 			// HOW TO PLAY
@@ -132,7 +129,6 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = false;
 				NewGame = false;
-				//Debug.Log("how to play");
 			}
 
 			// CREDITS
@@ -143,7 +139,6 @@ public class MainLobby : MonoBehaviour {
 				Credits = true;
 				Achievements = false;
 				NewGame = false;
-				//Debug.Log("credits");
 			}
 
 			// ACHIEVEMENTS
@@ -154,7 +149,6 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = true;
 				NewGame = false;
-				//Debug.Log("achievements");
 			}
 		}
 	}
@@ -184,9 +178,7 @@ public class MainLobby : MonoBehaviour {
 			{
 				if (playerProfile.playerName.Length > 0)
 				{
-					CheckPlayerPrefs();
-
-					// jesli istnieje podany name w playerprefs, odpal LoadProfile i przypisz dane do pol obiektu
+					CheckPlayerPrefs();							// jesli istnieje podany name w playerprefs, odpal LoadProfile i przypisz dane do pol obiektu
 
 					MainMenu = false;
 					HowtoPlay = false;
@@ -208,7 +200,7 @@ public class MainLobby : MonoBehaviour {
 	{
 		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
 		GUI.Label(resizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Name: " + playerProfile.playerName + " // Highscore: " + playerProfile.highScore);
-		Rect gamePlayRect = DrawElement(315, 400, 170, 170, LogoButton);                       
+		Rect gamePlayRect = DrawElement(315, 400, 170, 170, HighscoreBoost);                       
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
@@ -313,7 +305,6 @@ public class MainLobby : MonoBehaviour {
 				if (playersProfiles.listOfProfiles[i].playerName.Equals(playerProfile.playerName))            // jeśli na liście wystepuje podane NAME
 				{
 					playerProfile = playersProfiles.listOfProfiles[i];
-					Debug.Log("podane Name wystepuje na liscie: " + playerProfile.playerName);
 					isOnTheList = true;
 					break;
 				}
@@ -321,20 +312,15 @@ public class MainLobby : MonoBehaviour {
 
 			if (!isOnTheList)                                                                               // jesli na liscie nie wystepuje podane NAME
 			{
-				Debug.Log("playerName nie ma na liście, dodaje: " + playerProfile.playerName);
 				playerProfile.highScore = 0;																// zerowanie instancji obiektu poza nazwą, ZASTAPIC TO FUNKCJĄ?==================
 				// moge też przypisywać NAME do stringa playerName (bez PlayerProfile object) i dopiero tutaj tworzyć new PlayerProfile wypelniajac go danymi===============================
-				Debug.Log("highScore playera, ktorego nie ma na liscie: " + playerProfile.highScore);
 				playersProfiles.listOfProfiles.Add(playerProfile);
 			}
-			Debug.Log("w pamięci istnieje lista, elementow: " + playersProfiles.listOfProfiles.Count);
 
 		}
 		else																				// jesli nie istnieje lista w pamieci
 		{
 			playersProfiles.listOfProfiles.Add(playerProfile);								// tworzy liste i dopisuje aktualnego playerProfile
-
-			Debug.Log("brak listy w pamięci");
 		}
 	}
 }

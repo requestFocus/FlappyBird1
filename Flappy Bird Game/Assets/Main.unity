@@ -442,6 +442,7 @@ MonoBehaviour:
   HowtoPlayButton: {fileID: 2800000, guid: dd8c3191b22ff69439513a67651ed41e, type: 3}
   NewGameButton: {fileID: 2800000, guid: dab639aa58e124641967b866862a29ab, type: 3}
   StartButton: {fileID: 2800000, guid: b563a8c7f2e399b42b2a55e858faa4cf, type: 3}
+  HighscoreBoost: {fileID: 2800000, guid: 0ce2ead68a4e9474581525fbade499c1, type: 3}
   BackButtonInactive: {fileID: 2800000, guid: 0837d4be48265d241a8d53527f5d43ec, type: 3}
   AchievementsButtonInactive: {fileID: 2800000, guid: bf08adc912731b84599a4c2491430433,
     type: 3}
@@ -451,11 +452,12 @@ MonoBehaviour:
     type: 3}
   NewGameButtonInactive: {fileID: 2800000, guid: 5002e06b1fc2fea47872cad87dca441c,
     type: 3}
-  StartButtonInactive: {fileID: 2800000, guid: 840675dad3f91e547839949f30aa3099, type: 3}
   playerProfile:
     playerName: 
     highScore: 0
     complete10: 0
+  playersProfiles:
+    listOfProfiles: []
   playerProfileController: {fileID: 1477873119}
   resizeController: {fileID: 519641751}
 --- !u!4 &1551131929
