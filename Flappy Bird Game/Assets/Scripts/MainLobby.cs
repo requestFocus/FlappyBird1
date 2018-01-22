@@ -39,12 +39,12 @@ public class MainLobby : MonoBehaviour {
 		MainMenu = true;
 		playerProfile = new PlayerProfile();
 
-		//PlayerPrefs.DeleteAll();
+		PlayerPrefs.DeleteAll();
 	}
 
 	private void Update()
 	{
-
+		// ================================================================= czy to nie działa tak samo jak OnGUI()?
 	}
 
 	private void OnGUI()
@@ -95,8 +95,6 @@ public class MainLobby : MonoBehaviour {
 		Rect howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton);
 		Rect creditsRect = DrawElement(300, 410, 200, 60, CreditsButton);
 		Rect achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton);
-
-		//GUI.Button resetPlayerPrefs = Button(new Rect(Screen.width - 10, Screen.height - 10, 10, 10), "");
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
