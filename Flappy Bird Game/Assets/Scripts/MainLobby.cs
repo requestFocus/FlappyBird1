@@ -32,17 +32,10 @@ public class MainLobby : MonoBehaviour {
 	private static bool NewGame;
 	private static bool GamePlay;
 
-	private bool isButtonClicked;
-	private string nameField;
-
-		private void Start()
+	private void Start()
 	{
-		playerProfile = new PlayerProfile() {
-			playerName = ""
-		};
-		nameField = "Name: ";
 		MainMenu = true;
-
+		playerProfile = new PlayerProfile();
 		//PlayerPrefs.DeleteAll();
 	}
 
@@ -126,9 +119,6 @@ public class MainLobby : MonoBehaviour {
 				Achievements = false;
 				NewGame = true;
 				Debug.Log("new game");
-
-				playerProfile.highScore++;
-				playerProfileController.SaveProfile(playerProfile);
 			}
 
 			// HOW TO PLAY
@@ -168,20 +158,11 @@ public class MainLobby : MonoBehaviour {
 
 	private void DrawNewGameMenu(Texture menuElement)               // obsluga NEW GAME
 	{
-		GUI.Label(new Rect(10, 10, 100, 25), nameField);
-		playerProfile.playerName = GUI.TextField(new Rect(80, 10, 100, 25), playerProfile.playerName, 10);
+		playerProfile.playerName = GUI.TextField(resizeController.ResizeGUI(new Rect(350, 270, 100, 25)), playerProfile.playerName, 10);
 
 		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
-		DrawElement(350, 550, 100, 30, menuElement);
 		Rect startRect = DrawElement(300, 300, 200, 60, StartButton);
-
-
-		if (isButtonClicked)
-		{
-			MainMenu = false;
-			playerProfileController.SaveProfile(playerProfile);
-			playerProfile.playerName = "";
-		}
+		DrawElement(350, 550, 100, 30, menuElement);
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
@@ -222,12 +203,11 @@ public class MainLobby : MonoBehaviour {
 		}
 	}
 
-	private void DrawGamePlay()               // obsluga pojedynczego MENU i back buttona pod postacią LOGO
+	private void DrawGamePlay()               // TUTAJ BEDZIE SCENA Z WŁAŚCIWĄ GRĄ, POKI CO ZAŚLEPKA
 	{
 		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
-		GUI.Label(new Rect(10, 10, 100, 100), "Your name is: " + playerProfile.playerName + " // Highscore: " + playerProfile.highScore);
-		isButtonClicked = GUI.Button(new Rect(10, 60, 100, 25), "Change user?");
-		DrawElement(315, 300, 170, 170, LogoButton);                        // ZAŚLEPKA
+		GUI.Label(resizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Name: " + playerProfile.playerName + " // Highscore: " + playerProfile.highScore);
+		DrawElement(315, 300, 170, 170, LogoButton);                       
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
@@ -240,11 +220,12 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = false;
 				NewGame = false;
+
+				playerProfile.highScore = playerProfile.highScore + 1;                                          // DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
+				playerProfileController.SaveProfile(playerProfile);
+				Debug.Log("zwiekszam wartosc hiscore");
 			}
 		}
-
-		playerProfile.highScore++;											// DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
-		playerProfileController.SaveProfile(playerProfile);
 	}
 
 	private void DrawCreditsMenu(Texture menuElement)               // obsluga CREDITS
@@ -252,7 +233,7 @@ public class MainLobby : MonoBehaviour {
 		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
 		DrawElement(350, 550, 100, 30, menuElement);
 
-		GUI.Label(new Rect(350, 300, 300, 30), "Credits section to come...");
+		GUI.Label(resizeController.ResizeGUI(new Rect(300, 270, 200, 30)), "Credits section to come...");
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
@@ -274,7 +255,7 @@ public class MainLobby : MonoBehaviour {
 		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
 		DrawElement(350, 550, 100, 30, menuElement);
 
-		GUI.Label(new Rect(350, 300, 300, 30), "Achievements section to come...");
+		GUI.Label(resizeController.ResizeGUI(new Rect(300, 270, 200, 30)), "Achievements section to come...");
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
@@ -296,7 +277,7 @@ public class MainLobby : MonoBehaviour {
 		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
 		DrawElement(350, 550, 100, 30, menuElement);
 
-		GUI.Label(new Rect(350, 300, 300, 30), "How to Play section to come...");
+		GUI.Label(resizeController.ResizeGUI(new Rect(300, 270, 200, 30)), "How to Play section to come...");
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 

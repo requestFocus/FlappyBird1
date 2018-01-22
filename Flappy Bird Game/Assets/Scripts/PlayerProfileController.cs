@@ -28,7 +28,7 @@ public class PlayerProfileController : MonoBehaviour {
 
 	public bool CheckIfProfileExist(string playerName)
 	{
-		Debug.Log("CheckIfProfileExist dla " + playerName);
+		Debug.Log("CheckIfProfileExist dla " + playerName + ": " + PlayerPrefs.GetString("ProfileSettings").Contains(playerName));
 		return PlayerPrefs.GetString("ProfileSettings").Contains(playerName);
 	}
 }
