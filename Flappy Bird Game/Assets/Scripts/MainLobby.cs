@@ -13,6 +13,13 @@ public class MainLobby : MonoBehaviour {
 	public Texture NewGameButton;
 	public Texture StartButton;
 
+	public Texture BackButtonInactive;
+	public Texture AchievementsButtonInactive;
+	public Texture CreditsButtonInactive;
+	public Texture HowtoPlayButtonInactive;
+	public Texture NewGameButtonInactive;
+	public Texture StartButtonInactive;
+
 	public PlayerProfile playerProfile;
 	public PlayerProfileController playerProfileController;
 	public ResizeController resizeController;
@@ -58,22 +65,22 @@ public class MainLobby : MonoBehaviour {
 
 		else if (HowtoPlay)
 		{
-			DrawChosenMenu(HowtoPlayButton);
+			DrawChosenMenu(HowtoPlayButtonInactive);
 		}
 
 		else if (Credits)					
 		{
-			DrawChosenMenu(CreditsButton);
+			DrawChosenMenu(CreditsButtonInactive);
 		}
 
 		else if (Achievements)
 		{
-			DrawChosenMenu(AchievementsButton);
+			DrawChosenMenu(AchievementsButtonInactive);
 		}
 
 		else if (NewGame)						// zawiera ekran wpisania imienia i przycisk Start!
 		{
-			DrawChosenMenu(NewGameButton);
+			DrawChosenMenu(NewGameButtonInactive);
 		}
 	}	
 
@@ -88,8 +95,8 @@ public class MainLobby : MonoBehaviour {
 	private void DrawChosenMenu(Texture menuElement)				// obsluga pojedynczego MENU i back buttona pod postacią LOGO
 	{
 		GUI.Label(new Rect(10, 10, 100, 100), "Your name is: " + playerProfile.playerName + " // Highscore: " + playerProfile.highScore);
-		Rect logoRect = DrawElement(330, 20, 186, 186, LogoButton);
-		DrawElement(310, 250, 200, 60, menuElement);
+		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
+		DrawElement(350, 550, 100, 30, menuElement);
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 	
@@ -122,11 +129,11 @@ public class MainLobby : MonoBehaviour {
 			playerProfile.playerName = "";
 		}
 
-		Rect logoRect = DrawElement(330, 20, 186, 186, LogoButton);
-		Rect newGameRect = DrawElement(310, 250, 200, 60, NewGameButton);            // x y w h img
-		Rect howtoPlayRect = DrawElement(310, 330, 200, 60, HowtoPlayButton);
-		Rect creditsRect = DrawElement(310, 410, 200, 60, CreditsButton);
-		Rect achievementsRect = DrawElement(310, 490, 200, 60, AchievementsButton);
+		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
+		Rect newGameRect = DrawElement(300, 250, 200, 60, NewGameButton);            // x y w h img
+		Rect howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton);
+		Rect creditsRect = DrawElement(300, 410, 200, 60, CreditsButton);
+		Rect achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton);
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
