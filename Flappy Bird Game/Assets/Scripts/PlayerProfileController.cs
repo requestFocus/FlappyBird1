@@ -15,15 +15,14 @@ public class PlayerProfileController : MonoBehaviour {
 		Debug.Log("PlayerPrefs.GetString(\"ProfileSettings\"): " + PlayerPrefs.GetString("ProfileSettings"));
 	}
 
-	public void LoadProfile()
+	public PlayerProfile LoadProfile()
 	{
 		string jsonDataFromGet = PlayerPrefs.GetString("ProfileSettings");                                    //Load saved Json, czyli pobierz string z playerprefs i zapisz string do json
 		PlayerProfile loadedProfileData = JsonUtility.FromJson<PlayerProfile>(jsonDataFromGet);				  //Convert to Class, czyli skonwertuj łańcuch znaków json na obiekt
 
-		Debug.Log("playerName: " + loadedProfileData.playerName);
-		Debug.Log("highScore: " + loadedProfileData.highScore);
-		Debug.Log("highScore: " + loadedProfileData.complete10);
-		//Debug.Log(jsonDataFromGet);
+		Debug.Log("Loaded profile: playerName: " + loadedProfileData.playerName + " // " + "highScore: " + loadedProfileData.highScore + " // " + "complete10: " + loadedProfileData.complete10);
+
+		return loadedProfileData;
 	}
 
 	public bool CheckIfProfileExist(string playerName)
@@ -31,5 +30,9 @@ public class PlayerProfileController : MonoBehaviour {
 		Debug.Log("CheckIfProfileExist dla " + playerName + ": " + PlayerPrefs.GetString("ProfileSettings").Contains(playerName));
 		return PlayerPrefs.GetString("ProfileSettings").Contains(playerName);
 	}
+
+	/* czy bedzie potrzebna funkcja do wczytania wszystkich danych z pamieci na potrzeby achievementów? 
+	 * czy powinienem raczej odpowiednio zmodyfikować LoadProfile()?
+	 */
 }
  

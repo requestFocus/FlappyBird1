@@ -36,6 +36,7 @@ public class MainLobby : MonoBehaviour {
 	{
 		MainMenu = true;
 		playerProfile = new PlayerProfile();
+
 		//PlayerPrefs.DeleteAll();
 	}
 
@@ -106,7 +107,7 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = false;
 				NewGame = false;
-				Debug.Log("logo");
+				//Debug.Log("logo");
 
 			}
 
@@ -118,7 +119,7 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = false;
 				NewGame = true;
-				Debug.Log("new game");
+				//Debug.Log("new game");
 			}
 
 			// HOW TO PLAY
@@ -129,7 +130,7 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = false;
 				NewGame = false;
-				Debug.Log("how to play");
+				//Debug.Log("how to play");
 			}
 
 			// CREDITS
@@ -140,7 +141,7 @@ public class MainLobby : MonoBehaviour {
 				Credits = true;
 				Achievements = false;
 				NewGame = false;
-				Debug.Log("credits");
+				//Debug.Log("credits");
 			}
 
 			// ACHIEVEMENTS
@@ -151,7 +152,7 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = true;
 				NewGame = false;
-				Debug.Log("achievements");
+				//Debug.Log("achievements");
 			}
 		}
 	}
@@ -186,6 +187,8 @@ public class MainLobby : MonoBehaviour {
 				if (playerProfile.playerName.Length > 0)
 				{
 					CheckPlayerPrefs();
+
+					// jesli istnieje podany name w playerprefs, odpal LoadProfile i przypisz dane do pol obiektu
 
 					MainMenu = false;
 					HowtoPlay = false;
@@ -290,7 +293,6 @@ public class MainLobby : MonoBehaviour {
 				Credits = false;
 				Achievements = false;
 				NewGame = false;
-
 			}
 		}
 	}
@@ -299,6 +301,6 @@ public class MainLobby : MonoBehaviour {
 	{
 				/* sprawdzanie jsona */
 				if (playerProfileController.CheckIfProfileExist(playerProfile.playerName))
-					playerProfileController.LoadProfile();
+					playerProfile = playerProfileController.LoadProfile();
 	}
 }
