@@ -436,21 +436,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
-  BackButton: {fileID: 2800000, guid: 3f091fea3d275f04892296fad64fcf52, type: 3}
-  AchievementsButton: {fileID: 2800000, guid: e1e2854a100277743bc193ca59c1eddb, type: 3}
-  CreditsButton: {fileID: 2800000, guid: c96f60fbeccf39c47a7a36a595dbb23e, type: 3}
-  HowtoPlayButton: {fileID: 2800000, guid: dd8c3191b22ff69439513a67651ed41e, type: 3}
-  NewGameButton: {fileID: 2800000, guid: dab639aa58e124641967b866862a29ab, type: 3}
-  StartButton: {fileID: 2800000, guid: b563a8c7f2e399b42b2a55e858faa4cf, type: 3}
+  AchievementsButton: {fileID: 2800000, guid: 5e8763e92fd54004f88e0701c84a844a, type: 3}
+  CreditsButton: {fileID: 2800000, guid: ce7b600e5ddd0b24eb7e221b9b9fe51d, type: 3}
+  HowtoPlayButton: {fileID: 2800000, guid: cdd02f997c7f4a64b914a0cf07c6d141, type: 3}
+  NewGameButton: {fileID: 2800000, guid: 2b5d602f8a775504a884e6fee9131e81, type: 3}
+  StartButton: {fileID: 2800000, guid: 83f33b11a1939be4390b15e0ef845ec5, type: 3}
   HighscoreBoost: {fileID: 2800000, guid: 0ce2ead68a4e9474581525fbade499c1, type: 3}
-  BackButtonInactive: {fileID: 2800000, guid: 0837d4be48265d241a8d53527f5d43ec, type: 3}
-  AchievementsButtonInactive: {fileID: 2800000, guid: bf08adc912731b84599a4c2491430433,
+  AchievementsButtonInactive: {fileID: 2800000, guid: e9e45784ddb996d48ba735d9ba056963,
     type: 3}
-  CreditsButtonInactive: {fileID: 2800000, guid: 73e91871bad937446b1760140a5e214e,
+  CreditsButtonInactive: {fileID: 2800000, guid: 79deb127eab9ca14b9848b4d8a128756,
     type: 3}
-  HowtoPlayButtonInactive: {fileID: 2800000, guid: 9686de38aabd35140af6eba71658a844,
+  HowtoPlayButtonInactive: {fileID: 2800000, guid: 10087d438620a5c44bd478229b0f3e87,
     type: 3}
-  NewGameButtonInactive: {fileID: 2800000, guid: 5002e06b1fc2fea47872cad87dca441c,
+  NewGameButtonInactive: {fileID: 2800000, guid: 4981899c5a3b5f74ab4921fb60e48f81,
     type: 3}
   playerProfile:
     playerName: 

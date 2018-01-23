@@ -6,7 +6,6 @@ using UnityEngine;
 public class MainLobby : MonoBehaviour {
 
 	public Texture LogoButton; 
-	public Texture BackButton;
 	public Texture AchievementsButton;
 	public Texture CreditsButton;
 	public Texture HowtoPlayButton;
@@ -14,7 +13,6 @@ public class MainLobby : MonoBehaviour {
 	public Texture StartButton;
 	public Texture HighscoreBoost;
 
-	public Texture BackButtonInactive;
 	public Texture AchievementsButtonInactive;
 	public Texture CreditsButtonInactive;
 	public Texture HowtoPlayButtonInactive;
