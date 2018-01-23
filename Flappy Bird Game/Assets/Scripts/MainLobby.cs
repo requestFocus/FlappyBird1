@@ -24,6 +24,7 @@ public class MainLobby : MonoBehaviour {
 	public ResizeController resizeController;
 
 	private Vector3 myMousePosition;
+	private string justPlayerName;
 
 	private static bool MainMenu;
 	private static bool HowtoPlay;
@@ -35,8 +36,7 @@ public class MainLobby : MonoBehaviour {
 	private void Start()
 	{
 		MainMenu = true;
-		playerProfile = new PlayerProfile();
-
+		justPlayerName = "";
 		//PlayerPrefs.DeleteAll();
 	}
 
@@ -153,7 +153,7 @@ public class MainLobby : MonoBehaviour {
 
 	private void DrawNewGameMenu(Texture menuElement)               // obsluga NEW GAME
 	{
-		playerProfile.playerName = GUI.TextField(resizeController.ResizeGUI(new Rect(350, 270, 100, 25)), playerProfile.playerName, 10);
+		justPlayerName = GUI.TextField(resizeController.ResizeGUI(new Rect(350, 270, 100, 25)), justPlayerName, 10);
 
 		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
 		Rect startRect = DrawElement(300, 300, 200, 60, StartButton);
@@ -174,7 +174,7 @@ public class MainLobby : MonoBehaviour {
 
 			if ((myMousePosition.x >= startRect.x) && (myMousePosition.x <= (startRect.x + startRect.width)) && (myMousePosition.y >= startRect.y) && (myMousePosition.y <= (startRect.y + startRect.height)))
 			{
-				if (playerProfile.playerName.Length > 0)
+				if (justPlayerName.Length > 0)
 				{
 					CheckPlayerPrefs();							// jesli istnieje podany name w playerprefs, odpal LoadProfile i przypisz dane do pol obiektu
 
@@ -300,7 +300,7 @@ public class MainLobby : MonoBehaviour {
 
 			for (int i = 0; i < playersProfiles.listOfProfiles.Count; i++)
 			{
-				if (playersProfiles.listOfProfiles[i].playerName.Equals(playerProfile.playerName))            // jeśli na liście wystepuje podane NAME
+				if (playersProfiles.listOfProfiles[i].playerName.Equals(justPlayerName))            // jeśli na liście wystepuje podane NAME
 				{
 					playerProfile = playersProfiles.listOfProfiles[i];
 					isOnTheList = true;
@@ -310,11 +310,9 @@ public class MainLobby : MonoBehaviour {
 
 			if (!isOnTheList)                                                                               // jesli na liscie nie wystepuje podane NAME
 			{
-				playerProfile.highScore = 0;																// zerowanie instancji obiektu poza nazwą, ZASTAPIC TO FUNKCJĄ?==================
-				// moge też przypisywać NAME do stringa playerName (bez PlayerProfile object) i dopiero tutaj tworzyć new PlayerProfile wypelniajac go danymi===============================
+				playerProfile = new PlayerProfile(justPlayerName, 0, false);
 				playersProfiles.listOfProfiles.Add(playerProfile);
 			}
-
 		}
 		else																				// jesli nie istnieje lista w pamieci
 		{

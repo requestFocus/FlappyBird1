@@ -5,8 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerProfile {
 
-	public string playerName = "";
-	public int highScore = 0;
-	public int complete10 = 0;
+	public string playerName;
+	public int highScore;
+	public bool complete10;
+
+	public PlayerProfile(string playerName, int highScore, bool complete10)
+	{
+		this.playerName = playerName;
+		this.highScore = highScore;
+		this.complete10 = complete10;
+	}
 }
 
