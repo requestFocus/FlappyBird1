@@ -122,7 +122,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4289713594661478, guid: 6a85311275611db4c9bd1dab563e9fe8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4289713594661478, guid: 6a85311275611db4c9bd1dab563e9fe8, type: 2}
       propertyPath: m_LocalPosition.y
@@ -152,18 +152,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 61135277239115218, guid: 6a85311275611db4c9bd1dab563e9fe8,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1882038352834762, guid: 6a85311275611db4c9bd1dab563e9fe8, type: 2}
-      propertyPath: m_TagString
-      value: Obstacle
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6a85311275611db4c9bd1dab563e9fe8, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &360158677 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1882038352834762, guid: 6a85311275611db4c9bd1dab563e9fe8,
+    type: 2}
+  m_PrefabInternal: {fileID: 232832839}
+--- !u!114 &360158682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 360158677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eaa9ba999a992b489eab5d3a8394dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &798686270
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7801ac61be0e1114b8791b9eb209614a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1721447321}
 --- !u!61 &1721447323
 BoxCollider2D:
   m_ObjectHideFlags: 0
