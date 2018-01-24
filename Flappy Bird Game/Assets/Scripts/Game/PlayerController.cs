@@ -26,8 +26,7 @@ public class PlayerController : MonoBehaviour {
 		if (collision.gameObject.CompareTag("Obstacle"))
 		{
 			player.transform.position = new Vector2(-5.5f, 0.0f);
-			player.transform.localScale += new Vector3(0.1f, 0.1f, 0.0f);		
-			//Debug.Log("you lose");														// czemu to nie działa?
+			player.transform.localScale += new Vector3(0.1f, 0.1f, 0.0f);
 		}
 	}
 
@@ -35,10 +34,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (collision.gameObject.CompareTag("Obstacle"))
 		{
-			//player.transform.position = new Vector2(-5.5f, 0.0f);	
 			player.transform.localScale = new Vector3(1.0f, 1.0f, 0.0f);					// dla += Vector2 nie kompiluje się
-			//Debug.Log("great!");															// czemu to nie działa?
 		}
-
 	}
 }

@@ -10,12 +10,13 @@ public class BranchController : MonoBehaviour {
 	private float yPosition;
 
 	void Start () {
-		obstacleAcceleration = 1.0f;
+		obstacleAcceleration = 75f;
 
 		startXPosition = 5.0f;
 		endXPosition = -10.88f;
 		yPosition = Random.Range(-3.0f, 3.0f);
 
+		transform.position = new Vector3(startXPosition, yPosition);
 	}
 
 	private void FixedUpdate()
@@ -25,15 +26,26 @@ public class BranchController : MonoBehaviour {
 
 	private void MoveObstacle()
 	{
-		if (transform.position.x <= startXPosition && transform.position.x >= endXPosition)
+		if (transform.position.x <= 5.0f && transform.position.x >= -10.88f)
 		{
 			transform.position += (new Vector3(-0.1f, 0, 0) * Time.deltaTime * obstacleAcceleration);
-			Debug.Log("w ifie, x: " + transform.position.x + ", y: " + transform.position.y);
 		}
 		else
 		{
 			transform.position = new Vector2(startXPosition, yPosition);
-			Debug.Log("w elsie, x: " + transform.position.x + ", y: " + transform.position.y);
 		}
 	}
+
 }
+
+
+/*
+So static 2D colliders shouldn't move,
+like walls and floors,
+dynamic 2D colliders can move
+but should have a rigidbody2D attached.
+Standard 2D rigidbodies like our
+Player are moved using 2D physics forces.
+Kinematic 2D rigidbodies are
+moved using their transform.
+*/
