@@ -20,4 +20,25 @@ public class PlayerController : MonoBehaviour {
 		Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 		player.AddForce(movement * speed);
 	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.CompareTag("Obstacle"))
+		{
+			player.transform.position = new Vector2(-5.5f, 0.0f);
+			//Debug.Log("you lose");														// czemu to nie działa?
+		}
+	}
+
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("Obstacle"))
+		{
+			player.transform.position = new Vector2(-5.5f, 0.0f);	
+			player.transform.localScale += new Vector3(1.2f, 1.2f, 0.0f);					// dla += Vector2 nie kompiluje się
+			//Debug.Log("great!");															// czemu to nie działa?
+		}
+
+	}
 }
