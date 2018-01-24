@@ -26,7 +26,7 @@ public class BranchController : MonoBehaviour {
 
 	private void MoveObstacle()
 	{
-		if (transform.position.x <= 5.0f && transform.position.x >= -10.88f)
+		if (transform.position.x <= startXPosition && transform.position.x >= endXPosition)
 		{
 			transform.position += (new Vector3(-0.1f, 0, 0) * Time.deltaTime * obstacleAcceleration);
 		}
