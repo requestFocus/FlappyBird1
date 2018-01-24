@@ -10,30 +10,30 @@ public class BranchController : MonoBehaviour {
 	private float yPosition;
 
 	void Start () {
-		obstacleAcceleration = 75f;
+		obstacleAcceleration = 1.0f;
 
 		startXPosition = 5.0f;
 		endXPosition = -10.88f;
-		yPosition = 0;
+		yPosition = Random.Range(-3.0f, 3.0f);
+
 	}
 
 	private void FixedUpdate()
 	{
-		if (transform.position.x <= 5 && transform.position.x >= -10.88f)
+		MoveObstacle();
+	}
+
+	private void MoveObstacle()
+	{
+		if (transform.position.x <= startXPosition && transform.position.x >= endXPosition)
 		{
-			transform.position += (new Vector3(-0.1f, yPosition, 0) * Time.deltaTime * obstacleAcceleration);
+			transform.position += (new Vector3(-0.1f, 0, 0) * Time.deltaTime * obstacleAcceleration);
+			Debug.Log("w ifie, x: " + transform.position.x + ", y: " + transform.position.y);
 		}
 		else
 		{
-			// COROUTINE? =================================================
-			//yPosition = RandomizeYPosition();
 			transform.position = new Vector2(startXPosition, yPosition);
+			Debug.Log("w elsie, x: " + transform.position.x + ", y: " + transform.position.y);
 		}
 	}
-
-	private float RandomizeYPosition()
-	{
-		return yPosition = Random.Range(-3.0f, 3.0f);
-	}
-
 }
