@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MainLobby : MonoBehaviour {
-
-	public Texture LogoButton; 
+	[SerializeField]
+	public Texture LogoButton;
+	
 	public Texture AchievementsButton;
 	public Texture CreditsButton;
 	public Texture HowtoPlayButton;
@@ -20,7 +21,7 @@ public class MainLobby : MonoBehaviour {
 
 	public PlayerProfile playerProfile;
 	public PlayersProfiles playersProfiles;                             // lista profili tworzona podczas gry
-	public PlayerProfileController playerProfileController;
+	public PlayerProfileController playerProfileController;				// poprawić nazwy zmiennych
 	public ResizeController resizeController;
 
 	private Vector3 myMousePosition;
@@ -32,6 +33,7 @@ public class MainLobby : MonoBehaviour {
 	private static bool Achievements;
 	private static bool NewGame;
 	private static bool GamePlay;
+	private jakisenum eeee = jakisenum.menu;					//============================== zastąpić ENUMami boole powyżej i użyć ich w switchu
 
 	private void Start()
 	{
@@ -39,6 +41,8 @@ public class MainLobby : MonoBehaviour {
 		justPlayerName = "";
 		//PlayerPrefs.DeleteAll();
 	}
+
+	enum jakisenum { menu, achiev};								//=============================== deklaracja enuma
 
 	private void Update()
 	{
@@ -48,7 +52,7 @@ public class MainLobby : MonoBehaviour {
 	private void OnGUI()
 	{
 
-		if (MainMenu) {
+		if (MainMenu) {												//=========================== tutaj użyc switcha, który jako case'y przyjmuje różne stany ENUMa
 			DrawMainMenu();
 		}
 
@@ -99,10 +103,10 @@ public class MainLobby : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0))
 		{
 
-			// LOGO - MAIN MENU
+			// LOGO - MAIN MENU						//============================================ zastąpić te sprawdzania kształtu buttona osobną funkcją!!
 			if ((myMousePosition.x >= logoRect.x) && (myMousePosition.x <= (logoRect.x + logoRect.width)) && (myMousePosition.y >= logoRect.y) && (myMousePosition.y <= (logoRect.y + logoRect.height)))
 			{
-				MainMenu = true;
+				MainMenu = true;					// a te ustawianie booli zwykłym ustawieniem stanu ENUMa
 				HowtoPlay = true;
 				Credits = false;
 				Achievements = false;

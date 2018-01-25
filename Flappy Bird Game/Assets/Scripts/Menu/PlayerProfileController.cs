@@ -21,7 +21,7 @@ public class PlayerProfileController : MonoBehaviour {
 
 	public bool CheckIfProfileExist(string playerName)									// szybkie sprawdzenie czy podane NAME istnieje w PlayerPrefs
 	{
-		return PlayerPrefs.GetString("ProfileSettings").Contains(playerName);
+		return PlayerPrefs.GetString("ProfileSettings").Contains(playerName);		//============================== stworzyć statycznego const stringa i używać zamiast nazwy własnej, żeby unikać literówek
 	}
 }
  
