@@ -34,7 +34,17 @@ public class MainLobby : MonoBehaviour {
 	private static bool Achievements;
 	private static bool NewGame;
 	private static bool GamePlay;
-	private jakisenum eeee = jakisenum.menu;					//============================== zastąpić ENUMami boole powyżej i użyć ich w switchu
+
+	private enum MenuScreens
+	{
+		MainMenu,
+		HowtoPlay,
+		Credits,
+		Achievements,
+		NewGame,
+		GamePlay
+	};
+	MenuScreens MenuStates = MenuScreens.MainMenu;					//============================== zastąpić ENUMami boole powyżej i użyć ich w switchu
 
 	private void Start()
 	{
@@ -43,43 +53,28 @@ public class MainLobby : MonoBehaviour {
 		//PlayerPrefs.DeleteAll();
 	}
 
-	enum jakisenum { menu, achiev};								//=============================== deklaracja enuma
-
-	private void Update()
-	{
-		// ================================================================= czy to nie działa tak samo jak OnGUI()?
-	}
-
 	private void OnGUI()
 	{
-
-		if (MainMenu) {												//=========================== tutaj użyc switcha, który jako case'y przyjmuje różne stany ENUMa
-			DrawMainMenu();
-		}
-
-		else if (NewGame)                        // zawiera ekran wpisania imienia i przycisk Start!
-			{
-			DrawNewGameMenu(NewGameButtonInactive);
-		}
-
-		else if (Credits)					
+		switch (MenuStates)
 		{
-			DrawCreditsMenu(CreditsButtonInactive);
-		}
-
-		else if (Achievements)
-		{
-			DrawAchievementsMenu(AchievementsButtonInactive);
-		}
-
-		else if (HowtoPlay)
-		{
-			DrawHowtoPlayMenu(HowtoPlayButtonInactive);
-		}
-
-		else if (GamePlay)
-		{
-			DrawGamePlay();
+			case MenuScreens.MainMenu:
+				DrawMainMenu();
+				break;
+			case MenuScreens.HowtoPlay:
+				DrawHowtoPlayMenu(HowtoPlayButtonInactive);
+				break;
+			case MenuScreens.Credits:
+				DrawCreditsMenu(CreditsButtonInactive);
+				break;
+			case MenuScreens.Achievements:
+				DrawAchievementsMenu(AchievementsButtonInactive);
+				break;
+			case MenuScreens.NewGame:
+				DrawNewGameMenu(NewGameButtonInactive);
+				break;
+			case MenuScreens.GamePlay:
+				DrawGamePlay();
+				break;
 		}
 	}	
 
@@ -107,51 +102,32 @@ public class MainLobby : MonoBehaviour {
 			// LOGO - MAIN MENU						
 			if (CheckIfClickedWithin(logoRect))
 			{
-				MainMenu = true;					// a te ustawianie booli zwykłym ustawieniem stanu ENUMa
-				HowtoPlay = false;
-				Credits = false;
-				Achievements = false;
-				NewGame = false;
+				MenuStates = MenuScreens.MainMenu;
 			}
 
 			// NEW GAME
 			else if (CheckIfClickedWithin(newGameRect))
 			{
-				MainMenu = false;
-				HowtoPlay = false;
-				Credits = false;
-				Achievements = false;
-				NewGame = true;
+				MenuStates = MenuScreens.NewGame;
 			}
 
 			// HOW TO PLAY
 			else if (CheckIfClickedWithin(howtoPlayRect))
 			{
-				MainMenu = false;
-				HowtoPlay = true;
-				Credits = false;
-				Achievements = false;
-				NewGame = false;
+				MenuStates = MenuScreens.HowtoPlay;
 			}
 
 			// CREDITS
 			else if (CheckIfClickedWithin(creditsRect))
 			{
-				MainMenu = false;
-				HowtoPlay = false;
-				Credits = true;
-				Achievements = false;
-				NewGame = false;
+				MenuStates = MenuScreens.Credits;
 			}
 
 			// ACHIEVEMENTS
 			else if (CheckIfClickedWithin(achievementsRect))
 			{
-				MainMenu = false;
-				HowtoPlay = false;
-				Credits = false;
-				Achievements = true;
-				NewGame = false;
+				MenuStates = MenuScreens.Achievements;
+
 			}
 		}
 	}
@@ -170,11 +146,7 @@ public class MainLobby : MonoBehaviour {
 		{
 			if (CheckIfClickedWithin(logoRect))
 			{
-				MainMenu = true;
-				HowtoPlay = false;
-				Credits = false;
-				Achievements = false;
-				NewGame = false;
+				MenuStates = MenuScreens.MainMenu;
 			}
 			else if (CheckIfClickedWithin(startRect))
 			{
@@ -182,12 +154,7 @@ public class MainLobby : MonoBehaviour {
 				{
 					CheckPlayerPrefs();							// jesli istnieje podany name w playerprefs, odpal LoadProfile i przypisz dane do pol obiektu
 
-					MainMenu = false;
-					HowtoPlay = false;
-					Credits = false;
-					Achievements = false;
-					NewGame = false;
-					GamePlay = true;
+					MenuStates = MenuScreens.GamePlay;
 				}
 				else                                                // NIE WPISANO USERNAME
 				{
@@ -210,12 +177,8 @@ public class MainLobby : MonoBehaviour {
 		{
 			if (CheckIfClickedWithin(logoRect))
 			{
-				MainMenu = true;
-				HowtoPlay = false;
-				Credits = false;
-				Achievements = false;
-				NewGame = false;
-				PlayerProfileController.SaveProfile(PlayersProfiles);
+				MenuStates = MenuScreens.MainMenu;
+				PlayerProfileController.SaveProfile(PlayersProfiles);											// TEGO BĘDZIE MOŻNA SIĘ POZBYC JAK JUŻ zacznie działać gra
 			}
 
 			if (CheckIfClickedWithin(gamePlayRect))
@@ -239,11 +202,7 @@ public class MainLobby : MonoBehaviour {
 		{
 			if (CheckIfClickedWithin(logoRect))
 			{
-				MainMenu = true;
-				HowtoPlay = false;
-				Credits = false;
-				Achievements = false;
-				NewGame = false;
+				MenuStates = MenuScreens.MainMenu;
 			}
 		}
 	}
@@ -261,11 +220,7 @@ public class MainLobby : MonoBehaviour {
 		{
 			if (CheckIfClickedWithin(logoRect))
 			{
-				MainMenu = true;
-				HowtoPlay = false;
-				Credits = false;
-				Achievements = false;
-				NewGame = false;
+				MenuStates = MenuScreens.MainMenu;
 			}
 		}
 	}
@@ -283,11 +238,7 @@ public class MainLobby : MonoBehaviour {
 		{
 			if (CheckIfClickedWithin(logoRect))
 			{
-				MainMenu = true;
-				HowtoPlay = false;
-				Credits = false;
-				Achievements = false;
-				NewGame = false;
+				MenuStates = MenuScreens.MainMenu;
 			}
 		}
 	}
@@ -303,7 +254,7 @@ public class MainLobby : MonoBehaviour {
 
 			for (int i = 0; i < PlayersProfiles.listOfProfiles.Count; i++)
 			{
-				if (PlayersProfiles.listOfProfiles[i].PlayerName.Equals(_justPlayerName))            // jeśli na liście wystepuje podane NAME
+				if (PlayersProfiles.listOfProfiles[i].PlayerName.Equals(_justPlayerName))   // jeśli na liście wystepuje podane NAME
 				{
 					PlayerProfile = PlayersProfiles.listOfProfiles[i];
 					isOnTheList = true;
@@ -311,7 +262,7 @@ public class MainLobby : MonoBehaviour {
 				}
 			}
 
-			if (!isOnTheList)                                                                               // jesli na liscie nie wystepuje podane NAME
+			if (!isOnTheList)                                                                // jesli na liscie nie wystepuje podane NAME
 			{
 				PlayerProfile = new PlayerProfile(_justPlayerName, 0, false);
 				PlayersProfiles.listOfProfiles.Add(PlayerProfile);
