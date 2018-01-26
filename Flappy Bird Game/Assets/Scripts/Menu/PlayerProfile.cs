@@ -5,15 +5,15 @@ using UnityEngine;
 [System.Serializable]									// czy to musi byc Serializable
 public class PlayerProfile {
 
-	public string playerName;
-	public int highScore;
-	public bool complete10;
+	public string PlayerName;
+	public int HighScore;
+	public bool Complete10;
 
 	public PlayerProfile(string playerName, int highScore, bool complete10)
 	{
-		this.playerName = playerName;
-		this.highScore = highScore;
-		this.complete10 = complete10;
+		PlayerName = playerName;
+		HighScore = highScore;
+		Complete10 = complete10;
 	}
 }
 

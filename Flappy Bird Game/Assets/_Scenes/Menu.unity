@@ -432,7 +432,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1477873118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 457.5, y: 235, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -481,13 +481,13 @@ MonoBehaviour:
   NewGameButtonInactive: {fileID: 2800000, guid: 4981899c5a3b5f74ab4921fb60e48f81,
     type: 3}
   playerProfile:
-    playerName: 
-    highScore: 0
-    complete10: 0
+    PlayerName: 
+    HighScore: 0
+    Complete10: 0
   playersProfiles:
     listOfProfiles: []
-  playerProfileController: {fileID: 1477873119}
-  resizeController: {fileID: 519641751}
+  playerProfileController: {fileID: 0}
+  resizeController: {fileID: 0}
 --- !u!4 &1551131929
 Transform:
   m_ObjectHideFlags: 0

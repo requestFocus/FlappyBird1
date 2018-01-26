@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MainLobby : MonoBehaviour {
-	[SerializeField]
+
 	public Texture LogoButton;
-	
 	public Texture AchievementsButton;
 	public Texture CreditsButton;
 	public Texture HowtoPlayButton;
@@ -201,7 +200,7 @@ public class MainLobby : MonoBehaviour {
 	private void DrawGamePlay()               // TUTAJ BEDZIE SCENA Z WŁAŚCIWĄ GRĄ, POKI CO ZAŚLEPKA
 	{
 		Rect logoRect = DrawElement(315, 20, 170, 170, LogoButton);
-		GUI.Label(resizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Name: " + playerProfile.playerName + " // Highscore: " + playerProfile.highScore);
+		GUI.Label(resizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Name: " + playerProfile.PlayerName + " // Highscore: " + playerProfile.HighScore);
 		Rect gamePlayRect = DrawElement(315, 400, 170, 170, HighscoreBoost);                       
 
 		myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
@@ -220,7 +219,7 @@ public class MainLobby : MonoBehaviour {
 
 			if ((myMousePosition.x >= gamePlayRect.x) && (myMousePosition.x <= (gamePlayRect.x + gamePlayRect.width)) && (myMousePosition.y >= gamePlayRect.y) && (myMousePosition.y <= (gamePlayRect.y + gamePlayRect.height)))
 			{
-				playerProfile.highScore = playerProfile.highScore + 1;                                          // DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
+				playerProfile.HighScore = playerProfile.HighScore + 1;                                          // DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
 				// dlaczego dodaje sie dwa razy po jednym kliknieciu? =====================================================================================================
 				playerProfileController.SaveProfile(playersProfiles);
 			}
@@ -304,7 +303,7 @@ public class MainLobby : MonoBehaviour {
 
 			for (int i = 0; i < playersProfiles.listOfProfiles.Count; i++)
 			{
-				if (playersProfiles.listOfProfiles[i].playerName.Equals(justPlayerName))            // jeśli na liście wystepuje podane NAME
+				if (playersProfiles.listOfProfiles[i].PlayerName.Equals(justPlayerName))            // jeśli na liście wystepuje podane NAME
 				{
 					playerProfile = playersProfiles.listOfProfiles[i];
 					isOnTheList = true;
