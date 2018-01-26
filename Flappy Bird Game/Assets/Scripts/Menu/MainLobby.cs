@@ -83,14 +83,6 @@ public class MainLobby : MonoBehaviour {
 		}
 	}	
 
-	//private Rect DrawElement(int x, int y, int width, int height, Texture menuElement)
-	//{
-	//	Rect buttonScalableDimensions = resizeController.ResizeGUI(new Rect(x, y, width, height));
-	//	GUI.DrawTexture(buttonScalableDimensions, menuElement);
-
-	//	return buttonScalableDimensions;
-	//}
-
 	private Rect DrawElement(int x, int y, int width, int height, Texture menuElement)
 	{
 		Rect buttonScalableDimensions = ResizeController.ResizeGUI(new Rect(x, y, width, height));
@@ -112,8 +104,8 @@ public class MainLobby : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0))
 		{
 
-			// LOGO - MAIN MENU						//============================================ zastąpić te sprawdzania kształtu buttona osobną funkcją!!
-			if ((_myMousePosition.x >= logoRect.x) && (_myMousePosition.x <= (logoRect.x + logoRect.width)) && (_myMousePosition.y >= logoRect.y) && (_myMousePosition.y <= (logoRect.y + logoRect.height)))
+			// LOGO - MAIN MENU						
+			if (CheckIfClickedWithin(logoRect))
 			{
 				MainMenu = true;					// a te ustawianie booli zwykłym ustawieniem stanu ENUMa
 				HowtoPlay = false;
@@ -123,7 +115,7 @@ public class MainLobby : MonoBehaviour {
 			}
 
 			// NEW GAME
-			else if ((_myMousePosition.x >= newGameRect.x) && (_myMousePosition.x <= (newGameRect.x + newGameRect.width)) && (_myMousePosition.y >= newGameRect.y) && (_myMousePosition.y <= (newGameRect.y + newGameRect.height)))
+			else if (CheckIfClickedWithin(newGameRect))
 			{
 				MainMenu = false;
 				HowtoPlay = false;
@@ -133,7 +125,7 @@ public class MainLobby : MonoBehaviour {
 			}
 
 			// HOW TO PLAY
-			else if ((_myMousePosition.x >= howtoPlayRect.x) && (_myMousePosition.x <= (howtoPlayRect.x + howtoPlayRect.width)) && (_myMousePosition.y >= howtoPlayRect.y) && (_myMousePosition.y <= (howtoPlayRect.y + howtoPlayRect.height)))
+			else if (CheckIfClickedWithin(howtoPlayRect))
 			{
 				MainMenu = false;
 				HowtoPlay = true;
@@ -143,7 +135,7 @@ public class MainLobby : MonoBehaviour {
 			}
 
 			// CREDITS
-			else if ((_myMousePosition.x >= creditsRect.x) && (_myMousePosition.x <= (creditsRect.x + creditsRect.width)) && (_myMousePosition.y >= creditsRect.y) && (_myMousePosition.y <= (creditsRect.y + creditsRect.height)))
+			else if (CheckIfClickedWithin(creditsRect))
 			{
 				MainMenu = false;
 				HowtoPlay = false;
@@ -153,7 +145,7 @@ public class MainLobby : MonoBehaviour {
 			}
 
 			// ACHIEVEMENTS
-			else if ((_myMousePosition.x >= achievementsRect.x) && (_myMousePosition.x <= (achievementsRect.x + achievementsRect.width)) && (_myMousePosition.y >= achievementsRect.y) && (_myMousePosition.y <= (achievementsRect.y + achievementsRect.height)))
+			else if (CheckIfClickedWithin(achievementsRect))
 			{
 				MainMenu = false;
 				HowtoPlay = false;
@@ -176,7 +168,7 @@ public class MainLobby : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown(0))
 		{
-			if ((_myMousePosition.x >= logoRect.x) && (_myMousePosition.x <= (logoRect.x + logoRect.width)) && (_myMousePosition.y >= logoRect.y) && (_myMousePosition.y <= (logoRect.y + logoRect.height)))
+			if (CheckIfClickedWithin(logoRect))
 			{
 				MainMenu = true;
 				HowtoPlay = false;
@@ -184,8 +176,7 @@ public class MainLobby : MonoBehaviour {
 				Achievements = false;
 				NewGame = false;
 			}
-
-			if ((_myMousePosition.x >= startRect.x) && (_myMousePosition.x <= (startRect.x + startRect.width)) && (_myMousePosition.y >= startRect.y) && (_myMousePosition.y <= (startRect.y + startRect.height)))
+			else if (CheckIfClickedWithin(startRect))
 			{
 				if (_justPlayerName.Length > 0)
 				{
@@ -200,8 +191,8 @@ public class MainLobby : MonoBehaviour {
 				}
 				else                                                // NIE WPISANO USERNAME
 				{
-					Debug.Log("bad login");
-					// kod obslugi bledu, JAK POKAZAC? ====================================================================================================
+					GUI.Label(ResizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Enter your name"); // ?????????????????????????????????????????????????????
+					//Debug.Log("bad login");
 				}
 			}
 		}
@@ -217,7 +208,7 @@ public class MainLobby : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown(0))
 		{
-			if ((_myMousePosition.x >= logoRect.x) && (_myMousePosition.x <= (logoRect.x + logoRect.width)) && (_myMousePosition.y >= logoRect.y) && (_myMousePosition.y <= (logoRect.y + logoRect.height)))
+			if (CheckIfClickedWithin(logoRect))
 			{
 				MainMenu = true;
 				HowtoPlay = false;
@@ -227,10 +218,9 @@ public class MainLobby : MonoBehaviour {
 				PlayerProfileController.SaveProfile(PlayersProfiles);
 			}
 
-			if ((_myMousePosition.x >= gamePlayRect.x) && (_myMousePosition.x <= (gamePlayRect.x + gamePlayRect.width)) && (_myMousePosition.y >= gamePlayRect.y) && (_myMousePosition.y <= (gamePlayRect.y + gamePlayRect.height)))
+			if (CheckIfClickedWithin(gamePlayRect))
 			{
 				PlayerProfile.HighScore = PlayerProfile.HighScore + 1;                                          // DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
-				// dlaczego dodaje sie dwa razy po jednym kliknieciu? =====================================================================================================
 				PlayerProfileController.SaveProfile(PlayersProfiles);
 			}
 		}
@@ -247,7 +237,7 @@ public class MainLobby : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown(0))
 		{
-			if ((_myMousePosition.x >= logoRect.x) && (_myMousePosition.x <= (logoRect.x + logoRect.width)) && (_myMousePosition.y >= logoRect.y) && (_myMousePosition.y <= (logoRect.y + logoRect.height)))
+			if (CheckIfClickedWithin(logoRect))
 			{
 				MainMenu = true;
 				HowtoPlay = false;
@@ -269,7 +259,7 @@ public class MainLobby : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown(0))
 		{
-			if ((_myMousePosition.x >= logoRect.x) && (_myMousePosition.x <= (logoRect.x + logoRect.width)) && (_myMousePosition.y >= logoRect.y) && (_myMousePosition.y <= (logoRect.y + logoRect.height)))
+			if (CheckIfClickedWithin(logoRect))
 			{
 				MainMenu = true;
 				HowtoPlay = false;
@@ -291,7 +281,7 @@ public class MainLobby : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown(0))
 		{
-			if ((_myMousePosition.x >= logoRect.x) && (_myMousePosition.x <= (logoRect.x + logoRect.width)) && (_myMousePosition.y >= logoRect.y) && (_myMousePosition.y <= (logoRect.y + logoRect.height)))
+			if (CheckIfClickedWithin(logoRect))
 			{
 				MainMenu = true;
 				HowtoPlay = false;
@@ -307,7 +297,7 @@ public class MainLobby : MonoBehaviour {
 		bool isOnTheList = false;
 
 		if (PlayerProfileController.LoadProfiles() is PlayersProfiles)                      // jesli istnieje lista w pamieci
-		//if (PlayerPrefs.GetString("ProfileSettings").Length > 0)						// jeśli PlayerPrefs zawiera dane====================================================
+		//if (PlayerPrefs.GetString("ProfileSettings").Length > 0)							// lepiej nie używać tego w ten sposób, jeśli istnieją już funkcje pobierające z PlayerPrefs
 		{
 			PlayersProfiles = PlayerProfileController.LoadProfiles();
 
@@ -332,5 +322,10 @@ public class MainLobby : MonoBehaviour {
 			PlayerProfile = new PlayerProfile(_justPlayerName, 0, false);
 			PlayersProfiles.listOfProfiles.Add(PlayerProfile);								// tworzy liste i dopisuje aktualnego playerProfile
 		}
+	}
+
+	private bool CheckIfClickedWithin(Rect rect)
+	{
+		return ((_myMousePosition.x >= rect.x) && (_myMousePosition.x <= (rect.x + rect.width)) && (_myMousePosition.y >= rect.y) && (_myMousePosition.y <= (rect.y + rect.height)));
 	}
 }
