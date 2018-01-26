@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]									// czy to musi byc Serializable
+[System.Serializable]                                   // czy to musi byc Serializable
 public class PlayerProfile {
 
 	public string PlayerName;

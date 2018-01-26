@@ -480,14 +480,14 @@ MonoBehaviour:
     type: 3}
   NewGameButtonInactive: {fileID: 2800000, guid: 4981899c5a3b5f74ab4921fb60e48f81,
     type: 3}
-  playerProfile:
+  PlayerProfile:
     PlayerName: 
     HighScore: 0
     Complete10: 0
-  playersProfiles:
+  PlayersProfiles:
     listOfProfiles: []
-  playerProfileController: {fileID: 0}
-  resizeController: {fileID: 0}
+  PlayerProfileController: {fileID: 1477873119}
+  ResizeController: {fileID: 519641751}
 --- !u!4 &1551131929
 Transform:
   m_ObjectHideFlags: 0
