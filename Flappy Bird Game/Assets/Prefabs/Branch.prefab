@@ -38,6 +38,8 @@ GameObject:
   - component: {fileID: 60515859127536194}
   - component: {fileID: 60542128176934458}
   - component: {fileID: 61135277239115218}
+  - component: {fileID: 50541597611191766}
+  - component: {fileID: 114829135118745630}
   m_Layer: 0
   m_Name: Branch
   m_TagString: Obstacle
@@ -52,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1882038352834762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4809871180972846}
@@ -72,6 +74,26 @@ Transform:
   m_Father: {fileID: 4289713594661478}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50541597611191766
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1882038352834762}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!60 &60515859127536194
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -159,7 +181,7 @@ PolygonCollider2D:
       - {x: 1.1205938, y: -3.6160083}
       - {x: 1.2056558, y: -3.1736815}
       - {x: 1.247968, y: -2.8864381}
-      - {x: 1.2594144, y: -2.773493}
+      - {x: 1.2514527, y: -2.841538}
       - {x: 0, y: 1}
       - {x: -0.531512, y: 0.92322683}
       - {x: -0.65466285, y: 0.14914227}
@@ -193,6 +215,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 4}
   m_EdgeRadius: 0
+--- !u!114 &114829135118745630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1882038352834762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eaa9ba999a992b489eab5d3a8394dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212078326511835952
 SpriteRenderer:
   m_ObjectHideFlags: 1
