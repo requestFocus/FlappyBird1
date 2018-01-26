@@ -21,9 +21,6 @@ public class PlayerProfile {
 
 
 /* 
- * GITIGNORE
-Skad wiedziec, jakie pliki wykluczać? bo chyba powinno być to storage.ide // GOOGLE IT!
-
 PROFIL
 W jaki sposob obslugiwac profil gracza podczas gry: w czasie rzeczywistym czy po skonczonej grze? 
 singleton, jeden statyczny obiekt przekazywany między scenami, tworzony w momencie, kiedy gracz podaje imie i istniejący do czasu wyłączenia gry
