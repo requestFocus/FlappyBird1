@@ -85,10 +85,10 @@ public class MainLobby : MonoBehaviour {
 
 	private Rect DrawElement(int x, int y, int width, int height, Texture menuElement)
 	{
-		Rect ButtonScalableDimensions = ResizeController.ResizeGUI(new Rect(x, y, width, height));
-		GUI.DrawTexture(ButtonScalableDimensions, menuElement);
+		Rect RectScalableDimensions = ResizeController.ResizeGUI(new Rect(x, y, width, height));
+		GUI.DrawTexture(RectScalableDimensions, menuElement);
 
-		return ButtonScalableDimensions;
+		return RectScalableDimensions;
 	}
 
 	private void DrawMainMenu()								// obsluga MAIN MENU
@@ -143,8 +143,7 @@ public class MainLobby : MonoBehaviour {
 	{
 		
 		_justPlayerName = GUI.TextField(ResizeController.ResizeGUI(new Rect(350, 270, 100, 25)), _justPlayerName, 10);
-		GUI.Label(ResizeController.ResizeGUI(new Rect(10, 10, 300, 50)), _badName);
-
+		GUI.Label(ResizeController.ResizeGUI(new Rect(355, 245, 100, 25)), _badName);
 
 		LogoRect = DrawElement(315, 20, 170, 170, LogoButton);
 		StartRect = DrawElement(300, 300, 200, 60, StartButton);
