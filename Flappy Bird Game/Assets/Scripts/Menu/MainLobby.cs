@@ -35,6 +35,7 @@ public class MainLobby : MonoBehaviour {
 
 	private Vector3 _myMousePosition;
 	private string _justPlayerName;
+	private string _badName;
 
 	private enum MenuScreens
 	{
@@ -51,9 +52,10 @@ public class MainLobby : MonoBehaviour {
 	{
 		MenuStates = MenuScreens.MainMenu;
 		_justPlayerName = "";
+		_badName = "";
 
-		//PlayerPrefs.DeleteAll();
-	}
+	//PlayerPrefs.DeleteAll();
+}
 
 	private void OnGUI()
 	{
@@ -139,7 +141,10 @@ public class MainLobby : MonoBehaviour {
 
 	private void DrawNewGameMenu(Texture menuElement)               // obsluga NEW GAME
 	{
+		
 		_justPlayerName = GUI.TextField(ResizeController.ResizeGUI(new Rect(350, 270, 100, 25)), _justPlayerName, 10);
+		GUI.Label(ResizeController.ResizeGUI(new Rect(10, 10, 300, 50)), _badName);
+
 
 		LogoRect = DrawElement(315, 20, 170, 170, LogoButton);
 		StartRect = DrawElement(300, 300, 200, 60, StartButton);
@@ -163,8 +168,7 @@ public class MainLobby : MonoBehaviour {
 				}
 				else                                                // NIE WPISANO USERNAME
 				{
-					GUI.Label(ResizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Enter your name"); // ?????????????????????????????????????????????????????
-																										 //Debug.Log("bad login");
+					_badName = "Enter your name";																			 
 				}
 			}
 		}
