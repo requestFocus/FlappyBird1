@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
 		player = GetComponent<Rigidbody2D>();
 		speed = 5;
 
-		Debug.Log(SingletonTest.Instance.TestStringGame);
+		//Debug.Log(PlayersProfiles.Instance.ListOfProfiles[0].PlayerName + " // " + PlayersProfiles.Instance.ListOfProfiles[0].HighScore);
 	}
 
 	private void FixedUpdate()
