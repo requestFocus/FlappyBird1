@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainLobby : MonoBehaviour {
 
@@ -53,6 +54,8 @@ public class MainLobby : MonoBehaviour {
 		MenuStates = MenuScreens.MainMenu;
 		_justPlayerName = "";
 		_badName = "";
+
+		Debug.Log(SingletonTest.Instance.TestStringMenu);
 
 	//PlayerPrefs.DeleteAll();
 }
@@ -175,26 +178,29 @@ public class MainLobby : MonoBehaviour {
 
 	private void DrawGamePlay()               // TUTAJ BEDZIE SCENA Z WŁAŚCIWĄ GRĄ, POKI CO ZAŚLEPKA
 	{
-		LogoRect = DrawElement(315, 20, 170, 170, LogoButton);
-		GUI.Label(ResizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Name: " + PlayerProfile.PlayerName + " // Highscore: " + PlayerProfile.HighScore);
-		GamePlayRect = DrawElement(315, 400, 170, 170, HighscoreBoost);                       
 
-		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		SceneManager.LoadScene("Game");
 
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (ClickedWithin(LogoRect))
-			{
-				MenuStates = MenuScreens.MainMenu;
-				PlayerProfileController.SaveProfile(PlayersProfiles);											// TEGO BĘDZIE MOŻNA SIĘ POZBYC JAK JUŻ zacznie działać gra
-			}
+		//LogoRect = DrawElement(315, 20, 170, 170, LogoButton);
+		//GUI.Label(ResizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Name: " + PlayerProfile.PlayerName + " // Highscore: " + PlayerProfile.HighScore);
+		//GamePlayRect = DrawElement(315, 400, 170, 170, HighscoreBoost);                       
 
-			if (ClickedWithin(GamePlayRect))
-			{
-				PlayerProfile.HighScore = PlayerProfile.HighScore + 1;                                          // DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
-				PlayerProfileController.SaveProfile(PlayersProfiles);
-			}
-		}
+		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+
+		//if (Input.GetMouseButtonDown(0))
+		//{
+		//	if (ClickedWithin(LogoRect))
+		//	{
+		//		MenuStates = MenuScreens.MainMenu;
+		//		PlayerProfileController.SaveProfile(PlayersProfiles);											// TEGO BĘDZIE MOŻNA SIĘ POZBYC JAK JUŻ zacznie działać gra
+		//	}
+
+		//	if (ClickedWithin(GamePlayRect))
+		//	{
+		//		PlayerProfile.HighScore = PlayerProfile.HighScore + 1;                                          // DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
+		//		PlayerProfileController.SaveProfile(PlayersProfiles);
+		//	}
+		//}
 	}
 
 	private void DrawCreditsMenu(Texture menuElement)               // obsluga CREDITS

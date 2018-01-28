@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		player = GetComponent<Rigidbody2D>();
 		speed = 5;
+
+		Debug.Log(SingletonTest.Instance.TestStringGame);
 	}
 
 	private void FixedUpdate()
