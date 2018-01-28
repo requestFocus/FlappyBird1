@@ -22,7 +22,8 @@ public sealed class PlayersProfiles
 
 	private PlayersProfiles() { }
 
-	public List<PlayerProfile> ListOfProfiles;						// czy to powinno być statyczne? czy to ListOfProfiles powinno być instancją singletona?
+	public List<PlayerProfile> ListOfProfiles;                      // czy to powinno być statyczne? czy to ListOfProfiles powinno być instancją singletona?
+	public int CurrentProfile = -1;
 }
 
 

@@ -177,29 +177,28 @@ public class MainLobby : MonoBehaviour {
 
 	private void DrawGamePlay()               // TUTAJ BEDZIE SCENA Z WŁAŚCIWĄ GRĄ, POKI CO ZAŚLEPKA
 	{
+		SceneManager.LoadScene("Game");
 
-		//SceneManager.LoadScene("Game");
+		//LogoRect = DrawElement(315, 20, 170, 170, LogoButton);
+		//GUI.Label(ResizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Name: " + PlayerProfile.PlayerName + " // Highscore: " + PlayerProfile.HighScore);
+		//GamePlayRect = DrawElement(315, 400, 170, 170, HighscoreBoost);
 
-		LogoRect = DrawElement(315, 20, 170, 170, LogoButton);
-		GUI.Label(ResizeController.ResizeGUI(new Rect(10, 10, 300, 50)), "Name: " + PlayerProfile.PlayerName + " // Highscore: " + PlayerProfile.HighScore);
-		GamePlayRect = DrawElement(315, 400, 170, 170, HighscoreBoost);
+		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
-		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		//if (Input.GetMouseButtonDown(0))
+		//{
+		//	if (ClickedWithin(LogoRect))
+		//	{
+		//		MenuStates = MenuScreens.MainMenu;
+		//		//PlayerProfileController.SaveProfile(PlayersProfiles.Instance.listOfProfiles);                                           // TEGO BĘDZIE MOŻNA SIĘ POZBYC JAK JUŻ zacznie działać gra
+		//	}
 
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (ClickedWithin(LogoRect))
-			{
-				MenuStates = MenuScreens.MainMenu;
-				//PlayerProfileController.SaveProfile(PlayersProfiles.Instance.listOfProfiles);                                           // TEGO BĘDZIE MOŻNA SIĘ POZBYC JAK JUŻ zacznie działać gra
-			}
-
-			if (ClickedWithin(GamePlayRect))
-			{
-				PlayerProfile.HighScore = PlayerProfile.HighScore + 1;                                          // DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
-				PlayerProfileController.SaveProfile(PlayersProfiles.Instance);
-			}
-		}
+		//	if (ClickedWithin(GamePlayRect))
+		//	{
+		//		PlayerProfile.HighScore = PlayerProfile.HighScore + 1;                                          // DEMONSTRACJA DZIAŁANIA PLAYERPREFS/JSON
+		//		PlayerProfileController.SaveProfile(PlayersProfiles.Instance);
+		//	}
+		//}
 	}
 
 	private void DrawCreditsMenu(Texture menuElement)               // obsluga CREDITS
@@ -260,38 +259,40 @@ public class MainLobby : MonoBehaviour {
 	{
 		bool isOnTheList = false;
 
-		if (PlayerProfileController.LoadProfiles())
-		//if (PlayersProfiles.Instance.ListOfProfiles.Count > 0)                      // jesli istnieje lista w pamieci
+		if (PlayerProfileController.LoadProfiles())											// jesli istnieje lista w pamieci
 		{
-			Debug.Log("lista istnieje");
-			Debug.Log("sprawdzam czy podane NAME istnieje w pamięci");
+			//Debug.Log("lista istnieje");
 
-			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)
+			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)			 
 			{
-
-				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(_justPlayerName))   // jeśli na liście wystepuje podane NAME
+				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(_justPlayerName))   // sprawdzam czy podane NAME istnieje w pamięci
 				{
-					PlayerProfile = PlayersProfiles.Instance.ListOfProfiles[i];
+					//PlayerProfile = PlayersProfiles.Instance.ListOfProfiles[i];					// to może się przydać, jeśli będzie jakiś screen przed grą, ale można też czytać bezpośrednio z singletona
+					PlayersProfiles.Instance.CurrentProfile = i;									// ID znalezionego profilu
 					isOnTheList = true;
-					Debug.Log("podane NAME istnieje w pamięci");
+					//Debug.Log("podane NAME istnieje w pamięci");
 					break;
 				}
 			}
 
-			if (!isOnTheList)                                                                // jesli na liscie nie wystepuje podane NAME
+			if (!isOnTheList)																					// jesli na liscie nie wystepuje podane NAME
 			{
-				PlayerProfile = new PlayerProfile(_justPlayerName, 0, false);
-				PlayersProfiles.Instance.ListOfProfiles.Add(PlayerProfile);
-				Debug.Log("podane NAME nie istnieje w pamięci");
+				PlayerProfile = new PlayerProfile(_justPlayerName, 0, false);									// tworzę nowy profil gracza z domyślnymi wartościami
+				PlayersProfiles.Instance.ListOfProfiles.Add(PlayerProfile);										// dodaję ten profil do listy profili
+				PlayersProfiles.Instance.CurrentProfile = PlayersProfiles.Instance.ListOfProfiles.Count - 1;	// nadaję nowemu userowi najwyzszego numeru na liscie
+				PlayerProfileController.SaveProfile(PlayersProfiles.Instance);									// zapisuję dane w singletonie
+				//Debug.Log("podane NAME nie istnieje w pamięci");
 			}
 		}
-		else																				// jesli nie istnieje lista w pamieci
+		else                                                                                            // jesli w pamieci nie istnieje lista userów
 		{
-			Debug.Log("lista nie istnieje");
-			PlayerProfile = new PlayerProfile(_justPlayerName, 0, false);
+			//Debug.Log("lista nie istnieje");
+			PlayerProfile = new PlayerProfile(_justPlayerName, 0, false);                   // tworzę nowy profil gracza z domyślnymi wartościami
 			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile>();			// jeśli lista nie jest statyczna to trzeba ją w tym miejscu stworzyć
 			PlayersProfiles.Instance.ListOfProfiles.Add(PlayerProfile);                     // a teraz dodać do niej aktualny playerProfile
-			Debug.Log("dodano: " + PlayersProfiles.Instance.ListOfProfiles[0].PlayerName);
+			PlayersProfiles.Instance.CurrentProfile = 0;									// nadaję userowi pierwszy numeru na liście
+			PlayerProfileController.SaveProfile(PlayersProfiles.Instance);					// zapisuję dane w singletonie
+			//Debug.Log("dodano: " + PlayersProfiles.Instance.ListOfProfiles[0].PlayerName);
 		}
 	}
 
