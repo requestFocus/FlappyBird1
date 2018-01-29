@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public sealed class PlayersProfiles
 {
-
 	private static PlayersProfiles _instance;
 
 	public static PlayersProfiles Instance

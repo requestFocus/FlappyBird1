@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
-	private Rigidbody2D player;
-	private float speed;
+	private Rigidbody2D _player;
+	private float _speed;
+	private int _currentScore;
 
 	public PlayerProfileController PlayerProfileController;
 
@@ -17,24 +18,24 @@ public class PlayerController : MonoBehaviour {
 
 	void Start()
 	{
-		player = GetComponent<Rigidbody2D>();
-		speed = 5;
+		_player = GetComponent<Rigidbody2D>();
+		_speed = 5;
 
-		Debug.Log("Name: " + PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + " // " + "Highscore: " + PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore);
+		//Debug.Log("Name: " + PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + " // " + "Highscore: " + PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore);
 	}
 
 	private void FixedUpdate()
 	{
-		float moveHorizontal = Input.GetAxis("Horizontal");
-		float moveVertical = Input.GetAxis("Vertical");
+		float _moveHorizontal = Input.GetAxis("Horizontal");
+		float _moveVertical = Input.GetAxis("Vertical");
 
-		Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-		player.AddForce(movement * speed);
+		Vector2 _movement = new Vector2(_moveHorizontal, _moveVertical);
+		_player.AddForce(_movement * _speed);
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
+	private void OnCollisionEnter2D(Collision2D _collision)
 	{
-		if (collision.gameObject.CompareTag("Obstacle"))
+		if (_collision.gameObject.CompareTag("Obstacle"))
 		{
 			//player.transform.position = new Vector2(-5f, 0.0f);
 			//player.transform.localScale = new Vector2(1.0f, 1.0f);
@@ -43,13 +44,13 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	private void OnTriggerEnter2D(Collider2D _collision)
 	{
-		if (collision.gameObject.CompareTag("Obstacle"))
+		if (_collision.gameObject.CompareTag("Obstacle"))
 		{
 			//player.transform.localScale += new Vector3(0.1f, 0.1f, 0.0f);           // dla += new Vector2 nie kompiluje się
-			PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore + 1;
-			Debug.Log("Highscore: " + PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore);
+			PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore += 1;
+			//Debug.Log("Highscore: " + PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore);
 		}
 	}
 }
