@@ -32,5 +32,5 @@ public class ResizeController : MonoBehaviour
 
 	/*
 	 * tak trzeba zmodyfikować tą klase, żeby obrazki skalowały się proporcjonalnie, a całe pole nie dało się obcinać poniżej/powyżej pewnego obszaru
-	 */
+	 */ 
 }
