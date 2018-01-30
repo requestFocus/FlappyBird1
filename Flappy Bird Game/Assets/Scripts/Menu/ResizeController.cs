@@ -13,20 +13,44 @@ public class ResizeController : MonoBehaviour
 	private float _rectX;
 	private float _rectY;
 
+	private float _scaleX;
+	private float _scaleY;
+	private float _usableScale;
+
 	public Rect ResizeGUI(Rect rect)
 	{
-		_rectX = (rect.x / _defaultScreenWidth) * Screen.width;               // liczy wspolrzedną X recta (przysłane X dzielone przez domyslną szerokośc razy aktualna szerokość ekranu)
-		_rectY = (rect.y / _defaultScreenHeight) * Screen.height;               // liczy współrzędną Y recta (przysłane Y dzielone przez domyslną wysokosc razy aktualna wysokość ekranu)
+		_scaleX = Screen.width / _defaultScreenWidth;
+		_scaleY = Screen.height / _defaultScreenHeight;
+		_usableScale = Mathf.Min(_scaleX, _scaleY);
 
-		_rectToScreenWidthRatio = rect.width / _defaultScreenWidth;              // liczy STAŁY wspolczynnik wymiaru recta do domyslnej szerokości ekranu
-		_rectToScreenHeightRatio = rect.height / _defaultScreenHeight;            // liczy STAŁY wspolczynnik wymiaru recta do domyslnej wysokości ekranu
-
-		_rectWidth = _rectToScreenWidthRatio * Screen.width;                    // liczy ZMIENNĄ wyskalowaną szerokość recta na podstawie wspolczynnika i aktualnej szerokości ekranu
-		_rectHeight = _rectToScreenHeightRatio * Screen.height;               // liczy ZMIENNĄ wyskalowaną wysokosc recta na podstawie wspolczynnika i aktualnej wysokości ekranu
-
-		_rectWidth *= (_rectHeight / rect.height);       // i jeszcze raz to samo z uwzględnieniem zmian wysokości
-		_rectHeight *= (_rectWidth / rect.width);      // i jeszcze raz to samo z uwzględnieniem zmian szerokości
-
-		return new Rect(_rectX, _rectY, _rectWidth, _rectHeight);
+		return new Rect(rect.x * _usableScale, rect.y * _usableScale, rect.width * _usableScale, rect.height * _usableScale);
 	}
+
+	public Rect ResizeGUI(Rect rect, string alignHorizontal, string alignVetical)
+	{
+		_scaleX = Screen.width / _defaultScreenWidth;
+		_scaleY = Screen.height / _defaultScreenHeight;
+		_usableScale = Mathf.Min(_scaleX, _scaleY);
+
+
+		return new Rect(rect.x * _usableScale, rect.y * _usableScale, rect.width * _usableScale, rect.height * _usableScale);
+	}
+
+
+	//public Rect ResizeGUI(Rect rect)
+	//{
+	//	_rectX = (rect.x / _defaultScreenWidth) * Screen.width;               // liczy wspolrzedną X recta (przysłane X dzielone przez domyslną szerokośc razy aktualna szerokość ekranu)
+	//	_rectY = (rect.y / _defaultScreenHeight) * Screen.height;               // liczy współrzędną Y recta (przysłane Y dzielone przez domyslną wysokosc razy aktualna wysokość ekranu)
+
+	//	_rectToScreenWidthRatio = rect.width / _defaultScreenWidth;              // liczy STAŁY wspolczynnik wymiaru recta do domyslnej szerokości ekranu
+	//	_rectToScreenHeightRatio = rect.height / _defaultScreenHeight;            // liczy STAŁY wspolczynnik wymiaru recta do domyslnej wysokości ekranu
+
+	//	_rectWidth = _rectToScreenWidthRatio * Screen.width;                    // liczy ZMIENNĄ wyskalowaną szerokość recta na podstawie wspolczynnika i aktualnej szerokości ekranu
+	//	_rectHeight = _rectToScreenHeightRatio * Screen.height;               // liczy ZMIENNĄ wyskalowaną wysokosc recta na podstawie wspolczynnika i aktualnej wysokości ekranu
+
+	//	_rectWidth *= (_rectHeight / rect.height);       // i jeszcze raz to samo z uwzględnieniem zmian wysokości
+	//	_rectHeight *= (_rectWidth / rect.width);      // i jeszcze raz to samo z uwzględnieniem zmian szerokości
+
+	//	return new Rect(_rectX, _rectY, _rectWidth, _rectHeight);
+	//}
 }
