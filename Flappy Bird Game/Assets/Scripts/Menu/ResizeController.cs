@@ -29,8 +29,4 @@ public class ResizeController : MonoBehaviour
 
 		return new Rect(_rectX, _rectY, _rectWidth, _rectHeight);
 	}
-
-	/*
-	 * tak trzeba zmodyfikować tą klase, żeby obrazki skalowały się proporcjonalnie, a całe pole nie dało się obcinać poniżej/powyżej pewnego obszaru
-	 */ 
 }
