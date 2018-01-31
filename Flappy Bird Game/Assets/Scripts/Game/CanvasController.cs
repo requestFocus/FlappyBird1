@@ -13,19 +13,25 @@ public class CanvasController : MonoBehaviour
 	public Canvas Canvas;
 
 	public PlayerProfileController PlayerProfileController;
+	public GameObject SummaryBackground;
+
+	private void Start()
+	{
+		SummaryBackground.SetActive(false);
+	}
 
 	public void DisplayCanvas()
 	{
 		Time.timeScale = 0;
-		ScoreText.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score (now highscore) is " + 
-						PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore;
+		ScoreText.text = "<color=WHITE>" + PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score (now highscore) is " + 
+								PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore + "</color>";
 		PlayerProfileController.SaveProfile(PlayersProfiles.Instance);                          // zapisz wyniki przed powrotem do sceny MENU
 		Canvas.gameObject.SetActive(true);
 	}
 
 	private void OnEnable()
 	{
-		
+		SummaryBackground.SetActive(true);
 		RepeatButton.onClick.AddListener(RepeatGame);
 		DontRepeat.onClick.AddListener(BackToMenu);
 	}
@@ -33,13 +39,19 @@ public class CanvasController : MonoBehaviour
 	public void RepeatGame()
 	{
 		SceneManager.LoadScene("Game");
-		Time.timeScale = 1;
+		BreakPause();
 	}
 
 	public void BackToMenu()
 	{
 		SceneManager.LoadScene("Menu");
+		BreakPause();
+	}
+
+	private void BreakPause()
+	{
 		Time.timeScale = 1;
+		SummaryBackground.SetActive(false);
 	}
 
 }
