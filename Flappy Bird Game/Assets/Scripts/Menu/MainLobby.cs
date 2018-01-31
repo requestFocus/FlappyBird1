@@ -96,20 +96,46 @@ public class MainLobby : MonoBehaviour {
 		return RectScalableDimensions;
 	}
 
+	private Rect DrawElement(int x, int y, int width, int height, Texture menuElement, string alignHorizontal, string alignVertical)
+	{
+		Rect RectScalableDimensions = ResizeController.ResizeGUI(new Rect(x, y, width, height), alignHorizontal, alignVertical);
+		GUI.DrawTexture(RectScalableDimensions, menuElement);
+
+		return RectScalableDimensions;
+	}
+
 	private void DrawMainMenu()								// obsluga MAIN MENU
 	{
-		_logoRect = DrawElement(315, 20, 170, 170, LogoButton);
-		_newGameRect = DrawElement(300, 250, 200, 60, NewGameButton);            // x y w h img
-		_howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton);
-		_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton);
-		_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton);
+		//_logoRect = DrawElement(315, 20, 170, 170, LogoButton);
+		//_newGameRect = DrawElement(300, 250, 200, 60, NewGameButton);            // x y w h img
+		//_howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton);
+		//_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton);
+		//_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton);
+
+		_logoRect = DrawElement(315, 20, 170, 170, LogoButton, "center", "top");
+		_newGameRect = DrawElement(300, 250, 200, 60, NewGameButton, "center", "bottom");           
+		_howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton, "center", "bottom");
+		_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton, "center", "bottom");
+		_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton, "center", "bottom");
+
+		//====================================================================================================================================
+		//DrawElement(375, 275, 50, 50, NewGameButton, "left", "top");		
+		//DrawElement(375, 275, 50, 50, HowtoPlayButton, "left", "center");
+		//DrawElement(375, 275, 50, 50, CreditsButton, "left", "bottom");
+
+		//DrawElement(375, 275, 50, 50, NewGameButton, "center", "top");
+		//DrawElement(375, 275, 50, 50, HowtoPlayButton, "center", "center");
+		//DrawElement(375, 275, 50, 50, CreditsButton, "center", "bottom");
+
+		//DrawElement(375, 275, 50, 50, NewGameButton, "right", "top");
+		//DrawElement(375, 275, 50, 50, HowtoPlayButton, "right", "center");
+		//DrawElement(375, 275, 50, 50, CreditsButton, "right", "bottom");
+		//====================================================================================================================================
 
 		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
 		if (Input.GetMouseButtonDown(0))
 		{
-
-			// sprawdz czy da sie to zamienic na switcha ================================================================
 
 			// LOGO - MAIN MENU						
 			if (ClickedWithin(_logoRect))
