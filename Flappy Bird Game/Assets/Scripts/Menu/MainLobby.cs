@@ -49,7 +49,7 @@ public class MainLobby : MonoBehaviour {
 		NewGame,
 		GamePlay
 	};
-	MenuScreens MenuStates = MenuScreens.MainMenu;		
+	MenuScreens MenuStates; // = MenuScreens.MainMenu;		
 
 	private void Start()
 	{
@@ -96,9 +96,9 @@ public class MainLobby : MonoBehaviour {
 		return RectScalableDimensions;
 	}
 
-	private Rect DrawElement(int x, int y, int width, int height, Texture menuElement, string alignHorizontal, string alignVertical)
+	private Rect DrawElement(int x, int y, int width, int height, Texture menuElement, ResizeController.Horizontal horizontalAlignment, ResizeController.Vertical verticalAlignment)
 	{
-		Rect RectScalableDimensions = ResizeController.ResizeGUI(new Rect(x, y, width, height), alignHorizontal, alignVertical);
+		Rect RectScalableDimensions = ResizeController.ResizeGUI(new Rect(x, y, width, height), horizontalAlignment, verticalAlignment);
 		GUI.DrawTexture(RectScalableDimensions, menuElement);
 
 		return RectScalableDimensions;
@@ -112,11 +112,11 @@ public class MainLobby : MonoBehaviour {
 		//_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton);
 		//_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton);
 
-		_logoRect = DrawElement(315, 20, 170, 170, LogoButton, "center", "top");
-		_newGameRect = DrawElement(300, 250, 200, 60, NewGameButton, "center", "bottom");
-		_howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton, "center", "bottom");
-		_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton, "center", "bottom");
-		_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton, "center", "bottom");
+		_logoRect = DrawElement(315, 20, 170, 170, LogoButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+		_newGameRect = DrawElement(300, 250, 200, 60, NewGameButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+		_howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+		_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+		_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
 		//====================================================================================================================================
 		//DrawElement(375, 275, 50, 50, NewGameButton, "left", "top");
