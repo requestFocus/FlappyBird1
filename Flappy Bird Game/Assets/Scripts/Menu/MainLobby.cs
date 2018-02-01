@@ -113,13 +113,13 @@ public class MainLobby : MonoBehaviour {
 		//_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton);
 
 		_logoRect = DrawElement(315, 20, 170, 170, LogoButton, "center", "top");
-		_newGameRect = DrawElement(300, 250, 200, 60, NewGameButton, "center", "bottom");           
+		_newGameRect = DrawElement(300, 250, 200, 60, NewGameButton, "center", "bottom");
 		_howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton, "center", "bottom");
 		_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton, "center", "bottom");
 		_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton, "center", "bottom");
 
 		//====================================================================================================================================
-		//DrawElement(375, 275, 50, 50, NewGameButton, "left", "top");		
+		//DrawElement(375, 275, 50, 50, NewGameButton, "left", "top");
 		//DrawElement(375, 275, 50, 50, HowtoPlayButton, "left", "center");
 		//DrawElement(375, 275, 50, 50, CreditsButton, "left", "bottom");
 

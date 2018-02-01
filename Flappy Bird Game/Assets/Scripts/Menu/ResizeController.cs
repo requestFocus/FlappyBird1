@@ -13,59 +13,55 @@ public class ResizeController : MonoBehaviour
 	//private float _rectX;
 	//private float _rectY;
 
-	private float _scaleX;
-	private float _scaleY;
-	private float _usableScale;
-
-	private float _distanceX;
-	private float _distanceY;
+	private float _scaleWidth;
+	private float _scaleHeigth;
+	private float _usableScaleWH;
 
 	public Rect ResizeGUI(Rect rect)
 	{
-		_scaleX = Screen.width / _defaultScreenWidth;
-		_scaleY = Screen.height / _defaultScreenHeight;
-		_usableScale = Mathf.Min(_scaleX, _scaleY);
+		_scaleWidth = Screen.width / _defaultScreenWidth;
+		_scaleHeigth = Screen.height / _defaultScreenHeight;
+		_usableScaleWH = Mathf.Min(_scaleWidth, _scaleHeigth);
 
-		return new Rect(rect.x * _usableScale, rect.y * _usableScale, rect.width * _usableScale, rect.height * _usableScale);
+		return new Rect(rect.x * _usableScaleWH, rect.y * _usableScaleWH, rect.width * _usableScaleWH, rect.height * _usableScaleWH);
 	}
 
 	public Rect ResizeGUI(Rect rect, string alignHorizontal, string alignVertical)
 	{
-		_scaleX = Screen.width / _defaultScreenWidth;
-		_scaleY = Screen.height / _defaultScreenHeight;
-		_usableScale = Mathf.Min(_scaleX, _scaleY);
+		_scaleWidth = Screen.width / _defaultScreenWidth;
+		_scaleHeigth = Screen.height / _defaultScreenHeight;
+		_usableScaleWH = Mathf.Min(_scaleWidth, _scaleHeigth);
 
-		_distanceX = rect.x / Screen.width;
-		_distanceY = rect.y / Screen.height;
+		float _scaleX = rect.x / Screen.width;
+		float _scaleY = rect.y / Screen.height;
 
 		if (alignHorizontal.Equals("left"))
 		{
-			rect.x = rect.x;                                                        // bez zmian
+			rect.x = rect.x;																 // bez zmian
 		}
 		else if (alignHorizontal.Equals("center"))
 		{
-			rect.x = rect.x + ((Screen.width - _defaultScreenWidth) / 2);            // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
-			Debug.Log(rect.x + " // " + Screen.width);
+			rect.x = rect.x + ((Screen.width - _defaultScreenWidth) / 2);					// przesuwa się o polowę tego, jak zmienia się wielkość ekranu
 		}
 		else if (alignHorizontal.Equals("right"))
 		{
-			rect.x = rect.x + (Screen.width - _defaultScreenWidth);                 // przesuwa się o tyle, o ile zmienia się wielkość ekranu
+			rect.x = rect.x + (Screen.width - _defaultScreenWidth);			             // przesuwa się o tyle, o ile zmienia się wielkość ekranu
 		}
 
 		if (alignVertical.Equals("top"))
 		{
-			rect.y = rect.y;                                                        // bez zmian
+			rect.y = rect.y;												               // bez zmian
 		}
 		else if (alignVertical.Equals("center"))
 		{
-			rect.y = rect.y + ((Screen.height - _defaultScreenHeight) / 2);          // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
+			rect.y = rect.y + ((Screen.height - _defaultScreenHeight) / 2);				   // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
 		}
 		else if (alignVertical.Equals("bottom"))
 		{
-			rect.y = rect.y + (Screen.height - _defaultScreenHeight);               // przesuwa się o tyle, o ile zmienia się wielkość ekranu
+			rect.y = rect.y + (Screen.height - _defaultScreenHeight);				        // przesuwa się o tyle, o ile zmienia się wielkość ekranu
 		}
 
-		return new Rect(rect.x, rect.y, rect.width * _usableScale, rect.height * _usableScale);
+		return new Rect(rect.x, rect.y, rect.width * _usableScaleWH, rect.height * _usableScaleWH);
 	}
 }
 
