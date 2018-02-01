@@ -198,7 +198,7 @@ public class MainLobby : MonoBehaviour {
 				}
 				else                                                // NIE WPISANO USERNAME
 				{
-					_badName = "<color=#000000ff><Enter your name</color>";																			 
+					_badName = "<color=#000000ff>Enter your name</color>";																			 
 				}
 			}
 		}
