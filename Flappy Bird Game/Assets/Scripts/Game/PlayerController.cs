@@ -11,14 +11,7 @@ public class PlayerController : MonoBehaviour {
 
 	public PlayerProfileController PlayerProfileController;
 	public CanvasController CanvasController;
-
-	//private enum GameScreens
-	//{
-	//	GameStart,
-	//	GamePlay,
-	//	GameEnd
-	//};
-	//GameScreens GameStates = GameScreens.GamePlay;
+	//public GameManager GameManager;
 
 	void Start()
 	{
