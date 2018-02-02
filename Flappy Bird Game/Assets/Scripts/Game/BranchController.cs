@@ -32,7 +32,7 @@ public class BranchController : MonoBehaviour {
 		}
 		else
 		{
-			gameObject.SetActive(false);					// czy to wystarczy, żeby nie zapchać pamięci?
+			transform.position = new Vector2(startXPosition, yPosition);
 		}
 	}
 
