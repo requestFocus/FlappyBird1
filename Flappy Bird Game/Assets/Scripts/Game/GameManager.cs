@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+	private int _currentScore;
 
 	public GameObject BranchPrefab;
+	public CanvasController CanvasController;
 
 	void Start()
 	{
@@ -16,4 +18,17 @@ public class GameManager : MonoBehaviour
 	{
 		Instantiate(BranchPrefab);
 	}
+
+	public void SetScore()
+	{
+		_currentScore++;
+	}
+
+	public int GetScore()
+	{
+		return _currentScore;
+	}
 }
+
+
+// jak sprawić, by CanvasController był dostepny tylko z GameManagera

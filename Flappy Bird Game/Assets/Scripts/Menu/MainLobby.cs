@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainLobby : MonoBehaviour {
@@ -20,6 +21,8 @@ public class MainLobby : MonoBehaviour {
 	public Texture CreditsButtonInactive;
 	public Texture HowtoPlayButtonInactive;
 	public Texture NewGameButtonInactive;
+
+	public Text EnterName;
 
 	public PlayerProfile PlayerProfile;
 	//public PlayersProfiles PlayersProfiles;                             // lista profili tworzona podczas gry
@@ -58,7 +61,7 @@ public class MainLobby : MonoBehaviour {
 		MenuStates = MenuScreens.MainMenu;
 
 		_justPlayerName = "";
-		_badName = "";
+		EnterName.text = "";
 		_isThereAList = PlayerProfileController.LoadProfiles();								// jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
 	}
 
@@ -174,7 +177,6 @@ public class MainLobby : MonoBehaviour {
 	{
 		
 		_justPlayerName = GUI.TextField(ResizeController.ResizeGUI(new Rect(350, 270, 100, 25)), _justPlayerName, 10);
-		GUI.Label(ResizeController.ResizeGUI(new Rect(355, 245, 100, 25)), _badName);
 
 		_logoRect = DrawElement(315, 20, 170, 170, LogoButton);
 		_startRect = DrawElement(300, 300, 200, 60, StartButton);
@@ -198,7 +200,7 @@ public class MainLobby : MonoBehaviour {
 				}
 				else                                                // NIE WPISANO USERNAME
 				{
-					_badName = "<color=#000000ff>Enter your name</color>";																			 
+					EnterName.text = "Enter your name";																			 
 				}
 			}
 		}

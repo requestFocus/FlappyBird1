@@ -7,18 +7,14 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D _player;
 	private float _speed;
-	private int _currentScore;
 
 	public PlayerProfileController PlayerProfileController;
-	public CanvasController CanvasController;
-	//public GameManager GameManager;
+	public GameManager GameManager;
 
 	void Start()
 	{
 		_player = GetComponent<Rigidbody2D>();
 		_speed = 5;
-
-		CanvasController.gameObject.SetActive(false);
 	}
 
 	private void FixedUpdate()
@@ -30,8 +26,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (_collision.gameObject.CompareTag("Obstacle"))
 		{
-			CanvasController.DisplayCanvas();
-			//SceneManager.LoadScene("Menu");
+			GameManager.CanvasController.DisplayCanvasOnSummary();
 		}
 	}
 
@@ -39,7 +34,8 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (_collision.gameObject.CompareTag("Obstacle"))
 		{
-			PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore += 1;
+			//PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore += 1;
+			GameManager.SetScore();
 		}
 	}
 
@@ -54,14 +50,4 @@ public class PlayerController : MonoBehaviour {
 }
 
 
-/*
- * na ten moment liczenie highscore'a nie ma sensu, bo 
- * dodaję 1 do aktualnego, a nie zaczynam od 0
- * w finalnej wersji dodam do sceny CurrentScore, który będzie wyświetlany po grze i 
- * zapamiętywany tylko, jeśli będzie większy od HighScore
- * 
- * jak zmieniać widoki? czy użyć tego samego mechanizmu, co w menu? 
- * jak to pogodzić z funkcjami Update(), FixedUpdate()?
- * 
- */ 
 
