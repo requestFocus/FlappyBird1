@@ -1465,6 +1465,7 @@ GameObject:
   - component: {fileID: 1721447322}
   - component: {fileID: 1721447321}
   - component: {fileID: 1721447323}
+  - component: {fileID: 1721447324}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1609,6 +1610,23 @@ PolygonCollider2D:
       - {x: 0.11, y: -0.17}
       - {x: 0.12, y: -0.099999994}
       - {x: 0.28, y: -0.13}
+--- !u!95 &1721447324
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1721447318}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e483dc986f430574291672558242ad31, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1728994621
 GameObject:
   m_ObjectHideFlags: 0
