@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
 		_speed = 5;
 	}
 
-	private void FixedUpdate()
+	private void Update()
 	{
 		MoveBee();
 	}
@@ -45,12 +45,18 @@ public class PlayerController : MonoBehaviour {
 
 	private void MoveBee()
 	{
-		float _moveHorizontal = Input.GetAxis("Horizontal");
+		//float _moveHorizontal = Input.GetAxis("Horizontal");						// Player porusza sie wzgledem osi Y, wiec oś Horizontal jest zbedna
 		float _moveVertical = Input.GetAxis("Vertical");
 
-		Vector2 _movement = new Vector2(_moveHorizontal, _moveVertical);
+		Vector2 _movement = new Vector2(0, _moveVertical);
 		_player.AddForce(_movement * _speed);
 	}
+
+	/*
+	 * input manager for both axis: 
+	 * gravity = 8
+	 * sensitivity = 8
+	 */ 
 }
 
 

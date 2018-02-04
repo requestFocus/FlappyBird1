@@ -12,7 +12,7 @@ public class BackgroundMover : MonoBehaviour {
 	private void Start()
 	{
 		_horizontalMove = 0.05f;
-		_speed = 5.0f;
+		_speed = 3.0f;
 		_rightEdge1 = -11.723f;
 		_rightEdge2 = 6.68f;
 	}
