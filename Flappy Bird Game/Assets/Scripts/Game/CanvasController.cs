@@ -23,7 +23,6 @@ public class CanvasController : MonoBehaviour
 	{
 		NameScoreSummary.text = "";
 		NewHighscoreSummary.text = "";
-
 		SetSummaryScreen(false);
 	}
 
@@ -36,6 +35,24 @@ public class CanvasController : MonoBehaviour
 	{
 		RepeatButton.onClick.AddListener(RepeatGame);
 		DontRepeat.onClick.AddListener(BackToMenu);
+	}
+
+	public void RepeatGame()
+	{
+		SceneManager.LoadScene("Game");
+		BreakPause();
+	}
+
+	public void BackToMenu()
+	{
+		SceneManager.LoadScene("Menu");
+		BreakPause();
+	}
+
+	private void BreakPause()
+	{
+		Time.timeScale = 1;
+		SummaryBackground.SetActive(false);
 	}
 
 	public void DisplayCanvasOnGamePlay()
@@ -68,24 +85,6 @@ public class CanvasController : MonoBehaviour
 		PlayerProfileController.SaveProfile(PlayersProfiles.Instance);                          // zapisz wyniki przed powrotem do sceny MENU
 	}
 
-	public void RepeatGame()
-	{
-		SceneManager.LoadScene("Game");
-		BreakPause();
-	}
-
-	public void BackToMenu()
-	{
-		SceneManager.LoadScene("Menu");
-		BreakPause();
-	}
-
-	private void BreakPause()
-	{
-		Time.timeScale = 1;
-		SummaryBackground.SetActive(false);
-	}
-
 	private void SetSummaryScreen(bool state)
 	{
 		SummaryBackground.SetActive(state);
@@ -103,5 +102,4 @@ public class CanvasController : MonoBehaviour
 
 		return false;
 	}
-
 }

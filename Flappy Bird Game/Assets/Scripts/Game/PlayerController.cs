@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour {
 		{
 			//PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore += 1;
 			GameManager.SetScore();
+			if (GameManager.AchievementToUnlock())
+			{
+				Debug.Log("achievement COMPLETE10 unlocked!");
+			}
 		}
 	}
 

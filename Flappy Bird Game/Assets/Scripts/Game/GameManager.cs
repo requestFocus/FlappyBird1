@@ -28,6 +28,21 @@ public class GameManager : MonoBehaviour
 	{
 		return _currentScore;
 	}
+
+	public bool AchievementToUnlock()
+	{
+		if (GetScore() == 10)
+		{
+			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10)   // nie ma jeszcze achievementu
+			{
+				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10 = true;
+				return true;
+			}
+		}
+		// pozostałe achievementy
+
+		return false;                                                                                       // brak achievementu do odblokowania, już posiada wszystko, co się należy
+	}
 }
 
 
