@@ -230,7 +230,7 @@ public class MainLobby : MonoBehaviour {
 		}
 	}
 
-	private void DrawGamePlay()               // TUTAJ BEDZIE SCENA Z WŁAŚCIWĄ GRĄ, POKI CO ZAŚLEPKA
+	private void DrawGamePlay()										// GRA
 	{
 		SceneManager.LoadScene("Game");
 	}
@@ -345,18 +345,23 @@ public class MainLobby : MonoBehaviour {
 
 	private void ListPlayersAchievements()                                                         // ładowane po kliknieciu buttona START w menu NEW GAME
 	{
-		_labelContent.text = "<color=#" + _darkGreyFont + ">NAME		HIGHSCORE		ACHIEVEMENTS</color>";
-		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 270, 250, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), _labelContent, _labelStyle);
+		//_labelContent.text = "<color=#" + _darkGreyFont + ">NAME		HIGHSCORE		ACHIEVEMENTS</color>";
+		GUI.Label(ResizeController.ResizeGUI(new Rect(200, 240, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">NAME</color>", _labelStyle);
+		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 240, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">HIGHSCORE</color>", _labelStyle);
+		GUI.Label(ResizeController.ResizeGUI(new Rect(430, 240, 150, 30), ResizeController.Horizontal.right, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">ACHIEVEMENTS</color>", _labelStyle);
 
 		if (_isThereAList)													// jesli istnieje lista w pamieci
 		{
-			float YPosition = 300;																	// czemu jesli dam tu private to są błędy? =================================================
+			float YPosition = 270;
 			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)
 			{
 				// wypisz wyniki
-				GUI.Label(ResizeController.ResizeGUI(new Rect(250, YPosition, 350, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
-							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "                       "
-							+ PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "                       " + PlayersProfiles.Instance.ListOfProfiles[i].Complete10 + "</color>", _labelStyle);
+				GUI.Label(ResizeController.ResizeGUI(new Rect(200, YPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
+							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", _labelStyle);
+				GUI.Label(ResizeController.ResizeGUI(new Rect(300, YPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
+							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "</color>", _labelStyle);
+				GUI.Label(ResizeController.ResizeGUI(new Rect(430, YPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
+							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].Complete10 + "</color>", _labelStyle);
 				YPosition += 30;
 			}
 		}
