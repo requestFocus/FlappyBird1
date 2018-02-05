@@ -33,14 +33,14 @@ public class ResizeController : MonoBehaviour
 	}
 	public Vertical VerticalAlignment;
 
-	public Rect ResizeGUI(Rect rect)
-	{
-		_scaleWidth = Screen.width / _defaultScreenWidth;
-		_scaleHeigth = Screen.height / _defaultScreenHeight;
-		_usableScaleWH = Mathf.Min(_scaleWidth, _scaleHeigth);
+	//public Rect ResizeGUI(Rect rect)
+	//{
+	//	_scaleWidth = Screen.width / _defaultScreenWidth;
+	//	_scaleHeigth = Screen.height / _defaultScreenHeight;
+	//	_usableScaleWH = Mathf.Min(_scaleWidth, _scaleHeigth);
 
-		return new Rect(rect.x * _usableScaleWH, rect.y * _usableScaleWH, rect.width * _usableScaleWH, rect.height * _usableScaleWH);
-	}
+	//	return new Rect(rect.x * _usableScaleWH, rect.y * _usableScaleWH, rect.width * _usableScaleWH, rect.height * _usableScaleWH);
+	//}
 
 	public Rect ResizeGUI(Rect rect, Horizontal horizontalAlignment, Vertical verticalAlignment)
 	{
