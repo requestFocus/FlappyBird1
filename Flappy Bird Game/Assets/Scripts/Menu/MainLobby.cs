@@ -17,6 +17,13 @@ public class MainLobby : MonoBehaviour {
 	public Texture StartButton;
 	public Texture HighscoreBoost;
 
+	public Texture Complete10Active;
+	public Texture Complete10Inactive;
+	public Texture Complete25Active;
+	public Texture Complete25Inactive;
+	public Texture Complete50Active;
+	public Texture Complete50Inactive;
+
 	public Texture AchievementsButtonInactive;
 	public Texture CreditsButtonInactive;
 	public Texture HowtoPlayButtonInactive;
@@ -352,7 +359,7 @@ public class MainLobby : MonoBehaviour {
 
 		if (_isThereAList)													// jesli istnieje lista w pamieci
 		{
-			float YPosition = 270;
+			int YPosition = 270;
 			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)
 			{
 				// wypisz wyniki
@@ -360,8 +367,18 @@ public class MainLobby : MonoBehaviour {
 							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", _labelStyle);
 				GUI.Label(ResizeController.ResizeGUI(new Rect(300, YPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
 							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "</color>", _labelStyle);
-				GUI.Label(ResizeController.ResizeGUI(new Rect(430, YPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
-							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].Complete10 + "</color>", _labelStyle);
+				//GUI.Label(ResizeController.ResizeGUI(new Rect(430, YPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
+				//			"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].Complete10 + "</color>", _labelStyle);
+
+				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete10)
+				{
+					DrawElement(450, YPosition, 23, 28, Complete10Active, ResizeController.Horizontal.center, ResizeController.Vertical.top);			// IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+				}
+				else
+				{
+					DrawElement(450, YPosition, 23, 28, Complete10Inactive, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+				}
+
 				YPosition += 30;
 			}
 		}
