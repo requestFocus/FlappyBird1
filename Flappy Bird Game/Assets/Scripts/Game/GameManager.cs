@@ -39,7 +39,22 @@ public class GameManager : MonoBehaviour
 				return true;
 			}
 		}
-		// pozostałe achievementy
+		if (GetScore() == 25)
+		{
+			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25)   // nie ma jeszcze achievementu
+			{
+				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25 = true;
+				return true;
+			}
+		}
+		if (GetScore() == 50)
+		{
+			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50)   // nie ma jeszcze achievementu
+			{
+				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50 = true;
+				return true;
+			}
+		}
 
 		return false;                                                                                       // brak achievementu do odblokowania, już posiada wszystko, co się należy
 	}

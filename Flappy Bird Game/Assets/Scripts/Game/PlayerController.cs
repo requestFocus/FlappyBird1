@@ -38,7 +38,8 @@ public class PlayerController : MonoBehaviour {
 			GameManager.SetScore();
 			if (GameManager.AchievementToUnlock())
 			{
-				Debug.Log("achievement COMPLETE10 unlocked!");
+				Debug.Log("achievement unlocked");
+				// tu będzie kod od particli
 			}
 		}
 	}
@@ -52,11 +53,6 @@ public class PlayerController : MonoBehaviour {
 		_player.AddForce(_movement * _speed);
 	}
 
-	/*
-	 * input manager for both axis: 
-	 * gravity = 8
-	 * sensitivity = 8
-	 */ 
 }
 
 

@@ -269,7 +269,7 @@ public class MainLobby : MonoBehaviour {
 		_logoRect = DrawElement(315, 20, 170, 170, LogoButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
 		DrawElement(350, 550, 100, 30, menuElement, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
-		ListPlayersAchievements();
+		ListAchievements();
 
 		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
@@ -334,7 +334,7 @@ public class MainLobby : MonoBehaviour {
 
 	private void AddNewProfile()
 	{
-		PlayerProfile = new PlayerProfile(_justPlayerName, 0, false);                   // tworzę nowy profil gracza z domyślnymi wartościami
+		PlayerProfile = new PlayerProfile(_justPlayerName, 0, false, false, false);                   // tworzę nowy profil gracza z domyślnymi wartościami
 		if (_isThereAList)                                                                  // na liście nie ma podanego NAME
 		{
 			PlayersProfiles.Instance.ListOfProfiles.Add(PlayerProfile);                     // a teraz dodaje do niej aktualny playerProfile
@@ -350,42 +350,64 @@ public class MainLobby : MonoBehaviour {
 		PlayerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie				czy częsty zapis do PlayerPrefs wpływa na wydajność?==================
 	}
 
-	private void ListPlayersAchievements()                                                         // ładowane po kliknieciu buttona START w menu NEW GAME
+	private void ListAchievements()                                                         // ładowane po kliknieciu buttona START w menu NEW GAME
 	{
-		//_labelContent.text = "<color=#" + _darkGreyFont + ">NAME		HIGHSCORE		ACHIEVEMENTS</color>";
-		GUI.Label(ResizeController.ResizeGUI(new Rect(200, 240, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">NAME</color>", _labelStyle);
-		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 240, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">HIGHSCORE</color>", _labelStyle);
-		GUI.Label(ResizeController.ResizeGUI(new Rect(430, 240, 150, 30), ResizeController.Horizontal.right, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">ACHIEVEMENTS</color>", _labelStyle);
 
 		if (_isThereAList)													// jesli istnieje lista w pamieci
 		{
-			int YPosition = 270;
+			GUI.Label(ResizeController.ResizeGUI(new Rect(200, 240, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">NAME</color>", _labelStyle);
+			GUI.Label(ResizeController.ResizeGUI(new Rect(300, 240, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">HIGHSCORE</color>", _labelStyle);
+			GUI.Label(ResizeController.ResizeGUI(new Rect(430, 240, 150, 30), ResizeController.Horizontal.right, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">ACHIEVEMENTS</color>", _labelStyle);
+
+			int yPosition = 270;
+			int xPosition = 465;
+
 			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)
 			{
 				// wypisz wyniki
-				GUI.Label(ResizeController.ResizeGUI(new Rect(200, YPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
+				GUI.Label(ResizeController.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
 							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", _labelStyle);
-				GUI.Label(ResizeController.ResizeGUI(new Rect(300, YPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
+
+				GUI.Label(ResizeController.ResizeGUI(new Rect(300, yPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
 							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "</color>", _labelStyle);
-				//GUI.Label(ResizeController.ResizeGUI(new Rect(430, YPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
-				//			"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].Complete10 + "</color>", _labelStyle);
 
 				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete10)
 				{
-					DrawElement(450, YPosition, 23, 28, Complete10Active, ResizeController.Horizontal.center, ResizeController.Vertical.top);			// IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+					DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeController.Horizontal.center, ResizeController.Vertical.top);			// IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
 				}
 				else
 				{
-					DrawElement(450, YPosition, 23, 28, Complete10Inactive, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+					DrawElement(xPosition, yPosition, 23, 28, Complete10Inactive, ResizeController.Horizontal.center, ResizeController.Vertical.top);
 				}
 
-				YPosition += 30;
+				xPosition += 30;
+				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete25)
+				{
+					DrawElement(xPosition, yPosition, 23, 28, Complete25Active, ResizeController.Horizontal.center, ResizeController.Vertical.top);           // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+				}
+				else
+				{
+					DrawElement(xPosition, yPosition, 23, 28, Complete25Inactive, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+				}
+
+				xPosition += 30;
+				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete50)
+				{
+					DrawElement(xPosition, yPosition, 23, 28, Complete50Active, ResizeController.Horizontal.center, ResizeController.Vertical.top);           // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+				}
+				else
+				{
+					DrawElement(xPosition, yPosition, 23, 28, Complete50Inactive, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+				}
+
+				yPosition += 30;
+				xPosition = 465;
 			}
 		}
 		else                                                                                            // jesli w pamieci nie istnieje lista userów
 		{
 			// nie ma listy, nie ma wyników
-			GUI.Label(ResizeController.ResizeGUI(new Rect(300, 300, 200, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">No results yet.</color>");
+			GUI.Label(ResizeController.ResizeGUI(new Rect(300, 300, 200, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">No results yet.</color>", _labelStyle);
 		}
 	}
 

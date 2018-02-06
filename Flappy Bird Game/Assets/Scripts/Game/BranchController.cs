@@ -10,7 +10,7 @@ public class BranchController : MonoBehaviour {
 	private float yPosition;
 
 	void Start () {
-		obstacleAcceleration = 75f;
+		obstacleAcceleration = 50f;
 
 		startXPosition = 5.0f;
 		endXPosition = -10.88f;
@@ -32,8 +32,6 @@ public class BranchController : MonoBehaviour {
 		}
 		else
 		{
-			//transform.position = new Vector2(startXPosition, yPosition);
-			//gameObject.SetActive(false);						// obiekty nadal istnieją
 			Destroy(gameObject);
 		}
 	}
