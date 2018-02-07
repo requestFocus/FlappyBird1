@@ -26,22 +26,3 @@ public sealed class PlayersProfiles
 }
 
 
-
-
-
-//public sealed class PlayersProfiles
-//{
-//	private static List<PlayerProfile> _listOfProfiles;
-
-//	public static List<PlayerProfile> ListOfProfiles
-//	{
-//		get
-//		{
-//			if (_listOfProfiles == null)
-//			{
-//				_listOfProfiles = new List<PlayerProfile>();
-//			}
-//			return _listOfProfiles;
-//		}
-//	}
-//}

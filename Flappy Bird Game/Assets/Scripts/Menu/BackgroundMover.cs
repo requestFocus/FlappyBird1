@@ -26,7 +26,6 @@ public class BackgroundMover : MonoBehaviour {
 	{
 		if (transform.position.x >= _rightEdge1 && transform.position.x < _rightEdge2)
 		{
-			//_horizontalMove = _horizontalMove + 0.004f;
 			transform.position += (new Vector3(_horizontalMove, 0.0f, 0.0f) * Time.deltaTime * _speed);
 		}
 		else

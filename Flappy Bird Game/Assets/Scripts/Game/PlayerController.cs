@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (_collision.gameObject.CompareTag("Obstacle"))
 		{
-			//PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore += 1;
 			GameManager.SetScore();
 			if (GameManager.AchievementToUnlock())
 			{

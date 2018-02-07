@@ -15,7 +15,6 @@ public class PlayerProfileController : MonoBehaviour {
 	{
 		_jsonDataToSet = JsonUtility.ToJson(playersProfilesToSave);                                         //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
 		PlayerPrefs.SetString(PrefsStringInMemory, _jsonDataToSet);                                                //Load saved Json, czyli pobierz string z playerprefs i zapisz string do json
-		//Debug.Log("_jsonDataToSet: " + _jsonDataToSet);
 	}
 
 	public bool LoadProfiles()
@@ -26,7 +25,6 @@ public class PlayerProfileController : MonoBehaviour {
 			_loadedProfilesData = JsonUtility.FromJson<PlayersProfiles>(_jsonDataFromGet);					  // wczytaj z JSON do odpowiadającej mu struktury PlayersProfiles
 			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile>();								// jeśli lista nie jest statyczna to trzeba ją w tym miejscu stworzyć==============CZY MUSI BYC STATYCZNA?
 			PlayersProfiles.Instance.ListOfProfiles = _loadedProfilesData.ListOfProfiles;						// wpisanie zawartości strktury do SINGLETONA
-			//Debug.Log("jsonDataFromGet: " + jsonDataFromGet);
 			return true;
 		}
 
