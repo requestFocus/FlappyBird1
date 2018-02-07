@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		InvokeRepeating("CreateObstacle", 2.0f, 3.0f);
+		InvokeRepeating("CreateObstacle", 2.0f, 2.0f);
 	}
 
 	void CreateObstacle()

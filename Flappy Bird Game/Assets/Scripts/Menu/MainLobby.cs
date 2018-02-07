@@ -15,7 +15,6 @@ public class MainLobby : MonoBehaviour {
 	public Texture HowtoPlayButton;
 	public Texture NewGameButton;
 	public Texture StartButton;
-	public Texture HighscoreBoost;
 
 	public Texture Complete10Active;
 	public Texture Complete10Inactive;

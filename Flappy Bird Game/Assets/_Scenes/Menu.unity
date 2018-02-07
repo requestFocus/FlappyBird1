@@ -485,7 +485,6 @@ MonoBehaviour:
   HowtoPlayButton: {fileID: 2800000, guid: cdd02f997c7f4a64b914a0cf07c6d141, type: 3}
   NewGameButton: {fileID: 2800000, guid: 2b5d602f8a775504a884e6fee9131e81, type: 3}
   StartButton: {fileID: 2800000, guid: 83f33b11a1939be4390b15e0ef845ec5, type: 3}
-  HighscoreBoost: {fileID: 2800000, guid: 0ce2ead68a4e9474581525fbade499c1, type: 3}
   Complete10Active: {fileID: 2800000, guid: 560274d54762659439f2a3e4b44fa2e5, type: 3}
   Complete10Inactive: {fileID: 2800000, guid: 93124a5d54184ec4e8a1a54b2f2662da, type: 3}
   Complete25Active: {fileID: 2800000, guid: 0a1ccc2afa778d543915a573c9214e80, type: 3}
@@ -504,6 +503,8 @@ MonoBehaviour:
     PlayerName: 
     HighScore: 0
     Complete10: 0
+    Complete25: 0
+    Complete50: 0
   PlayerProfileController: {fileID: 1477873119}
   ResizeController: {fileID: 519641751}
   font: {fileID: 12800000, guid: 4315f7057e2268d40ad41cbb963c6f4f, type: 3}
