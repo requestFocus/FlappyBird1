@@ -22,10 +22,3 @@ public class PlayerProfile {
 }
 
 
-
-
-/* 
-PROFIL
-W jaki sposob obslugiwac profil gracza podczas gry: w czasie rzeczywistym czy po skonczonej grze? 
-singleton, jeden statyczny obiekt przekazywany między scenami, tworzony w momencie, kiedy gracz podaje imie i istniejący do czasu wyłączenia gry
-*/

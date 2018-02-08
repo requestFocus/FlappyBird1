@@ -15,7 +15,6 @@ public class MainLobby : MonoBehaviour {
 	public Texture HowtoPlayButton;
 	public Texture NewGameButton;
 	public Texture StartButton;
-	public Texture HighscoreBoost;
 
 	public Texture Complete10Active;
 	public Texture Complete10Inactive;
@@ -30,7 +29,6 @@ public class MainLobby : MonoBehaviour {
 	public Texture NewGameButtonInactive;
 
 	public PlayerProfile PlayerProfile;
-	//public PlayersProfiles PlayersProfiles;                             // lista profili tworzona podczas gry
 	public PlayerProfileController PlayerProfileController;				
 	public ResizeController ResizeController;
 
@@ -121,14 +119,6 @@ public class MainLobby : MonoBehaviour {
 		_lightGreyFont = "3f6a84";                                     // dark grey
 	}
 
-	//private Rect DrawElement(int x, int y, int width, int height, Texture menuElement)
-	//{
-	//	Rect RectScalableDimensions = ResizeController.ResizeGUI(new Rect(x, y, width, height));
-	//	GUI.DrawTexture(RectScalableDimensions, menuElement);
-
-	//	return RectScalableDimensions;
-	//}
-
 	private Rect DrawElement(int x, int y, int width, int height, Texture menuElement, ResizeController.Horizontal horizontalAlignment, ResizeController.Vertical verticalAlignment)
 	{
 		Rect RectScalableDimensions = ResizeController.ResizeGUI(new Rect(x, y, width, height), horizontalAlignment, verticalAlignment);
@@ -139,12 +129,6 @@ public class MainLobby : MonoBehaviour {
 
 	private void DrawMainMenu()								// obsluga MAIN MENU
 	{
-		//_logoRect = DrawElement(315, 20, 170, 170, LogoButton);
-		//_newGameRect = DrawElement(300, 250, 200, 60, NewGameButton);            // x y w h img
-		//_howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton);
-		//_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton);
-		//_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton);
-
 		_logoRect = DrawElement(315, 20, 170, 170, LogoButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
 		_newGameRect = DrawElement(300, 250, 200, 60, NewGameButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 		_howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
