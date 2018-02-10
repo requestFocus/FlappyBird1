@@ -46,7 +46,12 @@ public class MainLobby : MonoBehaviour {
 	private Rect _startRect;
 	private Rect _gamePlayRect;
 
-	private Vector3 _myMousePosition;
+	private Rect _nextAchievementPage;
+	private Rect _previousAchievementPage;
+	private int _listAchievementfFrom;
+	private int _achievementPageScope;
+
+	private Vector2 _myMousePosition;
 	private string _justPlayerName;
 	private string _badName;
 	private bool _isThereAList;
@@ -72,7 +77,20 @@ public class MainLobby : MonoBehaviour {
 		MenuStates = MenuScreens.MainMenu;
 
 		_justPlayerName = "";
-		_isThereAList = PlayerProfileController.LoadProfiles();								// jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
+		_isThereAList = PlayerProfileController.LoadProfiles();                             // jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
+
+		_listAchievementfFrom = 0;
+		_achievementPageScope = 2;
+	}
+
+	private void Update()
+	{
+		_myMousePosition = Input.mousePosition;
+
+		if (Input.GetKey("up"))
+		{
+			Debug.Log("up key");
+		}
 	}
 
 	private void OnGUI()
@@ -149,7 +167,8 @@ public class MainLobby : MonoBehaviour {
 		//DrawElement(375, 275, 50, 50, CreditsButton, "right", "bottom");
 		//====================================================================================================================================
 
-		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		_myMousePosition = Input.mousePosition;
 
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -197,7 +216,8 @@ public class MainLobby : MonoBehaviour {
 
 		GUI.Label(ResizeController.ResizeGUI(new Rect(350, 360, 100, 25), ResizeController.Horizontal.center, ResizeController.Vertical.center), _labelContent, _labelStyle);
 
-		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		_myMousePosition = Input.mousePosition;  
 
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -236,7 +256,8 @@ public class MainLobby : MonoBehaviour {
 								"SPECIAL THANKS TO\n<color=#" + _lightGreyFont + ">MICHAŁ PODYMA</color></color>";
 		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 300, 200, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), _labelContent, _labelStyle);
 
-		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		_myMousePosition = Input.mousePosition;
 
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -255,7 +276,8 @@ public class MainLobby : MonoBehaviour {
 
 		ListAchievements();
 
-		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		//_myMousePosition = Input.mousePosition;
 
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -276,7 +298,8 @@ public class MainLobby : MonoBehaviour {
 						"BEAT HIGHSCORES, UNLOCK ACHIEVEMENTS \nAND HAVE FUN! \n\nGOOD LUCK!</color>";
 		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 300, 200, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), _labelContent, _labelStyle);
 
-		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		_myMousePosition = Input.mousePosition;
 
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -343,10 +366,34 @@ public class MainLobby : MonoBehaviour {
 			GUI.Label(ResizeController.ResizeGUI(new Rect(300, 240, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">HIGHSCORE</color>", _labelStyle);
 			GUI.Label(ResizeController.ResizeGUI(new Rect(430, 240, 150, 30), ResizeController.Horizontal.right, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">ACHIEVEMENTS</color>", _labelStyle);
 
+			_nextAchievementPage = DrawElement(315, 400, 20, 20, LogoButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+			_previousAchievementPage = DrawElement(375, 400, 20, 20, LogoButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+
 			int yPosition = 270;
 			int xPosition = 465;
 
-			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)
+			if (Input.GetMouseButtonDown(0))
+			{
+				//if (ClickedWithin(_nextAchievementPage))
+				if (Input.GetKey("up"))
+				{
+					_listAchievementfFrom += 3;
+					_achievementPageScope += 3;
+					_achievementPageScope = (_achievementPageScope > PlayersProfiles.Instance.ListOfProfiles.Count) ? _achievementPageScope : PlayersProfiles.Instance.ListOfProfiles.Count;
+					Debug.Log("clicked within next page");
+				}
+
+				if (ClickedWithin(_previousAchievementPage))
+				{
+					//	_listAchievementfFrom -= 3;
+					//	_achievementPageScope += 3;
+					//	//_achievementPageScope = (_achievementPageScope < 3) ? _achievementPageScope : 3;
+					Debug.Log("clicked within previous page");
+				}
+			}
+
+			//for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)
+			for (int i = _listAchievementfFrom; i < _achievementPageScope; i++)
 			{
 				// wypisz wyniki
 				GUI.Label(ResizeController.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
@@ -397,7 +444,7 @@ public class MainLobby : MonoBehaviour {
 
 	private bool ClickedWithin(Rect rect)
 	{
-		return ((_myMousePosition.x >= rect.x) && (_myMousePosition.x <= (rect.x + rect.width)) && (_myMousePosition.y >= rect.y) && (_myMousePosition.y <= (rect.y + rect.height)));
+		return ((_myMousePosition.x >= rect.x) && (_myMousePosition.x <= (rect.x + rect.width)) && ((Screen.height - _myMousePosition.y) >= rect.y) && ((Screen.height - _myMousePosition.y) <= (rect.y + rect.height)));
 	}
 }
 

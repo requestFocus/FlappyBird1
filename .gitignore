@@ -36,3 +36,4 @@ sysinfo.txt
 *.unitypackage
 Flappy Bird Game/.vs/Flappy Bird Game/v15/Server/sqlite3/db.lock
 *.lock
+*.ide
