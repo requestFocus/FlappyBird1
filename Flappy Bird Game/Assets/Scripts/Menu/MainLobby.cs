@@ -86,11 +86,6 @@ public class MainLobby : MonoBehaviour {
 	private void Update()
 	{
 		_myMousePosition = Input.mousePosition;
-
-		if (Input.GetKey("up"))
-		{
-			Debug.Log("up key");
-		}
 	}
 
 	private void OnGUI()
@@ -374,16 +369,15 @@ public class MainLobby : MonoBehaviour {
 
 			if (Input.GetMouseButtonDown(0))
 			{
-				//if (ClickedWithin(_nextAchievementPage))
-				if (Input.GetKey("up"))
+				if (ClickedWithin(_nextAchievementPage))
 				{
-					_listAchievementfFrom += 3;
-					_achievementPageScope += 3;
-					_achievementPageScope = (_achievementPageScope > PlayersProfiles.Instance.ListOfProfiles.Count) ? _achievementPageScope : PlayersProfiles.Instance.ListOfProfiles.Count;
+					//_listAchievementfFrom += 3;
+					//_achievementPageScope += 3;
+					//_achievementPageScope = (_achievementPageScope > PlayersProfiles.Instance.ListOfProfiles.Count) ? _achievementPageScope : PlayersProfiles.Instance.ListOfProfiles.Count;
 					Debug.Log("clicked within next page");
 				}
 
-				if (ClickedWithin(_previousAchievementPage))
+				else if (ClickedWithin(_previousAchievementPage))
 				{
 					//	_listAchievementfFrom -= 3;
 					//	_achievementPageScope += 3;
