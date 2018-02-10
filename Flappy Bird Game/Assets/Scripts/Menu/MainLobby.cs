@@ -70,7 +70,7 @@ public class MainLobby : MonoBehaviour {
 
 	private void Start()
 	{
-		//PlayerPrefs.DeleteAll();
+		PlayerPrefs.DeleteAll();
 
 		SetGUIStyle();
 	

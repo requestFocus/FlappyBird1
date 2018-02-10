@@ -23,7 +23,7 @@ public class PlayerProfileController : MonoBehaviour {
 		{
 			_jsonDataFromGet = PlayerPrefs.GetString(PrefsStringInMemory);										// wczytaj z PlayerPrefs do JSON
 			_loadedProfilesData = JsonUtility.FromJson<PlayersProfiles>(_jsonDataFromGet);					  // wczytaj z JSON do odpowiadającej mu struktury PlayersProfiles
-			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile>();								// jeśli lista nie jest statyczna to trzeba ją w tym miejscu stworzyć==============CZY MUSI BYC STATYCZNA?
+			//PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile>();								// jeśli lista nie jest statyczna to trzeba ją w tym miejscu stworzyć==============CZY MUSI BYC STATYCZNA?
 			PlayersProfiles.Instance.ListOfProfiles = _loadedProfilesData.ListOfProfiles;						// wpisanie zawartości strktury do SINGLETONA
 			return true;
 		}
