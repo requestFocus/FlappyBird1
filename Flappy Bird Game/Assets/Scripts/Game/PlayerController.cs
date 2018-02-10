@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
 	public PlayerProfileController PlayerProfileController;
 	public GameManager GameManager;
 
+	public ParticleSystem PlayerParticles;
+
 	void Start()
 	{
 		_player = GetComponent<Rigidbody2D>();
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour {
 			{
 				Debug.Log("achievement unlocked");
 				// tu będzie kod od particli
+				PlayerParticles.Play();
 			}
 		}
 	}

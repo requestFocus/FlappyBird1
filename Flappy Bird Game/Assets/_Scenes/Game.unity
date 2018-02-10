@@ -113,6 +113,53 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &39250442
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
+  m_IsPrefabParent: 0
+--- !u!198 &39250443 stripped
+ParticleSystem:
+  m_PrefabParentObject: {fileID: 198868904761626056, guid: ecff34ae49dc86243ad5c267b4ba590a,
+    type: 2}
+  m_PrefabInternal: {fileID: 39250442}
 --- !u!1001 &232832839
 Prefab:
   m_ObjectHideFlags: 0
@@ -1575,6 +1622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerProfileController: {fileID: 1324144868}
   GameManager: {fileID: 248079288}
+  PlayerParticles: {fileID: 39250443}
 --- !u!60 &1721447323
 PolygonCollider2D:
   m_ObjectHideFlags: 0
