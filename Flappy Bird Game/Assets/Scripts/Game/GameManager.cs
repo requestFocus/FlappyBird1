@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
 	void CreateObstacle()
 	{
-		Instantiate(BranchPrefab);
+		//Instantiate(BranchPrefab);
 	}
 
 	public void SetScore()

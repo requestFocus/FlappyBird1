@@ -392,8 +392,8 @@ public class MainLobby : MonoBehaviour {
 		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 240, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">HIGHSCORE</color>", _labelStyle);
 		GUI.Label(ResizeController.ResizeGUI(new Rect(430, 240, 150, 30), ResizeController.Horizontal.right, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">ACHIEVEMENTS</color>", _labelStyle);
 
-		_previousAchievementPage = DrawElement(358, 400, 32, 36, PreviousAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.top);
-		_nextAchievementPage = DrawElement(410, 400, 32, 36, NextAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+		_previousAchievementPage = DrawElement(358, 430, 32, 36, PreviousAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+		_nextAchievementPage = DrawElement(410, 430, 32, 36, NextAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.top);
 
 		int yPosition = 270;
 		int xPosition = 465;

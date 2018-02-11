@@ -50,11 +50,17 @@ public class PlayerController : MonoBehaviour {
 	{
 		//float _moveHorizontal = Input.GetAxis("Horizontal");						// Player porusza sie wzgledem osi Y, wiec oś Horizontal jest zbedna
 		float _moveVertical = Input.GetAxis("Vertical");
+		Vector2 _movement = new Vector2(-5, _moveVertical * 8);
 
-		Vector2 _movement = new Vector2(0, _moveVertical);
-		_player.AddForce(_movement * _speed);
+		Debug.Log("Vertical: " + _moveVertical * 4);
+
+		_player.transform.position = _movement;
+
+
+		//_player.AddForce(_movement * _speed);
 	}
-
+	// gravity scale in inspector = 0.2
+	// instantiate'owanie prefabów Branch wyłączone 
 }
 
 
