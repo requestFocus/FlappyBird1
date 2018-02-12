@@ -14,13 +14,14 @@ public class PlayerController : MonoBehaviour {
 	public ParticleSystem PlayerParticles;
 
 	public float Sensitivity;
+	public float Range;
 
 	void Start()
 	{
 		_player = GetComponent<Rigidbody2D>();
-		_speed = 5;
 
-		Sensitivity = 30;
+		Range = 4;
+		Sensitivity = 1;
 	}
 
 	private void Update()
@@ -53,10 +54,12 @@ public class PlayerController : MonoBehaviour {
 	private void MoveBee()
 	{
 		float _moveVertical = Input.GetAxis("Vertical");
-		Vector2 _movement = new Vector2(-5, _moveVertical);
+		Vector2 _movement = new Vector3(-5.0f, _moveVertical * Sensitivity * Range, 0.0f);
 
-		//_player.transform.position = _movement;
-		_player.AddForce(_movement * _speed);
+		Debug.Log("Vertical: " + _moveVertical * Sensitivity);
+
+		_player.transform.position = _movement;
+		//_player.AddForce(_movement * _speed);
 	}
 }
 
