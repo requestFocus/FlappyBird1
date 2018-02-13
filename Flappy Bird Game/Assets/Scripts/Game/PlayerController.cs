@@ -14,14 +14,20 @@ public class PlayerController : MonoBehaviour {
 	public ParticleSystem PlayerParticles;
 
 	public float Sensitivity;
+	public float Velocity;
+	public float Gravity;
 	public float Range;
+
+	public Vector2 OldPosition;
 
 	void Start()
 	{
 		_player = GetComponent<Rigidbody2D>();
 
-		Range = 8;
-		Sensitivity = 1;
+		Sensitivity = 2;
+		Velocity = 0;
+		Gravity = 0.8f;
+		Range = 4;
 	}
 
 	private void Update()
@@ -37,43 +43,47 @@ public class PlayerController : MonoBehaviour {
 	//	}
 	//}
 
-	private void OnTriggerEnter2D(Collider2D _collision)
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (_collision.gameObject.CompareTag("Obstacle"))
+		if (collision.gameObject.CompareTag("Score"))														// zdobyty punkt
 		{
 			GameManager.SetScore();
 			if (GameManager.AchievementToUnlock())
 			{
 				Debug.Log("achievement unlocked");
-				// tu będzie kod od particli
 				PlayerParticles.Play();
 			}
 		}
 
-		if (_collision.gameObject.CompareTag("Wall"))
+		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))		// stracone życie
 		{
-			//Debug.Log("WALL");
 			GameManager.CanvasController.DisplayCanvasOnSummary();
 		}
 	}
 
 	private void MoveBee()
 	{
-		float _moveVertical = Input.GetAxis("Vertical");
-		Vector2 _movement = new Vector3(-5.0f, _moveVertical * Sensitivity * Range, 0.0f);
+		float moveVertical = Input.GetAxis("Vertical");
+		Vector2 movement = new Vector2(-5.0f, moveVertical * Sensitivity * Range);
 
-		//Debug.Log("Vertical: " + _moveVertical * Sensitivity);
+		if (transform.position.y > OldPosition.y)											// jesli player jest aktualnie nad swoją poprzednią pozycją to znaczy, że się wzniosl
+		{
+			Debug.Log("====================== UP ==========================");	
+			Velocity = 0.0f;																// zatem przyspieszenie jest zerowane
+		}
+		Velocity += Gravity * Time.deltaTime;												// przyspieszenie to iloczyn grawitacji i czasu
+		movement.y -= Velocity;																// obniz playera wzgledem osi y na bazie wartosci przyspieszenia
 
-		_player.transform.position = _movement;
+		OldPosition.y = transform.position.y;												// uaktualnij zawartosc poprzedniej pozycji
+
+		transform.position = movement;														// przemiesc playera o wyliczoną wartosc
+
+		Debug.Log("OldPosition.y: " + OldPosition.y + " // transform.position.y: " + transform.position.y + " // Velocity: " + Velocity);
+
 		//_player.AddForce(_movement * _speed);
 	}
 }
 
-/*
- * czy fakt, że używam transform dla mojego rigidbody
- * sprawia, że ten rigidbody musi byc KINEMATIC (DYNAMIC wymaga użycia fizyki)
- * a ew. collider dla innego gameObjectu musi byc opisany skryptem?
- */
 
 
 // gravity scale in inspector = 0.2

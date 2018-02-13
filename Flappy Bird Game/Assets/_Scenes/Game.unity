@@ -227,25 +227,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 1882038352834762, guid: 6a85311275611db4c9bd1dab563e9fe8, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 60542128176934458, guid: 6a85311275611db4c9bd1dab563e9fe8,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 60515859127536194, guid: 6a85311275611db4c9bd1dab563e9fe8,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 61135277239115218, guid: 6a85311275611db4c9bd1dab563e9fe8,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6a85311275611db4c9bd1dab563e9fe8, type: 2}
   m_IsPrefabParent: 0
@@ -1674,6 +1655,8 @@ MonoBehaviour:
     type: 2}
   Sensitivity: 0
   Range: 0
+  Velocity: 0
+  Gravity: 0
 --- !u!60 &1721447323
 PolygonCollider2D:
   m_ObjectHideFlags: 0
