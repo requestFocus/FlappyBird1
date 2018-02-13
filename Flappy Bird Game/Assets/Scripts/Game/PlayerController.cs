@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		_player = GetComponent<Rigidbody2D>();
 
-		Range = 4;
+		Range = 8;
 		Sensitivity = 1;
 	}
 
@@ -29,13 +29,13 @@ public class PlayerController : MonoBehaviour {
 		MoveBee();
 	}
 
-	private void OnCollisionEnter2D(Collision2D _collision)
-	{
-		if (_collision.gameObject.CompareTag("Obstacle"))
-		{
-			GameManager.CanvasController.DisplayCanvasOnSummary();
-		}
-	}
+	//private void OnCollisionEnter2D(Collision2D _collision)
+	//{
+	//	if (_collision.gameObject.CompareTag("Obstacle"))
+	//	{
+	//		GameManager.CanvasController.DisplayCanvasOnSummary();
+	//	}
+	//}
 
 	private void OnTriggerEnter2D(Collider2D _collision)
 	{
@@ -49,6 +49,12 @@ public class PlayerController : MonoBehaviour {
 				PlayerParticles.Play();
 			}
 		}
+
+		if (_collision.gameObject.CompareTag("Wall"))
+		{
+			//Debug.Log("WALL");
+			GameManager.CanvasController.DisplayCanvasOnSummary();
+		}
 	}
 
 	private void MoveBee()
@@ -56,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 		float _moveVertical = Input.GetAxis("Vertical");
 		Vector2 _movement = new Vector3(-5.0f, _moveVertical * Sensitivity * Range, 0.0f);
 
-		Debug.Log("Vertical: " + _moveVertical * Sensitivity);
+		//Debug.Log("Vertical: " + _moveVertical * Sensitivity);
 
 		_player.transform.position = _movement;
 		//_player.AddForce(_movement * _speed);
