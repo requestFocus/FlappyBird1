@@ -18,16 +18,16 @@ public class PlayerController : MonoBehaviour {
 	public float Gravity;
 	public float Range;
 
-	public Vector2 OldPosition;
+	public Vector3 OldPosition;
 
 	void Start()
 	{
 		_player = GetComponent<Rigidbody2D>();
 
-		Sensitivity = 2;
-		Velocity = 0;
-		Gravity = 0.8f;
-		Range = 4;
+		Sensitivity = 1.0f;
+		Velocity = 0.0f;
+		Gravity = 0.2f;
+		Range = 1.0f;
 	}
 
 	private void Update()
@@ -66,21 +66,22 @@ public class PlayerController : MonoBehaviour {
 		float moveVertical = Input.GetAxis("Vertical");
 		Vector2 movement = new Vector2(-5.0f, moveVertical * Sensitivity * Range);
 
-		if (transform.position.y > OldPosition.y)											// jesli player jest aktualnie nad swoją poprzednią pozycją to znaczy, że się wzniosl
+		if (transform.position.y >= OldPosition.y)                                          // jesli player jest aktualnie nad swoją poprzednią pozycją to znaczy, że się wzniosl
 		{
-			Debug.Log("====================== UP ==========================");	
-			Velocity = 0.0f;																// zatem przyspieszenie jest zerowane
+			Debug.Log("============================ UP // RESET ACCELERATION ==========================");
+			Velocity = 0.0f;                                                                // zatem przyspieszenie jest zerowane
+			
 		}
-		Velocity += Gravity * Time.deltaTime;												// przyspieszenie to iloczyn grawitacji i czasu
-		movement.y -= Velocity;																// obniz playera wzgledem osi y na bazie wartosci przyspieszenia
+		Velocity += Gravity * Time.deltaTime;                                               // przyspieszenie to iloczyn grawitacji i czasu
 
-		OldPosition.y = transform.position.y;												// uaktualnij zawartosc poprzedniej pozycji
+		movement.y -= Velocity;                                                             // obniz playera wzgledem osi y na bazie wartosci przyspieszenia
 
-		transform.position = movement;														// przemiesc playera o wyliczoną wartosc
+		OldPosition.y = transform.position.y;                                               // uaktualnij zawartosc poprzedniej pozycji
+		transform.position = movement;                                                      // przemiesc playera o wyliczoną wartosc
 
-		Debug.Log("OldPosition.y: " + OldPosition.y + " // transform.position.y: " + transform.position.y + " // Velocity: " + Velocity);
-
-		//_player.AddForce(_movement * _speed);
+		//string biggerthan = transform.position.y > OldPosition.y ? "wznosze sie" : "opadam";
+		//Debug.Log("OldPosition.y: " + OldPosition.y + " // transform.position.y: " + transform.position.y + " // Velocity: " + Velocity);
+		Debug.Log("transform.position.y: " + transform.position.y + " Velocity: " + Velocity + " // moveVertical: " + moveVertical + " // Time.deltaTime: " + Time.deltaTime);
 	}
 }
 
@@ -88,3 +89,4 @@ public class PlayerController : MonoBehaviour {
 
 // gravity scale in inspector = 0.2
 // instantiate'owanie prefabów Branch wyłączone 
+//_player.AddForce(_movement * _speed);
