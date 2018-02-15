@@ -5,10 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-	//private Rigidbody2D _player;
-	//public PlayerProfileController PlayerProfileController;
 	public GameManager GameManager;
-
 	public ParticleSystem PlayerParticles;
 
 	public float Sensitivity;
@@ -17,25 +14,23 @@ public class PlayerController : MonoBehaviour
 	public float Range;
 
 	public float Acceleration;
-	//public float MoveVertical;
+	public float MoveVertical;
 
 	public Vector2 OldPosition;
 	public Vector2 GravityMovement;
 	public Vector2 BeeMovement;
 
 	public Vector2 Movement;
+	public int Flag;
 
 	void Start()
 	{
-		//_player = GetComponent<Rigidbody2D>();
-
-		Sensitivity = 1f;
+		Sensitivity = 22f;
 		Velocity = 0.0f;
-		Gravity = 1f;
-		Range = 5.0f;
+		Gravity = 20f;
+		Flag = 0;
 
-		GravityMovement = new Vector2(0.0f, 0.0f);
-		BeeMovement = new Vector2(-5.0f, 0.0f);
+		BeeMovement = new Vector2(0.0f, 0.0f);
 	}
 
 	private void Update()
@@ -87,11 +82,22 @@ public class PlayerController : MonoBehaviour
 
 	private void MoveBee()
 	{
-		float MoveVertical = Input.GetAxis("Vertical");
+		MoveVertical = Input.GetAxis("Vertical");
 
+		if (Input.GetKeyUp("s") || (Input.GetKeyUp("w")))
+		{
+			Input.ResetInputAxes();
+		}
 
+		BeeMovement = Vector2.up * MoveVertical * Time.deltaTime * Sensitivity;
 
+		Velocity = Gravity * Time.deltaTime;
+		GravityMovement = Vector2.down * Velocity * Time.deltaTime;
 
+		Debug.Log("MoveVertical: " + MoveVertical + " // Velocity: " + Velocity + " // Time.deltaTime: " + Time.deltaTime + " //// " + "BeeMovement.y: " + BeeMovement.y + " + GravityMovement.y: " + GravityMovement.y + " = Movement.y: " + Movement.y);
+
+		Movement = BeeMovement + GravityMovement;
+		transform.Translate(Movement);
 	}
 }
 
