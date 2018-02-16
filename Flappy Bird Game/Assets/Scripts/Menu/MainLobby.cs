@@ -92,6 +92,17 @@ public class MainLobby : MonoBehaviour {
 
 
 
+	private void Update()
+	{
+		if (MenuStates.Equals(MenuScreens.Achievements))
+		{
+			Debug.Log("aktywne achievementy z update()");
+			DisplayAchievements();
+		}
+	}
+
+
+
 	private void OnGUI()
 	{
 		switch (MenuStates)
@@ -286,7 +297,7 @@ public class MainLobby : MonoBehaviour {
 		_logoRect = DrawElement(315, 20, 170, 170, LogoButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
 		DrawElement(350, 550, 100, 30, menuElement, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
-		if (_isThereAList)       // jesli istnieje lista w pamieci
+		if (_isThereAList)                                                                            // jesli istnieje lista w pamieci
 		{
 			ListAchievements(_listAchievementsFrom, _listAchievementsTo);
 		}
@@ -440,31 +451,55 @@ public class MainLobby : MonoBehaviour {
 				xPosition = 465;
 			}
 
-			if (Input.GetMouseButtonDown(0))
-			{
-				if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
-				//if (ClickedWithin(_nextAchievementPage))
-				{
-					_listAchievementsFrom += (_scope / 2);
-					_listAchievementsTo += (_scope / 2);
-				}
-				else if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo %2 != 0 && (_listAchievementsFrom + (_scope /2)) < PlayersProfiles.Instance.ListOfProfiles.Count)
-				{
-					_listAchievementsFrom += (_scope / 2);
-					_listAchievementsTo += (_scope / 2);
-				}
+			//if (Input.GetMouseButtonDown(0))
+			//{
+			//	if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
+			//	{
+			//		_listAchievementsFrom += (_scope / 2);
+			//		_listAchievementsTo += (_scope / 2);
+			//	}
+			//	else if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo % 2 != 0 && (_listAchievementsFrom + (_scope / 2)) < PlayersProfiles.Instance.ListOfProfiles.Count)
+			//	{
+			//		_listAchievementsFrom += (_scope / 2);
+			//		_listAchievementsTo += (_scope / 2);
+			//	}
 
-				if (ClickedWithin(_previousAchievementPage) && _listAchievementsFrom > 0)
-					{
-						_listAchievementsFrom -= (_scope / 2);
-						_listAchievementsTo -= (_scope / 2);
-					}
+			//	if (ClickedWithin(_previousAchievementPage) && _listAchievementsFrom > 0)
+			//	{
+			//		_listAchievementsFrom -= (_scope / 2);
+			//		_listAchievementsTo -= (_scope / 2);
+			//	}
 
-				Debug.Log(_listAchievementsFrom + " :: " + _listAchievementsTo);
-			}
+			//	Debug.Log(_listAchievementsFrom + " :: " + _listAchievementsTo);
+			//}
 		MenuStates = MenuScreens.Achievements;
 	}
 
+
+	private void DisplayAchievements()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
+			{
+				_listAchievementsFrom += (_scope / 2);
+				_listAchievementsTo += (_scope / 2);
+			}
+			else if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo % 2 != 0 && (_listAchievementsFrom + (_scope / 2)) < PlayersProfiles.Instance.ListOfProfiles.Count)
+			{
+				_listAchievementsFrom += (_scope / 2);
+				_listAchievementsTo += (_scope / 2);
+			}
+
+			if (ClickedWithin(_previousAchievementPage) && _listAchievementsFrom > 0)
+			{
+				_listAchievementsFrom -= (_scope / 2);
+				_listAchievementsTo -= (_scope / 2);
+			}
+
+			//Debug.Log(_listAchievementsFrom + " :: " + _listAchievementsTo);
+		}
+	}
 
 
 	private bool ClickedWithin(Rect rect)
