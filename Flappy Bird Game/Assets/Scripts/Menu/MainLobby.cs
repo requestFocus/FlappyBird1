@@ -85,7 +85,7 @@ public class MainLobby : MonoBehaviour {
 		_justPlayerName = "";
 		_isThereAList = PlayerProfileController.LoadProfiles();                             // jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
 
-		_scope = 5;
+		_scope = 3;
 		_listAchievementsFrom = 0;
 		_listAchievementsTo = _scope;
 	}
@@ -96,8 +96,8 @@ public class MainLobby : MonoBehaviour {
 	{
 		if (MenuStates.Equals(MenuScreens.Achievements))
 		{
-			Debug.Log("aktywne achievementy z update()");
-			DisplayAchievements();
+			//Debug.Log("aktywne achievementy z update()");
+			CalculateStartAndEndPositionsForAchievementsForUpdate();
 		}
 	}
 
@@ -403,15 +403,14 @@ public class MainLobby : MonoBehaviour {
 		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 240, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">HIGHSCORE</color>", _labelStyle);
 		GUI.Label(ResizeController.ResizeGUI(new Rect(430, 240, 150, 30), ResizeController.Horizontal.right, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">ACHIEVEMENTS</color>", _labelStyle);
 
-		_previousAchievementPage = DrawElement(358, 430, 32, 36, PreviousAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.top);
-		_nextAchievementPage = DrawElement(410, 430, 32, 36, NextAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+		_previousAchievementPage = DrawElement(376, 430, 16, 18, PreviousAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+		_nextAchievementPage = DrawElement(410, 430, 16, 18, NextAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.top);
 
 		int yPosition = 270;
 		int xPosition = 465;
 
 			for (int i = (int)listFrom; i < PlayersProfiles.Instance.ListOfProfiles.Count && i < (int)listTo; i++)								// wypisze liste userów od A do B
 			{
-				// wypisz wyniki
 				GUI.Label(ResizeController.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
 							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", _labelStyle);
 
@@ -451,32 +450,30 @@ public class MainLobby : MonoBehaviour {
 				xPosition = 465;
 			}
 
-			//if (Input.GetMouseButtonDown(0))
-			//{
-			//	if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
-			//	{
-			//		_listAchievementsFrom += (_scope / 2);
-			//		_listAchievementsTo += (_scope / 2);
-			//	}
-			//	else if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo % 2 != 0 && (_listAchievementsFrom + (_scope / 2)) < PlayersProfiles.Instance.ListOfProfiles.Count)
-			//	{
-			//		_listAchievementsFrom += (_scope / 2);
-			//		_listAchievementsTo += (_scope / 2);
-			//	}
-
-			//	if (ClickedWithin(_previousAchievementPage) && _listAchievementsFrom > 0)
-			//	{
-			//		_listAchievementsFrom -= (_scope / 2);
-			//		_listAchievementsTo -= (_scope / 2);
-			//	}
-
-			//	Debug.Log(_listAchievementsFrom + " :: " + _listAchievementsTo);
-			//}
+		//CalculateStartAndEndPositionsForAchievementsForOnGUI();
 		MenuStates = MenuScreens.Achievements;
 	}
 
 
-	private void DisplayAchievements()
+	private void CalculateStartAndEndPositionsForAchievementsForUpdate()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			if (ClickedWithin(_previousAchievementPage) && _listAchievementsFrom > 0)
+			{
+				_listAchievementsFrom -= _scope;
+				_listAchievementsTo -= _scope;
+			}
+
+			if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
+			{
+				_listAchievementsFrom += _scope;
+				_listAchievementsTo += _scope;
+			}
+		}
+	}
+
+	private void CalculateStartAndEndPositionsForAchievementsForOnGUI()
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -496,9 +493,13 @@ public class MainLobby : MonoBehaviour {
 				_listAchievementsFrom -= (_scope / 2);
 				_listAchievementsTo -= (_scope / 2);
 			}
-
-			//Debug.Log(_listAchievementsFrom + " :: " + _listAchievementsTo);
 		}
+	}
+
+
+	private void DisplayAchievementsWithMasking()
+	{
+
 	}
 
 

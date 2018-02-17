@@ -14,9 +14,15 @@ public class GameManager : MonoBehaviour
 		InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
+	/*
+	 * w hierarchy managerze znajduje się prefab Branch, aktualnie jest nieaktywny, 
+	 * sluży jako podgląd dla prefaba w przypadku zmian,
+	 * z wersji finalnej zostanie usunięty
+	 */
+
 	void CreateObstacle()
 	{
-		//Instantiate(BranchPrefab);
+		Instantiate(BranchPrefab);
 	}
 
 	public void SetScore()

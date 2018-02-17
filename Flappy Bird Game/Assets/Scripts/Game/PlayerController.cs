@@ -23,20 +23,26 @@ public class PlayerController : MonoBehaviour
 	public Vector2 Movement;
 	public int Flag;
 
+
+
 	void Start()
 	{
-		Sensitivity = 22f;
+		Sensitivity = 15f;
 		Velocity = 0.0f;
-		Gravity = 20f;
+		Gravity = 5f;
 		Flag = 0;
 
 		BeeMovement = new Vector2(0.0f, 0.0f);
 	}
 
+
+
 	private void Update()
 	{
 		MoveBee();
 	}
+
+
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
@@ -56,29 +62,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	//private void MoveBee()
-	//{
-	//	float MoveVertical = Input.GetAxis("Vertical");
 
-	//	if (transform.position.y > OldPosition.y)                                                // jesli player jest aktualnie nad swoją poprzednią pozycją to znaczy, że się wzniosl
-	//	{
-	//		Debug.Log("============================ UP => RESET ACCELERATION ==========================");
-	//		Velocity = 0.0f;                                                           
-	//		GravityMovement.y = 0.0f;                                                           // zatem przyspieszenie (a dokładniej - polozenie playera wzgledem osi y na bazie wartosci przyspieszenia) jest zerowane
-	//	}
-
-	//	Velocity = Gravity * Time.deltaTime;                                                   // predkosc to iloczyn grawitacji i czasu trwania klatki
-	//	GravityMovement.y -= Velocity;                                                             // wylicz polozenie playera wzgledem osi y na bazie wartosci prędkości
-
-	//	BeeMovement.y = MoveVertical * Range;
-
-	//	OldPosition.y = transform.position.y;                                                    // uaktualnij zawartosc poprzedniej pozycji
-
-	//	transform.position = BeeMovement + GravityMovement;                                     // przemiesc playera o wyliczoną wartosc
-	//																							transform.position = BeeMovement;													   // przemiesc playera o wyliczoną wartosc BEZ grawitacji
-	//																							transform.position = GravityMovement;													  // przemiesc playera o wyliczoną wartosc WYŁĄCZNIE grawitacja
-	//	Debug.Log("odczyt z klawiatury: " + MoveVertical + " // BeeMovement.y: " + BeeMovement.y + " + GravityMovement.y: " + GravityMovement.y + " = finalna pozycja Y: " + transform.position.y);
-	//}
 
 	private void MoveBee()
 	{
@@ -86,18 +70,19 @@ public class PlayerController : MonoBehaviour
 
 		if (Input.GetKeyUp("s") || (Input.GetKeyUp("w")))
 		{
-			Input.ResetInputAxes();
+			Input.ResetInputAxes();														// reset wartosci getinputaxis, player moze podskoczyc po osiagnieciu wartosci 1
+			Velocity = 0;																// reset predkosci po wzbiciu sie w gore, player znow zaczyna opadać z predkoscia poczatkowa 0
 		}
 
-		BeeMovement = Vector2.up * MoveVertical * Time.deltaTime * Sensitivity;
+		BeeMovement = Vector2.up * MoveVertical * Time.deltaTime * Sensitivity;			// wyliczenie wektora ruchu playera na bazie Input.GetAxis()
 
-		Velocity = Gravity * Time.deltaTime;
-		GravityMovement = Vector2.down * Velocity * Time.deltaTime;
+		Velocity += Gravity * Time.deltaTime;											// predkosc jako iloczyn grawitacji (przyspieszenia) i czasu
+		GravityMovement = Vector2.down * Velocity * Time.deltaTime;						// wyliczenie wektora przyspieszenia
 
-		Debug.Log("MoveVertical: " + MoveVertical + " // Velocity: " + Velocity + " // Time.deltaTime: " + Time.deltaTime + " //// " + "BeeMovement.y: " + BeeMovement.y + " + GravityMovement.y: " + GravityMovement.y + " = Movement.y: " + Movement.y);
+		//Debug.Log("MoveVertical: " + MoveVertical + " // Velocity: " + Velocity + " // Time.deltaTime: " + Time.deltaTime + " //// " + "BeeMovement.y: " + BeeMovement.y + " + GravityMovement.y: " + GravityMovement.y + " = Movement.y: " + Movement.y);
 
-		Movement = BeeMovement + GravityMovement;
-		transform.Translate(Movement);
+		Movement = BeeMovement + GravityMovement;										// suma wektorów ruchu i opadania
+		transform.Translate(Movement);													// przesuniecie o sume wektorów
 	}
 }
 
@@ -107,8 +92,7 @@ public class PlayerController : MonoBehaviour
  * prędkość naliczana jest jako iloczyn przyspieszenia i czasu
  * 
  * delta ruchu to wektor bedący argumentem dla Translate
- */ 
-
-// gravity scale in inspector = 0.2
-// instantiate'owanie prefabów Branch wyłączone 
-//_player.AddForce(_movement * _speed);
+ * 
+ * (gravity scale in inspector = 0.2)
+ * (_player.AddForce(_movement * _speed);)
+ */
