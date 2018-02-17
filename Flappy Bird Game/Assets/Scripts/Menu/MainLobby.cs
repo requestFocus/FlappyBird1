@@ -96,8 +96,7 @@ public class MainLobby : MonoBehaviour {
 	{
 		if (MenuStates.Equals(MenuScreens.Achievements))
 		{
-			//Debug.Log("aktywne achievementy z update()");
-			CalculateStartAndEndPositionsForAchievementsForUpdate();
+			CalculateStartAndEndPositionsForAchievementsForUpdate();						// poza OnGUI, bo OnGUI wywoluje sie 2x na klatke, co zaburza zliczanie kliknięć
 		}
 	}
 
@@ -168,18 +167,21 @@ public class MainLobby : MonoBehaviour {
 		_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 		_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
+		//if (Time.frameCount % 100 == 0)
+		//	Debug.Log("X: " + _achievementsRect.x + " // Y: " + _achievementsRect.y + " // szer button: " + _achievementsRect.width + " // wys button: " + _achievementsRect.height + " // szer ekran: " + Screen.width + " // wys ekran: " + Screen.height);
+
 		//====================================================================================================================================
-		//DrawElement(375, 275, 50, 50, NewGameButton, "left", "top");
-		//DrawElement(375, 275, 50, 50, HowtoPlayButton, "left", "center");
-		//DrawElement(375, 275, 50, 50, CreditsButton, "left", "bottom");
+		//DrawElement(350, 275, 100, 50, NewGameButton, ResizeController.Horizontal.left, ResizeController.Vertical.top);
+		//DrawElement(350, 275, 100, 50, HowtoPlayButton, ResizeController.Horizontal.left, ResizeController.Vertical.center);
+		//DrawElement(350, 275, 100, 50, CreditsButton, ResizeController.Horizontal.left, ResizeController.Vertical.bottom);
 
-		//DrawElement(375, 275, 50, 50, NewGameButton, "center", "top");
-		//DrawElement(375, 275, 50, 50, HowtoPlayButton, "center", "center");
-		//DrawElement(375, 275, 50, 50, CreditsButton, "center", "bottom");
+		//DrawElement(375, 250, 50, 100, NewGameButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+		//DrawElement(375, 250, 50, 100, HowtoPlayButton, ResizeController.Horizontal.center, ResizeController.Vertical.center);
+		//DrawElement(375, 250, 50, 100, CreditsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
-		//DrawElement(375, 275, 50, 50, NewGameButton, "right", "top");
-		//DrawElement(375, 275, 50, 50, HowtoPlayButton, "right", "center");
-		//DrawElement(375, 275, 50, 50, CreditsButton, "right", "bottom");
+		//DrawElement(350, 275, 100, 50, NewGameButton, ResizeController.Horizontal.right, ResizeController.Vertical.top);
+		//DrawElement(350, 275, 100, 50, HowtoPlayButton, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+		//DrawElement(350, 275, 100, 50, CreditsButton, ResizeController.Horizontal.right, ResizeController.Vertical.bottom);
 		//====================================================================================================================================
 
 		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
@@ -328,7 +330,7 @@ public class MainLobby : MonoBehaviour {
 		DrawElement(350, 550, 100, 30, menuElement, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
 		_labelContent.text = "<color=#" + _darkGreyFont + ">USE ARROWS ( <color=#" + _lightGreyFont + ">↑</color> / <color=#" + _lightGreyFont + ">↓</color> ) TO CONTROL THE BEE\n\n" +
-						"BEAT HIGHSCORES, UNLOCK ACHIEVEMENTS \nAND HAVE FUN! \n\nGOOD LUCK!</color>";
+						"BEAT HIGHSCORES, UNLOCK ACHIEVEMENTS \nAND HAVE FUN!\n\nWATCH OUT! GRAVITY KILLS!\n\nGOOD LUCK!</color>";
 		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 300, 200, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), _labelContent, _labelStyle);
 
 		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
@@ -403,15 +405,15 @@ public class MainLobby : MonoBehaviour {
 		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 240, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">HIGHSCORE</color>", _labelStyle);
 		GUI.Label(ResizeController.ResizeGUI(new Rect(430, 240, 150, 30), ResizeController.Horizontal.right, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">ACHIEVEMENTS</color>", _labelStyle);
 
-		_previousAchievementPage = DrawElement(376, 430, 16, 18, PreviousAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.top);
-		_nextAchievementPage = DrawElement(410, 430, 16, 18, NextAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+		_previousAchievementPage = DrawElement(376, 430, 16, 18, PreviousAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+		_nextAchievementPage = DrawElement(410, 430, 16, 18, NextAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
 		int yPosition = 270;
 		int xPosition = 465;
 
 			for (int i = (int)listFrom; i < PlayersProfiles.Instance.ListOfProfiles.Count && i < (int)listTo; i++)								// wypisze liste userów od A do B
 			{
-				GUI.Label(ResizeController.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
+				GUI.Label(ResizeController.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center),
 							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", _labelStyle);
 
 				GUI.Label(ResizeController.ResizeGUI(new Rect(300, yPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
@@ -419,31 +421,31 @@ public class MainLobby : MonoBehaviour {
 
 				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete10)
 				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeController.Horizontal.center, ResizeController.Vertical.top);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+					DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
 				}
 				else
 				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete10Inactive, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+					DrawElement(xPosition, yPosition, 23, 28, Complete10Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
 				}
 
 				xPosition += 30;
 				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete25)
 				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete25Active, ResizeController.Horizontal.center, ResizeController.Vertical.top);           // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+					DrawElement(xPosition, yPosition, 23, 28, Complete25Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);
 				}
 				else
 				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete25Inactive, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+					DrawElement(xPosition, yPosition, 23, 28, Complete25Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
 				}
 
 				xPosition += 30;
 				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete50)
 				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete50Active, ResizeController.Horizontal.center, ResizeController.Vertical.top);           // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+					DrawElement(xPosition, yPosition, 23, 28, Complete50Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);
 				}
 				else
 				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete50Inactive, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+					DrawElement(xPosition, yPosition, 23, 28, Complete50Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
 				}
 
 				yPosition += 30;

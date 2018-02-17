@@ -6,16 +6,11 @@ public class ResizeController : MonoBehaviour
 {
 	private float _defaultScreenWidth = 800;
 	private float _defaultScreenHeight = 600;
-	//private float _rectToScreenWidthRatio;
-	//private float _rectToScreenHeightRatio;
-	//private float _rectWidth;
-	//private float _rectHeight;
-	//private float _rectX;
-	//private float _rectY;
-
 	private float _scaleWidth;
 	private float _scaleHeigth;
-	private float _usableScaleWH;
+	private float _usableScale;
+
+
 
 	public enum Horizontal
 	{
@@ -25,6 +20,8 @@ public class ResizeController : MonoBehaviour
 	}
 	public Horizontal HorizontalAlignment;
 
+
+
 	public enum Vertical
 	{
 		top,
@@ -33,39 +30,47 @@ public class ResizeController : MonoBehaviour
 	}
 	public Vertical VerticalAlignment;
 
+
+
 	public Rect ResizeGUI(Rect rect, Horizontal horizontalAlignment, Vertical verticalAlignment)
 	{
 		_scaleWidth = Screen.width / _defaultScreenWidth;
 		_scaleHeigth = Screen.height / _defaultScreenHeight;
-		_usableScaleWH = Mathf.Min(_scaleWidth, _scaleHeigth);
+		_usableScale = Mathf.Min(_scaleWidth, _scaleHeigth);
+
+		float middleButtonXPosition = rect.x + rect.width / 2;
+		float middleButtonYPosition = rect.y + rect.height / 2;
 
 		switch (horizontalAlignment)
 		{
 			case Horizontal.left:
-				rect.x = rect.x;                                                                 // bez zmian
+				//middleButtonXPosition = middleButtonXPosition;                                                                 // bez zmian
 				break;
 			case Horizontal.center:
-				rect.x = rect.x + ((Screen.width - _defaultScreenWidth) / 2);                   // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
+				middleButtonXPosition = middleButtonXPosition + ((Screen.width - _defaultScreenWidth) / 2);                   // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
 				break;
 			case Horizontal.right:
-				rect.x = rect.x + (Screen.width - _defaultScreenWidth);                      // przesuwa się o tyle, o ile zmienia się wielkość ekranu
+				middleButtonXPosition = middleButtonXPosition + (Screen.width - _defaultScreenWidth);                      // przesuwa się o tyle, o ile zmienia się wielkość ekranu
 				break;
 		}
 
 		switch (verticalAlignment)
 		{
 			case Vertical.top:
-				rect.y = rect.y;                                                               // bez zmian
+				//middleButtonYPosition = middleButtonYPosition;                                                                 // bez zmian
 				break;
 			case Vertical.center:
-				rect.y = rect.y + ((Screen.height - _defaultScreenHeight) / 2);                // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
+				middleButtonYPosition = middleButtonYPosition + ((Screen.height - _defaultScreenHeight) / 2);                   // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
 				break;
 			case Vertical.bottom:
-				rect.y = rect.y + (Screen.height - _defaultScreenHeight);                       // przesuwa się o tyle, o ile zmienia się wielkość ekranu
+				middleButtonYPosition = middleButtonYPosition + (Screen.height - _defaultScreenHeight);                       // przesuwa się o tyle, o ile zmienia się wielkość ekranu
 				break;
 		}
 
-		return new Rect(rect.x, rect.y, rect.width * _usableScaleWH, rect.height * _usableScaleWH);
+		rect.x = middleButtonXPosition - (rect.width * _usableScale / 2);
+		rect.y = middleButtonYPosition - (rect.height * _usableScale / 2);
+
+		return new Rect(rect.x, rect.y, rect.width * _usableScale, rect.height * _usableScale);
 	}
 }
 
