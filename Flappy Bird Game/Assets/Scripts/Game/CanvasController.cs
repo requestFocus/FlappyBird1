@@ -77,6 +77,7 @@ public class CanvasController : MonoBehaviour
 	{
 		Time.timeScale = 0;
 		SetSummaryScreen(true);
+
 		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + GameManager.GetScore();
 
 		if (CheckHighscoreTable())

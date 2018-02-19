@@ -19,9 +19,7 @@ public class GameManager : MonoBehaviour
 		_intervals = new float[] { 3.0f, 2.5f, 2.0f, 1.5f, 1.0f, 0.5f };
 		i = 0;
 
-		//InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
-
-		StartCoroutine(CreateObstacle());
+		StartCoroutine(CreateObstacle());                                           //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
 	/*
@@ -56,7 +54,7 @@ public class GameManager : MonoBehaviour
 
 	public float ObstacleTTL()
 	{
-		if (GetScore() != 0 && GetScore() % 5 == 0 && i < _intervals.Length)
+		if (GetScore() != 0 && GetScore() % 10 == 0 && i < _intervals.Length)
 		{
 			_decreasingInterval = _intervals[i++];
 		}
