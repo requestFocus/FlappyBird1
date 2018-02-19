@@ -4,36 +4,57 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	private int _currentScore;
-
 	public GameObject BranchPrefab;
 	public CanvasController CanvasController;
 
-	void Start()
+	private int _currentScore;
+
+	private void Start()
 	{
 		InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
 	/*
 	 * w hierarchy managerze znajduje się prefab Branch, aktualnie jest nieaktywny, 
-	 * sluży jako podgląd dla prefaba w przypadku zmian,
-	 * z wersji finalnej zostanie usunięty
+	 * sluży jako podgląd dla prefaba w przypadku ew. zmian,
+	 * z wersji finalnej zostanie USUNIĘTY
 	 */
 
-	void CreateObstacle()
+
+
+	private void CreateObstacle()
 	{
 		Instantiate(BranchPrefab);
 	}
+
+
 
 	public void SetScore()
 	{
 		_currentScore++;
 	}
 
+
+
 	public int GetScore()
 	{
 		return _currentScore;
 	}
+
+
+
+	//public float AccelerateBranch()
+	//{
+	//	if (GetScore() % 5 == 0)
+	//	{
+	//		BranchAcceleration += 50;
+	//		Debug.Log("przyspieszamy");
+	//	}
+
+	//	return BranchAcceleration;
+	//}
+
+
 
 	public bool AchievementToUnlock()
 	{

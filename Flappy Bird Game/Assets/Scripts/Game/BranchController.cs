@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class BranchController : MonoBehaviour {
 
-	private float obstacleAcceleration;
-	private float startXPosition;
-	private float endXPosition;
-	private float yPosition;
+	private float _startXPosition;
+	private float _endXPosition;
+	private float _yPosition;
+	private float _acceleration;
 
-	void Start () {
-		obstacleAcceleration = 50f;
+	void Start ()
+	{
+		_startXPosition = 5.0f;
+		_endXPosition = -10.88f;
+		_yPosition = Random.Range(-3.0f, 3.0f);
+		_acceleration = 5.0f;
 
-		startXPosition = 5.0f;
-		endXPosition = -10.88f;
-		yPosition = Random.Range(-3.0f, 3.0f);
-
-		transform.position = new Vector3(startXPosition, yPosition);
+		transform.position = new Vector3(_startXPosition, _yPosition);
 	}
 
 	private void FixedUpdate()
@@ -26,16 +26,15 @@ public class BranchController : MonoBehaviour {
 
 	private void MoveObstacle()
 	{
-		if (transform.position.x <= startXPosition && transform.position.x >= endXPosition)
+		if (transform.position.x <= _startXPosition && transform.position.x >= _endXPosition)
 		{
-			transform.position += (new Vector3(-0.1f, 0, 0) * Time.deltaTime * obstacleAcceleration);
+			transform.position += (Vector3.left * Time.deltaTime * _acceleration);
 		}
 		else
 		{
 			Destroy(gameObject);
 		}
 	}
-
 }
 
 

@@ -85,7 +85,7 @@ public class MainLobby : MonoBehaviour {
 		_justPlayerName = "";
 		_isThereAList = PlayerProfileController.LoadProfiles();                             // jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
 
-		_scope = 3;
+		_scope = 5;
 		_listAchievementsFrom = 0;
 		_listAchievementsTo = _scope;
 	}
@@ -457,6 +457,7 @@ public class MainLobby : MonoBehaviour {
 	}
 
 
+
 	private void CalculateStartAndEndPositionsForAchievementsForUpdate()
 	{
 		if (Input.GetMouseButtonDown(0))
@@ -474,6 +475,8 @@ public class MainLobby : MonoBehaviour {
 			}
 		}
 	}
+
+
 
 	private void CalculateStartAndEndPositionsForAchievementsForOnGUI()
 	{
@@ -499,10 +502,12 @@ public class MainLobby : MonoBehaviour {
 	}
 
 
+
 	private void DisplayAchievementsWithMasking()
 	{
 
 	}
+
 
 
 	private bool ClickedWithin(Rect rect)

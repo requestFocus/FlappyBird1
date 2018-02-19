@@ -7,30 +7,22 @@ public class PlayerController : MonoBehaviour
 {
 	public GameManager GameManager;
 	public ParticleSystem PlayerParticles;
+	public CanvasController CanvasController;
 
 	public float Sensitivity;
 	public float Velocity;
 	public float Gravity;
-	public float Range;
 
-	public float Acceleration;
 	public float MoveVertical;
-
-	public Vector2 OldPosition;
 	public Vector2 GravityMovement;
 	public Vector2 BeeMovement;
-
 	public Vector2 Movement;
-	public int Flag;
-
-
 
 	void Start()
 	{
-		Sensitivity = 15f;
+		Sensitivity = 12f;
 		Velocity = 0.0f;
-		Gravity = 5f;
-		Flag = 0;
+		Gravity = 3f;
 
 		BeeMovement = new Vector2(0.0f, 0.0f);
 	}
@@ -51,8 +43,8 @@ public class PlayerController : MonoBehaviour
 			GameManager.SetScore();
 			if (GameManager.AchievementToUnlock())
 			{
-				Debug.Log("achievement unlocked");
 				PlayerParticles.Play();
+				StartCoroutine(CanvasController.AchievementUnlockedNotification());
 			}
 		}
 

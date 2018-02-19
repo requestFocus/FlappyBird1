@@ -11,6 +11,7 @@ public class CanvasController : MonoBehaviour
 	public Text NameScoreGamePlay;
 	public Text ScoreGamePlay;
 	public Text HighScoreGamePlay;
+	public Text AchievementUnlockedGamePlay;
 	public Button RepeatButton;
 	public Button DontRepeat;
 	public Canvas Canvas;
@@ -23,6 +24,7 @@ public class CanvasController : MonoBehaviour
 	{
 		NameScoreSummary.text = "";
 		NewHighscoreSummary.text = "";
+		AchievementUnlockedGamePlay.text = "";
 		SetSummaryScreen(false);
 	}
 
@@ -101,5 +103,12 @@ public class CanvasController : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	public IEnumerator AchievementUnlockedNotification()
+	{
+		AchievementUnlockedGamePlay.text = "New achievement!";
+		yield return new WaitForSeconds(2);
+		AchievementUnlockedGamePlay.text = "";
 	}
 }
