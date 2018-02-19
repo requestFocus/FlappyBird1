@@ -8,10 +8,20 @@ public class GameManager : MonoBehaviour
 	public CanvasController CanvasController;
 
 	private int _currentScore;
+	private float _decreasingInterval;
+
+	private float[] _intervals;
+	private int i;
 
 	private void Start()
 	{
-		InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
+		_decreasingInterval = 3.0f;
+		_intervals = new float[] { 3.0f, 2.5f, 2.0f, 1.5f, 1.0f, 0.5f };
+		i = 0;
+
+		//InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
+
+		StartCoroutine(CreateObstacle());
 	}
 
 	/*
@@ -20,13 +30,14 @@ public class GameManager : MonoBehaviour
 	 * z wersji finalnej zostanie USUNIĘTY
 	 */
 
-
-
-	private void CreateObstacle()
+	private IEnumerator CreateObstacle()
 	{
-		Instantiate(BranchPrefab);
+		while (true)
+		{
+			yield return new WaitForSeconds(ObstacleTTL());
+			Instantiate(BranchPrefab);
+		}
 	}
-
 
 
 	public void SetScore()
@@ -43,16 +54,15 @@ public class GameManager : MonoBehaviour
 
 
 
-	//public float AccelerateBranch()
-	//{
-	//	if (GetScore() % 5 == 0)
-	//	{
-	//		BranchAcceleration += 50;
-	//		Debug.Log("przyspieszamy");
-	//	}
+	public float ObstacleTTL()
+	{
+		if (GetScore() != 0 && GetScore() % 5 == 0 && i < _intervals.Length)
+		{
+			_decreasingInterval = _intervals[i++];
+		}
 
-	//	return BranchAcceleration;
-	//}
+		return _decreasingInterval;
+	}
 
 
 
@@ -88,4 +98,3 @@ public class GameManager : MonoBehaviour
 }
 
 
-// jak sprawić, by CanvasController był dostepny tylko z GameManagera
