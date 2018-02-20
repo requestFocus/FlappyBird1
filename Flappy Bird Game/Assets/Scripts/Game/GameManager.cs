@@ -8,16 +8,13 @@ public class GameManager : MonoBehaviour
 	public CanvasController CanvasController;
 
 	private int _currentScore;
-	private float _decreasingInterval;
-
-	private float[] _intervals;
-	private int i;
+	private float _timeIntervalForCoroutine;
+	private float _intervalStep;
 
 	private void Start()
 	{
-		_decreasingInterval = 3.0f;
-		_intervals = new float[] { 3.0f, 2.5f, 2.0f, 1.5f, 1.0f, 0.5f };
-		i = 0;
+		_intervalStep = 0.5f;
+		SetTimeIntervalForCoroutine(3.0f);
 
 		StartCoroutine(CreateObstacle());                                           //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
@@ -32,7 +29,8 @@ public class GameManager : MonoBehaviour
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(ObstacleTTL());
+			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
+			Debug.Log("PREFAB");
 			Instantiate(BranchPrefab);
 		}
 	}
@@ -52,16 +50,35 @@ public class GameManager : MonoBehaviour
 
 
 
-	public float ObstacleTTL()
+	public float CalculateTimeIntervalForObstacles()
 	{
-		if (GetScore() != 0 && GetScore() % 10 == 0 && i < _intervals.Length)
+		if (GetScore() != 0 && GetScore() % 3 == 0 && GetTimeIntervalForCoroutine() > 1.0f)
 		{
-			_decreasingInterval = _intervals[i++];
+			SetTimeIntervalForCoroutine(GetTimeIntervalForCoroutine() - _intervalStep);
+			Debug.Log("GetScore(): " + GetScore() + " // GetTimeIntervalForCoroutine(): " + GetTimeIntervalForCoroutine());
 		}
-
-		return _decreasingInterval;
+		return _timeIntervalForCoroutine;
 	}
 
+
+
+	public float GetTimeIntervalForCoroutine()
+	{
+		return _timeIntervalForCoroutine;
+	}
+
+
+	public void SetTimeIntervalForCoroutine(float interval)
+	{
+		_timeIntervalForCoroutine = interval;
+	}
+
+	//private float[] _intervals;
+	//private int _i;
+	//_intervals = new float[] { 2.7f, 2.4f, 2.1f, 1.8f, 1.5f, 1.2f, 0.9f, 0.6f };
+	//i = 0;
+	//if (GetScore() != 0 && GetScore() % 3 == 0 && i < _intervals.Length && _timeIntervalForCoroutine >= 1.0f)
+	//_decreasingInterval = _intervals[i++];
 
 
 	public bool AchievementToUnlock()

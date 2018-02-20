@@ -61,6 +61,11 @@ public class MainLobby : MonoBehaviour {
 	private bool _isThereAList;
 	private bool _isOnTheList;
 
+	private int _yPositionForMaskingStartCurrent;
+	private int _yPositionForMaskingEndCurrent;
+	private int _yPositionForMaskingStartFixed;
+	private int _listEntriesDisplayed;
+
 	private enum MenuScreens
 	{
 		MainMenu,
@@ -85,10 +90,30 @@ public class MainLobby : MonoBehaviour {
 		_justPlayerName = "";
 		_isThereAList = PlayerProfileController.LoadProfiles();                             // jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
 
+		// do przemieszczania achievementow stronami
 		_scope = 5;
 		_listAchievementsFrom = 0;
 		_listAchievementsTo = _scope;
+
+		// do przemieszczania achievementów maską
+		_listEntriesDisplayed = 7;
+		_yPositionForMaskingStartFixed = 270;
+		_yPositionForMaskingStartCurrent = _yPositionForMaskingStartFixed;
+		_yPositionForMaskingEndCurrent = _yPositionForMaskingStartCurrent + ((PlayersProfiles.Instance.ListOfProfiles.Count - 1) * 30);					// bo pierwsza pozycja już jest uwzględniona
+
+
+
+		//print("Starting " + Time.time);
+		//yield return StartCoroutine(WaitAndPrint());
+		//yield return StartCoroutine("WaitAndPrint");				// wywołanie stringiem kosztem wydajności, ale umożliwia wywołanie StopCoroutine("Method");
+		//print("Done " + Time.time);
 	}
+
+	//IEnumerator WaitAndPrint()
+	//{
+	//	yield return new WaitForSeconds(5);
+	//	print("WaitAndPrint " + Time.time);
+	//}
 
 
 
@@ -96,7 +121,8 @@ public class MainLobby : MonoBehaviour {
 	{
 		if (MenuStates.Equals(MenuScreens.Achievements))
 		{
-			CalculateStartAndEndPositionsForAchievementsForUpdate();						// poza OnGUI, bo OnGUI wywoluje sie 2x na klatke, co zaburza zliczanie kliknięć
+			//CalculateStartAndEndPositionsForAchievementsForUpdate();						// poza OnGUI, bo OnGUI wywoluje sie 2x na klatke, co zaburza zliczanie kliknięć
+			DisplayAchievementsWithMasking();
 		}
 	}
 
@@ -301,7 +327,8 @@ public class MainLobby : MonoBehaviour {
 
 		if (_isThereAList)                                                                            // jesli istnieje lista w pamieci
 		{
-			ListAchievements(_listAchievementsFrom, _listAchievementsTo);
+			//ListAchievements(_listAchievementsFrom, _listAchievementsTo);
+			ListAchievementsWithMasking();
 		}
 		else                                                                                            // jesli w pamieci nie istnieje lista userów
 		{
@@ -400,25 +427,30 @@ public class MainLobby : MonoBehaviour {
 
 	private void ListAchievements(float listFrom, float listTo)                                                         // ładowane po kliknieciu buttona START w menu NEW GAME
 	{
-
+		// LABELS
 		GUI.Label(ResizeController.ResizeGUI(new Rect(200, 240, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">NAME</color>", _labelStyle);
 		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 240, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">HIGHSCORE</color>", _labelStyle);
 		GUI.Label(ResizeController.ResizeGUI(new Rect(430, 240, 150, 30), ResizeController.Horizontal.right, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">ACHIEVEMENTS</color>", _labelStyle);
 
+		// BUTTONS
 		_previousAchievementPage = DrawElement(376, 430, 16, 18, PreviousAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 		_nextAchievementPage = DrawElement(410, 430, 16, 18, NextAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
 		int yPosition = 270;
 		int xPosition = 465;
 
-			for (int i = (int)listFrom; i < PlayersProfiles.Instance.ListOfProfiles.Count && i < (int)listTo; i++)								// wypisze liste userów od A do B
+		for (int i = (int)listFrom; i < PlayersProfiles.Instance.ListOfProfiles.Count && i < (int)listTo; i++)								// wypisze liste userów od A do B
 			{
+
+				// PLAYERNAME
 				GUI.Label(ResizeController.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center),
 							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", _labelStyle);
 
+				// HIGHSCORE
 				GUI.Label(ResizeController.ResizeGUI(new Rect(300, yPosition, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
 							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "</color>", _labelStyle);
 
+				// ACHIEVEMENTS
 				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete10)
 				{
 					DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
@@ -505,9 +537,80 @@ public class MainLobby : MonoBehaviour {
 
 	private void DisplayAchievementsWithMasking()
 	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			if (ClickedWithin(_previousAchievementPage) && _yPositionForMaskingEndCurrent > _yPositionForMaskingStartFixed + (_listEntriesDisplayed * 30))
+			{
+				_yPositionForMaskingStartCurrent -= 30;
+				_yPositionForMaskingEndCurrent = _yPositionForMaskingStartCurrent + PlayersProfiles.Instance.ListOfProfiles.Count * 30;
+			}
 
+			if (ClickedWithin(_nextAchievementPage) && _yPositionForMaskingStartCurrent < _yPositionForMaskingStartFixed)
+			{
+				_yPositionForMaskingStartCurrent += 30;
+				_yPositionForMaskingEndCurrent = _yPositionForMaskingStartCurrent + PlayersProfiles.Instance.ListOfProfiles.Count * 30;
+			}
+		}
 	}
 
+
+	private void ListAchievementsWithMasking()                                                         // ładowane po kliknieciu buttona START w menu NEW GAME
+	{
+
+		GUI.Label(ResizeController.ResizeGUI(new Rect(200, 240, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">NAME</color>", _labelStyle);
+		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 240, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">HIGHSCORE</color>", _labelStyle);
+		GUI.Label(ResizeController.ResizeGUI(new Rect(430, 240, 150, 30), ResizeController.Horizontal.right, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">ACHIEVEMENTS</color>", _labelStyle);
+
+		_previousAchievementPage = DrawElement(10, 430, 16, 18, PreviousAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+		_nextAchievementPage = DrawElement(764, 430, 16, 18, NextAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+
+		int yPositionForMasking = _yPositionForMaskingStartCurrent;
+		int xPosition = 465;
+
+		if (_yPositionForMaskingStartCurrent <= _yPositionForMaskingEndCurrent)
+		{
+			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)                              // wypisze liste userów 
+			{
+				GUI.Label(ResizeController.ResizeGUI(new Rect(200, yPositionForMasking, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center),
+							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", _labelStyle);
+
+				GUI.Label(ResizeController.ResizeGUI(new Rect(300, yPositionForMasking, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
+							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "</color>", _labelStyle);
+
+				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete10)
+				{
+					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete10Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+				}
+				else
+				{
+					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete10Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+				}
+
+				xPosition += 30;
+				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete25)
+				{
+					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete25Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+				}
+				else
+				{
+					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete25Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+				}
+
+				xPosition += 30;
+				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete50)
+				{
+					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete50Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+				}
+				else
+				{
+					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete50Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+				}
+
+				yPositionForMasking += 30;
+				xPosition = 465;
+			}
+		}
+	}
 
 
 	private bool ClickedWithin(Rect rect)

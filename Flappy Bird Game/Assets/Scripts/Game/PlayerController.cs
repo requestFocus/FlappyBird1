@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
 		if (collision.gameObject.CompareTag("Score"))                                                       // zdobyty punkt
 		{
 			GameManager.SetScore();
+			Debug.Log("OnTriggerEnter2D Score: " + GameManager.GetScore());
 			if (GameManager.AchievementToUnlock())
 			{
 				PlayerParticles.Play();
