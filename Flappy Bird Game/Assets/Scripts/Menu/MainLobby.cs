@@ -121,7 +121,7 @@ public class MainLobby : MonoBehaviour {
 	{
 		if (MenuStates.Equals(MenuScreens.Achievements))
 		{
-			//CalculateStartAndEndPositionsForAchievementsForUpdate();						// poza OnGUI, bo OnGUI wywoluje sie 2x na klatke, co zaburza zliczanie kliknięć
+			//CalculateStartAndEndPositionsForAchievementsForUpdate();                        // poza OnGUI, bo OnGUI wywoluje sie 2x na klatke, co zaburza zliczanie kliknięć
 			DisplayAchievementsWithMasking();
 		}
 	}
