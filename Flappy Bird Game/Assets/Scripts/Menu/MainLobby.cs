@@ -582,7 +582,7 @@ public class MainLobby : MonoBehaviour {
 					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete10Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
 				}
 				else
-				{
+				{ 
 					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete10Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
 				}
 
