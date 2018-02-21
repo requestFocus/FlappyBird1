@@ -11,8 +11,16 @@ public class GameManager : MonoBehaviour
 	private float _timeIntervalForCoroutine;
 	private float _intervalStep;
 
+	private enum _intervalLockItems
+	{
+		Locked,
+		Unlocked
+	};
+	private _intervalLockItems _intervalLock;
+
 	private void Start()
 	{
+		_intervalLock = _intervalLockItems.Unlocked;
 		_intervalStep = 0.5f;
 		SetTimeIntervalForCoroutine(3.0f);
 
@@ -30,7 +38,7 @@ public class GameManager : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			Debug.Log("PREFAB");
+			//Debug.Log("PREFAB");
 			Instantiate(BranchPrefab);
 		}
 	}
@@ -39,6 +47,7 @@ public class GameManager : MonoBehaviour
 	public void SetScore()
 	{
 		_currentScore++;
+		_intervalLock = _intervalLockItems.Locked;
 	}
 
 
@@ -52,11 +61,13 @@ public class GameManager : MonoBehaviour
 
 	public float CalculateTimeIntervalForObstacles()
 	{
-		if (GetScore() != 0 && GetScore() % 3 == 0 && GetTimeIntervalForCoroutine() > 1.0f)
+		if (GetScore() != 0 && GetScore() % 3 == 0 && GetTimeIntervalForCoroutine() > 1.0f && _intervalLock == _intervalLockItems.Locked)
 		{
 			SetTimeIntervalForCoroutine(GetTimeIntervalForCoroutine() - _intervalStep);
-			Debug.Log("GetScore(): " + GetScore() + " // GetTimeIntervalForCoroutine(): " + GetTimeIntervalForCoroutine());
+
+			//Debug.Log("GetScore(): " + GetScore() + " // GetTimeIntervalForCoroutine(): " + GetTimeIntervalForCoroutine() + " // lockInterval: " + _lockInterval);
 		}
+		_intervalLock = _intervalLockItems.Unlocked;
 		return _timeIntervalForCoroutine;
 	}
 
