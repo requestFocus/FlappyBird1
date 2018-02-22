@@ -121,8 +121,8 @@ public class MainLobby : MonoBehaviour {
 	{
 		if (MenuStates.Equals(MenuScreens.Achievements))
 		{
-			//CalculateStartAndEndPositionsForAchievementsForUpdate();                        // poza OnGUI, bo OnGUI wywoluje sie 2x na klatke, co zaburza zliczanie kliknięć
-			DisplayAchievementsWithMasking();
+			CalculateStartAndEndPositionsForAchievementsForUpdate();                        // poza OnGUI, bo OnGUI wywoluje sie 2x na klatke, co zaburza zliczanie kliknięć
+			//DisplayAchievementsWithMasking();
 		}
 	}
 
@@ -324,8 +324,8 @@ public class MainLobby : MonoBehaviour {
 
 		if (_isThereAList)                                                                            // jesli istnieje lista w pamieci
 		{
-			//ListAchievements(_listAchievementsFrom, _listAchievementsTo);
-			ListAchievementsWithMasking();
+			ListAchievements(_listAchievementsFrom, _listAchievementsTo);
+			//ListAchievementsWithMasking();
 		}
 		else                                                                                            // jesli w pamieci nie istnieje lista userów
 		{
