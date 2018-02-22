@@ -103,17 +103,17 @@ public class MainLobby : MonoBehaviour {
 
 
 
-		//print("Starting " + Time.time);
-		//yield return StartCoroutine(WaitAndPrint());
-		//yield return StartCoroutine("WaitAndPrint");				// wywołanie stringiem kosztem wydajności, ale umożliwia wywołanie StopCoroutine("Method");
-		//print("Done " + Time.time);
+																//print("Starting " + Time.time);
+																//yield return StartCoroutine(WaitAndPrint());
+																//yield return StartCoroutine("WaitAndPrint");				// wywołanie stringiem kosztem wydajności, ale umożliwia wywołanie StopCoroutine("Method");
+																//print("Done " + Time.time);
 	}
 
-	//IEnumerator WaitAndPrint()
-	//{
-	//	yield return new WaitForSeconds(5);
-	//	print("WaitAndPrint " + Time.time);
-	//}
+																//IEnumerator WaitAndPrint()
+																//{
+																//	yield return new WaitForSeconds(5);
+																//	print("WaitAndPrint " + Time.time);
+																//}
 
 
 
@@ -193,22 +193,19 @@ public class MainLobby : MonoBehaviour {
 		_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 		_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
-		//if (Time.frameCount % 100 == 0)
-		//	Debug.Log("X: " + _achievementsRect.x + " // Y: " + _achievementsRect.y + " // szer button: " + _achievementsRect.width + " // wys button: " + _achievementsRect.height + " // szer ekran: " + Screen.width + " // wys ekran: " + Screen.height);
+						//====================================================================================================================================
+						//DrawElement(350, 275, 100, 50, NewGameButton, ResizeController.Horizontal.left, ResizeController.Vertical.top);
+						//DrawElement(350, 275, 100, 50, HowtoPlayButton, ResizeController.Horizontal.left, ResizeController.Vertical.center);
+						//DrawElement(350, 275, 100, 50, CreditsButton, ResizeController.Horizontal.left, ResizeController.Vertical.bottom);
 
-		//====================================================================================================================================
-		//DrawElement(350, 275, 100, 50, NewGameButton, ResizeController.Horizontal.left, ResizeController.Vertical.top);
-		//DrawElement(350, 275, 100, 50, HowtoPlayButton, ResizeController.Horizontal.left, ResizeController.Vertical.center);
-		//DrawElement(350, 275, 100, 50, CreditsButton, ResizeController.Horizontal.left, ResizeController.Vertical.bottom);
+						//DrawElement(375, 250, 50, 100, NewGameButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+						//DrawElement(375, 250, 50, 100, HowtoPlayButton, ResizeController.Horizontal.center, ResizeController.Vertical.center);
+						//DrawElement(375, 250, 50, 100, CreditsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
-		//DrawElement(375, 250, 50, 100, NewGameButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
-		//DrawElement(375, 250, 50, 100, HowtoPlayButton, ResizeController.Horizontal.center, ResizeController.Vertical.center);
-		//DrawElement(375, 250, 50, 100, CreditsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
-
-		//DrawElement(350, 275, 100, 50, NewGameButton, ResizeController.Horizontal.right, ResizeController.Vertical.top);
-		//DrawElement(350, 275, 100, 50, HowtoPlayButton, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-		//DrawElement(350, 275, 100, 50, CreditsButton, ResizeController.Horizontal.right, ResizeController.Vertical.bottom);
-		//====================================================================================================================================
+						//DrawElement(350, 275, 100, 50, NewGameButton, ResizeController.Horizontal.right, ResizeController.Vertical.top);
+						//DrawElement(350, 275, 100, 50, HowtoPlayButton, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+						//DrawElement(350, 275, 100, 50, CreditsButton, ResizeController.Horizontal.right, ResizeController.Vertical.bottom);
+						//====================================================================================================================================
 
 		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 		 //_myMousePosition = Input.mousePosition;
