@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class BranchController : MonoBehaviour {
 
-	private float _startXPosition;
-	private float _endXPosition;
+	private const float _startXPosition = 5.0f;
+	private const float _endXPosition = -10.88f;
+	private const float _acceleration = 5.0f;
 	private float _yPosition;
-	private float _acceleration;
 
 	void Start ()
 	{
-		_startXPosition = 5.0f;
-		_endXPosition = -10.88f;
 		_yPosition = Random.Range(-3.0f, 3.0f);
-		_acceleration = 5.0f;
 
 		transform.position = new Vector3(_startXPosition, _yPosition);
 	}

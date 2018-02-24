@@ -4,18 +4,10 @@ using UnityEngine;
 
 public class BackgroundMover : MonoBehaviour {
 
-	private float _horizontalMove;
-	private float _speed;
-	private float _rightEdge1;
-	private float _rightEdge2;
-
-	private void Start()
-	{
-		_horizontalMove = 0.05f;
-		_speed = 3.0f;
-		_rightEdge1 = -11.723f;
-		_rightEdge2 = 6.68f;
-	}
+	private const float _horizontalMove = 0.05f;
+	private const float _speed = 3.0f;
+	private const float _rightEdge1 = -11.723f;
+	private const float _rightEdge2 = 6.68f;
 
 	void FixedUpdate ()
 	{

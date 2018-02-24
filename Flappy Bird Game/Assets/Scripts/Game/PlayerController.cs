@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 	{
 		MoveVertical = Input.GetAxis("Vertical");
 
-		if (Input.GetKeyUp("s") || (Input.GetKeyUp("w")))
+		if (Input.GetKeyUp("s") || Input.GetKeyUp("w") || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
 		{
 			Input.ResetInputAxes();														// reset wartosci getinputaxis, player moze podskoczyc po osiagnieciu wartosci 1
 			Velocity = 0;																// reset predkosci po wzbiciu sie w gore, player znow zaczyna opadać z predkoscia poczatkowa 0

@@ -47,6 +47,7 @@ public class CanvasController : MonoBehaviour
 
 	public void BackToMenu()
 	{
+		MainLobby.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
 		BreakPause();
 	}

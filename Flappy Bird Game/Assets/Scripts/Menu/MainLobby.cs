@@ -7,14 +7,15 @@ using UnityEngine.SceneManagement;
 
 public class MainLobby : MonoBehaviour {
 
-	[SerializeField]
-	private Texture LogoButton;											// umożliwia wykorzystanie modyfikatora private z dostępem do zmiennej w ramach inspectora unity
+	[SerializeField] private Texture LogoButton;											// umożliwia wykorzystanie modyfikatora private z dostępem do zmiennej w ramach inspectora unity
 
 	public Texture AchievementsButton;
 	public Texture CreditsButton;
 	public Texture HowtoPlayButton;
 	public Texture NewGameButton;
 	public Texture StartButton;
+	public Texture ProfileButton;
+	public Texture LogoutButton;
 
 	public Texture Complete10Active;
 	public Texture Complete10Inactive;
@@ -27,15 +28,19 @@ public class MainLobby : MonoBehaviour {
 	public Texture CreditsButtonInactive;
 	public Texture HowtoPlayButtonInactive;
 	public Texture NewGameButtonInactive;
+	public Texture ProfileButtonInactive;
 
 	public Texture NextAchievementPage;
 	public Texture PreviousAchievementPage;
 
-	public PlayerProfile PlayerProfile;
+	public Font font;
+
 	public PlayerProfileController PlayerProfileController;				
 	public ResizeController ResizeController;
 
-	public Font font;
+	public static PlayerProfile PlayerProfile;
+	public static bool BackFromGamePlay;
+
 	private GUIStyle _labelStyle;
 	private GUIContent _labelContent;
 	private string _darkGreyFont;
@@ -48,6 +53,8 @@ public class MainLobby : MonoBehaviour {
 	private Rect _achievementsRect;
 	private Rect _startRect;
 	private Rect _gamePlayRect;
+	private Rect _logoutRect;
+	private Rect _profileRect;
 
 	private Rect _nextAchievementPage;
 	private Rect _previousAchievementPage;
@@ -60,20 +67,17 @@ public class MainLobby : MonoBehaviour {
 	private string _badName;
 	private bool _isThereAList;
 	private bool _isOnTheList;
-
-	private int _yPositionForMaskingStartCurrent;
-	private int _yPositionForMaskingEndCurrent;
-	private int _yPositionForMaskingStartFixed;
-	private int _listEntriesDisplayed;
-
+	
 	private enum MenuScreens
 	{
+		Login,
 		MainMenu,
 		HowtoPlay,
 		Credits,
 		Achievements,
 		NewGame,
-		GamePlay
+		GamePlay,
+		Profile
 	};
 	MenuScreens MenuStates;
 
@@ -82,10 +86,17 @@ public class MainLobby : MonoBehaviour {
 	private void Start()
 	{
 		//PlayerPrefs.DeleteAll();
+		
+		if (!BackFromGamePlay)													// jeśli uruchomiono aplikacje, ale nie rozegrano gry
+		{
+			MenuStates = MenuScreens.Login;
+		}
+		else																	// jeśli nastąpil powrot z gry i przeładowano scene z GAME na MENU
+		{
+			MenuStates = MenuScreens.MainMenu;
+		}
 
 		SetGUIStyle();
-	
-		MenuStates = MenuScreens.MainMenu;
 
 		_justPlayerName = "";
 		_isThereAList = PlayerProfileController.LoadProfiles();                             // jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
@@ -94,26 +105,7 @@ public class MainLobby : MonoBehaviour {
 		_scope = 5;
 		_listAchievementsFrom = 0;
 		_listAchievementsTo = _scope;
-
-		// do przemieszczania achievementów maską
-		_listEntriesDisplayed = 7;
-		_yPositionForMaskingStartFixed = 270;
-		_yPositionForMaskingStartCurrent = _yPositionForMaskingStartFixed;
-		_yPositionForMaskingEndCurrent = _yPositionForMaskingStartCurrent + ((PlayersProfiles.Instance.ListOfProfiles.Count - 1) * 30);					// bo pierwsza pozycja już jest uwzględniona
-
-
-
-																//print("Starting " + Time.time);
-																//yield return StartCoroutine(WaitAndPrint());
-																//yield return StartCoroutine("WaitAndPrint");				// wywołanie stringiem kosztem wydajności, ale umożliwia wywołanie StopCoroutine("Method");
-																//print("Done " + Time.time);
 	}
-
-																//IEnumerator WaitAndPrint()
-																//{
-																//	yield return new WaitForSeconds(5);
-																//	print("WaitAndPrint " + Time.time);
-																//}
 
 
 
@@ -122,7 +114,6 @@ public class MainLobby : MonoBehaviour {
 		if (MenuStates.Equals(MenuScreens.Achievements))
 		{
 			CalculateStartAndEndPositionsForAchievementsForUpdate();                        // poza OnGUI, bo OnGUI wywoluje sie 2x na klatke, co zaburza zliczanie kliknięć
-			//DisplayAchievementsWithMasking();
 		}
 	}
 
@@ -132,6 +123,9 @@ public class MainLobby : MonoBehaviour {
 	{
 		switch (MenuStates)
 		{
+			case MenuScreens.Login:
+				DrawLoginMenu();
+				break;
 			case MenuScreens.MainMenu:
 				DrawMainMenu();
 				break;
@@ -149,6 +143,9 @@ public class MainLobby : MonoBehaviour {
 				break;
 			case MenuScreens.GamePlay:
 				DrawGamePlay();
+				break;
+			case MenuScreens.Profile:
+				DrawProfileMenu(ProfileButtonInactive);
 				break;
 		}
 	}	
@@ -185,30 +182,44 @@ public class MainLobby : MonoBehaviour {
 
 
 
+	private void DrawLoginMenu()
+	{
+		_logoRect = DrawElement(315, 20, 170, 170, LogoButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
+		_justPlayerName = GUI.TextField(ResizeController.ResizeGUI(new Rect(350, 270, 100, 25), ResizeController.Horizontal.center, ResizeController.Vertical.center), _justPlayerName, 10);
+
+		GUI.Label(ResizeController.ResizeGUI(new Rect(350, 310, 100, 25), ResizeController.Horizontal.center, ResizeController.Vertical.center), _labelContent, _labelStyle); // ENTER YOUR NAME label
+		_labelContent.text = "<color=#" + _darkGreyFont + ">Enter your name\nand click on the logo</color>";
+
+		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+														 //_myMousePosition = Input.mousePosition;  
+
+		if (Input.GetMouseButtonDown(0))
+		{
+			if (ClickedWithin(_logoRect))
+			{
+				if (_justPlayerName.Length > 0)
+				{
+					CheckPlayerPrefs();                         // jesli istnieje podany name w playerprefs, odpal LoadProfile i przypisz dane do pol obiektu
+					MenuStates = MenuScreens.MainMenu;
+					_labelContent.text = "";
+				}
+			}
+		}
+	}
+
+
+
 	private void DrawMainMenu()								// obsluga MAIN MENU
 	{
 		_logoRect = DrawElement(315, 20, 170, 170, LogoButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
-		_newGameRect = DrawElement(300, 250, 200, 60, NewGameButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
-		_howtoPlayRect = DrawElement(300, 330, 200, 60, HowtoPlayButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
-		_creditsRect = DrawElement(300, 410, 200, 60, CreditsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
-		_achievementsRect = DrawElement(300, 490, 200, 60, AchievementsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
-
-						//====================================================================================================================================
-						//DrawElement(350, 275, 100, 50, NewGameButton, ResizeController.Horizontal.left, ResizeController.Vertical.top);
-						//DrawElement(350, 275, 100, 50, HowtoPlayButton, ResizeController.Horizontal.left, ResizeController.Vertical.center);
-						//DrawElement(350, 275, 100, 50, CreditsButton, ResizeController.Horizontal.left, ResizeController.Vertical.bottom);
-
-						//DrawElement(375, 250, 50, 100, NewGameButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
-						//DrawElement(375, 250, 50, 100, HowtoPlayButton, ResizeController.Horizontal.center, ResizeController.Vertical.center);
-						//DrawElement(375, 250, 50, 100, CreditsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
-
-						//DrawElement(350, 275, 100, 50, NewGameButton, ResizeController.Horizontal.right, ResizeController.Vertical.top);
-						//DrawElement(350, 275, 100, 50, HowtoPlayButton, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-						//DrawElement(350, 275, 100, 50, CreditsButton, ResizeController.Horizontal.right, ResizeController.Vertical.bottom);
-						//====================================================================================================================================
+		_newGameRect = DrawElement(300, 220, 200, 60, NewGameButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+		_howtoPlayRect = DrawElement(300, 300, 200, 60, HowtoPlayButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+		_creditsRect = DrawElement(300, 380, 200, 60, CreditsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+		_achievementsRect = DrawElement(300, 460, 200, 60, AchievementsButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+		_profileRect = DrawElement(300, 540, 100, 30, ProfileButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
+		_logoutRect = DrawElement(400, 540, 100, 30, LogoutButton, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
 		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
-		 //_myMousePosition = Input.mousePosition;
 
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -243,44 +254,57 @@ public class MainLobby : MonoBehaviour {
 				MenuStates = MenuScreens.Achievements;
 
 			}
+
+			// MY PROFILE
+			else if (ClickedWithin(_profileRect))
+			{
+				MenuStates = MenuScreens.Profile;
+			}
+
+			// LOGOUT 
+			else if (ClickedWithin(_logoutRect))
+			{
+				_justPlayerName = "";
+				MenuStates = MenuScreens.Login;
+			}
 		}
 	}
 
 
 
-	private void DrawNewGameMenu(Texture menuElement)               // obsluga NEW GAME
+	private void DrawProfileMenu(Texture menuElement)               // obsluga NEW GAME
 	{
-		_justPlayerName = GUI.TextField(ResizeController.ResizeGUI(new Rect(350, 270, 100, 25), ResizeController.Horizontal.center, ResizeController.Vertical.center), _justPlayerName, 10);
-
 		_logoRect = DrawElement(315, 20, 170, 170, LogoButton, ResizeController.Horizontal.center, ResizeController.Vertical.top);
-		_startRect = DrawElement(300, 300, 200, 60, StartButton, ResizeController.Horizontal.center, ResizeController.Vertical.center);
 		DrawElement(350, 550, 100, 30, menuElement, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
 
-		GUI.Label(ResizeController.ResizeGUI(new Rect(350, 360, 100, 25), ResizeController.Horizontal.center, ResizeController.Vertical.center), _labelContent, _labelStyle);
+		_labelContent.text = "<color=#" + _darkGreyFont + ">NAME\n<color=#" + _lightGreyFont + ">" + PlayerProfile.PlayerName + "</color>\n\n" +
+								"HIGHSCORE\n<color=#" + _lightGreyFont + ">" + PlayerProfile.HighScore + "</color>\n\n" +
+								"ACHIEVEMENTS\n</color>";
+		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 300, 200, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), _labelContent, _labelStyle);
 
+		int yPosition = 370;
+		int xPosition = 358;
+
+		ListAchievements(PlayersProfiles.Instance.CurrentProfile, PlayerProfile, xPosition, yPosition);						// wypisuje achievementy dla zalogowanego playera
+		
 		_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
-		 //_myMousePosition = Input.mousePosition;  
+														 //_myMousePosition = Input.mousePosition; operuje w przestrzeni bottom left top right
 
 		if (Input.GetMouseButtonDown(0))
 		{
 			if (ClickedWithin(_logoRect))
 			{
 				MenuStates = MenuScreens.MainMenu;
-			}
-			else if (ClickedWithin(_startRect))
-			{
-				if (_justPlayerName.Length > 0)
-				{
-					CheckPlayerPrefs();							// jesli istnieje podany name w playerprefs, odpal LoadProfile i przypisz dane do pol obiektu
-					MenuStates = MenuScreens.GamePlay;
-					_labelContent.text = "";
-				}
-				else                                                // NIE WPISANO USERNAME
-				{
-					_labelContent.text = "<color=#" + _darkGreyFont + ">Enter your name</color>";
-				}
+				_labelContent.text = "";
 			}
 		}
+	}
+
+
+	
+	private void DrawNewGameMenu(Texture menuElement)               // obsluga NEW GAME
+	{
+		MenuStates = MenuScreens.GamePlay;
 	}
 
 
@@ -324,7 +348,7 @@ public class MainLobby : MonoBehaviour {
 
 		if (_isThereAList)                                                                            // jesli istnieje lista w pamieci
 		{
-			ListAchievements(_listAchievementsFrom, _listAchievementsTo);
+			ListNameScoreAchievements(_listAchievementsFrom, _listAchievementsTo);
 			//ListAchievementsWithMasking();
 		}
 		else                                                                                            // jesli w pamieci nie istnieje lista userów
@@ -372,7 +396,7 @@ public class MainLobby : MonoBehaviour {
 
 
 
-	private void CheckPlayerPrefs()															// ładowane po kliknieciu buttona START w menu NEW GAME
+	private void CheckPlayerPrefs()															// ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
 	{
 		_isOnTheList = false;
 
@@ -382,7 +406,7 @@ public class MainLobby : MonoBehaviour {
 			{
 				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(_justPlayerName))   // sprawdza czy podane NAME istnieje w pamięci
 				{
-					//PlayerProfile = PlayersProfiles.Instance.ListOfProfiles[i];					// to może się przydać, jeśli będzie jakiś screen przed grą, ale można też czytać bezpośrednio z singletona
+					PlayerProfile = PlayersProfiles.Instance.ListOfProfiles[i];                 // odnaleziony profil, uzywany przy listowaniu achievementow
 					PlayersProfiles.Instance.CurrentProfile = i;                                    // ID znalezionego profilu
 					_isOnTheList = true;
 					break;
@@ -404,7 +428,7 @@ public class MainLobby : MonoBehaviour {
 
 	private void AddNewProfile()
 	{
-		PlayerProfile = new PlayerProfile(_justPlayerName, 0, false, false, false);                   // tworzę nowy profil gracza z domyślnymi wartościami
+		PlayerProfile = new PlayerProfile(_justPlayerName, 0, false, false, false);          // tworzę nowy profil gracza z domyślnymi wartościami
 		if (_isThereAList)                                                                  // na liście nie ma podanego NAME
 		{
 			PlayersProfiles.Instance.ListOfProfiles.Add(PlayerProfile);                     // a teraz dodaje do niej aktualny playerProfile
@@ -417,12 +441,12 @@ public class MainLobby : MonoBehaviour {
 			};
 			PlayersProfiles.Instance.CurrentProfile = 0;                                    // nadaję userowi pierwszy numer na liście
 		}
-		PlayerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie				czy częsty zapis do PlayerPrefs wpływa na wydajność?==================
+		PlayerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie				
 	}
 
 
 
-	private void ListAchievements(float listFrom, float listTo)                                                         // ładowane po kliknieciu buttona START w menu NEW GAME
+	private void ListNameScoreAchievements(float listFrom, float listTo)                                                         // ładowane po kliknieciu buttona START w menu NEW GAME
 	{
 		// LABELS
 		GUI.Label(ResizeController.ResizeGUI(new Rect(200, 240, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">NAME</color>", _labelStyle);
@@ -438,7 +462,6 @@ public class MainLobby : MonoBehaviour {
 
 		for (int i = (int)listFrom; i < PlayersProfiles.Instance.ListOfProfiles.Count && i < (int)listTo; i++)								// wypisze liste userów od A do B
 			{
-
 				// PLAYERNAME
 				GUI.Label(ResizeController.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center),
 							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", _labelStyle);
@@ -448,34 +471,7 @@ public class MainLobby : MonoBehaviour {
 							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "</color>", _labelStyle);
 
 				// ACHIEVEMENTS
-				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete10)
-				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
-				}
-				else
-				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete10Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-				}
-
-				xPosition += 30;
-				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete25)
-				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete25Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-				}
-				else
-				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete25Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-				}
-
-				xPosition += 30;
-				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete50)
-				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete50Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-				}
-				else
-				{
-					DrawElement(xPosition, yPosition, 23, 28, Complete50Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-				}
+				ListAchievements(i, PlayersProfiles.Instance.ListOfProfiles[i], xPosition, yPosition);						// wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
 
 				yPosition += 30;
 				xPosition = 465;
@@ -483,6 +479,40 @@ public class MainLobby : MonoBehaviour {
 
 		//CalculateStartAndEndPositionsForAchievementsForOnGUI();
 		MenuStates = MenuScreens.Achievements;
+	}
+
+
+
+	private void ListAchievements(int currentProfile, PlayerProfile playerProfile, int xPosition, int yPosition)
+	{
+		if (playerProfile.Complete10)
+		{
+			DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+		}
+		else
+		{
+			DrawElement(xPosition, yPosition, 23, 28, Complete10Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+		}
+
+		xPosition += 30;
+		if (playerProfile.Complete25)
+		{
+			DrawElement(xPosition, yPosition, 23, 28, Complete25Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+		}
+		else
+		{
+			DrawElement(xPosition, yPosition, 23, 28, Complete25Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+		}
+
+		xPosition += 30;
+		if (playerProfile.Complete50)
+		{
+			DrawElement(xPosition, yPosition, 23, 28, Complete50Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+		}
+		else
+		{
+			DrawElement(xPosition, yPosition, 23, 28, Complete50Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
+		}
 	}
 
 
@@ -530,84 +560,6 @@ public class MainLobby : MonoBehaviour {
 		}
 	}
 
-
-
-	private void DisplayAchievementsWithMasking()
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (ClickedWithin(_previousAchievementPage) && _yPositionForMaskingEndCurrent > _yPositionForMaskingStartFixed + (_listEntriesDisplayed * 30))
-			{
-				_yPositionForMaskingStartCurrent -= 30;
-				_yPositionForMaskingEndCurrent = _yPositionForMaskingStartCurrent + PlayersProfiles.Instance.ListOfProfiles.Count * 30;
-			}
-
-			if (ClickedWithin(_nextAchievementPage) && _yPositionForMaskingStartCurrent < _yPositionForMaskingStartFixed)
-			{
-				_yPositionForMaskingStartCurrent += 30;
-				_yPositionForMaskingEndCurrent = _yPositionForMaskingStartCurrent + PlayersProfiles.Instance.ListOfProfiles.Count * 30;
-			}
-		}
-	}
-
-
-	private void ListAchievementsWithMasking()                                                         // ładowane po kliknieciu buttona START w menu NEW GAME
-	{
-
-		GUI.Label(ResizeController.ResizeGUI(new Rect(200, 240, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">NAME</color>", _labelStyle);
-		GUI.Label(ResizeController.ResizeGUI(new Rect(300, 240, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">HIGHSCORE</color>", _labelStyle);
-		GUI.Label(ResizeController.ResizeGUI(new Rect(430, 240, 150, 30), ResizeController.Horizontal.right, ResizeController.Vertical.center), "<color=#" + _darkGreyFont + ">ACHIEVEMENTS</color>", _labelStyle);
-
-		_previousAchievementPage = DrawElement(10, 430, 16, 18, PreviousAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
-		_nextAchievementPage = DrawElement(764, 430, 16, 18, NextAchievementPage, ResizeController.Horizontal.center, ResizeController.Vertical.bottom);
-
-		int yPositionForMasking = _yPositionForMaskingStartCurrent;
-		int xPosition = 465;
-
-		if (_yPositionForMaskingStartCurrent <= _yPositionForMaskingEndCurrent)
-		{
-			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)                              // wypisze liste userów 
-			{
-				GUI.Label(ResizeController.ResizeGUI(new Rect(200, yPositionForMasking, 150, 30), ResizeController.Horizontal.left, ResizeController.Vertical.center),
-							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", _labelStyle);
-
-				GUI.Label(ResizeController.ResizeGUI(new Rect(300, yPositionForMasking, 150, 30), ResizeController.Horizontal.center, ResizeController.Vertical.center),
-							"<color=#" + _lightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "</color>", _labelStyle);
-
-				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete10)
-				{
-					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete10Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
-				}
-				else
-				{ 
-					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete10Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-				}
-
-				xPosition += 30;
-				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete25)
-				{
-					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete25Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-				}
-				else
-				{
-					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete25Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-				}
-
-				xPosition += 30;
-				if (PlayersProfiles.Instance.ListOfProfiles[i].Complete50)
-				{
-					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete50Active, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-				}
-				else
-				{
-					DrawElement(xPosition, yPositionForMasking, 23, 28, Complete50Inactive, ResizeController.Horizontal.right, ResizeController.Vertical.center);
-				}
-
-				yPositionForMasking += 30;
-				xPosition = 465;
-			}
-		}
-	}
 
 
 	private bool ClickedWithin(Rect rect)

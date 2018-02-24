@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		_intervalLock = _intervalLockItems.Unlocked;
-		_intervalStep = 0.3f;
-		SetTimeIntervalForCoroutine(3.0f);
+		_intervalStep = 0.3f;														
+		SetTimeIntervalForCoroutine(3.0f);											// 3.0f jako wartosc startowa
 
 		StartCoroutine(CreateObstacle());                                           //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
