@@ -16,7 +16,7 @@ public class CanvasController : MonoBehaviour
 	public Button DontRepeat;
 	public Canvas Canvas;
 
-	public PlayerProfileController PlayerProfileController;
+	PlayerProfileController PlayerProfileController = new PlayerProfileController();
 	public GameObject SummaryBackground;
 	public GameManager GameManager;
 

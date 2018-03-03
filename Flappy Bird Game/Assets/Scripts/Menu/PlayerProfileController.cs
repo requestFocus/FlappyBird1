@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //[System.Serializable]
-public class PlayerProfileController : MonoBehaviour {
+public class PlayerProfileController {
 
 	public const string PrefsStringInMemory = "ProfileSettings";
 
