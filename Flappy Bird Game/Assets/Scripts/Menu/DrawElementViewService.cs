@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class DrawElementViewService
 {
-	ResizeControllerViewService ResizeControllerViewService = new ResizeControllerViewService();
+	public ResizeControllerViewService ResizeControllerViewService = new ResizeControllerViewService();
+	public SetGUIStyleViewService SetGUIStyleViewService = new SetGUIStyleViewService();
+
+
 
 	public Rect DrawElement(int x, int y, int width, int height, Texture menuElement, ResizeControllerViewService.Horizontal horizontalAlignment, ResizeControllerViewService.Vertical verticalAlignment)
 	{

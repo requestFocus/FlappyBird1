@@ -350,6 +350,137 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &606175322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 606175324}
+  - component: {fileID: 606175323}
+  m_Layer: 0
+  m_Name: HowToPlayView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &606175323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 606175322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def8362d9a5f14544960a8015857287e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
+  HowtoPlayButtonInactive: {fileID: 2800000, guid: 10087d438620a5c44bd478229b0f3e87,
+    type: 3}
+  MyMousePosition: {x: 0, y: 0}
+--- !u!4 &606175324
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 606175322}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &675613110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 675613112}
+  - component: {fileID: 675613111}
+  m_Layer: 0
+  m_Name: ProfileView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &675613111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675613110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6a1d6318f00b614bb5b4dc4c428f4c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
+  ProfileButtonInactive: {fileID: 2800000, guid: a1386e7a0254ff34796a9bb6e7a67738,
+    type: 3}
+  MyMousePosition: {x: 0, y: 0}
+--- !u!4 &675613112
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675613110}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1533058730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1533058732}
+  - component: {fileID: 1533058731}
+  m_Layer: 0
+  m_Name: CreditsView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1533058731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1533058730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb2bd29cf5312c418d36389087e551a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
+  CreditsButtonInactive: {fileID: 2800000, guid: 79deb127eab9ca14b9848b4d8a128756,
+    type: 3}
+--- !u!4 &1533058732
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1533058730}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1551131927
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,18 +524,15 @@ MonoBehaviour:
   Complete50Inactive: {fileID: 2800000, guid: 7d2c6df937468fa4ab15efd6f100b672, type: 3}
   AchievementsButtonInactive: {fileID: 2800000, guid: e9e45784ddb996d48ba735d9ba056963,
     type: 3}
-  CreditsButtonInactive: {fileID: 2800000, guid: 79deb127eab9ca14b9848b4d8a128756,
-    type: 3}
-  HowtoPlayButtonInactive: {fileID: 2800000, guid: 10087d438620a5c44bd478229b0f3e87,
-    type: 3}
   NewGameButtonInactive: {fileID: 2800000, guid: 4981899c5a3b5f74ab4921fb60e48f81,
-    type: 3}
-  ProfileButtonInactive: {fileID: 2800000, guid: a1386e7a0254ff34796a9bb6e7a67738,
     type: 3}
   NextAchievementPage: {fileID: 2800000, guid: ea7413daa9df09e4783d02ec6d507f5e, type: 3}
   PreviousAchievementPage: {fileID: 2800000, guid: b1500ae82133c234c92db581fb069ddc,
     type: 3}
   LoginView: {fileID: 332708756}
+  HowToPlayView: {fileID: 606175323}
+  CreditsView: {fileID: 1533058731}
+  ProfileView: {fileID: 675613111}
   MyMousePosition: {x: 0, y: 0}
 --- !u!4 &1551131929
 Transform:

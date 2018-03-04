@@ -8,10 +8,13 @@ public class LoginView : MonoBehaviour {
 	public ResizeControllerViewService ResizeControllerViewService;
 	public DrawElementViewService DrawElementViewService;
 	public SetGUIStyleViewService SetGUIStyleViewService;
+	public LoginViewService LoginViewService;
 
 	private Rect _logoRect;
 	public static string JustPlayerName;
 	public Vector2 MyMousePosition;
+
+
 
 	public void Start()
 	{
@@ -19,7 +22,10 @@ public class LoginView : MonoBehaviour {
 		ResizeControllerViewService = new ResizeControllerViewService();
 		DrawElementViewService = new DrawElementViewService();
 		SetGUIStyleViewService = new SetGUIStyleViewService();
+		LoginViewService = new LoginViewService();
 	}
+
+
 
 	public void DrawLoginMenu()
 	{
@@ -32,18 +38,15 @@ public class LoginView : MonoBehaviour {
 		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">Enter your name\nand click on the logo</color>";
 		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(350, 310, 100, 25), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle); // ENTER YOUR NAME label
 
-		//ResizeControllerViewService._myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
-														 //_myMousePosition = Input.mousePosition;  
-
 		if (Input.GetMouseButtonDown(0))
 		{
 			if (ResizeControllerViewService.ClickedWithin(_logoRect))
 			{
 				if (JustPlayerName.Length > 0)
 				{
-					//CheckPlayerPrefs();                         // jesli istnieje podany name w playerprefs, odpal LoadProfile i przypisz dane do pol obiektu
+					LoginViewService.CheckPlayerPrefs();                         // odpal LoadProfile, sprawdz aktualna liste i przypisz dane do pol obiektu
 					MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
-					//SetGUIStyleViewService.LabelContent.text = "";
+					SetGUIStyleViewService.LabelContent.text = "";
 				}
 			}
 		}

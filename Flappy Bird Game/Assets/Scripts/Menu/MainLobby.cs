@@ -17,6 +17,7 @@ public class MainLobby : MonoBehaviour {
 	public Texture ProfileButton;
 	public Texture LogoutButton;
 
+	//====== ACHIEVEMENTS
 	public Texture Complete10Active;
 	public Texture Complete10Inactive;
 	public Texture Complete25Active;
@@ -25,52 +26,41 @@ public class MainLobby : MonoBehaviour {
 	public Texture Complete50Inactive;
 
 	public Texture AchievementsButtonInactive;
-	public Texture CreditsButtonInactive;
-	public Texture HowtoPlayButtonInactive;
-	public Texture NewGameButtonInactive;
-	public Texture ProfileButtonInactive;
-
 	public Texture NextAchievementPage;
 	public Texture PreviousAchievementPage;
-
-	//public Font Font;
-
-	public LoginView LoginView;
-	private PlayerProfileController PlayerProfileController = new PlayerProfileController();
-	private ResizeControllerViewService ResizeControllerViewService = new ResizeControllerViewService();
-	private DrawElementViewService DrawElementViewService = new DrawElementViewService();
-	private SetGUIStyleViewService SetGUIStyleViewService = new SetGUIStyleViewService();
-
-	public static PlayerProfile PlayerProfile;
-	public static bool BackFromGamePlay;
-
-	//private GUIStyle _labelStyle;
-	//private GUIContent _labelContent;
-	//private string _darkGreyFont;
-	//private string _lightGreyFont;
-	
-	private Rect _logoRect;					// też: LoginView
-	private Rect _newGameRect;
-	private Rect _howtoPlayRect;
-	private Rect _creditsRect;
-	private Rect _achievementsRect;
-	private Rect _startRect;
-	private Rect _gamePlayRect;
-	private Rect _logoutRect;
-	private Rect _profileRect;
 
 	private Rect _nextAchievementPage;
 	private Rect _previousAchievementPage;
 	private float _listAchievementsFrom;
 	private float _listAchievementsTo;
 	private float _scope;
+	//=====================
+
+	public LoginView LoginView;
+	public HowToPlayView HowToPlayView;
+	public CreditsView CreditsView;
+	public ProfileView ProfileView;
+
+	private PlayerProfileController PlayerProfileControllerMainMenu = new PlayerProfileController(); //=================================================================
+	private ResizeControllerViewService ResizeControllerViewService = new ResizeControllerViewService();
+	private DrawElementViewService DrawElementViewService = new DrawElementViewService();
+	private SetGUIStyleViewService SetGUIStyleViewService = new SetGUIStyleViewService();
+
+	//public static PlayerProfile PlayerProfile;
+	public static bool BackFromGamePlay;
+
+	private Rect _logoRect;
+	private Rect _newGameRect;
+	private Rect _howtoPlayRect;
+	private Rect _creditsRect;
+	private Rect _achievementsRect;
+	private Rect _logoutRect;
+	private Rect _profileRect;
 
 	public Vector2 MyMousePosition;
-	//private string _justPlayerName;
-	private string _badName;
 	private bool _isThereAList;
 	private bool _isOnTheList;
-	
+
 	//public enum MenuScreens
 	//{
 	//	Login,
@@ -90,13 +80,11 @@ public class MainLobby : MonoBehaviour {
 	{
 		//PlayerPrefs.DeleteAll();
 
-
-
 		if (!BackFromGamePlay)													// jeśli uruchomiono aplikacje, ale nie rozegrano gry
 		{
 			MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Login;
 		}
-		else																	// jeśli nastąpil powrot z gry i przeładowano scene z GAME na MENU
+		else                                                                    // jeśli nastąpil powrot z gry i przeładowano scene z GAME na MENU
 		{
 			MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
 		}
@@ -104,7 +92,7 @@ public class MainLobby : MonoBehaviour {
 		SetGUIStyleViewService.SetGUIStyle();
 
 		//_justPlayerName = "";
-		_isThereAList = PlayerProfileController.LoadProfiles();                             // jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
+		_isThereAList = PlayerProfileControllerMainMenu.LoadProfiles();                             // jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
 
 		// do przemieszczania achievementow stronami
 		_scope = 5;
@@ -137,22 +125,22 @@ public class MainLobby : MonoBehaviour {
 				DrawMainMenu();
 				break;
 			case MenuScreensService.MenuScreens.HowtoPlay:
-				DrawHowtoPlayMenu(HowtoPlayButtonInactive);
+				HowToPlayView.DrawHowtoPlayMenu();
 				break;
 			case MenuScreensService.MenuScreens.Credits:
-				DrawCreditsMenu(CreditsButtonInactive);
+				CreditsView.DrawCreditsMenu();
 				break;
 			case MenuScreensService.MenuScreens.Achievements:
 				DrawAchievementsMenu(AchievementsButtonInactive);
 				break;
 			case MenuScreensService.MenuScreens.NewGame:
-				DrawNewGameMenu(NewGameButtonInactive);
+				StartNewGame();
 				break;
-			case MenuScreensService.MenuScreens.GamePlay:
-				LoadGameScene();
-				break;
+			//case MenuScreensService.MenuScreens.GamePlay:
+			//	StartNewGame();
+			//	break;
 			case MenuScreensService.MenuScreens.Profile:
-				DrawProfileMenu(ProfileButtonInactive);
+				ProfileView.DrawProfileMenu();
 				break;
 		}
 	}	
@@ -279,73 +267,63 @@ public class MainLobby : MonoBehaviour {
 
 
 
-	private void DrawProfileMenu(Texture menuElement)               // obsluga NEW GAME
-	{
-		_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
-		DrawElementViewService.DrawElement(350, 550, 100, 30, menuElement, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
+	//private void DrawProfileMenu(Texture menuElement)               // obsluga NEW GAME
+	//{
+	//	_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
+	//	DrawElementViewService.DrawElement(350, 550, 100, 30, menuElement, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
 
-		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + PlayerProfile.PlayerName + "</color>\n\n" +
-								"HIGHSCORE\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + PlayerProfile.HighScore + "</color>\n\n" +
-								"ACHIEVEMENTS\n</color>";
-		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle
-			);
+	//	SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + PlayerProfile.PlayerName + "</color>\n\n" +
+	//							"HIGHSCORE\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + PlayerProfile.HighScore + "</color>\n\n" +
+	//							"ACHIEVEMENTS\n</color>";
+	//	GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
 
-		int yPosition = 370;
-		int xPosition = 358;
-
-		ListAchievements(PlayersProfiles.Instance.CurrentProfile, PlayerProfile, xPosition, yPosition);						// wypisuje achievementy dla zalogowanego playera
+	//	ListAchievements(PlayersProfiles.Instance.CurrentProfile, PlayerProfile, xPosition, yPosition);						// wypisuje achievementy dla zalogowanego playera
 		
-		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
-														 //_myMousePosition = Input.mousePosition; operuje w przestrzeni bottom left top right
+	//	//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+	//													 //_myMousePosition = Input.mousePosition; operuje w przestrzeni bottom left top right
 
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (ResizeControllerViewService.ClickedWithin(_logoRect))
-			{
-				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
-				SetGUIStyleViewService.LabelContent.text = "";
-			}
-		}
-	}
+	//	if (Input.GetMouseButtonDown(0))
+	//	{
+	//		if (ResizeControllerViewService.ClickedWithin(_logoRect))
+	//		{
+	//			MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
+	//			SetGUIStyleViewService.LabelContent.text = "";
+	//		}
+	//	}
+	//}
 
 
 	
-	private void DrawNewGameMenu(Texture menuElement)               // obsluga NEW GAME
+	private void StartNewGame()               // obsluga NEW GAME
 	{
-		MenuScreensService.MenuStates = MenuScreensService.MenuScreens.GamePlay;
-	}
-
-
-
-	private void LoadGameScene()										// GRA
-	{
+		//MenuScreensService.MenuStates = MenuScreensService.MenuScreens.GamePlay;
 		SceneManager.LoadScene("Game");
 	}
 
 
 
-	private void DrawCreditsMenu(Texture menuElement)               // obsluga CREDITS
-	{ 
-		_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
-		DrawElementViewService.DrawElement(350, 550, 100, 30, menuElement, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
+	//private void DrawCreditsMenu(Texture menuElement)               // obsluga CREDITS
+	//{ 
+	//	_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
+	//	DrawElementViewService.DrawElement(350, 550, 100, 30, menuElement, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
 
-		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">PROGRAMMING / DESIGN\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">MACIEJ NIEŚCIORUK</color>\n\n" +
-								"GRAPHICS\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">INTERNET</color>\n\n" +
-								"SPECIAL THANKS TO\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">MICHAŁ PODYMA</color></color>";
-		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
+	//	SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">PROGRAMMING / DESIGN\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">MACIEJ NIEŚCIORUK</color>\n\n" +
+	//							"GRAPHICS\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">INTERNET</color>\n\n" +
+	//							"SPECIAL THANKS TO\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">MICHAŁ PODYMA</color></color>";
+	//	GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
 
-		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
-		 //_myMousePosition = Input.mousePosition;
+	//	//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+	//	 //_myMousePosition = Input.mousePosition;
 
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (ResizeControllerViewService.ClickedWithin(_logoRect))
-			{
-				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
-				SetGUIStyleViewService.LabelContent.text = "";
-			}
-		}
-	}
+	//	if (Input.GetMouseButtonDown(0))
+	//	{
+	//		if (ResizeControllerViewService.ClickedWithin(_logoRect))
+	//		{
+	//			MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
+	//			SetGUIStyleViewService.LabelContent.text = "";
+	//		}
+	//	}
+	//}
 
 
 
@@ -380,81 +358,81 @@ public class MainLobby : MonoBehaviour {
 
 
 
-	private void DrawHowtoPlayMenu(Texture menuElement) 
-	{
-		_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
-		DrawElementViewService.DrawElement(350, 550, 100, 30, menuElement, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
+	//private void DrawHowtoPlayMenu(Texture menuElement) 
+	//{
+	//	_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
+	//	DrawElementViewService.DrawElement(350, 550, 100, 30, menuElement, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
 
-		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">USE ARROWS ( <color=#" + SetGUIStyleViewService.LightGreyFont + ">↑</color> / <color=#" + SetGUIStyleViewService.LightGreyFont + ">↓</color> ) TO CONTROL THE BEE\n\n" +
-						"BEAT HIGHSCORES, UNLOCK ACHIEVEMENTS \nAND HAVE FUN!\n\nWATCH OUT! GRAVITY KILLS!\n\nGOOD LUCK!</color>";
-		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
+	//	SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">USE ARROWS ( <color=#" + SetGUIStyleViewService.LightGreyFont + ">↑</color> / <color=#" + SetGUIStyleViewService.LightGreyFont + ">↓</color> ) TO CONTROL THE BEE\n\n" +
+	//					"BEAT HIGHSCORES, UNLOCK ACHIEVEMENTS \nAND HAVE FUN!\n\nWATCH OUT! GRAVITY KILLS!\n\nGOOD LUCK!</color>";
+	//	GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
 
-		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
-		 //_myMousePosition = Input.mousePosition;
+	//	//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+	//	 //_myMousePosition = Input.mousePosition;
 
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (ResizeControllerViewService.ClickedWithin(_logoRect))
-			{
-				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
-				SetGUIStyleViewService.LabelContent.text = "";
-			}
-		}
-	}
-
-
-
-	private void CheckPlayerPrefs()															// ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
-	{
-		_isOnTheList = false;
-
-		if (_isThereAList)																	 // jesli istnieje lista w pamieci
-		{
-			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)					// parsuje całą listę obiektów
-			{
-				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(LoginView.JustPlayerName))   // sprawdza czy podane NAME istnieje w pamięci
-				{
-					PlayerProfile = PlayersProfiles.Instance.ListOfProfiles[i];                 // odnaleziony profil, uzywany przy listowaniu achievementow
-					PlayersProfiles.Instance.CurrentProfile = i;                                    // ID znalezionego profilu
-					_isOnTheList = true;
-					break;
-				}
-			}
-
-			if (!_isOnTheList)																					// jesli na liscie nie wystepuje podane NAME
-			{
-				AddNewProfile();
-			}
-		}
-		else                                                                                            // jesli w pamieci nie istnieje lista userów
-		{
-			AddNewProfile();
-		}
-	}
+	//	if (Input.GetMouseButtonDown(0))
+	//	{
+	//		if (ResizeControllerViewService.ClickedWithin(_logoRect))
+	//		{
+	//			MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
+	//			SetGUIStyleViewService.LabelContent.text = "";
+	//		}
+	//	}
+	//}
 
 
 
-	private void AddNewProfile()
-	{
-		PlayerProfile = new PlayerProfile(LoginView.JustPlayerName, 0, false, false, false);          // tworzę nowy profil gracza z domyślnymi wartościami
-		if (_isThereAList)                                                                  // na liście nie ma podanego NAME
-		{
-			PlayersProfiles.Instance.ListOfProfiles.Add(PlayerProfile);                     // a teraz dodaje do niej aktualny playerProfile
-			PlayersProfiles.Instance.CurrentProfile = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
-		}
-		else
-		{
-			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile> {            // tworzę listę, bo _isThereAList == false
-				PlayerProfile																// a teraz dodaje do niej aktualny playerProfile
-			};
-			PlayersProfiles.Instance.CurrentProfile = 0;                                    // nadaję userowi pierwszy numer na liście
-		}
-		PlayerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie				
-	}
+	//private void CheckPlayerPrefs()															// ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
+	//{
+	//	_isOnTheList = false;
+
+	//	if (_isThereAList)																	 // jesli istnieje lista w pamieci
+	//	{
+	//		for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)					// parsuje całą listę obiektów
+	//		{
+	//			if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(LoginView.JustPlayerName))   // sprawdza czy podane NAME istnieje w pamięci
+	//			{
+	//				PlayerProfile = PlayersProfiles.Instance.ListOfProfiles[i];                 // odnaleziony profil, uzywany przy listowaniu achievementow
+	//				PlayersProfiles.Instance.CurrentProfile = i;                                    // ID znalezionego profilu
+	//				_isOnTheList = true;
+	//				break;
+	//			}
+	//		}
+
+	//		if (!_isOnTheList)																					// jesli na liscie nie wystepuje podane NAME
+	//		{
+	//			AddNewProfile();
+	//		}
+	//	}
+	//	else                                                                                            // jesli w pamieci nie istnieje lista userów
+	//	{
+	//		AddNewProfile();
+	//	}
+	//}
 
 
 
-	private void ListNameScoreAchievements(float listFrom, float listTo)                                                         // ładowane po kliknieciu buttona START w menu NEW GAME
+	//private void AddNewProfile()
+	//{
+	//	PlayerProfile = new PlayerProfile(LoginView.JustPlayerName, 0, false, false, false);          // tworzę nowy profil gracza z domyślnymi wartościami
+	//	if (_isThereAList)                                                                  // na liście nie ma podanego NAME
+	//	{
+	//		PlayersProfiles.Instance.ListOfProfiles.Add(PlayerProfile);                     // a teraz dodaje do niej aktualny playerProfile
+	//		PlayersProfiles.Instance.CurrentProfile = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
+	//	}
+	//	else
+	//	{
+	//		PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile> {            // tworzę listę, bo _isThereAList == false
+	//			PlayerProfile																// a teraz dodaje do niej aktualny playerProfile
+	//		};
+	//		PlayersProfiles.Instance.CurrentProfile = 0;                                    // nadaję userowi pierwszy numer na liście
+	//	}
+	//	PlayerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie				
+	//}
+
+
+
+	private void ListNameScoreAchievements(float listFrom, float listTo)                                                         
 	{
 		// LABELS
 		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(200, 240, 150, 30), ResizeControllerViewService.Horizontal.left, ResizeControllerViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME</color>", SetGUIStyleViewService.LabelStyle);
