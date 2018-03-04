@@ -45,7 +45,7 @@ public class AchievementsView : MonoBehaviour {
 	{
 		if (MenuScreensService.MenuStates.Equals(MenuScreensService.MenuScreens.Achievements))
 		{
-			CalculateStartAndEndPositionsForAchievementsForUpdate();                        // poza OnGUI, bo OnGUI wywoluje sie 2x na klatke, co zaburza zliczanie kliknięć
+			CalculateStartAndEndPositionsForAchievements();
 		}
 	}
 
@@ -78,6 +78,8 @@ public class AchievementsView : MonoBehaviour {
 				_listAchievementsTo = _scope;
 			}
 		}
+
+		//CalculateStartAndEndPositionsForAchievements();
 	}
 
 
@@ -152,23 +154,23 @@ public class AchievementsView : MonoBehaviour {
 
 
 
-	private void CalculateStartAndEndPositionsForAchievementsForUpdate()
+	private void CalculateStartAndEndPositionsForAchievements()
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			if (ResizeControllerViewService.ClickedWithin(_previousAchievementPage) && _listAchievementsFrom > 0)
+			if (ResizeControllerViewService.ClickedWithinForUpdate(_previousAchievementPage) && _listAchievementsFrom > 0)
 			{
 				_listAchievementsFrom -= _scope;
 				_listAchievementsTo -= _scope;
+				//Debug.Log("prev");
 			}
 
-			if (ResizeControllerViewService.ClickedWithin(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
+			if (ResizeControllerViewService.ClickedWithinForUpdate(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
 			{
 				_listAchievementsFrom += _scope;
 				_listAchievementsTo += _scope;
+				//Debug.Log("next");
 			}
-
-			Debug.Log("ide albo nie ide");
 		}
 	}
 }

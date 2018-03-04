@@ -30,14 +30,12 @@ public class ProfileView : MonoBehaviour {
 		_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
 		DrawElementViewService.DrawElement(350, 550, 100, 30, ProfileButtonInactive, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
 
-		//Debug.Log("PROFILE VIEW na liscie wystepuje podane NAME: " + LoginViewService.PlayerProfile.PlayerName);
-
 		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + LoginViewService.PlayerProfile.PlayerName + "</color>\n\n" +
 								"HIGHSCORE\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + LoginViewService.PlayerProfile.HighScore + "</color>\n\n" +
 								"ACHIEVEMENTS\n</color>";
 		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
 
-		//ListAchievements(PlayersProfiles.Instance.CurrentProfile, PlayerProfile, xPosition, yPosition);                     // wypisuje achievementy dla zalogowanego playera
+		ListAchievements(PlayersProfiles.Instance.CurrentProfile, PlayerProfile, xPosition, yPosition);                     // wypisuje achievementy dla zalogowanego playera
 
 		if (Input.GetMouseButtonDown(0))
 		{

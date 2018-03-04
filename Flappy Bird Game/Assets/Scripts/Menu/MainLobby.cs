@@ -42,7 +42,6 @@ public class MainLobby : MonoBehaviour {
 	public ProfileView ProfileView;
 	public AchievementsView AchievementsView;
 
-	private PlayerProfileController PlayerProfileControllerMainMenu = new PlayerProfileController(); //=================================================================
 	private ResizeControllerViewService ResizeControllerViewService = new ResizeControllerViewService();
 	private DrawElementViewService DrawElementViewService = new DrawElementViewService();
 	private SetGUIStyleViewService SetGUIStyleViewService = new SetGUIStyleViewService();
@@ -58,7 +57,7 @@ public class MainLobby : MonoBehaviour {
 	private Rect _logoutRect;
 	private Rect _profileRect;
 
-	public Vector2 MyMousePosition;
+	//public Vector2 MyMousePosition;
 	private bool _isThereAList;
 	private bool _isOnTheList;
 
@@ -215,7 +214,7 @@ public class MainLobby : MonoBehaviour {
 		_profileRect = DrawElementViewService.DrawElement(300, 540, 100, 30, ProfileButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
 		_logoutRect = DrawElementViewService.DrawElement(400, 540, 100, 30, LogoutButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
 
-		MyMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+		//MyMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
 
 		if (Input.GetMouseButtonDown(0))
 		{

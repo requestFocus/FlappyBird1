@@ -255,7 +255,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
-  MyMousePosition: {x: 0, y: 0}
 --- !u!4 &332708757
 Transform:
   m_ObjectHideFlags: 0
@@ -380,7 +379,6 @@ MonoBehaviour:
   LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
   HowtoPlayButtonInactive: {fileID: 2800000, guid: 10087d438620a5c44bd478229b0f3e87,
     type: 3}
-  MyMousePosition: {x: 0, y: 0}
 --- !u!4 &606175324
 Transform:
   m_ObjectHideFlags: 0
@@ -424,7 +422,6 @@ MonoBehaviour:
   LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
   ProfileButtonInactive: {fileID: 2800000, guid: a1386e7a0254ff34796a9bb6e7a67738,
     type: 3}
-  MyMousePosition: {x: 0, y: 0}
 --- !u!4 &675613112
 Transform:
   m_ObjectHideFlags: 0
