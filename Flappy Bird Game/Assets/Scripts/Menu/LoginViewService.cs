@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class LoginViewService
 {
-	private bool _isThereAList;
+	public static bool ThereIsAList;
 	private bool _isOnTheList;
+	public static PlayerProfile PlayerProfile;
 
 	private PlayerProfileController PlayerProfileController = new PlayerProfileController();
-	public static PlayerProfile PlayerProfile;
 
 	public void CheckPlayerPrefs()                                                         // ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
 	{
-		_isThereAList = PlayerProfileController.LoadProfiles();
+		ThereIsAList = PlayerProfileController.LoadProfiles();
 
-		if (_isThereAList)                                                                   // jesli istnieje lista w pamieci
+		if (ThereIsAList)                                                                   // jesli istnieje lista w pamieci
 		{
 			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)                 // parsuje całą listę obiektów
 			{
@@ -23,14 +23,14 @@ public class LoginViewService
 					PlayerProfile = PlayersProfiles.Instance.ListOfProfiles[i];                 // odnaleziony profil, uzywany przy listowaniu achievementow
 					PlayersProfiles.Instance.CurrentProfile = i;                                    // ID znalezionego profilu
 					_isOnTheList = true;
-					Debug.Log("na liscie wystepuje podane NAME: " + PlayerProfile.PlayerName);
+					//Debug.Log("na liscie wystepuje podane NAME: " + PlayerProfile.PlayerName);
 					break;
 				}
 			}
 
 			if (!_isOnTheList)                                                                                  // jesli na liscie nie wystepuje podane NAME
 			{
-				Debug.Log("na liscie nie wystepuje podane NAME");
+				//Debug.Log("na liscie nie wystepuje podane NAME");
 				AddNewProfile();
 			}
 		}
@@ -44,7 +44,7 @@ public class LoginViewService
 	private void AddNewProfile()
 	{
 		PlayerProfile = new PlayerProfile(LoginView.JustPlayerName, 0, false, false, false);          // tworzę nowy profil gracza z domyślnymi wartościami
-		if (_isThereAList)                                                                  // na liście nie ma podanego NAME
+		if (ThereIsAList)                                                                  // na liście nie ma podanego NAME
 		{
 			PlayersProfiles.Instance.ListOfProfiles.Add(PlayerProfile);                     // a teraz dodaje do niej aktualny playerProfile
 			PlayersProfiles.Instance.CurrentProfile = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie

@@ -18,28 +18,29 @@ public class MainLobby : MonoBehaviour {
 	public Texture LogoutButton;
 
 	//====== ACHIEVEMENTS
-	public Texture Complete10Active;
-	public Texture Complete10Inactive;
-	public Texture Complete25Active;
-	public Texture Complete25Inactive;
-	public Texture Complete50Active;
-	public Texture Complete50Inactive;
+	//public Texture Complete10Active;
+	//public Texture Complete10Inactive;
+	//public Texture Complete25Active;
+	//public Texture Complete25Inactive;
+	//public Texture Complete50Active;
+	//public Texture Complete50Inactive;
 
-	public Texture AchievementsButtonInactive;
-	public Texture NextAchievementPage;
-	public Texture PreviousAchievementPage;
+	//public Texture AchievementsButtonInactive;
+	//public Texture NextAchievementPage;
+	//public Texture PreviousAchievementPage;
 
-	private Rect _nextAchievementPage;
-	private Rect _previousAchievementPage;
-	private float _listAchievementsFrom;
-	private float _listAchievementsTo;
-	private float _scope;
+	//private Rect _nextAchievementPage;
+	//private Rect _previousAchievementPage;
+	//private float _listAchievementsFrom;
+	//private float _listAchievementsTo;
+	//private float _scope;
 	//=====================
 
 	public LoginView LoginView;
 	public HowToPlayView HowToPlayView;
 	public CreditsView CreditsView;
 	public ProfileView ProfileView;
+	public AchievementsView AchievementsView;
 
 	private PlayerProfileController PlayerProfileControllerMainMenu = new PlayerProfileController(); //=================================================================
 	private ResizeControllerViewService ResizeControllerViewService = new ResizeControllerViewService();
@@ -92,12 +93,12 @@ public class MainLobby : MonoBehaviour {
 		SetGUIStyleViewService.SetGUIStyle();
 
 		//_justPlayerName = "";
-		_isThereAList = PlayerProfileControllerMainMenu.LoadProfiles();                             // jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
+		//_isThereAList = PlayerProfileControllerMainMenu.LoadProfiles();                             // jeśli lista istnieje, jej zawartość od razu wchodzi do singletona
 
 		// do przemieszczania achievementow stronami
-		_scope = 5;
-		_listAchievementsFrom = 0;
-		_listAchievementsTo = _scope;
+		//_scope = 5;
+		//_listAchievementsFrom = 0;
+		//_listAchievementsTo = _scope;
 	}
 
 
@@ -131,7 +132,7 @@ public class MainLobby : MonoBehaviour {
 				CreditsView.DrawCreditsMenu();
 				break;
 			case MenuScreensService.MenuScreens.Achievements:
-				DrawAchievementsMenu(AchievementsButtonInactive);
+				AchievementsView.DrawAchievementsMenu();
 				break;
 			case MenuScreensService.MenuScreens.NewGame:
 				StartNewGame();
@@ -327,34 +328,34 @@ public class MainLobby : MonoBehaviour {
 
 
 
-	private void DrawAchievementsMenu(Texture menuElement)
-	{
-		_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
-		DrawElementViewService.DrawElement(350, 550, 100, 30, menuElement, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
+	//private void DrawAchievementsMenu(Texture menuElement)
+	//{
+	//	_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
+	//	DrawElementViewService.DrawElement(350, 550, 100, 30, menuElement, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
 
-		if (_isThereAList)                                                                            // jesli istnieje lista w pamieci
-		{
-			ListNameScoreAchievements(_listAchievementsFrom, _listAchievementsTo);
-			//ListAchievementsWithMasking();
-		}
-		else                                                                                            // jesli w pamieci nie istnieje lista userów
-		{
-			GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">No results yet.</color>", SetGUIStyleViewService.LabelStyle);
-		}
+	//	if (_isThereAList)                                                                            // jesli istnieje lista w pamieci
+	//	{
+	//		ListNameScoreAchievements(_listAchievementsFrom, _listAchievementsTo);
+	//		//ListAchievementsWithMasking();
+	//	}
+	//	else                                                                                            // jesli w pamieci nie istnieje lista userów
+	//	{
+	//		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">No results yet.</color>", SetGUIStyleViewService.LabelStyle);
+	//	}
 
-		//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (ResizeControllerViewService.ClickedWithin(_logoRect))
-			{
-				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
-				SetGUIStyleViewService.LabelContent.text = "";
+	//	//_myMousePosition = Event.current.mousePosition;  // Event.current.mousePosition operuje w przestrzeni top left to bottom right	
+	//	if (Input.GetMouseButtonDown(0))
+	//	{
+	//		if (ResizeControllerViewService.ClickedWithin(_logoRect))
+	//		{
+	//			MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
+	//			SetGUIStyleViewService.LabelContent.text = "";
 
-				_listAchievementsFrom = 0;
-				_listAchievementsTo = _scope;
-			}
-		}
-	}
+	//			_listAchievementsFrom = 0;
+	//			_listAchievementsTo = _scope;
+	//		}
+	//	}
+	//}
 
 
 
@@ -432,116 +433,91 @@ public class MainLobby : MonoBehaviour {
 
 
 
-	private void ListNameScoreAchievements(float listFrom, float listTo)                                                         
-	{
-		// LABELS
-		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(200, 240, 150, 30), ResizeControllerViewService.Horizontal.left, ResizeControllerViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME</color>", SetGUIStyleViewService.LabelStyle);
-		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 240, 150, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">HIGHSCORE</color>", SetGUIStyleViewService.LabelStyle);
-		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(430, 240, 150, 30), ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">ACHIEVEMENTS</color>", SetGUIStyleViewService.LabelStyle);
+	//private void ListNameScoreAchievements(float listFrom, float listTo)                                                         
+	//{
+	//	// LABELS
+	//	GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(200, 240, 150, 30), ResizeControllerViewService.Horizontal.left, ResizeControllerViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME</color>", SetGUIStyleViewService.LabelStyle);
+	//	GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 240, 150, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">HIGHSCORE</color>", SetGUIStyleViewService.LabelStyle);
+	//	GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(430, 240, 150, 30), ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">ACHIEVEMENTS</color>", SetGUIStyleViewService.LabelStyle);
 
-		// BUTTONS
-		_previousAchievementPage = DrawElementViewService.DrawElement(376, 430, 16, 18, PreviousAchievementPage, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
-		_nextAchievementPage = DrawElementViewService.DrawElement(410, 430, 16, 18, NextAchievementPage, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
+	//	// BUTTONS
+	//	_previousAchievementPage = DrawElementViewService.DrawElement(376, 430, 16, 18, PreviousAchievementPage, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
+	//	_nextAchievementPage = DrawElementViewService.DrawElement(410, 430, 16, 18, NextAchievementPage, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
 
-		int yPosition = 270;
-		int xPosition = 465;
+	//	int yPosition = 270;
+	//	int xPosition = 465;
 
-		for (int i = (int)listFrom; i < PlayersProfiles.Instance.ListOfProfiles.Count && i < (int)listTo; i++)								// wypisze liste userów od A do B
-			{
-				// PLAYERNAME
-				GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeControllerViewService.Horizontal.left, ResizeControllerViewService.Vertical.center),
-							"<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", SetGUIStyleViewService.LabelStyle);
+	//	for (int i = (int)listFrom; i < PlayersProfiles.Instance.ListOfProfiles.Count && i < (int)listTo; i++)								// wypisze liste userów od A do B
+	//		{
+	//			// PLAYERNAME
+	//			GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeControllerViewService.Horizontal.left, ResizeControllerViewService.Vertical.center),
+	//						"<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", SetGUIStyleViewService.LabelStyle);
 
-				// HIGHSCORE
-				GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, yPosition, 150, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center),
-							"<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "</color>", SetGUIStyleViewService.LabelStyle);
+	//			// HIGHSCORE
+	//			GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, yPosition, 150, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center),
+	//						"<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "</color>", SetGUIStyleViewService.LabelStyle);
 
-				// ACHIEVEMENTS
-				ListAchievements(i, PlayersProfiles.Instance.ListOfProfiles[i], xPosition, yPosition);						// wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
+	//			// ACHIEVEMENTS
+	//			ListAchievements(i, PlayersProfiles.Instance.ListOfProfiles[i], xPosition, yPosition);						// wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
 
-				yPosition += 30;
-				xPosition = 465;
-			}
+	//			yPosition += 30;
+	//			xPosition = 465;
+	//		}
 
-		//CalculateStartAndEndPositionsForAchievementsForOnGUI();
-		MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Achievements;
-	}
-
-
-
-	private void ListAchievements(int currentProfile, PlayerProfile playerProfile, int xPosition, int yPosition)
-	{
-		if (playerProfile.Complete10)
-		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
-		}
-		else
-		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete10Inactive, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);
-		}
-
-		xPosition += 30;
-		if (playerProfile.Complete25)
-		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete25Active, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);
-		}
-		else
-		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete25Inactive, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);
-		}
-
-		xPosition += 30;
-		if (playerProfile.Complete50)
-		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete50Active, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);
-		}
-		else
-		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete50Inactive, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);
-		}
-	}
+	//	//CalculateStartAndEndPositionsForAchievementsForOnGUI();
+	//	MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Achievements;
+	//}
 
 
 
-	private void CalculateStartAndEndPositionsForAchievementsForUpdate()
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (ResizeControllerViewService.ClickedWithin(_previousAchievementPage) && _listAchievementsFrom > 0)
-			{
-				_listAchievementsFrom -= _scope;
-				_listAchievementsTo -= _scope;
-			}
+	//private void ListAchievements(int currentProfile, PlayerProfile playerProfile, int xPosition, int yPosition)
+	//{
+	//	if (playerProfile.Complete10)
+	//	{
+	//		DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+	//	}
+	//	else
+	//	{
+	//		DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete10Inactive, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);
+	//	}
 
-			if (ResizeControllerViewService.ClickedWithin(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
-			{
-				_listAchievementsFrom += _scope;
-				_listAchievementsTo += _scope;
-			}
-		}
-	}
+	//	xPosition += 30;
+	//	if (playerProfile.Complete25)
+	//	{
+	//		DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete25Active, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);
+	//	}
+	//	else
+	//	{
+	//		DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete25Inactive, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);
+	//	}
+
+	//	xPosition += 30;
+	//	if (playerProfile.Complete50)
+	//	{
+	//		DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete50Active, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);
+	//	}
+	//	else
+	//	{
+	//		DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete50Inactive, ResizeControllerViewService.Horizontal.right, ResizeControllerViewService.Vertical.center);
+	//	}
+	//}
 
 
 
-	//private void CalculateStartAndEndPositionsForAchievementsForOnGUI()
+	//private void CalculateStartAndEndPositionsForAchievementsForUpdate()
 	//{
 	//	if (Input.GetMouseButtonDown(0))
 	//	{
-	//		if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
+	//		if (ResizeControllerViewService.ClickedWithin(_previousAchievementPage) && _listAchievementsFrom > 0)
 	//		{
-	//			_listAchievementsFrom += (_scope / 2);
-	//			_listAchievementsTo += (_scope / 2);
-	//		}
-	//		else if (ClickedWithin(_nextAchievementPage) && _listAchievementsTo % 2 != 0 && (_listAchievementsFrom + (_scope / 2)) < PlayersProfiles.Instance.ListOfProfiles.Count)
-	//		{
-	//			_listAchievementsFrom += (_scope / 2);
-	//			_listAchievementsTo += (_scope / 2);
+	//			_listAchievementsFrom -= _scope;
+	//			_listAchievementsTo -= _scope;
 	//		}
 
-	//		if (ClickedWithin(_previousAchievementPage) && _listAchievementsFrom > 0)
+	//		if (ResizeControllerViewService.ClickedWithin(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
 	//		{
-	//			_listAchievementsFrom -= (_scope / 2);
-	//			_listAchievementsTo -= (_scope / 2);
+	//			_listAchievementsFrom += _scope;
+	//			_listAchievementsTo += _scope;
 	//		}
 	//	}
 	//}

@@ -12,7 +12,7 @@ public class LoginView : MonoBehaviour {
 
 	private Rect _logoRect;
 	public static string JustPlayerName;
-	public Vector2 MyMousePosition;
+	//public Vector2 MyMousePosition;
 
 
 
@@ -29,7 +29,7 @@ public class LoginView : MonoBehaviour {
 
 	public void DrawLoginMenu()
 	{
-		MyMousePosition = Event.current.mousePosition;
+		//MyMousePosition = Event.current.mousePosition;
 		SetGUIStyleViewService.SetGUIStyle();
 
 		_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);

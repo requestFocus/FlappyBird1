@@ -11,7 +11,7 @@ public class ProfileView : MonoBehaviour {
 	public SetGUIStyleViewService SetGUIStyleViewService;
 
 	private Rect _logoRect;
-	public Vector2 MyMousePosition;
+	//public Vector2 MyMousePosition;
 
 	void Start ()
 	{
@@ -24,13 +24,13 @@ public class ProfileView : MonoBehaviour {
 
 	public void DrawProfileMenu()               // obsluga NEW GAME
 	{
-		MyMousePosition = Event.current.mousePosition;
+		//MyMousePosition = Event.current.mousePosition;
 		SetGUIStyleViewService.SetGUIStyle();
 
 		_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
 		DrawElementViewService.DrawElement(350, 550, 100, 30, ProfileButtonInactive, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.bottom);
 
-		Debug.Log("PROFILE VIEW na liscie wystepuje podane NAME: " + LoginViewService.PlayerProfile.PlayerName);
+		//Debug.Log("PROFILE VIEW na liscie wystepuje podane NAME: " + LoginViewService.PlayerProfile.PlayerName);
 
 		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + LoginViewService.PlayerProfile.PlayerName + "</color>\n\n" +
 								"HIGHSCORE\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + LoginViewService.PlayerProfile.HighScore + "</color>\n\n" +

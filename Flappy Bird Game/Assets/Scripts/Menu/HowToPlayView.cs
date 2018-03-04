@@ -11,7 +11,7 @@ public class HowToPlayView : MonoBehaviour {
 	public SetGUIStyleViewService SetGUIStyleViewService;
 
 	private Rect _logoRect;
-	public Vector2 MyMousePosition;
+	//public Vector2 MyMousePosition;
 
 
 
@@ -26,7 +26,7 @@ public class HowToPlayView : MonoBehaviour {
 
 	public void DrawHowtoPlayMenu()
 	{
-		MyMousePosition = Event.current.mousePosition;
+		//MyMousePosition = Event.current.mousePosition;
 		SetGUIStyleViewService.SetGUIStyle();
 
 		_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);

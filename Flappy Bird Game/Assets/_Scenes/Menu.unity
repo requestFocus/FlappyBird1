@@ -438,6 +438,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &778772692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 778772694}
+  - component: {fileID: 778772693}
+  m_Layer: 0
+  m_Name: AchievementsView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &778772693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 778772692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32aa05425bce6ba47adaffa178bfd305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
+  AchievementsButtonInactive: {fileID: 2800000, guid: e9e45784ddb996d48ba735d9ba056963,
+    type: 3}
+  NextAchievementPage: {fileID: 2800000, guid: ea7413daa9df09e4783d02ec6d507f5e, type: 3}
+  PreviousAchievementPage: {fileID: 2800000, guid: b1500ae82133c234c92db581fb069ddc,
+    type: 3}
+  Complete10Active: {fileID: 2800000, guid: 560274d54762659439f2a3e4b44fa2e5, type: 3}
+  Complete10Inactive: {fileID: 2800000, guid: 93124a5d54184ec4e8a1a54b2f2662da, type: 3}
+  Complete25Active: {fileID: 2800000, guid: 0a1ccc2afa778d543915a573c9214e80, type: 3}
+  Complete25Inactive: {fileID: 2800000, guid: 18605d35338ac9d4ca630a8049529ab3, type: 3}
+  Complete50Active: {fileID: 2800000, guid: 3299693082ae7794b9f5a314a104725a, type: 3}
+  Complete50Inactive: {fileID: 2800000, guid: 7d2c6df937468fa4ab15efd6f100b672, type: 3}
+--- !u!4 &778772694
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 778772692}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1533058730
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,23 +568,11 @@ MonoBehaviour:
   StartButton: {fileID: 2800000, guid: 83f33b11a1939be4390b15e0ef845ec5, type: 3}
   ProfileButton: {fileID: 2800000, guid: 8e7671127368c214c974285734f73fdb, type: 3}
   LogoutButton: {fileID: 2800000, guid: 1de1a5b73ece07a459f3e0eaefbe746b, type: 3}
-  Complete10Active: {fileID: 2800000, guid: 560274d54762659439f2a3e4b44fa2e5, type: 3}
-  Complete10Inactive: {fileID: 2800000, guid: 93124a5d54184ec4e8a1a54b2f2662da, type: 3}
-  Complete25Active: {fileID: 2800000, guid: 0a1ccc2afa778d543915a573c9214e80, type: 3}
-  Complete25Inactive: {fileID: 2800000, guid: 18605d35338ac9d4ca630a8049529ab3, type: 3}
-  Complete50Active: {fileID: 2800000, guid: 3299693082ae7794b9f5a314a104725a, type: 3}
-  Complete50Inactive: {fileID: 2800000, guid: 7d2c6df937468fa4ab15efd6f100b672, type: 3}
-  AchievementsButtonInactive: {fileID: 2800000, guid: e9e45784ddb996d48ba735d9ba056963,
-    type: 3}
-  NewGameButtonInactive: {fileID: 2800000, guid: 4981899c5a3b5f74ab4921fb60e48f81,
-    type: 3}
-  NextAchievementPage: {fileID: 2800000, guid: ea7413daa9df09e4783d02ec6d507f5e, type: 3}
-  PreviousAchievementPage: {fileID: 2800000, guid: b1500ae82133c234c92db581fb069ddc,
-    type: 3}
   LoginView: {fileID: 332708756}
   HowToPlayView: {fileID: 606175323}
   CreditsView: {fileID: 1533058731}
   ProfileView: {fileID: 675613111}
+  AchievementsView: {fileID: 778772693}
   MyMousePosition: {x: 0, y: 0}
 --- !u!4 &1551131929
 Transform:
