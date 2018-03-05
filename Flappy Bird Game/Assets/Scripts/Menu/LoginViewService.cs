@@ -23,14 +23,12 @@ public class LoginViewService
 					PlayerProfile = PlayersProfiles.Instance.ListOfProfiles[i];                 // odnaleziony profil, uzywany przy listowaniu achievementow
 					PlayersProfiles.Instance.CurrentProfile = i;                                    // ID znalezionego profilu
 					_isOnTheList = true;
-					//Debug.Log("na liscie wystepuje podane NAME: " + PlayerProfile.PlayerName);
 					break;
 				}
 			}
 
 			if (!_isOnTheList)                                                                                  // jesli na liscie nie wystepuje podane NAME
 			{
-				//Debug.Log("na liscie nie wystepuje podane NAME");
 				AddNewProfile();
 			}
 		}
@@ -39,6 +37,7 @@ public class LoginViewService
 			AddNewProfile();
 		}
 	}
+
 
 
 	private void AddNewProfile()

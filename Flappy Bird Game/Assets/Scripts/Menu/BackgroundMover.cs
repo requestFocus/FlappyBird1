@@ -14,6 +14,8 @@ public class BackgroundMover : MonoBehaviour {
 		MoveBackground();
 	}
 
+
+
 	private void MoveBackground()
 	{
 		if (transform.position.x >= _rightEdge1 && transform.position.x < _rightEdge2)

@@ -12,7 +12,6 @@ public static class MenuScreensService
 		Credits,
 		Achievements,
 		NewGame,
-		//GamePlay,
 		Profile
 	};
 	public static MenuScreens MenuStates;

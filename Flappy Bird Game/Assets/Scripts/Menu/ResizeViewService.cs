@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResizeControllerViewService
+public class ResizeViewService
 {
 	private float _defaultScreenWidth = 800;
 	private float _defaultScreenHeight = 600;
@@ -12,9 +12,7 @@ public class ResizeControllerViewService
 
 	public Vector2 MyMousePosition;
 	public Vector2 MyMousePositionForUpdate;
-
-
-
+	
 	public enum Horizontal
 	{
 		left,
@@ -22,9 +20,7 @@ public class ResizeControllerViewService
 		right
 	}
 	public Horizontal HorizontalAlignment;
-
-
-
+	
 	public enum Vertical
 	{
 		top,
@@ -32,9 +28,7 @@ public class ResizeControllerViewService
 		bottom
 	}
 	public Vertical VerticalAlignment;
-
-
-
+	
 	public Rect ResizeGUI(Rect rect, Horizontal horizontalAlignment, Vertical verticalAlignment)
 	{
 		_scaleWidth = Screen.width / _defaultScreenWidth;
@@ -81,13 +75,12 @@ public class ResizeControllerViewService
 	public bool ClickedWithin(Rect rect)
 	{
 		MyMousePosition = Event.current.mousePosition;
-
 		return ((MyMousePosition.x >= rect.x) && (MyMousePosition.x <= (rect.x + rect.width)) && (MyMousePosition.y >= rect.y) && (MyMousePosition.y <= (rect.y + rect.height)));
 	}
 
 
 
-	public bool ClickedWithinForUpdate(Rect rect)               // Update() nie rozumie Event.current.mousePosition, trzeba użyć Input.mousePosition
+	public bool ClickedWithinForUpdate(Rect rect)               // @ACHIEVEMENTS, Update() nie rozumie Event.current.mousePosition, trzeba użyć Input.mousePosition
 	{
 		MyMousePositionForUpdate = Input.mousePosition;
 		return ((MyMousePositionForUpdate.x >= rect.x) && (MyMousePositionForUpdate.x <= (rect.x + rect.width)) && (MyMousePositionForUpdate.y >= (Screen.height - rect.y - rect.height)) && (MyMousePositionForUpdate.y <= (Screen.height - rect.y)));

@@ -5,42 +5,37 @@ using UnityEngine;
 public class LoginView : MonoBehaviour {
 
 	[SerializeField] private Texture LogoButton;
-	public ResizeControllerViewService ResizeControllerViewService;
+	public ResizeViewService ResizeViewService;
 	public DrawElementViewService DrawElementViewService;
 	public SetGUIStyleViewService SetGUIStyleViewService;
 	public LoginViewService LoginViewService;
 
 	private Rect _logoRect;
 	public static string JustPlayerName;
-	//public Vector2 MyMousePosition;
-
-
-
+	
 	public void Start()
 	{
 		JustPlayerName = "";
-		ResizeControllerViewService = new ResizeControllerViewService();
+		ResizeViewService = new ResizeViewService();
 		DrawElementViewService = new DrawElementViewService();
 		SetGUIStyleViewService = new SetGUIStyleViewService();
 		LoginViewService = new LoginViewService();
+		SetGUIStyleViewService.SetGUIStyle();
 	}
 
 
 
-	public void DrawLoginMenu()
+	public void DrawLoginMenu()                                 // jest innej budowy niż pozostale widoki, dlatego nie korzysta z DrawElementViewService.DrawCommonViewELements(LogoButton);
 	{
-		//MyMousePosition = Event.current.mousePosition;
-		SetGUIStyleViewService.SetGUIStyle();
-
-		_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.top);
-		JustPlayerName = GUI.TextField(ResizeControllerViewService.ResizeGUI(new Rect(350, 270, 100, 25), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), JustPlayerName, 10);
+		_logoRect = DrawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.top);
+		JustPlayerName = GUI.TextField(ResizeViewService.ResizeGUI(new Rect(350, 270, 100, 25), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), JustPlayerName, 10);
 
 		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">Enter your name\nand click on the logo</color>";
-		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(350, 310, 100, 25), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle); // ENTER YOUR NAME label
+		GUI.Label(ResizeViewService.ResizeGUI(new Rect(350, 310, 100, 25), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle); // ENTER YOUR NAME label
 
 		if (Input.GetMouseButtonDown(0))
 		{
-			if (ResizeControllerViewService.ClickedWithin(_logoRect))
+			if (ResizeViewService.ClickedWithin(_logoRect))
 			{
 				if (JustPlayerName.Length > 0)
 				{
