@@ -268,6 +268,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &476979781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 476979783}
+  - component: {fileID: 476979782}
+  m_Layer: 0
+  m_Name: AchievementSingleEntryView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &476979782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 476979781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0e9e9c145dae748b714b42cd18248b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Complete10Active: {fileID: 2800000, guid: 560274d54762659439f2a3e4b44fa2e5, type: 3}
+  Complete10Inactive: {fileID: 2800000, guid: 93124a5d54184ec4e8a1a54b2f2662da, type: 3}
+  Complete25Active: {fileID: 2800000, guid: 0a1ccc2afa778d543915a573c9214e80, type: 3}
+  Complete25Inactive: {fileID: 2800000, guid: 18605d35338ac9d4ca630a8049529ab3, type: 3}
+  Complete50Active: {fileID: 2800000, guid: 3299693082ae7794b9f5a314a104725a, type: 3}
+  Complete50Inactive: {fileID: 2800000, guid: 7d2c6df937468fa4ab15efd6f100b672, type: 3}
+--- !u!4 &476979783
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 476979781}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &528317980
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,6 +468,7 @@ MonoBehaviour:
   LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
   ProfileButtonInactive: {fileID: 2800000, guid: a1386e7a0254ff34796a9bb6e7a67738,
     type: 3}
+  AchievementSingleEntryView: {fileID: 476979782}
 --- !u!4 &675613112
 Transform:
   m_ObjectHideFlags: 0
@@ -468,12 +515,7 @@ MonoBehaviour:
   NextAchievementPage: {fileID: 2800000, guid: ea7413daa9df09e4783d02ec6d507f5e, type: 3}
   PreviousAchievementPage: {fileID: 2800000, guid: b1500ae82133c234c92db581fb069ddc,
     type: 3}
-  Complete10Active: {fileID: 2800000, guid: 560274d54762659439f2a3e4b44fa2e5, type: 3}
-  Complete10Inactive: {fileID: 2800000, guid: 93124a5d54184ec4e8a1a54b2f2662da, type: 3}
-  Complete25Active: {fileID: 2800000, guid: 0a1ccc2afa778d543915a573c9214e80, type: 3}
-  Complete25Inactive: {fileID: 2800000, guid: 18605d35338ac9d4ca630a8049529ab3, type: 3}
-  Complete50Active: {fileID: 2800000, guid: 3299693082ae7794b9f5a314a104725a, type: 3}
-  Complete50Inactive: {fileID: 2800000, guid: 7d2c6df937468fa4ab15efd6f100b672, type: 3}
+  AchievementSingleEntryView: {fileID: 476979782}
 --- !u!4 &778772694
 Transform:
   m_ObjectHideFlags: 0
@@ -570,7 +612,6 @@ MonoBehaviour:
   CreditsView: {fileID: 1533058731}
   ProfileView: {fileID: 675613111}
   AchievementsView: {fileID: 778772693}
-  MyMousePosition: {x: 0, y: 0}
 --- !u!4 &1551131929
 Transform:
   m_ObjectHideFlags: 0

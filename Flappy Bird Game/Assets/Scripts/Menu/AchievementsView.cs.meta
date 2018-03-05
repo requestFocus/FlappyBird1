@@ -5,7 +5,15 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
+  - AchievementsButtonInactive: {fileID: 2800000, guid: e9e45784ddb996d48ba735d9ba056963,
+      type: 3}
+  - NextAchievementPage: {fileID: 2800000, guid: ea7413daa9df09e4783d02ec6d507f5e,
+      type: 3}
+  - PreviousAchievementPage: {fileID: 2800000, guid: b1500ae82133c234c92db581fb069ddc,
+      type: 3}
+  - AchievementSingleEntryViewService: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

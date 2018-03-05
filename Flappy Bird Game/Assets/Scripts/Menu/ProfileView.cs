@@ -6,6 +6,9 @@ public class ProfileView : MonoBehaviour {
 
 	[SerializeField] private Texture LogoButton;
 	public Texture ProfileButtonInactive;
+
+	public AchievementSingleEntryView AchievementSingleEntryView;
+
 	public ResizeControllerViewService ResizeControllerViewService;
 	public DrawElementViewService DrawElementViewService;
 	public SetGUIStyleViewService SetGUIStyleViewService;
@@ -24,6 +27,9 @@ public class ProfileView : MonoBehaviour {
 
 	public void DrawProfileMenu()               // obsluga NEW GAME
 	{
+		int yPosition = 370;
+		int xPosition = 360;
+
 		//MyMousePosition = Event.current.mousePosition;
 		SetGUIStyleViewService.SetGUIStyle();
 
@@ -35,7 +41,7 @@ public class ProfileView : MonoBehaviour {
 								"ACHIEVEMENTS\n</color>";
 		GUI.Label(ResizeControllerViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeControllerViewService.Horizontal.center, ResizeControllerViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
 
-		ListAchievements(PlayersProfiles.Instance.CurrentProfile, PlayerProfile, xPosition, yPosition);                     // wypisuje achievementy dla zalogowanego playera
+		AchievementSingleEntryView.ListAchievements(PlayersProfiles.Instance.CurrentProfile, LoginViewService.PlayerProfile, xPosition, yPosition);                     // wypisuje achievementy dla zalogowanego playera
 
 		if (Input.GetMouseButtonDown(0))
 		{

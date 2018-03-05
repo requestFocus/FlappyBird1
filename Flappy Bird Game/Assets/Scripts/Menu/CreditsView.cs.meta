@@ -5,7 +5,10 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
+  - CreditsButtonInactive: {fileID: 2800000, guid: 79deb127eab9ca14b9848b4d8a128756,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5d186ff7f8eeb14409a82d650a06e7dd
-timeCreated: 1516030045
+guid: 7ad1e7c51a159d5459e276d2671b5f20
+timeCreated: 1520270885
 licenseType: Free
 MonoImporter:
   externalObjects: {}
@@ -15,11 +15,6 @@ MonoImporter:
   - StartButton: {fileID: 2800000, guid: 83f33b11a1939be4390b15e0ef845ec5, type: 3}
   - ProfileButton: {fileID: 2800000, guid: 8e7671127368c214c974285734f73fdb, type: 3}
   - LogoutButton: {fileID: 2800000, guid: 1de1a5b73ece07a459f3e0eaefbe746b, type: 3}
-  - LoginView: {instanceID: 0}
-  - HowToPlayView: {instanceID: 0}
-  - CreditsView: {instanceID: 0}
-  - ProfileView: {instanceID: 0}
-  - AchievementsView: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
