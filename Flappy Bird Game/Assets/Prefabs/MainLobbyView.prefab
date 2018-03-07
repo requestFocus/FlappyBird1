@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1084550386949368}
+  m_IsPrefabParent: 1
+--- !u!1 &1084550386949368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4985889546234402}
+  - component: {fileID: 114552186670731222}
+  m_Layer: 0
+  m_Name: MainLobbyView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4985889546234402
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084550386949368}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114552186670731222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084550386949368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ad1e7c51a159d5459e276d2671b5f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
+  AchievementsButton: {fileID: 2800000, guid: 5e8763e92fd54004f88e0701c84a844a, type: 3}
+  CreditsButton: {fileID: 2800000, guid: ce7b600e5ddd0b24eb7e221b9b9fe51d, type: 3}
+  HowtoPlayButton: {fileID: 2800000, guid: cdd02f997c7f4a64b914a0cf07c6d141, type: 3}
+  NewGameButton: {fileID: 2800000, guid: 2b5d602f8a775504a884e6fee9131e81, type: 3}
+  StartButton: {fileID: 2800000, guid: 83f33b11a1939be4390b15e0ef845ec5, type: 3}
+  ProfileButton: {fileID: 2800000, guid: 8e7671127368c214c974285734f73fdb, type: 3}
+  LogoutButton: {fileID: 2800000, guid: 1de1a5b73ece07a459f3e0eaefbe746b, type: 3}

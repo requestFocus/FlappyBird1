@@ -10,11 +10,13 @@ public class MainLobby : MonoBehaviour {
 	public MainLobbyView MainLobbyView;
 	public LoginView LoginView;
 	public HowToPlayView HowToPlayView;
-	public CreditsView CreditsView;
+	private CreditsView CreditsView;
 	public ProfileView ProfileView;
 	public AchievementsView AchievementsView;
 
 	public static bool BackFromGamePlay;
+
+	public MainLobbyModel MainLobbyModel;
 
 	private void Start()
 	{
@@ -41,11 +43,17 @@ public class MainLobby : MonoBehaviour {
 				break;
 			case MenuScreensService.MenuScreens.MainMenu:
 				MainLobbyView.DrawMainMenu();
+
+				//MainLobbyModel = new MainLobbyModel();										// działa
+				//MainLobbyView.SetModel(MainLobbyModel);
+				//Debug.Log(MainLobbyView.GetModel().CurrentListEntry.PlayerName);
+
 				break;
 			case MenuScreensService.MenuScreens.HowtoPlay:
 				HowToPlayView.DrawHowtoPlayMenu();
 				break;
 			case MenuScreensService.MenuScreens.Credits:
+				//Instantiate<CreditsView>(CreditsView); //================================??????????????????????????????????????????????
 				CreditsView.DrawCreditsMenu();
 				break;
 			case MenuScreensService.MenuScreens.Achievements:

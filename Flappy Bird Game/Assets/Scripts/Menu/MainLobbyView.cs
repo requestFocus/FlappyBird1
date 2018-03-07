@@ -24,10 +24,25 @@ public class MainLobbyView : MonoBehaviour
 	private ResizeViewService ResizeViewService;
 	private DrawElementViewService DrawElementViewService;
 
+	public MainLobbyModel MainLobbyModel;
+	private MainLobbyModel _model;
+
 	private void Start()
 	{
 		ResizeViewService = new ResizeViewService();
 		DrawElementViewService = new DrawElementViewService();
+	}
+
+
+
+	public void SetModel(MainLobbyModel model)
+	{
+		_model = model;
+	}
+
+	public MainLobbyModel GetModel()
+	{
+		return _model;
 	}
 
 
