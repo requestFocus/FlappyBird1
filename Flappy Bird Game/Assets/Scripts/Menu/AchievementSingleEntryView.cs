@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementSingleEntryView : MonoBehaviour {
+public class AchievementSingleEntryView : View {
 
 	[SerializeField] private Texture Complete10Active;
 	[SerializeField] private Texture Complete10Inactive;
@@ -11,11 +11,11 @@ public class AchievementSingleEntryView : MonoBehaviour {
 	[SerializeField] private Texture Complete50Active;
 	[SerializeField] private Texture Complete50Inactive;
 
-	[SerializeField] private DrawElementViewService DrawElementViewService;
+	private DrawElementViewService _drawElementViewService;
 
 	private void Start()
 	{
-		DrawElementViewService = new DrawElementViewService();
+		_drawElementViewService = new DrawElementViewService();
 	}
 
 
@@ -24,33 +24,33 @@ public class AchievementSingleEntryView : MonoBehaviour {
 	{
 		if (playerProfile.Complete10)
 		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
+			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
 		}
 		else
 		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete10Inactive, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
+			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete10Inactive, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
 		}
 
 		xPosition += 30;
 
 		if (playerProfile.Complete25)
 		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete25Active, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
+			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete25Active, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
 		}
 		else
 		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete25Inactive, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
+			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete25Inactive, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
 		}
 
 		xPosition += 30;
 
 		if (playerProfile.Complete50)
 		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete50Active, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
+			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete50Active, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
 		}
 		else
 		{
-			DrawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete50Inactive, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
+			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete50Inactive, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
 		}
 	}
 }

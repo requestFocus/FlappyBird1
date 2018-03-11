@@ -21,7 +21,6 @@ public class ProfileView : View {
 	}
 
 
-
 	public void DrawProfileView()               // obsluga NEW GAME
 	{
 		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + ProfileModel.CurrentProfile.PlayerName + "</color>\n\n" +

@@ -28,14 +28,13 @@ public class MainLobbyView : View
 
 	private ResizeViewService _resizeViewService;
 	private DrawElementViewService _drawElementViewService;
+	private LoginViewService LoginViewService;
 
 	private void Start()
 	{
 		_resizeViewService = new ResizeViewService();
 		_drawElementViewService = new DrawElementViewService();
 	}
-
-
 
 	public void DrawMainMenu()                             // obsluga MAIN MENU
 	{

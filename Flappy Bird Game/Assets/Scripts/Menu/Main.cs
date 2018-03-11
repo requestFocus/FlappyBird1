@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour {
 
+	public static bool BackFromGamePlay;
+
 	[SerializeField] private MainLobbyView MainLobbyView;
 	[SerializeField] private LoginView LoginView;
 	[SerializeField] private HowToPlayView HowToPlayView;
@@ -16,11 +18,11 @@ public class Main : MonoBehaviour {
 
 	[SerializeField] private MainLobbyModel MainLobbyModel;
 
-	public static bool BackFromGamePlay;
+	private LoginViewService _loginViewService;
 
 	private void Start()
 	{
-		//PlayerPrefs.DeleteAll();												// CZYSZCZENIE PLAYERPREFS
+		//PlayerPrefs.DeleteAll();                                                // CZYSZCZENIE PLAYERPREFS
 
 		if (!BackFromGamePlay)													// jeśli uruchomiono aplikacje, ale nie rozegrano gry
 		{
@@ -45,6 +47,7 @@ public class Main : MonoBehaviour {
 			case MenuScreensService.MenuScreens.MainMenu:
 				MainLobbyModel = new MainLobbyModel();
 				MainLobbyView.SetModel(MainLobbyModel);
+
 				MainLobbyView.DrawMainMenu();
 				break;
 
@@ -61,20 +64,13 @@ public class Main : MonoBehaviour {
 				break;
 
 			case MenuScreensService.MenuScreens.NewGame:
-				StartNewGame();
+				SceneManager.LoadScene("Game");
 				break;
 
 			case MenuScreensService.MenuScreens.Profile:
 				ProfileView.DrawProfileView();
 				break;
 		}
-	}
-
-
-
-	private void StartNewGame()               // obsluga NEW GAME
-	{
-		SceneManager.LoadScene("Game");
 	}
 }
 

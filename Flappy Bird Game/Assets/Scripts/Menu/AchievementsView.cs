@@ -47,30 +47,17 @@ public class AchievementsView : View {
 
 	public void DrawAchievementsMenu()
 	{
-		if (LoginViewService.ThereIsAList)                                                                            // jesli istnieje lista w pamieci
-		{
-			ListNameScoreAchievements(_listAchievementsFrom, _listAchievementsTo);
-		}
-		else                                                                                            // jesli w pamieci nie istnieje lista userów
-		{
-			GUI.Label(_resizeViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">No results yet.</color>", _setGUIStyleViewService.LabelStyle);
-		}
+		ListNameScoreAchievements(_listAchievementsFrom, _listAchievementsTo);
 
 		_drawElementViewService.DrawCommonViewELements(LogoButton, AchievementsButtonInactive);
 	}
 
-	//public void DrawAchievementsMenu()                                              //====================DLACZEGO TO NIE DZIAŁA, CHOCIAZ NIE MA BLEDU?
-	//{
-	//	DrawElementViewService.DrawCommonViewELements(LogoButton, AchievementsButtonInactive);
 
-	//	if (LoginViewService.ThereIsAList)                                                                            // jesli istnieje lista w pamieci
-	//	{
-	//		ListNameScoreAchievements(_listAchievementsFrom, _listAchievementsTo);
-	//	}
-	//	else                                                                                            // jesli w pamieci nie istnieje lista userów
-	//	{
-	//		GUI.Label(ResizeViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">No results yet.</color>", SetGUIStyleViewService.LabelStyle);
-	//	}
+	//public void DrawAchievementsMenu()                                              //====================DLACZEGO TU NIE DZIAŁA EXIT (clickedwithin logo), CHOCIAZ NIE MA BLEDU?
+	//{
+	//	_drawElementViewService.DrawCommonViewELements(LogoButton, AchievementsButtonInactive);
+
+	//	ListNameScoreAchievements(_listAchievementsFrom, _listAchievementsTo);
 	//}
 
 

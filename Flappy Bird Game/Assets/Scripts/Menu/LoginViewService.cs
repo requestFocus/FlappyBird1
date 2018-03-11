@@ -5,7 +5,6 @@ using UnityEngine;
 public class LoginViewService
 {
 	public static bool ThereIsAList;
-	public static int FoundPlayerProfileID;
 
 	private bool _isOnTheList;
 	private PlayerProfile _playerProfile;
@@ -15,8 +14,6 @@ public class LoginViewService
 	{
 		ThereIsAList = _playerProfileController.LoadProfiles();
 
-		FoundPlayerProfileID = -1;
-
 		if (ThereIsAList)                                                                   // jesli istnieje lista w pamieci
 		{
 			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)                 // parsuje całą listę obiektów
@@ -24,8 +21,7 @@ public class LoginViewService
 				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(LoginView.JustPlayerName))   // sprawdza czy podane NAME istnieje w pamięci
 				{
 					_playerProfile = PlayersProfiles.Instance.ListOfProfiles[i];                 // odnaleziony profil, uzywany przy listowaniu achievementow
-					/* POTRZEBNE W CANVAS CONTROLLER */	PlayersProfiles.Instance.CurrentProfile = i;                                    // ID znalezionego profilu
-					FoundPlayerProfileID = i;
+					PlayersProfiles.Instance.CurrentProfile = i;        // ID znalezionego profilu, POTRZEBNE TEŻ W CANVAS CONTROLLER
 					_isOnTheList = true;
 					break;
 				}
@@ -49,18 +45,13 @@ public class LoginViewService
 		_playerProfile = new PlayerProfile(LoginView.JustPlayerName, 0, false, false, false);          // tworzę nowy profil gracza z domyślnymi wartościami
 		if (ThereIsAList)																				 // na liście nie ma podanego NAME
 		{
-			PlayersProfiles.Instance.ListOfProfiles.Add(_playerProfile);                     // a teraz dodaje do niej aktualny playerProfile
-			/* POTRZEBNE W CANVAS CONTROLLER */ PlayersProfiles.Instance.CurrentProfile = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
-			FoundPlayerProfileID = PlayersProfiles.Instance.ListOfProfiles.Count - 1;
+			PlayersProfiles.Instance.ListOfProfiles.Add(_playerProfile);                             // a teraz dodaje do niej aktualny _playerProfile
+			PlayersProfiles.Instance.CurrentProfile = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
 		}
 		else
 		{
-			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile>			// tworzę listę, bo _isThereAList == false
-			{            
-				_playerProfile																// a teraz dodaje do niej aktualny playerProfile
-			};
-			/* POTRZEBNE W CANVAS CONTROLLER */	PlayersProfiles.Instance.CurrentProfile = 0;                                    // nadaję userowi pierwszy numer na liście
-			FoundPlayerProfileID = 0;
+			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile> { _playerProfile };           // tworzę listę, bo _isThereAList == false i dodaje aktualny _playerProfile
+			PlayersProfiles.Instance.CurrentProfile = 0;            // nadaję userowi pierwszy numer na liście
 		}
 		_playerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie				
 	}
