@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HowToPlayView : MonoBehaviour {
+public class HowToPlayView : View {
 
 	[SerializeField] private Texture LogoButton;
-	public Texture HowtoPlayButtonInactive;
-	public ResizeViewService ResizeViewService;
-	public DrawElementViewService DrawElementViewService;
-	public SetGUIStyleViewService SetGUIStyleViewService;
-
-	private Rect _logoRect;
+	[SerializeField] private Texture HowtoPlayButtonInactive;
+	[SerializeField] private ResizeViewService ResizeViewService;
+	[SerializeField] private DrawElementViewService DrawElementViewService;
+	[SerializeField] private SetGUIStyleViewService SetGUIStyleViewService;
 
 	public void Start()
 	{

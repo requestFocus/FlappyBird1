@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoginView : MonoBehaviour {
+public class LoginView : View {
 
 	[SerializeField] private Texture LogoButton;
-	public ResizeViewService ResizeViewService;
-	public DrawElementViewService DrawElementViewService;
-	public SetGUIStyleViewService SetGUIStyleViewService;
-	public LoginViewService LoginViewService;
+	[SerializeField] private ResizeViewService ResizeViewService;
+	[SerializeField] private DrawElementViewService DrawElementViewService;
+	[SerializeField] private SetGUIStyleViewService SetGUIStyleViewService;
+	[SerializeField] private LoginViewService LoginViewService;
+
+	public static string JustPlayerName;
 
 	private Rect _logoRect;
-	public static string JustPlayerName;
-	
+
 	public void Start()
 	{
 		JustPlayerName = "";

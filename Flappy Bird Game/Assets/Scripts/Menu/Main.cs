@@ -5,22 +5,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MainLobby : MonoBehaviour {
+public class Main : MonoBehaviour {
 
-	public MainLobbyView MainLobbyView;
-	public LoginView LoginView;
-	public HowToPlayView HowToPlayView;
-	private CreditsView CreditsView;
-	public ProfileView ProfileView;
-	public AchievementsView AchievementsView;
+	[SerializeField] private MainLobbyView MainLobbyView;
+	[SerializeField] private LoginView LoginView;
+	[SerializeField] private HowToPlayView HowToPlayView;
+	[SerializeField] private CreditsView CreditsView;
+	[SerializeField] private ProfileView ProfileView;
+	[SerializeField] private AchievementsView AchievementsView;
+
+	[SerializeField] private MainLobbyModel MainLobbyModel;
 
 	public static bool BackFromGamePlay;
 
-	public MainLobbyModel MainLobbyModel;
-
 	private void Start()
 	{
-		//PlayerPrefs.DeleteAll();
+		//PlayerPrefs.DeleteAll();												// CZYSZCZENIE PLAYERPREFS
 
 		if (!BackFromGamePlay)													// jeśli uruchomiono aplikacje, ale nie rozegrano gry
 		{
@@ -41,27 +41,29 @@ public class MainLobby : MonoBehaviour {
 			case MenuScreensService.MenuScreens.Login:
 				LoginView.DrawLoginMenu();
 				break;
+
 			case MenuScreensService.MenuScreens.MainMenu:
+				MainLobbyModel = new MainLobbyModel();
+				MainLobbyView.SetModel(MainLobbyModel);
 				MainLobbyView.DrawMainMenu();
-
-				//MainLobbyModel = new MainLobbyModel();										// działa
-				//MainLobbyView.SetModel(MainLobbyModel);
-				//Debug.Log(MainLobbyView.GetModel().CurrentListEntry.PlayerName);
-
 				break;
+
 			case MenuScreensService.MenuScreens.HowtoPlay:
 				HowToPlayView.DrawHowtoPlayMenu();
 				break;
+
 			case MenuScreensService.MenuScreens.Credits:
-				//Instantiate<CreditsView>(CreditsView); //================================??????????????????????????????????????????????
 				CreditsView.DrawCreditsMenu();
 				break;
+
 			case MenuScreensService.MenuScreens.Achievements:
 				AchievementsView.DrawAchievementsMenu();
 				break;
+
 			case MenuScreensService.MenuScreens.NewGame:
 				StartNewGame();
 				break;
+
 			case MenuScreensService.MenuScreens.Profile:
 				ProfileView.DrawProfileView();
 				break;

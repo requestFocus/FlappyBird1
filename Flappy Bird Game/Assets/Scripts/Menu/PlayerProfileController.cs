@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerProfileController {
 
-	public const string PrefsStringInMemory = "ProfileSettings";
+	private const string _prefsStringInMemory = "ProfileSettings";
 
 	private string _jsonDataToSet;
 	private string _jsonDataFromGet;
@@ -13,18 +13,18 @@ public class PlayerProfileController {
 	public void SaveProfile(PlayersProfiles playersProfilesToSave)
 	{
 		_jsonDataToSet = JsonUtility.ToJson(playersProfilesToSave);                                         //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
-		PlayerPrefs.SetString(PrefsStringInMemory, _jsonDataToSet);                                                //Load saved Json, czyli pobierz string z playerprefs i zapisz string do json
+		PlayerPrefs.SetString(_prefsStringInMemory, _jsonDataToSet);                                                //zapisz json do podanego key w PlayerPrefs
 	}
 
 
 
 	public bool LoadProfiles()
 	{
-		if (PlayerPrefs.GetString(PrefsStringInMemory).Length > 0)												// jeśli w pamięci istnieje jakaś lista
+		if (PlayerPrefs.GetString(_prefsStringInMemory).Length > 0)												// jeśli w pamięci istnieje jakaś lista
 		{
-			_jsonDataFromGet = PlayerPrefs.GetString(PrefsStringInMemory);										// wczytaj z PlayerPrefs do JSON
+			_jsonDataFromGet = PlayerPrefs.GetString(_prefsStringInMemory);										// wczytaj z PlayerPrefs do JSON
 			_loadedProfilesData = JsonUtility.FromJson<PlayersProfiles>(_jsonDataFromGet);					  // wczytaj z JSON do odpowiadającej mu struktury PlayersProfiles
-			PlayersProfiles.Instance.ListOfProfiles = _loadedProfilesData.ListOfProfiles;						// wpisanie zawartości strktury do SINGLETONA
+			PlayersProfiles.Instance.ListOfProfiles = _loadedProfilesData.ListOfProfiles;						// wpisanie zawartości struktury do SINGLETONA
 			return true;
 		}
 
@@ -35,7 +35,7 @@ public class PlayerProfileController {
 
 	public bool CheckIfProfileExist(string playerName)															// szybkie sprawdzenie czy podane NAME istnieje w PlayerPrefs
 	{
-		return PlayerPrefs.GetString(PrefsStringInMemory).Contains(playerName);		
+		return PlayerPrefs.GetString(_prefsStringInMemory).Contains(playerName);		
 	}
 }
  

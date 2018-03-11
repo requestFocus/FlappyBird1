@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DrawElementViewService
 {
-	public ResizeViewService ResizeViewService = new ResizeViewService();
-	public SetGUIStyleViewService SetGUIStyleViewService = new SetGUIStyleViewService();
+	[SerializeField] private ResizeViewService ResizeViewService = new ResizeViewService();
 
 	private Rect _logoRect;
 
@@ -16,6 +15,7 @@ public class DrawElementViewService
 
 		return RectScalableDimensions;
 	}
+
 
 
 	public void DrawCommonViewELements(Texture logoElement, Texture menuElement)

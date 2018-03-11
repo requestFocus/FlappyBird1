@@ -9,9 +9,11 @@ public class ResizeViewService
 	private float _scaleWidth;
 	private float _scaleHeigth;
 	private float _usableScale;
+	private float _middleButtonXPosition;
+	private float _middleButtonYPosition;
 
-	public Vector2 MyMousePosition;
-	public Vector2 MyMousePositionForUpdate;
+	private Vector2 _myMousePosition;
+	private Vector2 _myMousePositionForUpdate;
 	
 	public enum Horizontal
 	{
@@ -35,8 +37,8 @@ public class ResizeViewService
 		_scaleHeigth = Screen.height / _defaultScreenHeight;
 		_usableScale = Mathf.Min(_scaleWidth, _scaleHeigth);
 
-		float middleButtonXPosition = rect.x + rect.width / 2;
-		float middleButtonYPosition = rect.y + rect.height / 2;
+		_middleButtonXPosition = rect.x + rect.width / 2;
+		_middleButtonYPosition = rect.y + rect.height / 2;
 
 		switch (horizontalAlignment)
 		{
@@ -44,10 +46,10 @@ public class ResizeViewService
 				//middleButtonXPosition = middleButtonXPosition;                                                                 // bez zmian
 				break;
 			case Horizontal.center:
-				middleButtonXPosition = middleButtonXPosition + ((Screen.width - _defaultScreenWidth) / 2);                   // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
+				_middleButtonXPosition = _middleButtonXPosition + ((Screen.width - _defaultScreenWidth) / 2);                   // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
 				break;
 			case Horizontal.right:
-				middleButtonXPosition = middleButtonXPosition + (Screen.width - _defaultScreenWidth);                      // przesuwa się o tyle, o ile zmienia się wielkość ekranu
+				_middleButtonXPosition = _middleButtonXPosition + (Screen.width - _defaultScreenWidth);                      // przesuwa się o tyle, o ile zmienia się wielkość ekranu
 				break;
 		}
 
@@ -57,15 +59,15 @@ public class ResizeViewService
 				//middleButtonYPosition = middleButtonYPosition;                                                                 // bez zmian
 				break;
 			case Vertical.center:
-				middleButtonYPosition = middleButtonYPosition + ((Screen.height - _defaultScreenHeight) / 2);                   // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
+				_middleButtonYPosition = _middleButtonYPosition + ((Screen.height - _defaultScreenHeight) / 2);                   // przesuwa się o polowę tego, jak zmienia się wielkość ekranu
 				break;
 			case Vertical.bottom:
-				middleButtonYPosition = middleButtonYPosition + (Screen.height - _defaultScreenHeight);                       // przesuwa się o tyle, o ile zmienia się wielkość ekranu
+				_middleButtonYPosition = _middleButtonYPosition + (Screen.height - _defaultScreenHeight);                       // przesuwa się o tyle, o ile zmienia się wielkość ekranu
 				break;
 		}
 
-		rect.x = middleButtonXPosition - (rect.width * _usableScale / 2);
-		rect.y = middleButtonYPosition - (rect.height * _usableScale / 2);
+		rect.x = _middleButtonXPosition - (rect.width * _usableScale / 2);
+		rect.y = _middleButtonYPosition - (rect.height * _usableScale / 2);
 
 		return new Rect(rect.x, rect.y, rect.width * _usableScale, rect.height * _usableScale);
 	}
@@ -74,15 +76,15 @@ public class ResizeViewService
 
 	public bool ClickedWithin(Rect rect)
 	{
-		MyMousePosition = Event.current.mousePosition;
-		return ((MyMousePosition.x >= rect.x) && (MyMousePosition.x <= (rect.x + rect.width)) && (MyMousePosition.y >= rect.y) && (MyMousePosition.y <= (rect.y + rect.height)));
+		_myMousePosition = Event.current.mousePosition;
+		return ((_myMousePosition.x >= rect.x) && (_myMousePosition.x <= (rect.x + rect.width)) && (_myMousePosition.y >= rect.y) && (_myMousePosition.y <= (rect.y + rect.height)));
 	}
 
 
 
-	public bool ClickedWithinForUpdate(Rect rect)               // @ACHIEVEMENTS, Update() nie rozumie Event.current.mousePosition, trzeba użyć Input.mousePosition
+	public bool ClickedWithinForUpdate(Rect rect)               // @ AchievementsView => Update() nie rozumie Event.current.mousePosition, trzeba użyć Input.mousePosition
 	{
-		MyMousePositionForUpdate = Input.mousePosition;
-		return ((MyMousePositionForUpdate.x >= rect.x) && (MyMousePositionForUpdate.x <= (rect.x + rect.width)) && (MyMousePositionForUpdate.y >= (Screen.height - rect.y - rect.height)) && (MyMousePositionForUpdate.y <= (Screen.height - rect.y)));
+		_myMousePositionForUpdate = Input.mousePosition;
+		return ((_myMousePositionForUpdate.x >= rect.x) && (_myMousePositionForUpdate.x <= (rect.x + rect.width)) && (_myMousePositionForUpdate.y >= (Screen.height - rect.y - rect.height)) && (_myMousePositionForUpdate.y <= (Screen.height - rect.y)));
 	}
 }

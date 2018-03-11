@@ -5,14 +5,17 @@ using UnityEngine;
 public class LoginViewService
 {
 	public static bool ThereIsAList;
-	private bool _isOnTheList;
-	public static PlayerProfile PlayerProfile;
+	public static int FoundPlayerProfileID;
 
-	private PlayerProfileController PlayerProfileController = new PlayerProfileController();
+	private bool _isOnTheList;
+	private PlayerProfile _playerProfile;
+	private PlayerProfileController _playerProfileController = new PlayerProfileController();
 
 	public void CheckPlayerPrefs()                                                         // ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
 	{
-		ThereIsAList = PlayerProfileController.LoadProfiles();
+		ThereIsAList = _playerProfileController.LoadProfiles();
+
+		FoundPlayerProfileID = -1;
 
 		if (ThereIsAList)                                                                   // jesli istnieje lista w pamieci
 		{
@@ -20,8 +23,9 @@ public class LoginViewService
 			{
 				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(LoginView.JustPlayerName))   // sprawdza czy podane NAME istnieje w pamięci
 				{
-					PlayerProfile = PlayersProfiles.Instance.ListOfProfiles[i];                 // odnaleziony profil, uzywany przy listowaniu achievementow
-					PlayersProfiles.Instance.CurrentProfile = i;                                    // ID znalezionego profilu
+					_playerProfile = PlayersProfiles.Instance.ListOfProfiles[i];                 // odnaleziony profil, uzywany przy listowaniu achievementow
+					/* POTRZEBNE W CANVAS CONTROLLER */	PlayersProfiles.Instance.CurrentProfile = i;                                    // ID znalezionego profilu
+					FoundPlayerProfileID = i;
 					_isOnTheList = true;
 					break;
 				}
@@ -42,20 +46,22 @@ public class LoginViewService
 
 	private void AddNewProfile()
 	{
-		PlayerProfile = new PlayerProfile(LoginView.JustPlayerName, 0, false, false, false);          // tworzę nowy profil gracza z domyślnymi wartościami
-		if (ThereIsAList)                                                                  // na liście nie ma podanego NAME
+		_playerProfile = new PlayerProfile(LoginView.JustPlayerName, 0, false, false, false);          // tworzę nowy profil gracza z domyślnymi wartościami
+		if (ThereIsAList)																				 // na liście nie ma podanego NAME
 		{
-			PlayersProfiles.Instance.ListOfProfiles.Add(PlayerProfile);                     // a teraz dodaje do niej aktualny playerProfile
-			PlayersProfiles.Instance.CurrentProfile = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
+			PlayersProfiles.Instance.ListOfProfiles.Add(_playerProfile);                     // a teraz dodaje do niej aktualny playerProfile
+			/* POTRZEBNE W CANVAS CONTROLLER */ PlayersProfiles.Instance.CurrentProfile = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
+			FoundPlayerProfileID = PlayersProfiles.Instance.ListOfProfiles.Count - 1;
 		}
 		else
 		{
 			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile>			// tworzę listę, bo _isThereAList == false
 			{            
-				PlayerProfile																// a teraz dodaje do niej aktualny playerProfile
+				_playerProfile																// a teraz dodaje do niej aktualny playerProfile
 			};
-			PlayersProfiles.Instance.CurrentProfile = 0;                                    // nadaję userowi pierwszy numer na liście
+			/* POTRZEBNE W CANVAS CONTROLLER */	PlayersProfiles.Instance.CurrentProfile = 0;                                    // nadaję userowi pierwszy numer na liście
+			FoundPlayerProfileID = 0;
 		}
-		PlayerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie				
+		_playerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie				
 	}
 }

@@ -2,34 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreditsView : MonoBehaviour {
+public class CreditsView : View {
 
 	[SerializeField] private Texture LogoButton;
-	public Texture CreditsButtonInactive;
+	[SerializeField] private Texture CreditsButtonInactive;
 
-	private ResizeViewService ResizeViewService;
-	private DrawElementViewService DrawElementViewService;
-	private SetGUIStyleViewService SetGUIStyleViewService;
+	private ResizeViewService _resizeViewService;
+	private DrawElementViewService _drawElementViewService;
+	private SetGUIStyleViewService _setGUIStyleViewService;
 
-	private Rect _logoRect;
-
-	void Start()
+	private void Start()
 	{
-		ResizeViewService = new ResizeViewService();
-		DrawElementViewService = new DrawElementViewService();
-		SetGUIStyleViewService = new SetGUIStyleViewService();
-		SetGUIStyleViewService.SetGUIStyle();
+		_resizeViewService = new ResizeViewService();
+		_drawElementViewService = new DrawElementViewService();
+		_setGUIStyleViewService = new SetGUIStyleViewService();
+		_setGUIStyleViewService.SetGUIStyle();
 	}
 
 
 
 	public void DrawCreditsMenu()               // obsluga CREDITS
 	{
-		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">PROGRAMMING / DESIGN\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">MACIEJ NIEŚCIORUK</color>\n\n" +
-								"GRAPHICS\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">INTERNET</color>\n\n" +
-								"SPECIAL THANKS TO\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">MICHAŁ PODYMA</color></color>";
-		GUI.Label(ResizeViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
+		_setGUIStyleViewService.LabelContent.text = "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">" +
+											"PROGRAMMING / DESIGN\n<color=#" + _setGUIStyleViewService.LightGreyFont + ">MACIEJ NIEŚCIORUK</color>\n\n" +
+											"GRAPHICS\n<color=#" + _setGUIStyleViewService.LightGreyFont + ">INTERNET</color>\n\n" +
+											"SPECIAL THANKS TO\n<color=#" + _setGUIStyleViewService.LightGreyFont + ">MICHAŁ PODYMA</color></color>";
+		GUI.Label(_resizeViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), _setGUIStyleViewService.LabelContent, _setGUIStyleViewService.LabelStyle);
 
-		DrawElementViewService.DrawCommonViewELements(LogoButton, CreditsButtonInactive);
+		_drawElementViewService.DrawCommonViewELements(LogoButton, CreditsButtonInactive);
 	}
 }

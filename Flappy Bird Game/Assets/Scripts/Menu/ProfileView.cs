@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProfileView : MonoBehaviour {
+public class ProfileView : View {
 
 	[SerializeField] private Texture LogoButton;
-	public Texture ProfileButtonInactive;
+	[SerializeField] private Texture ProfileButtonInactive;
 
-	public AchievementSingleEntryView AchievementSingleEntryView;
-
-	public ResizeViewService ResizeViewService;
-	public DrawElementViewService DrawElementViewService;
-	public SetGUIStyleViewService SetGUIStyleViewService;
+	[SerializeField] private AchievementSingleEntryView AchievementSingleEntryView;
+	[SerializeField] private ResizeViewService ResizeViewService;
+	[SerializeField] private DrawElementViewService DrawElementViewService;
+	[SerializeField] private SetGUIStyleViewService SetGUIStyleViewService;
 
 	void Start ()
 	{
@@ -25,12 +24,12 @@ public class ProfileView : MonoBehaviour {
 
 	public void DrawProfileView()               // obsluga NEW GAME
 	{
-		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + LoginViewService.PlayerProfile.PlayerName + "</color>\n\n" +
-								"HIGHSCORE\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + LoginViewService.PlayerProfile.HighScore + "</color>\n\n" +
+		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + ProfileModel.CurrentProfile.PlayerName + "</color>\n\n" +
+								"HIGHSCORE\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + ProfileModel.CurrentProfile.HighScore + "</color>\n\n" +
 								"ACHIEVEMENTS\n</color>";
 		GUI.Label(ResizeViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
 
-		AchievementSingleEntryView.ListAchievements(PlayersProfiles.Instance.CurrentProfile, LoginViewService.PlayerProfile, 360, 370);                     // wypisuje achievementy dla zalogowanego playera
+		AchievementSingleEntryView.ListAchievements(ProfileModel.CurrentProfile, 360, 370);                     // wypisuje achievementy dla zalogowanego playera
 
 		DrawElementViewService.DrawCommonViewELements(LogoButton, ProfileButtonInactive);
 	}

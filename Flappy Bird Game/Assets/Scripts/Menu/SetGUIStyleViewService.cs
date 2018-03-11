@@ -8,7 +8,8 @@ public class SetGUIStyleViewService
 	public GUIContent LabelContent;
 	public string DarkGreyFont;
 	public string LightGreyFont;
-	public Font Font;
+
+	private Font Font;
 
 	public void SetGUIStyle()
 	{
@@ -23,7 +24,7 @@ public class SetGUIStyleViewService
 
 		LabelContent = new GUIContent
 		{
-			text = ""
+			text = "asd"
 		};
 
 		DarkGreyFont = "686868";                                     // dark grey

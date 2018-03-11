@@ -2,41 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementsView : MonoBehaviour {
+public class AchievementsView : View {
 
 	[SerializeField] private Texture LogoButton;
-	public Texture AchievementsButtonInactive;
-	public Texture NextAchievementPage;
-	public Texture PreviousAchievementPage;
+	[SerializeField] private Texture AchievementsButtonInactive;
+	[SerializeField] private Texture NextAchievementPage;
+	[SerializeField] private Texture PreviousAchievementPage;
 
-	public AchievementSingleEntryView AchievementSingleEntryView;
-	public ResizeViewService ResizeViewService;
-	public DrawElementViewService DrawElementViewService;
-	public SetGUIStyleViewService SetGUIStyleViewService;
-	public LoginViewService LoginViewService;
+	[SerializeField] private AchievementSingleEntryView AchievementSingleEntryView;
 
-	private Rect _logoRect;
+	private ResizeViewService _resizeViewService;
+	private DrawElementViewService _drawElementViewService;
+	private SetGUIStyleViewService _setGUIStyleViewService;
+	private LoginViewService _loginViewService;
+
 	private Rect _nextAchievementPage;
 	private Rect _previousAchievementPage;
 	private float _listAchievementsFrom;
 	private float _listAchievementsTo;
-	private float _scope;
+	private const float _scope = 5;
 
-	void Start ()
+	private void Start ()
 	{
-		_scope = 5;
 		_listAchievementsFrom = 0;
 		_listAchievementsTo = _scope;
 
-		ResizeViewService = new ResizeViewService();
-		DrawElementViewService = new DrawElementViewService();
-		SetGUIStyleViewService = new SetGUIStyleViewService();
-		SetGUIStyleViewService.SetGUIStyle();
+		_resizeViewService = new ResizeViewService();
+		_drawElementViewService = new DrawElementViewService();
+		_setGUIStyleViewService = new SetGUIStyleViewService();
+		_setGUIStyleViewService.SetGUIStyle();
 	}
 
 
 
-	void Update ()
+	private void Update ()
 	{
 		if (MenuScreensService.MenuStates.Equals(MenuScreensService.MenuScreens.Achievements))
 		{
@@ -54,10 +53,10 @@ public class AchievementsView : MonoBehaviour {
 		}
 		else                                                                                            // jesli w pamieci nie istnieje lista userów
 		{
-			GUI.Label(ResizeViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">No results yet.</color>", SetGUIStyleViewService.LabelStyle);
+			GUI.Label(_resizeViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">No results yet.</color>", _setGUIStyleViewService.LabelStyle);
 		}
 
-		DrawElementViewService.DrawCommonViewELements(LogoButton, AchievementsButtonInactive);
+		_drawElementViewService.DrawCommonViewELements(LogoButton, AchievementsButtonInactive);
 	}
 
 	//public void DrawAchievementsMenu()                                              //====================DLACZEGO TO NIE DZIAŁA, CHOCIAZ NIE MA BLEDU?
@@ -79,29 +78,29 @@ public class AchievementsView : MonoBehaviour {
 	private void ListNameScoreAchievements(float listFrom, float listTo)
 	{
 		// LABELS
-		GUI.Label(ResizeViewService.ResizeGUI(new Rect(200, 240, 150, 30), ResizeViewService.Horizontal.left, ResizeViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME</color>", SetGUIStyleViewService.LabelStyle);
-		GUI.Label(ResizeViewService.ResizeGUI(new Rect(300, 240, 150, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">HIGHSCORE</color>", SetGUIStyleViewService.LabelStyle);
-		GUI.Label(ResizeViewService.ResizeGUI(new Rect(430, 240, 150, 30), ResizeViewService.Horizontal.right, ResizeViewService.Vertical.center), "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">ACHIEVEMENTS</color>", SetGUIStyleViewService.LabelStyle);
+		GUI.Label(_resizeViewService.ResizeGUI(new Rect(200, 240, 150, 30), ResizeViewService.Horizontal.left, ResizeViewService.Vertical.center), "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">NAME</color>", _setGUIStyleViewService.LabelStyle);
+		GUI.Label(_resizeViewService.ResizeGUI(new Rect(300, 240, 150, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">HIGHSCORE</color>", _setGUIStyleViewService.LabelStyle);
+		GUI.Label(_resizeViewService.ResizeGUI(new Rect(430, 240, 150, 30), ResizeViewService.Horizontal.right, ResizeViewService.Vertical.center), "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">ACHIEVEMENTS</color>", _setGUIStyleViewService.LabelStyle);
 
 		// BUTTONS
-		_previousAchievementPage = DrawElementViewService.DrawElement(376, 430, 16, 18, PreviousAchievementPage, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.bottom);
-		_nextAchievementPage = DrawElementViewService.DrawElement(410, 430, 16, 18, NextAchievementPage, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.bottom);
+		_previousAchievementPage = _drawElementViewService.DrawElement(376, 430, 16, 18, PreviousAchievementPage, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.bottom);
+		_nextAchievementPage = _drawElementViewService.DrawElement(410, 430, 16, 18, NextAchievementPage, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.bottom);
 
 		int yPosition = 270;
 		int xPosition = 465;
 
-		for (int i = (int)listFrom; i < PlayersProfiles.Instance.ListOfProfiles.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
+		for (int i = (int)listFrom; i < AchievementsModel.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
 		{
 			// PLAYERNAME
-			GUI.Label(ResizeViewService.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeViewService.Horizontal.left, ResizeViewService.Vertical.center),
-						"<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].PlayerName + "</color>", SetGUIStyleViewService.LabelStyle);
+			GUI.Label(_resizeViewService.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeViewService.Horizontal.left, ResizeViewService.Vertical.center),
+						"<color=#" + _setGUIStyleViewService.LightGreyFont + ">" + AchievementsModel.EntireList[i].PlayerName + "</color>", _setGUIStyleViewService.LabelStyle);
 
 			// HIGHSCORE
-			GUI.Label(ResizeViewService.ResizeGUI(new Rect(300, yPosition, 150, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center),
-						"<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + PlayersProfiles.Instance.ListOfProfiles[i].HighScore + "</color>", SetGUIStyleViewService.LabelStyle);
+			GUI.Label(_resizeViewService.ResizeGUI(new Rect(300, yPosition, 150, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center),
+						"<color=#" + _setGUIStyleViewService.LightGreyFont + ">" + AchievementsModel.EntireList[i].HighScore + "</color>", _setGUIStyleViewService.LabelStyle);
 
 			// ACHIEVEMENTS
-			AchievementSingleEntryView.ListAchievements(i, PlayersProfiles.Instance.ListOfProfiles[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
+			AchievementSingleEntryView.ListAchievements(AchievementsModel.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
 
 			yPosition += 30;
 			xPosition = 465;
@@ -116,13 +115,13 @@ public class AchievementsView : MonoBehaviour {
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			if (ResizeViewService.ClickedWithinForUpdate(_previousAchievementPage) && _listAchievementsFrom > 0)
+			if (_resizeViewService.ClickedWithinForUpdate(_previousAchievementPage) && _listAchievementsFrom > 0)
 			{
 				_listAchievementsFrom -= _scope;
 				_listAchievementsTo -= _scope;
 			}
 
-			if (ResizeViewService.ClickedWithinForUpdate(_nextAchievementPage) && _listAchievementsTo < PlayersProfiles.Instance.ListOfProfiles.Count)
+			if (_resizeViewService.ClickedWithinForUpdate(_nextAchievementPage) && _listAchievementsTo < AchievementsModel.EntireList.Count)
 			{
 				_listAchievementsFrom += _scope;
 				_listAchievementsTo += _scope;

@@ -4,10 +4,26 @@ using UnityEngine;
 
 public class View : MonoBehaviour {
 
-	private Model _model;
+	private MainLobbyModel _mainLobbyModel;
+	private ProfileModel _profileModel;
+	private AchievementsModel _achievementsModel;
 
-	public virtual void SetModel(Model model)
+	public void SetModel(MainLobbyModel model)
 	{
-		_model = model;
+		_mainLobbyModel = model;
+	}
+
+
+
+	public void SetModel(ProfileModel model)
+	{
+		_profileModel = model;
+	}
+
+
+
+	public void SetModel(AchievementsModel model)
+	{
+		_achievementsModel = model;
 	}
 }
