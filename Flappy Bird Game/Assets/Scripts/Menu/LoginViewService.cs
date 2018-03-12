@@ -36,6 +36,8 @@ public class LoginViewService
 		{
 			AddNewProfile();
 		}
+
+		_isOnTheList = false;
 	}
 
 
@@ -53,6 +55,8 @@ public class LoginViewService
 			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile> { _playerProfile };           // tworzę listę, bo _isThereAList == false i dodaje aktualny _playerProfile
 			PlayersProfiles.Instance.CurrentProfile = 0;            // nadaję userowi pierwszy numer na liście
 		}
-		_playerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie				
+		_playerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie	
+
+		Debug.Log("new profile: " + _playerProfile.PlayerName);
 	}
 }
