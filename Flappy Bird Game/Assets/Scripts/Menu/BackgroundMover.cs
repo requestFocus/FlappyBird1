@@ -9,10 +9,12 @@ public class BackgroundMover : MonoBehaviour {
 	private const float _rightEdge1 = -11.723f;
 	private const float _rightEdge2 = 6.68f;
 
-	void FixedUpdate ()
+	private void FixedUpdate ()
 	{
 		MoveBackground();
 	}
+
+
 
 	private void MoveBackground()
 	{

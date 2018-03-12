@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 5d186ff7f8eeb14409a82d650a06e7dd
+timeCreated: 1516030045
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
+  - AchievementsButton: {fileID: 2800000, guid: 5e8763e92fd54004f88e0701c84a844a,
+      type: 3}
+  - CreditsButton: {fileID: 2800000, guid: ce7b600e5ddd0b24eb7e221b9b9fe51d, type: 3}
+  - HowtoPlayButton: {fileID: 2800000, guid: cdd02f997c7f4a64b914a0cf07c6d141, type: 3}
+  - NewGameButton: {fileID: 2800000, guid: 2b5d602f8a775504a884e6fee9131e81, type: 3}
+  - StartButton: {fileID: 2800000, guid: 83f33b11a1939be4390b15e0ef845ec5, type: 3}
+  - ProfileButton: {fileID: 2800000, guid: 8e7671127368c214c974285734f73fdb, type: 3}
+  - LogoutButton: {fileID: 2800000, guid: 1de1a5b73ece07a459f3e0eaefbe746b, type: 3}
+  - LoginView: {instanceID: 0}
+  - HowToPlayView: {instanceID: 0}
+  - CreditsView: {instanceID: 0}
+  - ProfileView: {instanceID: 0}
+  - AchievementsView: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
