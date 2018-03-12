@@ -10,7 +10,7 @@ public class View : MonoBehaviour {
 
 	public void SetModel(MainLobbyModel model)
 	{
-		_mainLobbyModel = model;
+		_mainLobbyModel = model; 
 	}
 
 
