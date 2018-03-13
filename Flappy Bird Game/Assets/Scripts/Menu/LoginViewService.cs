@@ -36,6 +36,8 @@ public class LoginViewService
 		{
 			AddNewProfile();
 		}
+
+		_isOnTheList = false;
 	}
 
 
