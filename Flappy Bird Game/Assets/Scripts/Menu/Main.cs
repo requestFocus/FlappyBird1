@@ -45,8 +45,8 @@ public class Main : MonoBehaviour {
 				break;
 
 			case MenuScreensService.MenuScreens.MainMenu:
-				MainLobbyModel = new MainLobbyModel();
-				MainLobbyView.SetModel(MainLobbyModel);
+				//MainLobbyModel = new MainLobbyModel();
+				//MainLobbyView.SetModel(MainLobbyModel);
 
 				MainLobbyView.DrawMainMenu();
 				break;
@@ -60,7 +60,7 @@ public class Main : MonoBehaviour {
 				break;
 
 			case MenuScreensService.MenuScreens.Achievements:
-				AchievementsView.DrawAchievementsMenu();
+				//AchievementsView.DrawAchievementsMenu();
 				break;
 
 			case MenuScreensService.MenuScreens.NewGame:

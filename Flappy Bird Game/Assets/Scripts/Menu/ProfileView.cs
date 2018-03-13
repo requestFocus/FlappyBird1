@@ -12,6 +12,8 @@ public class ProfileView : View {
 	[SerializeField] private DrawElementViewService DrawElementViewService;
 	[SerializeField] private SetGUIStyleViewService SetGUIStyleViewService;
 
+	public ProfileModel ProfileModel;
+
 	void Start ()
 	{
 		ResizeViewService = new ResizeViewService();
@@ -23,6 +25,9 @@ public class ProfileView : View {
 
 	public void DrawProfileView()               // obsluga NEW GAME
 	{
+		ProfileModel = new ProfileModel();
+		this.SetModel(ProfileModel);
+
 		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + ProfileModel.CurrentProfile.PlayerName + "</color>\n\n" +
 								"HIGHSCORE\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + ProfileModel.CurrentProfile.HighScore + "</color>\n\n" +
 								"ACHIEVEMENTS\n</color>";
