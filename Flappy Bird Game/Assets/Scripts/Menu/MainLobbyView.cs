@@ -77,16 +77,16 @@ public class MainLobbyView : View
 			else if (_resizeViewService.ClickedWithin(_achievementsRect))
 			{
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Achievements;
-				AchievementsModel = new AchievementsModel();
-				AchievementsView.SetModel(AchievementsModel);
+				//AchievementsModel = new AchievementsModel();				//=========================================================
+				//AchievementsView.SetModel(AchievementsModel);				//=========================================================
 			}
 
 			// MY PROFILE
 			else if (_resizeViewService.ClickedWithin(_profileRect))
 			{
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Profile;
-				ProfileModel = new ProfileModel();
-				ProfileView.SetModel(ProfileModel);
+				//ProfileModel = new ProfileModel();						//=========================================================
+				//ProfileView.SetModel(ProfileModel);						//=========================================================
 			}
 
 			// LOGOUT 
