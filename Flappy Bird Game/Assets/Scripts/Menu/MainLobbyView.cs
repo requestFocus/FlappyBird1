@@ -38,6 +38,9 @@ public class MainLobbyView : View
 
 	public void DrawMainMenu()                             // obsluga MAIN MENU
 	{
+		//MainLobbyModel = new MainLobbyModel();				//=========================================================
+		//MainLobbyView.SetModel(MainLobbyModel);				//=========================================================
+		
 		_logoRect = _drawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.top);
 		_newGameRect = _drawElementViewService.DrawElement(300, 220, 200, 60, NewGameButton, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.bottom);
 		_howtoPlayRect = _drawElementViewService.DrawElement(300, 300, 200, 60, HowtoPlayButton, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.bottom);

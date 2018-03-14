@@ -45,9 +45,6 @@ public class Main : MonoBehaviour {
 				break;
 
 			case MenuScreensService.MenuScreens.MainMenu:
-				//MainLobbyModel = new MainLobbyModel();				//=========================================================
-				//MainLobbyView.SetModel(MainLobbyModel);				//=========================================================
-
 				MainLobbyView.DrawMainMenu();
 				break;
 
