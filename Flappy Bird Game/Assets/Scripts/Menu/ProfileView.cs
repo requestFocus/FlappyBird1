@@ -12,8 +12,6 @@ public class ProfileView : View {
 	[SerializeField] private DrawElementViewService DrawElementViewService;
 	[SerializeField] private SetGUIStyleViewService SetGUIStyleViewService;
 
-	[SerializeField] private ProfileModel ProfileModel;
-
 	void Start ()
 	{
 		ResizeViewService = new ResizeViewService();
@@ -25,15 +23,12 @@ public class ProfileView : View {
 
 	public void DrawProfileView()               // obsluga NEW GAME
 	{
-		ProfileModel = new ProfileModel();
-		SetModel(ProfileModel);
-
-		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + ProfileModel.CurrentProfile.PlayerName + "</color>\n\n" +
-								"HIGHSCORE\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + ProfileModel.CurrentProfile.HighScore + "</color>\n\n" +
+		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + _profileModel.CurrentProfile.PlayerName + "</color>\n\n" +
+								"HIGHSCORE\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + _profileModel.CurrentProfile.HighScore + "</color>\n\n" +
 								"ACHIEVEMENTS\n</color>";
 		GUI.Label(ResizeViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
 
-		AchievementSingleEntryView.ListAchievements(ProfileModel.CurrentProfile, 360, 370);                     // wypisuje achievementy dla zalogowanego playera
+		AchievementSingleEntryView.ListAchievements(_profileModel.CurrentProfile, 360, 370);                     // wypisuje achievementy dla zalogowanego playera
 
 		DrawElementViewService.DrawCommonViewELements(LogoButton, ProfileButtonInactive);
 	}

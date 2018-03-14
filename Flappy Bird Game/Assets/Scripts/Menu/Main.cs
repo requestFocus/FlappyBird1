@@ -16,7 +16,7 @@ public class Main : MonoBehaviour {
 	[SerializeField] private ProfileView ProfileView;
 	[SerializeField] private AchievementsView AchievementsView;
 
-	[SerializeField] private MainLobbyModel MainLobbyModel;
+	public MainLobbyModel MainLobbyModel;
 
 	private LoginViewService _loginViewService;
 
@@ -45,6 +45,11 @@ public class Main : MonoBehaviour {
 				break;
 
 			case MenuScreensService.MenuScreens.MainMenu:
+				MainLobbyModel = new MainLobbyModel();
+				MainLobbyModel.EntireList = PlayersProfiles.Instance.ListOfProfiles;                           // cała lista playerów
+				MainLobbyModel.CurrentProfile = MainLobbyModel.EntireList[PlayersProfiles.Instance.CurrentProfile];           // profil aktualnego playera dla ProfileModel, nie jest znany przed zalogowaniem
+				MainLobbyView.SetModel(MainLobbyModel);             
+
 				MainLobbyView.DrawMainMenu();
 				break;
 

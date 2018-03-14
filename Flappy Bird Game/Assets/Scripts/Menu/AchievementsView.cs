@@ -11,7 +11,7 @@ public class AchievementsView : View {
 
 	[SerializeField] private AchievementSingleEntryView AchievementSingleEntryView;
 
-	[SerializeField] private AchievementsModel AchievementsModel;
+	//[SerializeField] private AchievementsModel AchievementsModel;
 
 	private ResizeViewService _resizeViewService;
 	private DrawElementViewService _drawElementViewService;
@@ -66,9 +66,6 @@ public class AchievementsView : View {
 
 	private void ListNameScoreAchievements(float listFrom, float listTo)
 	{
-		AchievementsModel = new AchievementsModel();
-		SetModel(AchievementsModel);
-
 		// LABELS
 		GUI.Label(_resizeViewService.ResizeGUI(new Rect(200, 240, 150, 30), ResizeViewService.Horizontal.left, ResizeViewService.Vertical.center), "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">NAME</color>", _setGUIStyleViewService.LabelStyle);
 		GUI.Label(_resizeViewService.ResizeGUI(new Rect(300, 240, 150, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">HIGHSCORE</color>", _setGUIStyleViewService.LabelStyle);
@@ -81,18 +78,29 @@ public class AchievementsView : View {
 		int yPosition = 270;
 		int xPosition = 465;
 
-		for (int i = (int)listFrom; i < AchievementsModel.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
+		for (int i = (int)listFrom; i < _achievementsModel.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
 		{
+			string fontColor = "";
+
+			if (_achievementsModel.EntireList[i].PlayerName.Equals(_achievementsModel.CurrentProfile.PlayerName))				// jeśli wypisuje aktualnego playera
+			{
+				fontColor = _setGUIStyleViewService.DarkRedFont;
+			}
+			else																												// jeśli wypisuje pozostałych playerów
+			{
+				fontColor = _setGUIStyleViewService.LightGreyFont;	
+			}
+
 			// PLAYERNAME
 			GUI.Label(_resizeViewService.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeViewService.Horizontal.left, ResizeViewService.Vertical.center),
-						"<color=#" + _setGUIStyleViewService.LightGreyFont + ">" + AchievementsModel.EntireList[i].PlayerName + "</color>", _setGUIStyleViewService.LabelStyle);
+						"<color=#" + fontColor + ">" + _achievementsModel.EntireList[i].PlayerName + "</color>", _setGUIStyleViewService.LabelStyle);
 
 			// HIGHSCORE
 			GUI.Label(_resizeViewService.ResizeGUI(new Rect(300, yPosition, 150, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center),
-						"<color=#" + _setGUIStyleViewService.LightGreyFont + ">" + AchievementsModel.EntireList[i].HighScore + "</color>", _setGUIStyleViewService.LabelStyle);
+						"<color=#" + fontColor + ">" + _achievementsModel.EntireList[i].HighScore + "</color>", _setGUIStyleViewService.LabelStyle);
 
 			// ACHIEVEMENTS
-			AchievementSingleEntryView.ListAchievements(AchievementsModel.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
+			AchievementSingleEntryView.ListAchievements(_achievementsModel.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
 
 			yPosition += 30;
 			xPosition = 465;
@@ -105,9 +113,6 @@ public class AchievementsView : View {
 
 	private void CalculateStartAndEndPositionsForAchievements()
 	{
-		AchievementsModel = new AchievementsModel();
-		SetModel(AchievementsModel);
-
 		if (Input.GetMouseButtonDown(0))
 		{
 			if (_resizeViewService.ClickedWithinForUpdate(_previousAchievementPage) && _listAchievementsFrom > 0)
@@ -116,7 +121,7 @@ public class AchievementsView : View {
 				_listAchievementsTo -= _scope;
 			}
 
-			if (_resizeViewService.ClickedWithinForUpdate(_nextAchievementPage) && _listAchievementsTo < AchievementsModel.EntireList.Count)
+			if (_resizeViewService.ClickedWithinForUpdate(_nextAchievementPage) && _listAchievementsTo < _achievementsModel.EntireList.Count)
 			{
 				_listAchievementsFrom += _scope;
 				_listAchievementsTo += _scope;

@@ -38,9 +38,6 @@ public class MainLobbyView : View
 
 	public void DrawMainMenu()                             // obsluga MAIN MENU
 	{
-		//MainLobbyModel = new MainLobbyModel();				//=========================================================
-		//MainLobbyView.SetModel(MainLobbyModel);				//=========================================================
-		
 		_logoRect = _drawElementViewService.DrawElement(315, 20, 170, 170, LogoButton, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.top);
 		_newGameRect = _drawElementViewService.DrawElement(300, 220, 200, 60, NewGameButton, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.bottom);
 		_howtoPlayRect = _drawElementViewService.DrawElement(300, 300, 200, 60, HowtoPlayButton, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.bottom);
@@ -80,16 +77,23 @@ public class MainLobbyView : View
 			else if (_resizeViewService.ClickedWithin(_achievementsRect))
 			{
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Achievements;
-				//AchievementsModel = new AchievementsModel();				//=========================================================
-				//AchievementsView.SetModel(AchievementsModel);				//=========================================================
+				AchievementsModel = new AchievementsModel()
+				{
+					EntireList = _mainLobbyModel.EntireList,                // cała lista playerów
+					CurrentProfile = _mainLobbyModel.CurrentProfile
+				};
+				AchievementsView.SetModel(AchievementsModel);
 			}
 
 			// MY PROFILE
 			else if (_resizeViewService.ClickedWithin(_profileRect))
 			{
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Profile;
-				//ProfileModel = new ProfileModel();						//=========================================================
-				//ProfileView.SetModel(ProfileModel);						//=========================================================
+				ProfileModel = new ProfileModel()
+				{
+					CurrentProfile = _mainLobbyModel.CurrentProfile
+				};
+				ProfileView.SetModel(ProfileModel);
 			}
 
 			// LOGOUT 

@@ -5,11 +5,5 @@ using UnityEngine;
 public class AchievementsModel
 {
 	public List<PlayerProfile> EntireList;                // cała lista playerów
-	public MainLobbyModel MainLobbyModel;
-
-	public AchievementsModel()
-	{
-		MainLobbyModel = new MainLobbyModel();
-		EntireList = MainLobbyModel.EntireList;                // cała lista playerów
-	}
+	public PlayerProfile CurrentProfile;                  // profil aktualnego playera dla ProfileModel, nie jest znany przed zalogowaniem
 }
