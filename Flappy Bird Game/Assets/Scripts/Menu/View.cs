@@ -26,4 +26,12 @@ public class View : MonoBehaviour {
 	{
 		_achievementsModel = model;
 	}
+
+	//protected T _Model;
+
+	//public void SetModel<T>(T model)
+	//{
+	//	_Model = model;
+	//}
+
 }
