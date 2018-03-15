@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+<<<<<<< HEAD
 public class View : MonoBehaviour {
 
 	private MainLobbyModel _mainLobbyModel;
@@ -19,11 +20,18 @@ public class View : MonoBehaviour {
 	{
 		_profileModel = model;
 	}
+=======
+public class View<T> : MonoBehaviour {
+>>>>>>> Generics
 
+	/* 
+	 * Widoki, które nie posiadają Modelu nie dziedziczą po View<T>, tylko bezpośrednio po MonoBehaviour
+	 */ 
 
+	protected T _Model;
 
-	public void SetModel(AchievementsModel model)
+	public void SetModel(T model)
 	{
-		_achievementsModel = model;
+		_Model = model;
 	}
 }

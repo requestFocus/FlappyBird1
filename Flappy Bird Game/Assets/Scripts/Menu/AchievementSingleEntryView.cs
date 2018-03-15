@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementSingleEntryView : View {
+public class AchievementSingleEntryView : View<AchievementsModel> {
 
 	[SerializeField] private Texture Complete10Active;
 	[SerializeField] private Texture Complete10Inactive;

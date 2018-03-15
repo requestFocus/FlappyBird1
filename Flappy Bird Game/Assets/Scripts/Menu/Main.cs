@@ -16,7 +16,7 @@ public class Main : MonoBehaviour {
 	[SerializeField] private ProfileView ProfileView;
 	[SerializeField] private AchievementsView AchievementsView;
 
-	[SerializeField] private MainLobbyModel MainLobbyModel;
+	public MainLobbyModel MainLobbyModel;
 
 	private LoginViewService _loginViewService;
 
@@ -46,7 +46,9 @@ public class Main : MonoBehaviour {
 
 			case MenuScreensService.MenuScreens.MainMenu:
 				MainLobbyModel = new MainLobbyModel();
-				MainLobbyView.SetModel(MainLobbyModel);
+				MainLobbyModel.EntireList = PlayersProfiles.Instance.ListOfProfiles;
+				MainLobbyModel.CurrentProfile = MainLobbyModel.EntireList[PlayersProfiles.Instance.CurrentProfile];
+				MainLobbyView.SetModel(MainLobbyModel);             
 
 				MainLobbyView.DrawMainMenu();
 				break;

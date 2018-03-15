@@ -4,10 +4,5 @@ using UnityEngine;
 
 public class ProfileModel
 {
-	public static PlayerProfile CurrentProfile;
-
-	public ProfileModel()
-	{
-		CurrentProfile = MainLobbyModel.CurrentProfile;
-	}
+	public PlayerProfile CurrentProfile;
 }

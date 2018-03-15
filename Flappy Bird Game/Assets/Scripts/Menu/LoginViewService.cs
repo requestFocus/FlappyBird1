@@ -10,24 +10,25 @@ public class LoginViewService
 	private PlayerProfile _playerProfile;
 	private PlayerProfileController _playerProfileController = new PlayerProfileController();
 
-	public void CheckPlayerPrefs()                                                         // ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
+	public void CheckPlayerPrefs()																	 // ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
 	{
 		ThereIsAList = _playerProfileController.LoadProfiles();
+		_isOnTheList = false;
 
-		if (ThereIsAList)                                                                   // jesli istnieje lista w pamieci
+		if (ThereIsAList)																			 // jesli istnieje lista w pamieci
 		{
 			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)                 // parsuje całą listę obiektów
 			{
 				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(LoginView.JustPlayerName))   // sprawdza czy podane NAME istnieje w pamięci
 				{
-					_playerProfile = PlayersProfiles.Instance.ListOfProfiles[i];                 // odnaleziony profil, uzywany przy listowaniu achievementow
-					PlayersProfiles.Instance.CurrentProfile = i;        // ID znalezionego profilu, POTRZEBNE TEŻ W CANVAS CONTROLLER
+					_playerProfile = PlayersProfiles.Instance.ListOfProfiles[i];				   // odnaleziony profil, uzywany przy listowaniu achievementow
+					PlayersProfiles.Instance.CurrentProfile = i;									// ID znalezionego profilu, POTRZEBNE TEŻ W CANVAS CONTROLLER
 					_isOnTheList = true;
 					break;
 				}
 			}
 
-			if (!_isOnTheList)                                                                                  // jesli na liscie nie wystepuje podane NAME
+			if (!_isOnTheList)                                                                       // jesli na liscie nie wystepuje podane NAME
 			{
 				AddNewProfile();
 			}
@@ -53,8 +54,8 @@ public class LoginViewService
 		else
 		{
 			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile> { _playerProfile };           // tworzę listę, bo _isThereAList == false i dodaje aktualny _playerProfile
-			PlayersProfiles.Instance.CurrentProfile = 0;            // nadaję userowi pierwszy numer na liście
+			PlayersProfiles.Instance.CurrentProfile = 0;											 // nadaję userowi pierwszy numer na liście
 		}
-		_playerProfileController.SaveProfile(PlayersProfiles.Instance);                  // zapisuję dane w singletonie				
+		_playerProfileController.SaveProfile(PlayersProfiles.Instance);							      // zapisuję dane w singletonie	
 	}
 }

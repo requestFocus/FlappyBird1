@@ -8,6 +8,7 @@ public class SetGUIStyleViewService
 	public GUIContent LabelContent;
 	public string DarkGreyFont;
 	public string LightGreyFont;
+	public string DarkRedFont;
 
 	private Font Font;
 
@@ -29,5 +30,6 @@ public class SetGUIStyleViewService
 
 		DarkGreyFont = "686868";                                     // dark grey
 		LightGreyFont = "3f6a84";                                     // light grey
+		DarkRedFont = "690000FF";
 	}
 }
