@@ -2,36 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class View : MonoBehaviour {
+public class View<T> : MonoBehaviour {
 
-	protected MainLobbyModel _mainLobbyModel;
-	protected ProfileModel _profileModel;
-	protected AchievementsModel _achievementsModel;
+	/* 
+	 * Widoki, które nie posiadają Modelu nie dziedziczą po View<T>, tylko bezpośrednio po MonoBehaviour
+	 */ 
 
-	public void SetModel(MainLobbyModel model)
+	protected T _Model;
+
+	public void SetModel(T model)
 	{
-		_mainLobbyModel = model;
+		_Model = model;
 	}
-
-
-
-	public void SetModel(ProfileModel model)
-	{
-		_profileModel = model;
-	}
-
-
-
-	public void SetModel(AchievementsModel model)
-	{
-		_achievementsModel = model;
-	}
-
-	//protected T _Model;
-
-	//public void SetModel<T>(T model)
-	//{
-	//	_Model = model;
-	//}
-
 }

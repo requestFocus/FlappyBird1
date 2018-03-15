@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainLobbyView : View
+public class MainLobbyView : View<MainLobbyModel>
 {
 	[SerializeField] private Texture LogoButton;                                            // umożliwia wykorzystanie modyfikatora private z dostępem do zmiennej w ramach inspectora unity
 	[SerializeField] private Texture AchievementsButton;
@@ -79,8 +79,8 @@ public class MainLobbyView : View
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Achievements;
 				AchievementsModel = new AchievementsModel()
 				{
-					EntireList = _mainLobbyModel.EntireList,                // cała lista playerów
-					CurrentProfile = _mainLobbyModel.CurrentProfile
+					EntireList = _Model.EntireList,             
+					CurrentProfile = _Model.CurrentProfile
 				};
 				AchievementsView.SetModel(AchievementsModel);
 			}
@@ -91,7 +91,7 @@ public class MainLobbyView : View
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Profile;
 				ProfileModel = new ProfileModel()
 				{
-					CurrentProfile = _mainLobbyModel.CurrentProfile
+					CurrentProfile = _Model.CurrentProfile
 				};
 				ProfileView.SetModel(ProfileModel);
 			}

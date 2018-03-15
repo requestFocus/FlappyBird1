@@ -46,8 +46,8 @@ public class Main : MonoBehaviour {
 
 			case MenuScreensService.MenuScreens.MainMenu:
 				MainLobbyModel = new MainLobbyModel();
-				MainLobbyModel.EntireList = PlayersProfiles.Instance.ListOfProfiles;                           // cała lista playerów
-				MainLobbyModel.CurrentProfile = MainLobbyModel.EntireList[PlayersProfiles.Instance.CurrentProfile];           // profil aktualnego playera dla ProfileModel, nie jest znany przed zalogowaniem
+				MainLobbyModel.EntireList = PlayersProfiles.Instance.ListOfProfiles;
+				MainLobbyModel.CurrentProfile = MainLobbyModel.EntireList[PlayersProfiles.Instance.CurrentProfile];
 				MainLobbyView.SetModel(MainLobbyModel);             
 
 				MainLobbyView.DrawMainMenu();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoginView : View {
+public class LoginView : MonoBehaviour {
 
 	public static string JustPlayerName;
 

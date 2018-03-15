@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementsView : View {
+public class AchievementsView : View<AchievementsModel> {
 
 	[SerializeField] private Texture LogoButton;
 	[SerializeField] private Texture AchievementsButtonInactive;
@@ -78,11 +78,11 @@ public class AchievementsView : View {
 		int yPosition = 270;
 		int xPosition = 465;
 
-		for (int i = (int)listFrom; i < _achievementsModel.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
+		for (int i = (int)listFrom; i < _Model.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
 		{
 			string fontColor = "";
 
-			if (_achievementsModel.EntireList[i].PlayerName.Equals(_achievementsModel.CurrentProfile.PlayerName))				// jeśli wypisuje aktualnego playera
+			if (_Model.EntireList[i].PlayerName.Equals(_Model.CurrentProfile.PlayerName))				// jeśli wypisuje aktualnego playera
 			{
 				fontColor = _setGUIStyleViewService.DarkRedFont;
 			}
@@ -93,14 +93,14 @@ public class AchievementsView : View {
 
 			// PLAYERNAME
 			GUI.Label(_resizeViewService.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeViewService.Horizontal.left, ResizeViewService.Vertical.center),
-						"<color=#" + fontColor + ">" + _achievementsModel.EntireList[i].PlayerName + "</color>", _setGUIStyleViewService.LabelStyle);
+						"<color=#" + fontColor + ">" + _Model.EntireList[i].PlayerName + "</color>", _setGUIStyleViewService.LabelStyle);
 
 			// HIGHSCORE
 			GUI.Label(_resizeViewService.ResizeGUI(new Rect(300, yPosition, 150, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center),
-						"<color=#" + fontColor + ">" + _achievementsModel.EntireList[i].HighScore + "</color>", _setGUIStyleViewService.LabelStyle);
+						"<color=#" + fontColor + ">" + _Model.EntireList[i].HighScore + "</color>", _setGUIStyleViewService.LabelStyle);
 
 			// ACHIEVEMENTS
-			AchievementSingleEntryView.ListAchievements(_achievementsModel.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
+			AchievementSingleEntryView.ListAchievements(_Model.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
 
 			yPosition += 30;
 			xPosition = 465;
@@ -121,7 +121,7 @@ public class AchievementsView : View {
 				_listAchievementsTo -= _scope;
 			}
 
-			if (_resizeViewService.ClickedWithinForUpdate(_nextAchievementPage) && _listAchievementsTo < _achievementsModel.EntireList.Count)
+			if (_resizeViewService.ClickedWithinForUpdate(_nextAchievementPage) && _listAchievementsTo < _Model.EntireList.Count)
 			{
 				_listAchievementsFrom += _scope;
 				_listAchievementsTo += _scope;
