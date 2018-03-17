@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LoginView : MonoBehaviour {
 
-	public static string JustPlayerName;
+	public string JustPlayerName;
 
 	[SerializeField] private Texture LogoButton;
 
@@ -41,7 +41,7 @@ public class LoginView : MonoBehaviour {
 			{
 				if (JustPlayerName.Length > 0)
 				{
-					_loginViewService.CheckPlayerPrefs();                         // odpal LoadProfile, sprawdz aktualna liste i przypisz dane do pol obiektu
+					_loginViewService.CheckPlayerPrefs(JustPlayerName);                         // odpal LoadProfile, sprawdz aktualna liste i przypisz dane do pol obiektu
 					MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
 				}
 			}

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HowToPlayView : MonoBehaviour {
-
+public class HowToPlayView : View<HowToPlayModel, HowToPlayController>
+{
 	[SerializeField] private Texture LogoButton;
 	[SerializeField] private Texture HowtoPlayButtonInactive;
 	[SerializeField] private ResizeViewService ResizeViewService;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainLobbyView : View<MainLobbyModel>
+public class MainLobbyView : View<MainLobbyModel, MainLobbyController>
 {
 	[SerializeField] private Texture LogoButton;                                            // umożliwia wykorzystanie modyfikatora private z dostępem do zmiennej w ramach inspectora unity
 	[SerializeField] private Texture AchievementsButton;
@@ -15,8 +15,10 @@ public class MainLobbyView : View<MainLobbyModel>
 
 	[SerializeField] private ProfileView ProfileView;
 	[SerializeField] private ProfileModel ProfileModel;
+	[SerializeField] private ProfileController ProfileController;
 	[SerializeField] private AchievementsView AchievementsView;
 	[SerializeField] private AchievementsModel AchievementsModel;
+	[SerializeField] private AchievementsController AchievementsController;
 
 	private Rect _logoRect;
 	private Rect _newGameRect;
@@ -77,29 +79,34 @@ public class MainLobbyView : View<MainLobbyModel>
 			else if (_resizeViewService.ClickedWithin(_achievementsRect))
 			{
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Achievements;
+				AchievementsController = new AchievementsController();
+				AchievementsView.Controller = AchievementsController;
 				AchievementsModel = new AchievementsModel()
 				{
-					EntireList = _Model.EntireList,             
-					CurrentProfile = _Model.CurrentProfile
+					EntireList = _model.EntireList,             
+					CurrentProfile = _model.CurrentProfile
 				};
-				AchievementsView.SetModel(AchievementsModel);
+				//AchievementsView.SetModel(AchievementsModel);
+				AchievementsView.Model = AchievementsModel;
 			}
 
 			// MY PROFILE
 			else if (_resizeViewService.ClickedWithin(_profileRect))
 			{
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Profile;
+				ProfileController = new ProfileController();
+				ProfileView.Controller = ProfileController;
 				ProfileModel = new ProfileModel()
 				{
-					CurrentProfile = _Model.CurrentProfile
+					CurrentProfile = _model.CurrentProfile
 				};
-				ProfileView.SetModel(ProfileModel);
+				//ProfileView.SetModel(ProfileModel);
+				ProfileView.Model = ProfileModel;
 			}
 
 			// LOGOUT 
 			else if (_resizeViewService.ClickedWithin(_logoutRect))
 			{
-				LoginView.JustPlayerName = "";
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Login;
 			}
 		}
