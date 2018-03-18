@@ -83,8 +83,8 @@ public class MainLobbyView : View<MainLobbyModel, MainLobbyController>
 				AchievementsView.Controller = AchievementsController;
 				AchievementsModel = new AchievementsModel()
 				{
-					EntireList = _model.EntireList,             
-					CurrentProfile = _model.CurrentProfile
+					EntireList = Model.EntireList,             
+					CurrentProfile = Model.CurrentProfile
 				};
 				//AchievementsView.SetModel(AchievementsModel);
 				AchievementsView.Model = AchievementsModel;
@@ -98,7 +98,7 @@ public class MainLobbyView : View<MainLobbyModel, MainLobbyController>
 				ProfileView.Controller = ProfileController;
 				ProfileModel = new ProfileModel()
 				{
-					CurrentProfile = _model.CurrentProfile
+					CurrentProfile = Model.CurrentProfile
 				};
 				//ProfileView.SetModel(ProfileModel);
 				ProfileView.Model = ProfileModel;

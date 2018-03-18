@@ -11,8 +11,6 @@ public class AchievementsView : View<AchievementsModel, AchievementsController> 
 
 	[SerializeField] private AchievementSingleEntryView AchievementSingleEntryView;
 
-	//[SerializeField] private AchievementsModel AchievementsModel;
-
 	private ResizeViewService _resizeViewService;
 	private DrawElementViewService _drawElementViewService;
 	private SetGUIStyleViewService _setGUIStyleViewService;
@@ -78,11 +76,11 @@ public class AchievementsView : View<AchievementsModel, AchievementsController> 
 		int yPosition = 270;
 		int xPosition = 465;
 
-		for (int i = (int)listFrom; i < _model.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
+		for (int i = (int)listFrom; i < Model.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
 		{
 			string fontColor = "";
 
-			if (_model.EntireList[i].PlayerName.Equals(_model.CurrentProfile.PlayerName))				// jeśli wypisuje aktualnego playera
+			if (Model.EntireList[i].PlayerName.Equals(Model.CurrentProfile.PlayerName))				// jeśli wypisuje aktualnego playera
 			{
 				fontColor = _setGUIStyleViewService.DarkRedFont;
 			}
@@ -93,14 +91,14 @@ public class AchievementsView : View<AchievementsModel, AchievementsController> 
 
 			// PLAYERNAME
 			GUI.Label(_resizeViewService.ResizeGUI(new Rect(200, yPosition, 150, 30), ResizeViewService.Horizontal.left, ResizeViewService.Vertical.center),
-						"<color=#" + fontColor + ">" + _model.EntireList[i].PlayerName + "</color>", _setGUIStyleViewService.LabelStyle);
+						"<color=#" + fontColor + ">" + Model.EntireList[i].PlayerName + "</color>", _setGUIStyleViewService.LabelStyle);
 
 			// HIGHSCORE
 			GUI.Label(_resizeViewService.ResizeGUI(new Rect(300, yPosition, 150, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center),
-						"<color=#" + fontColor + ">" + _model.EntireList[i].HighScore + "</color>", _setGUIStyleViewService.LabelStyle);
+						"<color=#" + fontColor + ">" + Model.EntireList[i].HighScore + "</color>", _setGUIStyleViewService.LabelStyle);
 
 			// ACHIEVEMENTS
-			AchievementSingleEntryView.ListAchievements(_model.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
+			AchievementSingleEntryView.ListAchievements(Model.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
 
 			yPosition += 30;
 			xPosition = 465;
@@ -121,7 +119,7 @@ public class AchievementsView : View<AchievementsModel, AchievementsController> 
 				_listAchievementsTo -= _scope;
 			}
 
-			if (_resizeViewService.ClickedWithinForUpdate(_nextAchievementPage) && _listAchievementsTo < _model.EntireList.Count)
+			if (_resizeViewService.ClickedWithinForUpdate(_nextAchievementPage) && _listAchievementsTo < Model.EntireList.Count)
 			{
 				_listAchievementsFrom += _scope;
 				_listAchievementsTo += _scope;

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class View<TModel, TController> : MonoBehaviour
 {
-	protected TController _controller;
-	protected TModel _model;
-
+	private TController _controller;
+	private TModel _model;
 
 	public TController Controller
 	{
