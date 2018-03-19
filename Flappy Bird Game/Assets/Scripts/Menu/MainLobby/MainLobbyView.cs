@@ -14,11 +14,7 @@ public class MainLobbyView : View<MainLobbyModel, MainLobbyController>
 	[SerializeField] private Texture LogoutButton;
 
 	[SerializeField] private ProfileView ProfileView;
-	[SerializeField] private ProfileModel ProfileModel;
-	[SerializeField] private ProfileController ProfileController;
 	[SerializeField] private AchievementsView AchievementsView;
-	[SerializeField] private AchievementsModel AchievementsModel;
-	[SerializeField] private AchievementsController AchievementsController;
 
 	private Rect _logoRect;
 	private Rect _newGameRect;
@@ -79,29 +75,23 @@ public class MainLobbyView : View<MainLobbyModel, MainLobbyController>
 			else if (_resizeViewService.ClickedWithin(_achievementsRect))
 			{
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Achievements;
-				AchievementsController = new AchievementsController();
-				AchievementsView.Controller = AchievementsController;
-				AchievementsModel = new AchievementsModel()
+				AchievementsView.Controller = new AchievementsController();
+				AchievementsView.Model = new AchievementsModel()
 				{
 					EntireList = Model.EntireList,             
 					CurrentProfile = Model.CurrentProfile
 				};
-				//AchievementsView.SetModel(AchievementsModel);
-				AchievementsView.Model = AchievementsModel;
 			}
 
 			// MY PROFILE
 			else if (_resizeViewService.ClickedWithin(_profileRect))
 			{
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Profile;
-				ProfileController = new ProfileController();
-				ProfileView.Controller = ProfileController;
-				ProfileModel = new ProfileModel()
+				ProfileView.Controller = new ProfileController();
+				ProfileView.Model = new ProfileModel()
 				{
 					CurrentProfile = Model.CurrentProfile
 				};
-				//ProfileView.SetModel(ProfileModel);
-				ProfileView.Model = ProfileModel;
 			}
 
 			// LOGOUT 

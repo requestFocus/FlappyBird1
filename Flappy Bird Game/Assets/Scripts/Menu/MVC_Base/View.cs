@@ -22,11 +22,10 @@ public class View<TModel, TController> : MonoBehaviour
 		{
 			if (_controller != null)
 				_model = value;
+			//else
+			// _controller = TController;
+			// _controller = new Controller();
+			// _controller = new TController();
 		}
 	}
-
-	//public void SetModel(TModel model)
-	//{
-	//	_model = model;
-	//}
 }

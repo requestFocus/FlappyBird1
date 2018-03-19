@@ -46,13 +46,12 @@ public class Main : MonoBehaviour {
 				break;
 
 			case MenuScreensService.MenuScreens.MainMenu:
-				MainLobbyController = new MainLobbyController();
-				MainLobbyView.Controller = MainLobbyController;
-				MainLobbyModel = new MainLobbyModel();
-				MainLobbyModel.EntireList = PlayersProfiles.Instance.ListOfProfiles;
-				MainLobbyModel.CurrentProfile = MainLobbyModel.EntireList[PlayersProfiles.Instance.CurrentProfile];
-				//MainLobbyView.SetModel(MainLobbyModel);             
-				MainLobbyView.Model = MainLobbyModel;
+				MainLobbyView.Controller = new MainLobbyController();
+				MainLobbyView.Model = new MainLobbyModel()
+				{
+					EntireList = PlayersProfiles.Instance.ListOfProfiles,
+					CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile]
+				};
 
 				MainLobbyView.DrawMainMenu();
 				break;
