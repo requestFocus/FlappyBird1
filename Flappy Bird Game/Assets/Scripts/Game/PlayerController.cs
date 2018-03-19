@@ -5,26 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-	public GameManager GameManager;
-	public ParticleSystem PlayerParticles;
-	public CanvasController CanvasController;
+	[SerializeField] private GameManager GameManager;
+	[SerializeField] private ParticleSystem PlayerParticles;
+	[SerializeField] private CanvasController CanvasController;
 
-	public float Sensitivity;
-	public float Velocity;
-	public float Gravity;
+	private float _sensitivity;
+	private float _velocity;
+	private float _gravity;
 
-	public float MoveVertical;
-	public Vector2 GravityMovement;
-	public Vector2 BeeMovement;
-	public Vector2 Movement;
+	private float _moveVertical;
+	private Vector2 _gravityMovement;
+	private Vector2 _beeMovement;
+	private Vector2 _movement;
 
 	void Start()
 	{
-		Sensitivity = 12f;
-		Velocity = 0.0f;
-		Gravity = 3f;
+		_sensitivity = 12f;
+		_velocity = 0.0f;
+		_gravity = 3f;
 
-		BeeMovement = new Vector2(0.0f, 0.0f);
+		_beeMovement = new Vector2(0.0f, 0.0f);
 	}
 
 
@@ -36,12 +36,11 @@ public class PlayerController : MonoBehaviour
 
 
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	private void OnTriggerEnter2D(Collider2D collision)				
 	{
 		if (collision.gameObject.CompareTag("Score"))                                                       // zdobyty punkt
 		{
-			GameManager.SetScore();
-			//Debug.Log("OnTriggerEnter2D Score: " + GameManager.GetScore());
+			GameManager.CurrentScore = 1;
 			if (GameManager.AchievementToUnlock())
 			{
 				PlayerParticles.Play();
@@ -57,25 +56,23 @@ public class PlayerController : MonoBehaviour
 
 
 
-	private void MoveBee()
+	private void MoveBee()											// SERWIS, PORUSZA PLAYEREM
 	{
-		MoveVertical = Input.GetAxis("Vertical");
+		_moveVertical = Input.GetAxis("Vertical");
 
 		if (Input.GetKeyUp("s") || Input.GetKeyUp("w") || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
 		{
 			Input.ResetInputAxes();														// reset wartosci getinputaxis, player moze podskoczyc po osiagnieciu wartosci 1
-			Velocity = 0;																// reset predkosci po wzbiciu sie w gore, player znow zaczyna opadać z predkoscia poczatkowa 0
+			_velocity = 0;																// reset predkosci po wzbiciu sie w gore, player znow zaczyna opadać z predkoscia poczatkowa 0
 		}
 
-		BeeMovement = Vector2.up * MoveVertical * Time.deltaTime * Sensitivity;			// wyliczenie wektora ruchu playera na bazie Input.GetAxis()
+		_beeMovement = Vector2.up * _moveVertical * Time.deltaTime * _sensitivity;			// wyliczenie wektora ruchu playera na bazie Input.GetAxis()
 
-		Velocity += Gravity * Time.deltaTime;											// predkosc jako iloczyn grawitacji (przyspieszenia) i czasu
-		GravityMovement = Vector2.down * Velocity * Time.deltaTime;						// wyliczenie wektora przyspieszenia
+		_velocity += _gravity * Time.deltaTime;											// predkosc jako iloczyn grawitacji (przyspieszenia) i czasu
+		_gravityMovement = Vector2.down * _velocity * Time.deltaTime;						// wyliczenie wektora przyspieszenia
 
-		//Debug.Log("MoveVertical: " + MoveVertical + " // Velocity: " + Velocity + " // Time.deltaTime: " + Time.deltaTime + " //// " + "BeeMovement.y: " + BeeMovement.y + " + GravityMovement.y: " + GravityMovement.y + " = Movement.y: " + Movement.y);
-
-		Movement = BeeMovement + GravityMovement;										// suma wektorów ruchu i opadania
-		transform.Translate(Movement);													// przesuniecie o sume wektorów
+		_movement = _beeMovement + _gravityMovement;										// suma wektorów ruchu i opadania
+		transform.Translate(_movement);													// przesuniecie o sume wektorów
 	}
 }
 

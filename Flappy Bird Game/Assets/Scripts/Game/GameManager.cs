@@ -7,94 +7,78 @@ public class GameManager : MonoBehaviour
 	public GameObject BranchPrefab;
 	public CanvasController CanvasController;
 
-	private int _currentScore;
-	private float _timeIntervalForCoroutine;
-	private float _intervalStep;
-
-	private enum _intervalLockItems
+	private enum _intervalLockStates
 	{
-		Locked,
-		Unlocked
+		Unlocked,
+		Locked
 	};
-	private _intervalLockItems _intervalLock;
+	private _intervalLockStates _intervalLock;
+
+	private int _currentScore;
+	public int CurrentScore
+	{
+		get
+		{
+			return _currentScore;
+		}
+		set
+		{
+			_currentScore += value;
+			_intervalLock = _intervalLockStates.Locked;
+		}
+	}
+
+	private float _timeIntervalForCoroutine;
+	public float TimeIntervalForCoroutine
+	{
+		get
+		{
+			return _timeIntervalForCoroutine;
+		}
+		set
+		{
+			_timeIntervalForCoroutine = value;
+		}
+	}
+
+	private const float _intervalStep = 0.3f;
+
+
 
 	private void Start()
 	{
-		_intervalLock = _intervalLockItems.Unlocked;
-		_intervalStep = 0.3f;														
-		SetTimeIntervalForCoroutine(3.0f);											// 3.0f jako wartosc startowa
+		TimeIntervalForCoroutine = 3.0f;											// 3.0f jako wartosc startowa
 
 		StartCoroutine(CreateObstacle());                                           //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
-	/*
-	 * w hierarchy managerze znajduje się prefab Branch, aktualnie jest nieaktywny, 
-	 * sluży jako podgląd dla prefaba w przypadku ew. zmian,
-	 * z wersji finalnej zostanie USUNIĘTY
-	 */
 
-	private IEnumerator CreateObstacle()
+	private IEnumerator CreateObstacle()								// tworzy obstacle'a, czy to serwis?
 	{
 		while (true)
 		{
 			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			//Debug.Log("PREFAB");
 			Instantiate(BranchPrefab);
 		}
 	}
 
 
-	public void SetScore()
+
+	public float CalculateTimeIntervalForObstacles()					// SERWIS, wylicza (skraca) czas między pojawianiem się kolejnych przeszkód
 	{
-		_currentScore++;
-		_intervalLock = _intervalLockItems.Locked;
-	}
-
-
-
-	public int GetScore()
-	{
-		return _currentScore;
-	}
-
-
-
-	public float CalculateTimeIntervalForObstacles()
-	{
-		if (GetScore() != 0 && GetScore() % 10 == 0 && GetTimeIntervalForCoroutine() > 1.0f && _intervalLock == _intervalLockItems.Locked)
+		if (CurrentScore != 0 && CurrentScore % 10 == 0 && TimeIntervalForCoroutine > 1.0f && _intervalLock == _intervalLockStates.Locked)
 		{
-			SetTimeIntervalForCoroutine(GetTimeIntervalForCoroutine() - _intervalStep);
-
-			//Debug.Log("GetScore(): " + GetScore() + " // GetTimeIntervalForCoroutine(): " + GetTimeIntervalForCoroutine() + " // lockInterval: " + _lockInterval);
+			TimeIntervalForCoroutine = TimeIntervalForCoroutine - _intervalStep;
 		}
-		_intervalLock = _intervalLockItems.Unlocked;
+		_intervalLock = _intervalLockStates.Unlocked;
 		return _timeIntervalForCoroutine;
 	}
 
 
 
-	public float GetTimeIntervalForCoroutine()
+	public bool AchievementToUnlock()									// SERWIS, weryfikuje i przyznaje achievementy
 	{
-		return _timeIntervalForCoroutine;
-	}
-
-
-	public void SetTimeIntervalForCoroutine(float interval)
-	{
-		_timeIntervalForCoroutine = interval;
-	}
-
-	//private float[] _intervals;
-	//private int _i;
-	//_intervals = new float[] { 2.7f, 2.4f, 2.1f, 1.8f, 1.5f, 1.2f, 0.9f, 0.6f };
-	//i = 0;
-	//if (GetScore() != 0 && GetScore() % 3 == 0 && i < _intervals.Length && _timeIntervalForCoroutine >= 1.0f)
-	//_decreasingInterval = _intervals[i++];
-
-
-	public bool AchievementToUnlock()
-	{
-		if (GetScore() == 10)
+		if (CurrentScore == 10)
 		{
 			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10)   // nie ma jeszcze achievementu
 			{
@@ -102,7 +86,7 @@ public class GameManager : MonoBehaviour
 				return true;
 			}
 		}
-		if (GetScore() == 25)
+		if (CurrentScore == 25)
 		{
 			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25)   // nie ma jeszcze achievementu
 			{
@@ -110,7 +94,7 @@ public class GameManager : MonoBehaviour
 				return true;
 			}
 		}
-		if (GetScore() == 50)
+		if (CurrentScore == 50)
 		{
 			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50)   // nie ma jeszcze achievementu
 			{
@@ -124,3 +108,16 @@ public class GameManager : MonoBehaviour
 }
 
 
+/*
+ * WIDOK - jeden gameplay czy każdy element gameplayu (player, obstacle) osobno?
+ * 
+ * MODEL - playername zapisany w CurrentProfile
+ *       - highscore zapisany w CurrentProfile
+ *       - achievements zapisany w CurrentProfile do sprawdzania podczas trwania gry czy został unlockowany achievement (sam stan nie jest nigdzie wyświetlany podczas gry)
+ *
+ *KONTROLER - po skończonej grze zapisuje nowy wynik w MODELU 
+ *			 - w przypadku DontRepeat dane w WIDOKACH MENU zaktualizują się same podczas przełączania sceny
+ *			 - w przypadku Repeat dane w WIDOKACH GAME muszą zostać zaktualizowane ręcznie - subskrypcja?==============
+ *			 - jeśli highscore nie został poprawiony, nie ma potrzeby zapisywania danych modelu (hint: jeśli nie poprawiono highscore'a to na pewno nie unlockowano też nowych achievmentów)  
+ *			 - jeśli widok nie zmienia modelu to nie potrzebuje dostępu do kontrolera
+ */ 
