@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,11 +22,11 @@ public class View<TModel, TController> : MonoBehaviour
 		set
 		{
 			if (_controller != null)
-				_model = value;
-			//else
-			// _controller = TController;
-			// _controller = new Controller();
-			// _controller = new TController();
+			{
+				_controller = (TController)Activator.CreateInstance(typeof(TController));
+			}
+
+			_model = value;
 		}
 	}
 }
