@@ -21,7 +21,7 @@ public class View<TModel, TController> : MonoBehaviour
 
 		set
 		{
-			if (_controller != null)
+			if (_controller == null)
 			{
 				_controller = (TController)Activator.CreateInstance(typeof(TController));
 			}
