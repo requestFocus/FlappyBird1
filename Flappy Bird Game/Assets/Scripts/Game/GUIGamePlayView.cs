@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class CanvasController : MonoBehaviour
+public class GUIGamePlayView : MonoBehaviour								// GUI będzie głównym widokiem zawierającym widok player PLUS obstacle
 {
 	[SerializeField] private Text NameScoreSummary;
 	[SerializeField] private Text NewHighscoreSummary;
@@ -13,12 +13,13 @@ public class CanvasController : MonoBehaviour
 	[SerializeField] private Text HighScoreGamePlay;
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 	[SerializeField] private Button RepeatButton;
-	[SerializeField] private Button DontRepeat;
-	[SerializeField] private Canvas Canvas;
+	[SerializeField] private Button DontRepeatButton;
 	[SerializeField] private GameObject SummaryBackground;
+
 	[SerializeField] private GameManager GameManager;
 
 	private PlayerProfileController _playerProfileController = new PlayerProfileController();
+	private GUIGamePlayService _GUIGamePlayService = new GUIGamePlayService();
 
 	private void Start()
 	{
@@ -30,35 +31,36 @@ public class CanvasController : MonoBehaviour
 
 	private void Update()
 	{
-		DisplayCanvasOnGamePlay();
+		//DisplayGUIGamePlayView();
 	}
 
-	private void OnEnable()                                             // SERWIS WIDOKU SUMMARY
+	private void OnEnable()                                             // WIDOK SUMMARY
 	{
 		RepeatButton.onClick.AddListener(RepeatGame);
-		DontRepeat.onClick.AddListener(BackToMenu);
+		DontRepeatButton.onClick.AddListener(BackToMenu);
 	}
 
-	public void RepeatGame()                                            // SERWIS WIDOKU SUMMARY
+	public void RepeatGame()                                            // WIDOK SUMMARY
 	{
 		SceneManager.LoadScene("Game");
-		BreakPause();
+		BackFromPause();
 	}
 
-	public void BackToMenu()                                            // SERWIS WIDOKU SUMMARY				
+	public void BackToMenu()                                            // WIDOK SUMMARY				
 	{
 		Main.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
-		BreakPause();
+		BackFromPause();
 	}
 
-	private void BreakPause()											// SERWIS WIDOKU SUMMARY
+	public void BackFromPause()
 	{
-		Time.timeScale = 1;
-		SummaryBackground.SetActive(false);
+		_GUIGamePlayService.BreakPause();							// timescale back to 1
+		SummaryBackground.SetActive(false);							// odciemnij tło
 	}
 
-	public void DisplayCanvasOnGamePlay()								// WIDOK GAMEPLAY
+
+	public void DisplayGUIGamePlayView()								// WIDOK GAMEPLAY
 	{
 		if (Time.timeScale == 1)										// jeśli gra trwa
 		{
@@ -74,9 +76,9 @@ public class CanvasController : MonoBehaviour
 		}
 	}
 
-	public void DisplayCanvasOnSummary()                                // WIDOK SUMMARY
+	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
 	{
-		Time.timeScale = 0;
+		_GUIGamePlayService.StartPause();
 		SetSummaryScreen(true);
 
 		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + GameManager.CurrentScore;
@@ -89,11 +91,11 @@ public class CanvasController : MonoBehaviour
 		_playerProfileController.SaveProfile(PlayersProfiles.Instance);               // zapisz wyniki przed powrotem do sceny MENU		// KONTROLER===== jedyne miejsce, które ma wpływ na model
 	}
 
-	private void SetSummaryScreen(bool state)                           // SERWIS(?) WIDOKU SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz
+	private void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz
 	{
 		SummaryBackground.SetActive(state);
 		RepeatButton.gameObject.SetActive(state);
-		DontRepeat.gameObject.SetActive(state);
+		DontRepeatButton.gameObject.SetActive(state);
 	}
 
 	private bool CheckHighscoreTable()                                  // SERWIS WIDOKU SUMMARY, informuje czy player ma nowy highscore
@@ -107,7 +109,7 @@ public class CanvasController : MonoBehaviour
 		return false;
 	}
 
-	public IEnumerator AchievementUnlockedNotification()                // SERWIS WIDOKU GAMEPLAY, wyswietla info o odblokowaniu achievementu
+	public IEnumerator AchievementUnlockedNotification()                // WIDOK GAMEPLAY, wyswietla info o odblokowaniu achievementu
 	{
 		AchievementUnlockedGamePlay.text = "New achievement!";
 		yield return new WaitForSeconds(2);

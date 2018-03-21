@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private GameManager GameManager;
 	[SerializeField] private ParticleSystem PlayerParticles;
-	[SerializeField] private CanvasController CanvasController;
+	[SerializeField] private GUIGamePlayView GUIGamePlayView;
 
 	private float _sensitivity;
 	private float _velocity;
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-	private void OnTriggerEnter2D(Collider2D collision)				
+	private void OnTriggerEnter2D(Collider2D collision)				// on trigger enter jako metoda widoku, ale wywołania z serwisu	
 	{
 		if (collision.gameObject.CompareTag("Score"))                                                       // zdobyty punkt
 		{
@@ -44,13 +44,13 @@ public class PlayerController : MonoBehaviour
 			if (GameManager.AchievementToUnlock())
 			{
 				PlayerParticles.Play();
-				StartCoroutine(CanvasController.AchievementUnlockedNotification());
+				StartCoroutine(GUIGamePlayView.AchievementUnlockedNotification());
 			}
 		}
 
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))     // stracone życie
 		{
-			GameManager.CanvasController.DisplayCanvasOnSummary();
+			GameManager.GUIGamePlayView.DisplayGUISummaryView();
 		}
 	}
 

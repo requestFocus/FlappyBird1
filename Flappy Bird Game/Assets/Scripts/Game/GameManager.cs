@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	public GameObject BranchPrefab;
-	public CanvasController CanvasController;
+	public GUIGamePlayView GUIGamePlayView;
 
 	private enum _intervalLockStates
 	{
@@ -109,7 +109,10 @@ public class GameManager : MonoBehaviour
 
 
 /*
- * WIDOK - jeden gameplay czy każdy element gameplayu (player, obstacle) osobno?
+ * WIDOK 
+ * player i przeszkoda jednym widokiem działającym w widoku drugim
+ * elementy gui gameplayu drugim widokiem
+ * elementy gui summary trzecim widokiem
  * 
  * MODEL - playername zapisany w CurrentProfile
  *       - highscore zapisany w CurrentProfile
@@ -120,4 +123,4 @@ public class GameManager : MonoBehaviour
  *			 - w przypadku Repeat dane w WIDOKACH GAME muszą zostać zaktualizowane ręcznie - subskrypcja?==============
  *			 - jeśli highscore nie został poprawiony, nie ma potrzeby zapisywania danych modelu (hint: jeśli nie poprawiono highscore'a to na pewno nie unlockowano też nowych achievmentów)  
  *			 - jeśli widok nie zmienia modelu to nie potrzebuje dostępu do kontrolera
- */ 
+ */
