@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private GameManager GameManager;
 	[SerializeField] private ParticleSystem PlayerParticles;
 	[SerializeField] private GUIGamePlayView GUIGamePlayView;
+	[SerializeField] private GUISummaryView GUISummaryView;
 
 	private float _sensitivity;
 	private float _velocity;
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-	private void OnTriggerEnter2D(Collider2D collision)				// on trigger enter jako metoda widoku, ale wywołania z serwisu	
+	private void OnTriggerEnter2D(Collider2D collision)             // on trigger enter jako metoda widoku COLUMNY+PLAYERA, ale sprawdzania z metod serwisu	COLUMNY+PLAYERA
 	{
 		if (collision.gameObject.CompareTag("Score"))                                                       // zdobyty punkt
 		{
@@ -48,15 +49,15 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))     // stracone życie
+		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))			 // stracone życie
 		{
-			GameManager.GUIGamePlayView.DisplayGUISummaryView();
+			GUISummaryView.DisplayGUISummaryView();
 		}
 	}
 
 
 
-	private void MoveBee()											// SERWIS, PORUSZA PLAYEREM
+	private void MoveBee()                                          // SERWIS COLUMNY+PLAYERA
 	{
 		_moveVertical = Input.GetAxis("Vertical");
 

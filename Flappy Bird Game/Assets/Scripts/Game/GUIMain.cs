@@ -5,7 +5,7 @@ using UnityEngine;
 public class GUIMain : MonoBehaviour
 {
 	public GUIGamePlayView GUIGamePlayView;
-	//public GUISummaryView GUISummaryView;
+	public GUISummaryView GUISummaryView;
 
 	void Start ()
 	{
@@ -20,7 +20,7 @@ public class GUIMain : MonoBehaviour
 				GUIGamePlayView.DisplayGUIGamePlayView();
 				break;
 			case CurrentGameStateService.GameStates.Summary:
-				Debug.Log("summary jeszcze nie ma");
+				//GUISummaryView.DisplayGUISummaryView();
 				break;
 		}
 	}

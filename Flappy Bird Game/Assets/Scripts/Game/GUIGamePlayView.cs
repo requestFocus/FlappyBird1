@@ -6,108 +6,39 @@ using UnityEngine.SceneManagement;
 
 public class GUIGamePlayView : MonoBehaviour								// GUI będzie głównym widokiem zawierającym widok player PLUS obstacle
 {
-	[SerializeField] private Text NameScoreSummary;
-	[SerializeField] private Text NewHighscoreSummary;
 	[SerializeField] private Text NameScoreGamePlay;
 	[SerializeField] private Text ScoreGamePlay;
 	[SerializeField] private Text HighScoreGamePlay;
 	[SerializeField] private Text AchievementUnlockedGamePlay;
-	[SerializeField] private Button RepeatButton;
-	[SerializeField] private Button DontRepeatButton;
-	[SerializeField] private GameObject SummaryBackground;
-
+	
 	[SerializeField] private GameManager GameManager;
 
-	private PlayerProfileController _playerProfileController = new PlayerProfileController();
-	private GUIGamePlayService _GUIGamePlayService = new GUIGamePlayService();
+	//private PlayerProfileController _playerProfileController = new PlayerProfileController();
+	//private GUIService _GUIGamePlayService = new GUIService();
 
 	private void Start()
 	{
-		NameScoreSummary.text = "";
-		NewHighscoreSummary.text = "";
 		AchievementUnlockedGamePlay.text = "";
-		SetSummaryScreen(false);
 	}
 
-	private void Update()
+	
+	public void DisplayGUIGamePlayView()                                // WIDOK GAMEPLAY
 	{
-		//DisplayGUIGamePlayView();
-	}
-
-	private void OnEnable()                                             // WIDOK SUMMARY
-	{
-		RepeatButton.onClick.AddListener(RepeatGame);
-		DontRepeatButton.onClick.AddListener(BackToMenu);
-	}
-
-	public void RepeatGame()                                            // WIDOK SUMMARY
-	{
-		SceneManager.LoadScene("Game");
-		BackFromPause();
-	}
-
-	public void BackToMenu()                                            // WIDOK SUMMARY				
-	{
-		Main.BackFromGamePlay = true;
-		SceneManager.LoadScene("Menu");
-		BackFromPause();
-	}
-
-	public void BackFromPause()
-	{
-		_GUIGamePlayService.BreakPause();							// timescale back to 1
-		SummaryBackground.SetActive(false);							// odciemnij tło
-	}
-
-
-	public void DisplayGUIGamePlayView()								// WIDOK GAMEPLAY
-	{
-		if (Time.timeScale == 1)										// jeśli gra trwa
+		if (Time.timeScale == 1)                                        // jeśli gra trwa
 		{
 			NameScoreGamePlay.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName;
 			ScoreGamePlay.text = "score: " + GameManager.CurrentScore;
 			HighScoreGamePlay.text = "highscore: " + PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore;
 		}
-		else if (Time.timeScale == 0)									// jeśli gra się zakończyła schowaj elementy UI gameplayu
+		else if (Time.timeScale == 0)                                   // jeśli gra się zakończyła schowaj elementy UI gameplayu
 		{
 			NameScoreGamePlay.text = "";
 			ScoreGamePlay.text = "";
 			HighScoreGamePlay.text = "";
+			CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
 		}
 	}
 
-	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
-	{
-		_GUIGamePlayService.StartPause();
-		SetSummaryScreen(true);
-
-		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + GameManager.CurrentScore;
-
-		if (CheckHighscoreTable())
-		{
-			NewHighscoreSummary.text = "New highscore! You did well!";
-		}
-
-		_playerProfileController.SaveProfile(PlayersProfiles.Instance);               // zapisz wyniki przed powrotem do sceny MENU		// KONTROLER===== jedyne miejsce, które ma wpływ na model
-	}
-
-	private void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz
-	{
-		SummaryBackground.SetActive(state);
-		RepeatButton.gameObject.SetActive(state);
-		DontRepeatButton.gameObject.SetActive(state);
-	}
-
-	private bool CheckHighscoreTable()                                  // SERWIS WIDOKU SUMMARY, informuje czy player ma nowy highscore
-	{
-		if (GameManager.CurrentScore > PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore)
-		{
-			PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore = GameManager.CurrentScore;
-			return true;
-		}
-
-		return false;
-	}
 
 	public IEnumerator AchievementUnlockedNotification()                // WIDOK GAMEPLAY, wyswietla info o odblokowaniu achievementu
 	{

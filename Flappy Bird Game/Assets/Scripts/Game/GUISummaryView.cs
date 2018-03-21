@@ -1,8 +1,85 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GUISummaryView : MonoBehaviour {
 
+	[SerializeField] private Text NameScoreSummary;
+	[SerializeField] private Text NewHighscoreSummary;
+	[SerializeField] private Button RepeatButton;
+	[SerializeField] private Button DontRepeatButton;
+	[SerializeField] private GameObject SummaryBackground;
 
+	[SerializeField] private GameManager GameManager;
+
+	private PlayerProfileController _playerProfileController = new PlayerProfileController();
+	private GUIService _GUIGamePlayService = new GUIService();
+
+	private void Start()
+	{
+		NameScoreSummary.text = "";
+		NewHighscoreSummary.text = "";
+		SetSummaryScreen(false);
+	}
+
+	private void OnEnable()                                             // WIDOK SUMMARY
+	{
+		RepeatButton.onClick.AddListener(RepeatGame);
+		DontRepeatButton.onClick.AddListener(BackToMenu);
+	}
+
+	public void RepeatGame()                                            // WIDOK SUMMARY
+	{
+		SceneManager.LoadScene("Game");
+		BackFromPause();
+		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+	}
+
+	public void BackToMenu()                                            // WIDOK SUMMARY				
+	{
+		Main.BackFromGamePlay = true;
+		SceneManager.LoadScene("Menu");
+		BackFromPause();
+	}
+
+	public void BackFromPause()                                         // WIDOK SUMMARY
+	{
+		_GUIGamePlayService.BreakPause();											    // timescale back to 1
+		SummaryBackground.SetActive(false);                         // odciemnij tło
+	}
+
+	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
+	{
+		_GUIGamePlayService.StartPause();
+		SetSummaryScreen(true);
+
+		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + GameManager.CurrentScore;
+
+		if (CheckHighscoreTable())
+		{
+			NewHighscoreSummary.text = "New highscore! You did well!";
+		}
+		// KONTROLER
+		_playerProfileController.SaveProfile(PlayersProfiles.Instance);               // zapisz wyniki przed powrotem do sceny MENU
+	}
+
+	private void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz
+	{
+		SummaryBackground.SetActive(state);
+		RepeatButton.gameObject.SetActive(state);
+		DontRepeatButton.gameObject.SetActive(state);
+	}
+
+	private bool CheckHighscoreTable()                                  // SERWIS WIDOKU SUMMARY, informuje CZY player ma nowy highscore
+	{
+		if (GameManager.CurrentScore > PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore)
+		{
+			PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore = GameManager.CurrentScore;
+			return true;
+		}
+
+		return false;
+	}
 }

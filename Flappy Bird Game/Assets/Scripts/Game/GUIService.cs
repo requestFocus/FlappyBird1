@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
 using UnityEngine.SceneManagement;
 
-public class GUIGamePlayService {
+public class GUIService {
 
 	public void StartPause()                                           // SERWIS WIDOKU GAMEPLAY
 	{

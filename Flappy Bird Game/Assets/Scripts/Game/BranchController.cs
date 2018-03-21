@@ -21,7 +21,7 @@ public class BranchController : MonoBehaviour {
 		MoveObstacle();
 	}
 
-	private void MoveObstacle()
+	private void MoveObstacle()													// SERWIS COLUMNY+PLAYERA
 	{
 		if (transform.position.x <= _startXPosition && transform.position.x >= _endXPosition)
 		{

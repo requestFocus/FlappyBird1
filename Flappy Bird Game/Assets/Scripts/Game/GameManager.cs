@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	public GameObject BranchPrefab;
-	public GUIGamePlayView GUIGamePlayView;
 
 	private enum _intervalLockStates
 	{
@@ -53,7 +52,7 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	private IEnumerator CreateObstacle()								// tworzy obstacle'a, czy to serwis?
+	private IEnumerator CreateObstacle()                                // SERWIS COLUMNY+PLAYERA, tworzy obstacle'a 
 	{
 		while (true)
 		{
@@ -64,7 +63,7 @@ public class GameManager : MonoBehaviour
 
 
 
-	public float CalculateTimeIntervalForObstacles()					// SERWIS, wylicza (skraca) czas między pojawianiem się kolejnych przeszkód
+	public float CalculateTimeIntervalForObstacles()					// SERWIS COLUMNY+PLAYERA, wylicza (skraca) czas między pojawianiem się kolejnych przeszkód
 	{
 		if (CurrentScore != 0 && CurrentScore % 10 == 0 && TimeIntervalForCoroutine > 1.0f && _intervalLock == _intervalLockStates.Locked)
 		{
@@ -76,7 +75,7 @@ public class GameManager : MonoBehaviour
 
 
 
-	public bool AchievementToUnlock()									// SERWIS, weryfikuje i przyznaje achievementy
+	public bool AchievementToUnlock()                                   // SERWIS COLUMNY+PLAYERA, weryfikuje i przyznaje achievementy
 	{
 		if (CurrentScore == 10)
 		{
