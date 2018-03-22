@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GUIGamePlayView : MonoBehaviour								// GUI będzie głównym widokiem zawierającym widok player PLUS obstacle
+public class GUIGamePlayView : MonoBehaviour								// GUIGamePlayView jest głównym widokiem zawierającym widok player PLUS obstacle
 {
 	[SerializeField] private Text NameScoreGamePlay;
 	[SerializeField] private Text ScoreGamePlay;
@@ -12,9 +12,6 @@ public class GUIGamePlayView : MonoBehaviour								// GUI będzie głównym wid
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 	
 	[SerializeField] private GameManager GameManager;
-
-	//private PlayerProfileController _playerProfileController = new PlayerProfileController();
-	//private GUIService _GUIGamePlayService = new GUIService();
 
 	private void Start()
 	{

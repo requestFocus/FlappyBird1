@@ -15,7 +15,7 @@ public class GUISummaryView : MonoBehaviour {
 	[SerializeField] private GameManager GameManager;
 
 	private PlayerProfileController _playerProfileController = new PlayerProfileController();
-	private GUIService _GUIGamePlayService = new GUIService();
+	private GUIService _GUIService = new GUIService();
 
 	private void Start()
 	{
@@ -46,18 +46,18 @@ public class GUISummaryView : MonoBehaviour {
 
 	public void BackFromPause()                                         // WIDOK SUMMARY
 	{
-		_GUIGamePlayService.BreakPause();											    // timescale back to 1
+		_GUIService.BreakPause();											    // timescale back to 1
 		SummaryBackground.SetActive(false);                         // odciemnij tło
 	}
 
 	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
 	{
-		_GUIGamePlayService.StartPause();
+		_GUIService.StartPause();
 		SetSummaryScreen(true);
 
 		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + GameManager.CurrentScore;
 
-		if (CheckHighscoreTable())
+		if (_GUIService.CheckHighscoreTable(GameManager.CurrentScore))
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 		}
@@ -70,16 +70,5 @@ public class GUISummaryView : MonoBehaviour {
 		SummaryBackground.SetActive(state);
 		RepeatButton.gameObject.SetActive(state);
 		DontRepeatButton.gameObject.SetActive(state);
-	}
-
-	private bool CheckHighscoreTable()                                  // SERWIS WIDOKU SUMMARY, informuje CZY player ma nowy highscore
-	{
-		if (GameManager.CurrentScore > PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore)
-		{
-			PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore = GameManager.CurrentScore;
-			return true;
-		}
-
-		return false;
 	}
 }
