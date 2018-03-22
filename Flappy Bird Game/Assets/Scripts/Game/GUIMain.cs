@@ -11,17 +11,16 @@ public class GUIMain : MonoBehaviour
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 	}
-	
-	void Update ()
+
+	void Update()
 	{
 		switch (CurrentGameStateService.CurrentGameState)
 		{
 			case CurrentGameStateService.GameStates.GamePlay:
 				GUIGamePlayView.DisplayGUIGamePlayView();
 				break;
-			case CurrentGameStateService.GameStates.Summary:
-				//GUISummaryView.DisplayGUISummaryView();
-				break;
+			//case CurrentGameStateService.GameStates.Summary:
+			//	break;
 		}
 	}
 }

@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	public GameObject BranchPrefab;
+	public GameObject ColumnPrefab;
 
-	private enum _intervalLockStates
+	private enum _intervalLockStates                                        // SERWIS COLUMNY+PLAYERA
 	{
 		Unlocked,
 		Locked
 	};
-	private _intervalLockStates _intervalLock;
+	private _intervalLockStates _intervalLock;                              // SERWIS COLUMNY+PLAYERA
 
-	private int _currentScore;
-	public int CurrentScore
+	private int _currentScore;                                              // SERWIS COLUMNY+PLAYERA
+	public int CurrentScore                                                 // SERWIS COLUMNY+PLAYERA
 	{
 		get
 		{
@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	private float _timeIntervalForCoroutine;
-	public float TimeIntervalForCoroutine
+	private float _timeIntervalForCoroutine;                                // SERWIS COLUMNY+PLAYERA
+	public float TimeIntervalForCoroutine                                   // SERWIS COLUMNY+PLAYERA
 	{
 		get
 		{
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	private const float _intervalStep = 0.3f;
+	private const float _intervalStep = 0.3f;                               // SERWIS COLUMNY+PLAYERA
 
 
 
@@ -52,12 +52,12 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	private IEnumerator CreateObstacle()                                // SERWIS COLUMNY+PLAYERA, tworzy obstacle'a 
+	private IEnumerator CreateObstacle()                                
 	{
 		while (true)
 		{
 			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			Instantiate(BranchPrefab);
+			Instantiate(ColumnPrefab);
 		}
 	}
 
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
 
 
 
-	public bool AchievementToUnlock()                                   // SERWIS COLUMNY+PLAYERA, weryfikuje i przyznaje achievementy
+	public bool AchievementToUnlock()                                   // SERWIS COLUMNY+PLAYERA, weryfikuje i przyznaje achievementy, musi miec dane z modelu
 	{
 		if (CurrentScore == 10)
 		{

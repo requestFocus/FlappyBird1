@@ -32,7 +32,6 @@ public class GUIGamePlayView : MonoBehaviour								// GUIGamePlayView jest g≈Ç√
 			NameScoreGamePlay.text = "";
 			ScoreGamePlay.text = "";
 			HighScoreGamePlay.text = "";
-			CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
 		}
 	}
 

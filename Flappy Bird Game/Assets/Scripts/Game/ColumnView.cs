@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ColumnView : MonoBehaviour {
 
-	private const float _startXPosition = 5.0f;
-	private const float _endXPosition = -10.88f;
+	private const float _startXPosition = 8.0f;
+	private const float _endXPosition = -8.0f;
 	private const float _acceleration = 5.0f;
 	private const float _minRange = -3.0f;
 	private const float _maxRange = 3.0f;
@@ -23,7 +23,7 @@ public class ColumnView : MonoBehaviour {
 		MoveColumn();
 	}
 
-	private void MoveColumn()													
+	private void MoveColumn()                                       // SERWIS COLUMNY+PLAYERA									
 	{
 		if (transform.position.x <= _startXPosition && transform.position.x >= _endXPosition)
 		{

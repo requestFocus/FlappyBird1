@@ -34,7 +34,6 @@ public class GUISummaryView : MonoBehaviour {
 	{
 		SceneManager.LoadScene("Game");
 		BackFromPause();
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 	}
 
 	public void BackToMenu()                                            // WIDOK SUMMARY				
@@ -46,7 +45,7 @@ public class GUISummaryView : MonoBehaviour {
 
 	public void BackFromPause()                                         // WIDOK SUMMARY
 	{
-		_GUIService.BreakPause();											    // timescale back to 1
+		_GUIService.BreakPause();								    // timescale back to 1
 		SummaryBackground.SetActive(false);                         // odciemnij tło
 	}
 

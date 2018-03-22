@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerView : MonoBehaviour
 {
 	[SerializeField] private GameManager GameManager;
-	[SerializeField] private ParticleSystem PlayerParticles;
+	[SerializeField] private ParticleSystem AchievementParticles;
 	[SerializeField] private GUIGamePlayView GUIGamePlayView;
 	[SerializeField] private GUISummaryView GUISummaryView;
 
@@ -30,7 +30,7 @@ public class PlayerView : MonoBehaviour
 
 
 
-	private void FixedUpdate()
+	private void Update()
 	{
 		MovePlayer();
 	} 
@@ -44,7 +44,7 @@ public class PlayerView : MonoBehaviour
 			GameManager.CurrentScore = 1;
 			if (GameManager.AchievementToUnlock())
 			{
-				PlayerParticles.Play();
+				AchievementParticles.Play();
 				StartCoroutine(GUIGamePlayView.AchievementUnlockedNotification());
 			}
 		}
@@ -57,7 +57,7 @@ public class PlayerView : MonoBehaviour
 
 
 
-	private void MovePlayer()                                          
+	private void MovePlayer()                                                   // SERWIS COLUMNY+PLAYERA                                  
 	{
 		_moveVertical = Input.GetAxis("Vertical");
 
