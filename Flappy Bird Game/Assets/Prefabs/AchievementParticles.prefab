@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198868904761626056}
   - component: {fileID: 199551779424632996}
   m_Layer: 0
-  m_Name: PlayerParticles
+  m_Name: AchievementParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
