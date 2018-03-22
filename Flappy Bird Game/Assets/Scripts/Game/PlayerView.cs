@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class PlayerView : MonoBehaviour
 {
 	[SerializeField] private GameManager GameManager;
 	[SerializeField] private ParticleSystem PlayerParticles;
@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
 
 	private float _moveVertical;
 	private Vector2 _gravityMovement;
-	private Vector2 _beeMovement;
-	private Vector2 _movement;
+	private Vector2 _playerMovement;
+	private Vector2 _mergedMovement;
 
 	void Start()
 	{
@@ -25,19 +25,19 @@ public class PlayerController : MonoBehaviour
 		_velocity = 0.0f;
 		_gravity = 3f;
 
-		_beeMovement = new Vector2(0.0f, 0.0f);
+		_playerMovement = new Vector2(0.0f, 0.0f);
 	}
 
 
 
-	private void Update()
+	private void FixedUpdate()
 	{
-		MoveBee();
-	}
+		MovePlayer();
+	} 
 
 
 
-	private void OnTriggerEnter2D(Collider2D collision)             // on trigger enter jako metoda widoku COLUMNY+PLAYERA, ale sprawdzania z metod serwisu	COLUMNY+PLAYERA
+	private void OnTriggerEnter2D(Collider2D collision)            
 	{
 		if (collision.gameObject.CompareTag("Score"))                                                       // zdobyty punkt
 		{
@@ -57,33 +57,22 @@ public class PlayerController : MonoBehaviour
 
 
 
-	private void MoveBee()                                          // SERWIS COLUMNY+PLAYERA
+	private void MovePlayer()                                          
 	{
 		_moveVertical = Input.GetAxis("Vertical");
 
 		if (Input.GetKeyUp("s") || Input.GetKeyUp("w") || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
 		{
-			Input.ResetInputAxes();														// reset wartosci getinputaxis, player moze podskoczyc po osiagnieciu wartosci 1
-			_velocity = 0;																// reset predkosci po wzbiciu sie w gore, player znow zaczyna opadać z predkoscia poczatkowa 0
+			Input.ResetInputAxes();                                                     // reset wartosci getinputaxis, player moze podskoczyc po osiagnieciu wartosci 1
+			_velocity = 0;                                                              // reset predkosci po wzbiciu sie w gore, player znow zaczyna opadać z predkoscia poczatkowa 0
 		}
 
-		_beeMovement = Vector2.up * _moveVertical * Time.deltaTime * _sensitivity;			// wyliczenie wektora ruchu playera na bazie Input.GetAxis()
+		_playerMovement = Vector2.up * _moveVertical * Time.deltaTime * _sensitivity;			// wyliczenie wektora ruchu playera na bazie Input.GetAxis()
 
 		_velocity += _gravity * Time.deltaTime;											// predkosc jako iloczyn grawitacji (przyspieszenia) i czasu
 		_gravityMovement = Vector2.down * _velocity * Time.deltaTime;						// wyliczenie wektora przyspieszenia
 
-		_movement = _beeMovement + _gravityMovement;										// suma wektorów ruchu i opadania
-		transform.Translate(_movement);													// przesuniecie o sume wektorów
+		_mergedMovement = _playerMovement + _gravityMovement;										// suma wektorów ruchu i opadania
+		transform.Translate(_mergedMovement);													// przesuniecie o sume wektorów
 	}
 }
-
-/*
- * faktyczne przyspieszenie to suma grawitacji (przyspieszenia ziemskiego) i przyspieszenia pionowego wynikającego z naciśnięcia strzałki
- * delta ruchu (przebytej drogi) to iloczyn prędkości i czasu
- * prędkość naliczana jest jako iloczyn przyspieszenia i czasu
- * 
- * delta ruchu to wektor bedący argumentem dla Translate
- * 
- * (gravity scale in inspector = 0.2)
- * (_player.AddForce(_movement * _speed);)
- */

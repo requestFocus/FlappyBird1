@@ -2,26 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BranchController : MonoBehaviour {
+public class ColumnView : MonoBehaviour {
 
 	private const float _startXPosition = 5.0f;
 	private const float _endXPosition = -10.88f;
 	private const float _acceleration = 5.0f;
+	private const float _minRange = -3.0f;
+	private const float _maxRange = 3.0f;
 	private float _yPosition;
 
 	void Start ()
 	{
-		_yPosition = Random.Range(-3.0f, 3.0f);
+		_yPosition = Random.Range(_minRange, _maxRange);
 
 		transform.position = new Vector3(_startXPosition, _yPosition);
 	}
 
 	private void FixedUpdate()
 	{
-		MoveObstacle();
+		MoveColumn();
 	}
 
-	private void MoveObstacle()													// SERWIS COLUMNY+PLAYERA
+	private void MoveColumn()													
 	{
 		if (transform.position.x <= _startXPosition && transform.position.x >= _endXPosition)
 		{
@@ -33,15 +35,3 @@ public class BranchController : MonoBehaviour {
 		}
 	}
 }
-
-
-/*
-So static 2D colliders shouldn't move,
-like walls and floors,
-dynamic 2D colliders can move
-but should have a rigidbody2D attached.
-Standard 2D rigidbodies like our
-Player are moved using 2D physics forces.
-Kinematic 2D rigidbodies are
-moved using their transform.
-*/
