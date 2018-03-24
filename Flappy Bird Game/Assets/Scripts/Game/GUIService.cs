@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class GUIService {
+public class GUIService : MonoBehaviour
+{
+	//[SerializeField] private Text AchievementUnlockedGamePlay;
+
+	//private void Start()
+	//{
+	//	AchievementUnlockedGamePlay.text = "";
+	//}
 
 	public void StartPause()                                           // SERWIS WIDOKU GAMEPLAY
 	{
@@ -25,4 +33,12 @@ public class GUIService {
 
 		return false;
 	}
+
+
+	//public IEnumerator AchievementUnlockedNotification()                // WIDOK GAMEPLAY, wyswietla info o odblokowaniu achievementu
+	//{
+	//	AchievementUnlockedGamePlay.text = "New achievement!";
+	//	yield return new WaitForSeconds(2);
+	//	AchievementUnlockedGamePlay.text = "";
+	//}
 }

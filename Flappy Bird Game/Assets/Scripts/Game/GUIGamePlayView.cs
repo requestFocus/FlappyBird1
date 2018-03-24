@@ -10,7 +10,7 @@ public class GUIGamePlayView : MonoBehaviour								// GUIGamePlayView jest g≈Ç√
 	[SerializeField] private Text ScoreGamePlay;
 	[SerializeField] private Text HighScoreGamePlay;
 	[SerializeField] private Text AchievementUnlockedGamePlay;
-	
+
 	[SerializeField] private GameManager GameManager;
 
 	private void Start()
@@ -18,7 +18,7 @@ public class GUIGamePlayView : MonoBehaviour								// GUIGamePlayView jest g≈Ç√
 		AchievementUnlockedGamePlay.text = "";
 	}
 
-	
+
 	public void DisplayGUIGamePlayView()                                // WIDOK GAMEPLAY
 	{
 		if (Time.timeScale == 1)                                        // je≈õli gra trwa
@@ -34,7 +34,6 @@ public class GUIGamePlayView : MonoBehaviour								// GUIGamePlayView jest g≈Ç√
 			HighScoreGamePlay.text = "";
 		}
 	}
-
 
 	public IEnumerator AchievementUnlockedNotification()                // WIDOK GAMEPLAY, wyswietla info o odblokowaniu achievementu
 	{

@@ -19,8 +19,9 @@ public class GUIMain : MonoBehaviour
 			case CurrentGameStateService.GameStates.GamePlay:
 				GUIGamePlayView.DisplayGUIGamePlayView();
 				break;
-			//case CurrentGameStateService.GameStates.Summary:
-			//	break;
+			case CurrentGameStateService.GameStates.Summary:
+				GUISummaryView.DisplayGUISummaryView();
+				break;
 		}
 	}
 }

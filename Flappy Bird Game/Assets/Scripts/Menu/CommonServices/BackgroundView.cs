@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundMover : MonoBehaviour {
-
+public class BackgroundView : MonoBehaviour
+{
 	private const float _horizontalMove = 0.05f;
 	private const float _speed = 3.0f;
 	private const float _rightEdge1 = -11.723f;
 	private const float _rightEdge2 = 6.68f;
 
-	private void FixedUpdate ()
+	private void FixedUpdate()
 	{
 		MoveBackground();
 	}
@@ -24,7 +24,7 @@ public class BackgroundMover : MonoBehaviour {
 		}
 		else
 		{
-			transform.position  = new Vector2(_rightEdge1, 0.0f);
+			transform.position = new Vector2(_rightEdge1, 0.0f);
 		}
 	}
 }

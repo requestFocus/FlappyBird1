@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 108064392}
   - component: {fileID: 108064393}
   m_Layer: 0
-  m_Name: CloudsBackgroundWide
+  m_Name: CloudsWide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 172581267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f82beb9ceea13f47a58c3eb293e6aba, type: 3}
+  m_Script: {fileID: 11500000, guid: 4520fd84f87c4034ab9662b952897b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &172581270
@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be2500f996a027419ed61056b36a8b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  JustPlayerName: 
   LogoButton: {fileID: 2800000, guid: 6329b31523a3f194c8fa37bcf4d3e7dd, type: 3}
 --- !u!4 &332708757
 Transform:

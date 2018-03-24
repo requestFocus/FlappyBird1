@@ -13,9 +13,10 @@ public class GUISummaryView : MonoBehaviour {
 	[SerializeField] private GameObject SummaryBackground;
 
 	[SerializeField] private GameManager GameManager;
+	[SerializeField] private GUIService GUIService;
 
 	private PlayerProfileController _playerProfileController = new PlayerProfileController();
-	private GUIService _GUIService = new GUIService();
+	//private GUIService _GUIService = new GUIService();
 
 	private void Start()
 	{
@@ -32,6 +33,7 @@ public class GUISummaryView : MonoBehaviour {
 
 	public void RepeatGame()                                            // WIDOK SUMMARY
 	{
+		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		SceneManager.LoadScene("Game");
 		BackFromPause();
 	}
@@ -45,18 +47,18 @@ public class GUISummaryView : MonoBehaviour {
 
 	public void BackFromPause()                                         // WIDOK SUMMARY
 	{
-		_GUIService.BreakPause();								    // timescale back to 1
+		GUIService.BreakPause();								    // timescale back to 1
 		SummaryBackground.SetActive(false);                         // odciemnij tło
 	}
 
 	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
 	{
-		_GUIService.StartPause();
+		GUIService.StartPause();
 		SetSummaryScreen(true);
 
 		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + GameManager.CurrentScore;
 
-		if (_GUIService.CheckHighscoreTable(GameManager.CurrentScore))
+		if (GUIService.CheckHighscoreTable(GameManager.CurrentScore))
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 		}
