@@ -113,7 +113,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &39250442
+--- !u!1001 &34685202
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -130,7 +130,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
       propertyPath: m_LocalRotation.x
@@ -152,33 +152,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1232493657848748, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 198868904761626056, guid: ecff34ae49dc86243ad5c267b4ba590a,
         type: 2}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 198868904761626056, guid: ecff34ae49dc86243ad5c267b4ba590a,
-        type: 2}
-      propertyPath: randomSeed
-      value: -465128139
-      objectReference: {fileID: 0}
-    - target: {fileID: 198868904761626056, guid: ecff34ae49dc86243ad5c267b4ba590a,
-        type: 2}
-      propertyPath: moveWithTransform
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecff34ae49dc86243ad5c267b4ba590a, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &39250444 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a,
-    type: 2}
-  m_PrefabInternal: {fileID: 39250442}
 --- !u!1001 &57471523
 Prefab:
   m_ObjectHideFlags: 0
@@ -239,9 +220,24 @@ Prefab:
       value: 
       objectReference: {fileID: 114457701447162622, guid: fd469284763e9804fbf26432556cb456,
         type: 2}
+    - target: {fileID: 114683468667820190, guid: 991b197499b5c8f4485e5d468991d441,
+        type: 2}
+      propertyPath: AchievementParticles
+      value: 
+      objectReference: {fileID: 207679540}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 991b197499b5c8f4485e5d468991d441, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &207679538 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4237323291445424, guid: ecff34ae49dc86243ad5c267b4ba590a,
+    type: 2}
+  m_PrefabInternal: {fileID: 34685202}
+--- !u!198 &207679540 stripped
+ParticleSystem:
+  m_PrefabParentObject: {fileID: 198868904761626056, guid: ecff34ae49dc86243ad5c267b4ba590a,
+    type: 2}
+  m_PrefabInternal: {fileID: 34685202}
 --- !u!1 &248079287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1665,7 +1661,7 @@ Transform:
   m_LocalPosition: {x: -12.010865, y: 0.054920215, z: -2.030115}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 39250444}
+  - {fileID: 207679538}
   m_Father: {fileID: 1403406494}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

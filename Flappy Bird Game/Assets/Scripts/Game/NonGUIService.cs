@@ -13,6 +13,8 @@ public class NonGUIService : MonoBehaviour
 	private Vector2 _playerMovement;
 	private Vector2 _mergedMovement;
 
+	private bool _playParticles;
+
 	// COLUMN
 	private const float _startXPosition = 8.0f;
 	private const float _endXPosition = -8.0f;
@@ -72,9 +74,12 @@ public class NonGUIService : MonoBehaviour
 			if (GameManager.AchievementToUnlock())
 			{
 				AchievementParticles.Play();
+				//_playParticles = true;
 				StartCoroutine(GUIGamePlayView.AchievementUnlockedNotification());
 			}
 		}
+
+		//return _playParticles;
 	}
 
 

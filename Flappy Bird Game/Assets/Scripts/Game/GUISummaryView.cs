@@ -16,7 +16,6 @@ public class GUISummaryView : MonoBehaviour {
 	[SerializeField] private GUIService GUIService;
 
 	private PlayerProfileController _playerProfileController = new PlayerProfileController();
-	//private GUIService _GUIService = new GUIService();
 
 	private void Start()
 	{
