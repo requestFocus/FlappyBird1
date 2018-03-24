@@ -6,19 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class CanvasController : MonoBehaviour
 {
-	public Text NameScoreSummary;
-	public Text NewHighscoreSummary;
-	public Text NameScoreGamePlay;
-	public Text ScoreGamePlay;
-	public Text HighScoreGamePlay;
-	public Text AchievementUnlockedGamePlay;
-	public Button RepeatButton;
-	public Button DontRepeat;
-	public Canvas Canvas;
+	[SerializeField] private Text NameScoreSummary;
+	[SerializeField] private Text NewHighscoreSummary;
+	[SerializeField] private Text NameScoreGamePlay;
+	[SerializeField] private Text ScoreGamePlay;
+	[SerializeField] private Text HighScoreGamePlay;
+	[SerializeField] private Text AchievementUnlockedGamePlay;
+	[SerializeField] private Button RepeatButton;
+	[SerializeField] private Button DontRepeat;
+	[SerializeField] private Canvas Canvas;
+	[SerializeField] private GameObject SummaryBackground;
+	[SerializeField] private GameManager GameManager;
 
-	public PlayerProfileController PlayerProfileController;
-	public GameObject SummaryBackground;
-	public GameManager GameManager;
+	private PlayerProfileController _playerProfileController = new PlayerProfileController();
 
 	private void Start()
 	{
@@ -47,7 +47,7 @@ public class CanvasController : MonoBehaviour
 
 	public void BackToMenu()
 	{
-		MainLobby.BackFromGamePlay = true;
+		Main.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
 		BreakPause();
 	}
@@ -86,7 +86,7 @@ public class CanvasController : MonoBehaviour
 			NewHighscoreSummary.text = "New highscore! You did well!";
 		}
 
-		PlayerProfileController.SaveProfile(PlayersProfiles.Instance);                          // zapisz wyniki przed powrotem do sceny MENU
+		_playerProfileController.SaveProfile(PlayersProfiles.Instance);                          // zapisz wyniki przed powrotem do sceny MENU
 	}
 
 	private void SetSummaryScreen(bool state)

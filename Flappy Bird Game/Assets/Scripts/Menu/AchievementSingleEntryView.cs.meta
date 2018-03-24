@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 1b0e9e9c145dae748b714b42cd18248b
+timeCreated: 1520267872
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Complete10Active: {fileID: 2800000, guid: 560274d54762659439f2a3e4b44fa2e5, type: 3}
+  - Complete10Inactive: {fileID: 2800000, guid: 93124a5d54184ec4e8a1a54b2f2662da,
+      type: 3}
+  - Complete25Active: {fileID: 2800000, guid: 0a1ccc2afa778d543915a573c9214e80, type: 3}
+  - Complete25Inactive: {fileID: 2800000, guid: 18605d35338ac9d4ca630a8049529ab3,
+      type: 3}
+  - Complete50Active: {fileID: 2800000, guid: 3299693082ae7794b9f5a314a104725a, type: 3}
+  - Complete50Inactive: {fileID: 2800000, guid: 7d2c6df937468fa4ab15efd6f100b672,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
