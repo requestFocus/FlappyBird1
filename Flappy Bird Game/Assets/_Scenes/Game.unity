@@ -208,12 +208,21 @@ Prefab:
         type: 2}
       propertyPath: GUIGamePlayView
       value: 
-      objectReference: {fileID: 267838714}
+      objectReference: {fileID: 453293096}
     - target: {fileID: 114044246991887898, guid: c54bafa063e58b14ca37e450187e701a,
         type: 2}
       propertyPath: GUISummaryView
       value: 
       objectReference: {fileID: 1529148627}
+    - target: {fileID: 114044246991887898, guid: c54bafa063e58b14ca37e450187e701a,
+        type: 2}
+      propertyPath: GUIService
+      value: 
+      objectReference: {fileID: 421736182}
+    - target: {fileID: 1873662146228928, guid: c54bafa063e58b14ca37e450187e701a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c54bafa063e58b14ca37e450187e701a, type: 2}
   m_IsPrefabParent: 0
@@ -232,12 +241,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224302331247314938, guid: 9b2da6f252fe969438b206d5e4bc5370,
     type: 2}
   m_PrefabInternal: {fileID: 453293095}
---- !u!114 &267838714 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114042160035753980, guid: 9b2da6f252fe969438b206d5e4bc5370,
-    type: 2}
-  m_PrefabInternal: {fileID: 453293095}
-  m_Script: {fileID: 11500000, guid: 2fa101fa1c6cc9348b8a45e01fcf4c7a, type: 3}
 --- !u!4 &421736181 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4197971271294762, guid: fd469284763e9804fbf26432556cb456,
@@ -421,23 +424,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114042160035753980, guid: 9b2da6f252fe969438b206d5e4bc5370,
         type: 2}
-      propertyPath: GUIService
-      value: 
-      objectReference: {fileID: 421736182}
-    - target: {fileID: 114042160035753980, guid: 9b2da6f252fe969438b206d5e4bc5370,
-        type: 2}
       propertyPath: LevelService
       value: 
       objectReference: {fileID: 1705965789}
+    - target: {fileID: 1502911892501414, guid: 9b2da6f252fe969438b206d5e4bc5370, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114042160035753980, guid: 9b2da6f252fe969438b206d5e4bc5370,
+        type: 2}
+      propertyPath: AchievementParticles
+      value: 
+      objectReference: {fileID: 207679540}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b2da6f252fe969438b206d5e4bc5370, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &479676574 stripped
+--- !u!114 &453293096 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114866233618339806, guid: 9b2da6f252fe969438b206d5e4bc5370,
+  m_PrefabParentObject: {fileID: 114042160035753980, guid: 9b2da6f252fe969438b206d5e4bc5370,
     type: 2}
   m_PrefabInternal: {fileID: 453293095}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fa101fa1c6cc9348b8a45e01fcf4c7a, type: 3}
 --- !u!1 &798686270
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,7 +553,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1169fbbf89df2046bcec4e679f596de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIGamePlayView: {fileID: 267838714}
+  LevelService: {fileID: 1705965789}
+  GUIGamePlayView: {fileID: 453293096}
   GUISummaryView: {fileID: 1529148627}
 --- !u!4 &1060523222
 Transform:
@@ -603,11 +611,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114457701447162622, guid: fd469284763e9804fbf26432556cb456,
-        type: 2}
-      propertyPath: AchievementUnlockedGamePlay
-      value: 
-      objectReference: {fileID: 479676574}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fd469284763e9804fbf26432556cb456, type: 2}
   m_IsPrefabParent: 0
@@ -734,7 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f82beb9ceea13f47a58c3eb293e6aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NonGUIService: {fileID: 1705965789}
+  LevelService: {fileID: 1705965789}
 --- !u!4 &1442983688
 Transform:
   m_ObjectHideFlags: 0
@@ -959,20 +962,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 1076745607600270, guid: aad8f98ec44ce724baa9cb238485aa03, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114137183832374160, guid: aad8f98ec44ce724baa9cb238485aa03,
-        type: 2}
-      propertyPath: NonGUIService
-      value: 
-      objectReference: {fileID: 1705965789}
     - target: {fileID: 114137183832374160, guid: aad8f98ec44ce724baa9cb238485aa03,
         type: 2}
       propertyPath: LevelService
       value: 
       objectReference: {fileID: 1705965789}
+    - target: {fileID: 1076745607600270, guid: aad8f98ec44ce724baa9cb238485aa03, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aad8f98ec44ce724baa9cb238485aa03, type: 2}
   m_IsPrefabParent: 0

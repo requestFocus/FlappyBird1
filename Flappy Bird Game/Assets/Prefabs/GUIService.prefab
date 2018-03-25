@@ -51,4 +51,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590302a36d8da2d4bb0829451b7b230b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AchievementUnlockedGamePlay: {fileID: 0}

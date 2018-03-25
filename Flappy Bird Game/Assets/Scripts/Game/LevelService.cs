@@ -42,12 +42,6 @@ public class LevelService : MonoBehaviour
 	private const float _rightEdge1 = -11.723f;
 	private const float _rightEdge2 = 6.68f;
 
-	[SerializeField] private ParticleSystem AchievementParticles;
-	[SerializeField] private GUIGamePlayView GUIGamePlayView;
-	[SerializeField] private GUISummaryView GUISummaryView;
-
-	[SerializeField] private GUIService GUIService;
-
 	private void Start()
 	{
 		_sensitivity = 12f;
@@ -57,12 +51,12 @@ public class LevelService : MonoBehaviour
 		_playerMovement = new Vector2(0.0f, 0.0f);
 
 		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
-		StartCoroutine(CreateObstacle());                                           //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
+		StartCoroutine(CreateColumn());                                           //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
 
 
-	public void MovePlayer(PlayerView player)                                                   // wyniesienie tego do serwisu bedzie wymagało monobehaviour, co będzie problemem przy prefabach                            
+	public void MovePlayer(PlayerView player)                                                   // PLAYER SERVICE                         
 	{
 		_moveVertical = Input.GetAxis("Vertical");
 
@@ -83,22 +77,22 @@ public class LevelService : MonoBehaviour
 
 
 
-	public void PointEarned(Collider2D collision)
+	public void PointEarned(Collider2D collision)									// LEVEL SERVICE
 	{
 		if (collision.gameObject.CompareTag("Score"))                                                       // zdobyty punkt
 		{
 			CurrentScore += 1;
-			if (AchievementToUnlock())
-			{
-				AchievementParticles.Play();
-				StartCoroutine(GUIGamePlayView.AchievementUnlockedNotification());
-			}
+			//if (AchievementToUnlock())
+			//{
+			//	AchievementParticles.Play();
+			//	StartCoroutine(GUIGamePlayView.AchievementUnlockedNotification());
+			//}
 		}
 	}
 
 
 
-	public void LifeLost(Collider2D collision)
+	public void LifeLost(Collider2D collision)                                      // LEVEL SERVICE
 	{
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
@@ -108,7 +102,7 @@ public class LevelService : MonoBehaviour
 
 
 
-	public bool AchievementToUnlock()                                   // weryfikuje i przyznaje achievementy, musi miec dane z modelu
+	public bool AchievementToUnlock()                                       // LEVEL SERVICE			// weryfikuje i przyznaje achievementy, musi miec dane z modelu
 	{
 		if (CurrentScore == 10)
 		{
@@ -140,7 +134,7 @@ public class LevelService : MonoBehaviour
 
 
 
-	public float CalculateTimeIntervalForObstacles()                    // SERWIS COLUMNY+PLAYERA, wylicza (skraca) czas między pojawianiem się kolejnych przeszkód
+	public float CalculateTimeIntervalForObstacles()                    // COLUMN SERVICE	
 	{
 		if (CurrentScore != 0 && CurrentScore % 10 == 0 && _timeIntervalForCoroutine > 1.0f && IntervalAvailabilityStatesService.IntervalLock == IntervalAvailabilityStatesService.IntervalLockStates.Locked)
 		{
@@ -152,7 +146,7 @@ public class LevelService : MonoBehaviour
 
 
 
-	public IEnumerator CreateObstacle()
+	public IEnumerator CreateColumn()                                       // COLUMN SERVICE	
 	{
 		while (true)
 		{
@@ -163,7 +157,7 @@ public class LevelService : MonoBehaviour
 
 
 
-	public bool MoveColumn(ColumnView column)                                       // SERWIS COLUMNY+PLAYERA									
+	public bool MoveColumn(ColumnView column)                                       // COLUMN SERVICE								
 	{
 		if (column.transform.position.x <= _startXPosition && column.transform.position.x >= _endXPosition)
 		{
@@ -177,16 +171,15 @@ public class LevelService : MonoBehaviour
 	}
 
 
-	public void InitializeColumn(ColumnView column)
+	public void InitializeColumn(ColumnView column)                                 // COLUMN SERVICE	
 	{
 		_yPosition = Random.Range(_minRange, _maxRange);
-
 		column.transform.position = new Vector3(_startXPosition, _yPosition);
 	}
 
 
 
-	public void MoveBackground(BackgroundGameView background)
+	public void MoveBackground(BackgroundGameView background)                   // BACKGROUND SERVICE
 	{
 		if (background.transform.position.x >= _rightEdge1 && background.transform.position.x < _rightEdge2)
 		{

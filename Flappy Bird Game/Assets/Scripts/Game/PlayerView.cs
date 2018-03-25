@@ -7,8 +7,6 @@ public class PlayerView : MonoBehaviour
 {
 	[SerializeField] private LevelService LevelService;
 
-	private bool _achievementUnlocked;
-
 	private void Update()
 	{
 		LevelService.MovePlayer(this);

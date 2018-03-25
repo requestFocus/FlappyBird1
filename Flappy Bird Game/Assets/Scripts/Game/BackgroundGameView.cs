@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BackgroundGameView : MonoBehaviour
 {
-	[SerializeField] private LevelService NonGUIService;
+	[SerializeField] private LevelService LevelService;
 
 	private void FixedUpdate ()
 	{
-		NonGUIService.MoveBackground(this);
+		LevelService.MoveBackground(this);
 	}
 }
 
