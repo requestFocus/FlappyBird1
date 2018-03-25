@@ -163,15 +163,16 @@ public class LevelService : MonoBehaviour
 
 
 
-	public void MoveColumn(ColumnView column)                                       // SERWIS COLUMNY+PLAYERA									
+	public bool MoveColumn(ColumnView column)                                       // SERWIS COLUMNY+PLAYERA									
 	{
 		if (column.transform.position.x <= _startXPosition && column.transform.position.x >= _endXPosition)
 		{
 			column.transform.position += (Vector3.left * Time.deltaTime * _acceleration);
+			return false;
 		}
 		else
 		{
-			Destroy(column);
+			return true;
 		}
 	}
 

@@ -13,9 +13,13 @@ public class GUISummaryView : MonoBehaviour {
 	[SerializeField] private GameObject SummaryBackground;
 
 	[SerializeField] private GUIService GUIService;
-	[SerializeField] private LevelService NonGUIService;
+	[SerializeField] private LevelService LevelService;
 
 	private PlayerProfileController _playerProfileController = new PlayerProfileController();
+
+	/*
+	 * może być konieczne Destroy(gameObject) GUIGamePlayView, żeby znikały Texty z GamePlayu na górze ekranu
+	 */
 
 	private void Start()
 	{
@@ -30,34 +34,14 @@ public class GUISummaryView : MonoBehaviour {
 		DontRepeatButton.onClick.AddListener(GUIService.BackToMenu);
 	}
 
-	//public void RepeatGame()                                            // WIDOK SUMMARY
-	//{
-	//	CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
-	//	SceneManager.LoadScene("Game");
-	//	BackFromPause();
-	//}
-
-	//public void BackToMenu()                                            // WIDOK SUMMARY				
-	//{
-	//	Main.BackFromGamePlay = true;
-	//	SceneManager.LoadScene("Menu");
-	//	BackFromPause();
-	//}
-
-	//public void BackFromPause()                                         // WIDOK SUMMARY
-	//{
-	//	GUIService.TimeScaleStart();								    // timescale back to 1
-	//	SummaryBackground.SetActive(false);                         // odciemnij tło
-	//}
-
 	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
 	{
-		GUIService.TimeScaleStop();
+		Time.timeScale = 0;
 		SetSummaryScreen(true);
 
-		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + NonGUIService.CurrentScore;
+		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + LevelService.CurrentScore;
 
-		if (GUIService.CheckHighscoreTable(NonGUIService.CurrentScore))
+		if (GUIService.CheckHighscoreTable(LevelService.CurrentScore))
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 		}

@@ -6,15 +6,19 @@ using UnityEngine.UI;
 
 public class GUIService : MonoBehaviour
 {
-	public void TimeScaleStop()                                           // SERWIS WIDOKU GAMEPLAY
+	public void RepeatGame()                                            // WIDOK SUMMARY
 	{
+		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+		SceneManager.LoadScene("Game");
 		Time.timeScale = 0;
 	}
 
 
 
-	public void TimeScaleStart()                                           // SERWIS WIDOKU SUMMARY
+	public void BackToMenu()                                            // WIDOK SUMMARY				
 	{
+		Main.BackFromGamePlay = true;
+		SceneManager.LoadScene("Menu");
 		Time.timeScale = 1;
 	}
 
@@ -29,22 +33,5 @@ public class GUIService : MonoBehaviour
 		}
 
 		return false;
-	}
-
-
-	public void RepeatGame()                                            // WIDOK SUMMARY
-	{
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
-		SceneManager.LoadScene("Game");
-		TimeScaleStart();
-	}
-
-
-
-	public void BackToMenu()                                            // WIDOK SUMMARY				
-	{
-		Main.BackFromGamePlay = true;
-		SceneManager.LoadScene("Menu");
-		TimeScaleStart();
 	}
 }

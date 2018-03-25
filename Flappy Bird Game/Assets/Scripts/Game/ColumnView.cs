@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class ColumnView : MonoBehaviour
 {
-	[SerializeField] private LevelService NonGUIService;
+	[SerializeField] private LevelService LevelService;
+	private bool _destroyColumn;
 
 	void Start ()
 	{
-		NonGUIService.InitializeColumn(this);
+		LevelService.InitializeColumn(this);
 	}
 
 	private void FixedUpdate()
 	{
-		NonGUIService.MoveColumn(this);
+		_destroyColumn = LevelService.MoveColumn(this);
+		if (_destroyColumn)
+			Destroy(gameObject);
 	}
 }

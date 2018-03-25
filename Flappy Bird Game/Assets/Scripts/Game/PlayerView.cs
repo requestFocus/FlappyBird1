@@ -5,18 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class PlayerView : MonoBehaviour
 {
-	[SerializeField] private LevelService NonGUIService;
+	[SerializeField] private LevelService LevelService;
 
 	private bool _achievementUnlocked;
 
 	private void Update()
 	{
-		NonGUIService.MovePlayer(this);
+		LevelService.MovePlayer(this);
 	} 
 
 	private void OnTriggerEnter2D(Collider2D collision)            
 	{
-		NonGUIService.PointEarned(collision);
-		NonGUIService.LifeLost(collision);
+		LevelService.PointEarned(collision);
+		LevelService.LifeLost(collision);
 	}
 }
