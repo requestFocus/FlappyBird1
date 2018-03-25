@@ -12,8 +12,8 @@ public class GUISummaryView : MonoBehaviour {
 	[SerializeField] private Button DontRepeatButton;
 	[SerializeField] private GameObject SummaryBackground;
 
-	[SerializeField] private GameManager GameManager;
 	[SerializeField] private GUIService GUIService;
+	[SerializeField] private LevelService NonGUIService;
 
 	private PlayerProfileController _playerProfileController = new PlayerProfileController();
 
@@ -26,38 +26,38 @@ public class GUISummaryView : MonoBehaviour {
 
 	private void OnEnable()                                             // WIDOK SUMMARY
 	{
-		RepeatButton.onClick.AddListener(RepeatGame);
-		DontRepeatButton.onClick.AddListener(BackToMenu);
+		RepeatButton.onClick.AddListener(GUIService.RepeatGame);
+		DontRepeatButton.onClick.AddListener(GUIService.BackToMenu);
 	}
 
-	public void RepeatGame()                                            // WIDOK SUMMARY
-	{
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
-		SceneManager.LoadScene("Game");
-		BackFromPause();
-	}
+	//public void RepeatGame()                                            // WIDOK SUMMARY
+	//{
+	//	CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+	//	SceneManager.LoadScene("Game");
+	//	BackFromPause();
+	//}
 
-	public void BackToMenu()                                            // WIDOK SUMMARY				
-	{
-		Main.BackFromGamePlay = true;
-		SceneManager.LoadScene("Menu");
-		BackFromPause();
-	}
+	//public void BackToMenu()                                            // WIDOK SUMMARY				
+	//{
+	//	Main.BackFromGamePlay = true;
+	//	SceneManager.LoadScene("Menu");
+	//	BackFromPause();
+	//}
 
-	public void BackFromPause()                                         // WIDOK SUMMARY
-	{
-		GUIService.BreakPause();								    // timescale back to 1
-		SummaryBackground.SetActive(false);                         // odciemnij tło
-	}
+	//public void BackFromPause()                                         // WIDOK SUMMARY
+	//{
+	//	GUIService.TimeScaleStart();								    // timescale back to 1
+	//	SummaryBackground.SetActive(false);                         // odciemnij tło
+	//}
 
 	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
 	{
-		GUIService.StartPause();
+		GUIService.TimeScaleStop();
 		SetSummaryScreen(true);
 
-		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + GameManager.CurrentScore;
+		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + NonGUIService.CurrentScore;
 
-		if (GUIService.CheckHighscoreTable(GameManager.CurrentScore))
+		if (GUIService.CheckHighscoreTable(NonGUIService.CurrentScore))
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 		}

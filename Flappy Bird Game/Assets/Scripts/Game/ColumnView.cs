@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ColumnView : MonoBehaviour
 {
-	[SerializeField] private NonGUIService NonGUIService;
+	[SerializeField] private LevelService NonGUIService;
 
 	void Start ()
 	{

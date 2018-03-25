@@ -11,11 +11,13 @@ public class GUIGamePlayView : MonoBehaviour								// GUIGamePlayView jest gł�
 	[SerializeField] private Text HighScoreGamePlay;
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 
-	[SerializeField] private GameManager GameManager;
+	[SerializeField] private GUIService GUIService;
+	[SerializeField] private LevelService NonGUIService;
 
 	private void Start()
 	{
 		AchievementUnlockedGamePlay.text = "";
+		GUIService.TimeScaleStart();
 	}
 
 
@@ -24,7 +26,7 @@ public class GUIGamePlayView : MonoBehaviour								// GUIGamePlayView jest gł�
 		if (Time.timeScale == 1)                                        // jeśli gra trwa
 		{
 			NameScoreGamePlay.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName;
-			ScoreGamePlay.text = "score: " + GameManager.CurrentScore;
+			ScoreGamePlay.text = "score: " + NonGUIService.CurrentScore;
 			HighScoreGamePlay.text = "highscore: " + PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore;
 		}
 		else if (Time.timeScale == 0)                                   // jeśli gra się zakończyła schowaj elementy UI gameplayu

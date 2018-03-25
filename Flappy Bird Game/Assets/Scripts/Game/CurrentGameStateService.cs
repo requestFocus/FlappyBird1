@@ -9,6 +9,5 @@ public static class CurrentGameStateService
 		GamePlay,
 		Summary
 	};
-
 	public static GameStates CurrentGameState;
 }

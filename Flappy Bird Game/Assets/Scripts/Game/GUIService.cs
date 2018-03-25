@@ -6,22 +6,19 @@ using UnityEngine.UI;
 
 public class GUIService : MonoBehaviour
 {
-	//[SerializeField] private Text AchievementUnlockedGamePlay;
-
-	//private void Start()
-	//{
-	//	AchievementUnlockedGamePlay.text = "";
-	//}
-
-	public void StartPause()                                           // SERWIS WIDOKU GAMEPLAY
+	public void TimeScaleStop()                                           // SERWIS WIDOKU GAMEPLAY
 	{
 		Time.timeScale = 0;
 	}
 
-	public void BreakPause()                                           // SERWIS WIDOKU SUMMARY
+
+
+	public void TimeScaleStart()                                           // SERWIS WIDOKU SUMMARY
 	{
 		Time.timeScale = 1;
 	}
+
+
 
 	public bool CheckHighscoreTable(int currentScore)                                  // SERWIS WIDOKU SUMMARY, informuje CZY player ma nowy highscore
 	{
@@ -35,10 +32,19 @@ public class GUIService : MonoBehaviour
 	}
 
 
-	//public IEnumerator AchievementUnlockedNotification()                // WIDOK GAMEPLAY, wyswietla info o odblokowaniu achievementu
-	//{
-	//	AchievementUnlockedGamePlay.text = "New achievement!";
-	//	yield return new WaitForSeconds(2);
-	//	AchievementUnlockedGamePlay.text = "";
-	//}
+	public void RepeatGame()                                            // WIDOK SUMMARY
+	{
+		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+		SceneManager.LoadScene("Game");
+		TimeScaleStart();
+	}
+
+
+
+	public void BackToMenu()                                            // WIDOK SUMMARY				
+	{
+		Main.BackFromGamePlay = true;
+		SceneManager.LoadScene("Menu");
+		TimeScaleStart();
+	}
 }

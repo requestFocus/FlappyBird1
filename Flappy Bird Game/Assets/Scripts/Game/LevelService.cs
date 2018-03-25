@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NonGUIService : MonoBehaviour
+public class LevelService : MonoBehaviour
 {
 	// PLAYER
 	private float _sensitivity;
@@ -13,9 +13,22 @@ public class NonGUIService : MonoBehaviour
 	private Vector2 _playerMovement;
 	private Vector2 _mergedMovement;
 
-	private bool _playParticles;
+	private int _currentScore;
+	public int CurrentScore
+	{
+		get { return _currentScore; }
+		set
+		{
+			_currentScore = value;
+			IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
+		}
+	}
+	private float _timeIntervalForCoroutine;                              
+	private const float _intervalStep = 0.3f;
 
 	// COLUMN
+	public GameObject ColumnPrefab;
+
 	private const float _startXPosition = 8.0f;
 	private const float _endXPosition = -8.0f;
 	private const float _acceleration = 5.0f;
@@ -29,10 +42,11 @@ public class NonGUIService : MonoBehaviour
 	private const float _rightEdge1 = -11.723f;
 	private const float _rightEdge2 = 6.68f;
 
-	[SerializeField] private GameManager GameManager;
 	[SerializeField] private ParticleSystem AchievementParticles;
 	[SerializeField] private GUIGamePlayView GUIGamePlayView;
 	[SerializeField] private GUISummaryView GUISummaryView;
+
+	[SerializeField] private GUIService GUIService;
 
 	private void Start()
 	{
@@ -41,6 +55,9 @@ public class NonGUIService : MonoBehaviour
 		_gravity = 3f;
 
 		_playerMovement = new Vector2(0.0f, 0.0f);
+
+		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
+		StartCoroutine(CreateObstacle());                                           //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
 
@@ -70,16 +87,13 @@ public class NonGUIService : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Score"))                                                       // zdobyty punkt
 		{
-			GameManager.CurrentScore = 1;
-			if (GameManager.AchievementToUnlock())
+			CurrentScore += 1;
+			if (AchievementToUnlock())
 			{
 				AchievementParticles.Play();
-				//_playParticles = true;
 				StartCoroutine(GUIGamePlayView.AchievementUnlockedNotification());
 			}
 		}
-
-		//return _playParticles;
 	}
 
 
@@ -89,6 +103,61 @@ public class NonGUIService : MonoBehaviour
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
 			CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
+		}
+	}
+
+
+
+	public bool AchievementToUnlock()                                   // weryfikuje i przyznaje achievementy, musi miec dane z modelu
+	{
+		if (CurrentScore == 10)
+		{
+			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10)   // nie ma jeszcze achievementu
+			{
+				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10 = true;
+				return true;
+			}
+		}
+		if (CurrentScore == 25)
+		{
+			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25)   // nie ma jeszcze achievementu
+			{
+				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25 = true;
+				return true;
+			}
+		}
+		if (CurrentScore == 50)
+		{
+			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50)   // nie ma jeszcze achievementu
+			{
+				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50 = true;
+				return true;
+			}
+		}
+
+		return false;                                                                                       // brak achievementu do odblokowania, już posiada wszystko, co się należy
+	}
+
+
+
+	public float CalculateTimeIntervalForObstacles()                    // SERWIS COLUMNY+PLAYERA, wylicza (skraca) czas między pojawianiem się kolejnych przeszkód
+	{
+		if (CurrentScore != 0 && CurrentScore % 10 == 0 && _timeIntervalForCoroutine > 1.0f && IntervalAvailabilityStatesService.IntervalLock == IntervalAvailabilityStatesService.IntervalLockStates.Locked)
+		{
+			_timeIntervalForCoroutine = _timeIntervalForCoroutine - _intervalStep;
+		}
+		IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Unlocked;
+		return _timeIntervalForCoroutine;
+	}
+
+
+
+	public IEnumerator CreateObstacle()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
+			Instantiate(ColumnPrefab);
 		}
 	}
 

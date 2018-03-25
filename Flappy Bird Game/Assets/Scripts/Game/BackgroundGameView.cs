@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackgroundGameView : MonoBehaviour
 {
-	[SerializeField] private NonGUIService NonGUIService;
+	[SerializeField] private LevelService NonGUIService;
 
 	private void FixedUpdate ()
 	{

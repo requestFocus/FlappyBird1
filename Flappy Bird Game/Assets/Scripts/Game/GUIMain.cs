@@ -7,12 +7,12 @@ public class GUIMain : MonoBehaviour
 	public GUIGamePlayView GUIGamePlayView;
 	public GUISummaryView GUISummaryView;
 
-	void Start ()
+	private void Start ()
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 	}
 
-	void Update()
+	private void Update()
 	{
 		switch (CurrentGameStateService.CurrentGameState)
 		{

@@ -225,6 +225,12 @@ Prefab:
       propertyPath: AchievementParticles
       value: 
       objectReference: {fileID: 207679540}
+    - target: {fileID: 114683468667820190, guid: 991b197499b5c8f4485e5d468991d441,
+        type: 2}
+      propertyPath: ColumnPrefab
+      value: 
+      objectReference: {fileID: 1076745607600270, guid: aad8f98ec44ce724baa9cb238485aa03,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 991b197499b5c8f4485e5d468991d441, type: 2}
   m_IsPrefabParent: 0
@@ -253,7 +259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &248079288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,8 +271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acefe7860c2c49e4c87bdc3262c4e07b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ColumnPrefab: {fileID: 1076745607600270, guid: aad8f98ec44ce724baa9cb238485aa03,
-    type: 2}
 --- !u!4 &248079289
 Transform:
   m_ObjectHideFlags: 0
@@ -393,7 +397,8 @@ MonoBehaviour:
   ScoreGamePlay: {fileID: 1023514540}
   HighScoreGamePlay: {fileID: 1728994623}
   AchievementUnlockedGamePlay: {fileID: 479676574}
-  GameManager: {fileID: 248079288}
+  GUIService: {fileID: 421736182}
+  NonGUIService: {fileID: 1705965789}
 --- !u!4 &421736181 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4197971271294762, guid: fd469284763e9804fbf26432556cb456,
@@ -1328,6 +1333,7 @@ MonoBehaviour:
   SummaryBackground: {fileID: 1655303004}
   GameManager: {fileID: 248079288}
   GUIService: {fileID: 421736182}
+  NonGUIService: {fileID: 1705965789}
 --- !u!114 &1529148628
 MonoBehaviour:
   m_ObjectHideFlags: 0

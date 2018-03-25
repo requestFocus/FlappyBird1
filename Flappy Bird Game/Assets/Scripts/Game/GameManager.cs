@@ -4,106 +4,106 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	public GameObject ColumnPrefab;
+	//public GameObject ColumnPrefab;
 
-	private enum _intervalLockStates                                        // SERWIS COLUMNY+PLAYERA
-	{
-		Unlocked,
-		Locked
-	};
-	private _intervalLockStates _intervalLock;                              // SERWIS COLUMNY+PLAYERA
+	//private enum _intervalLockStates                                        // SERWIS COLUMNY+PLAYERA
+	//{
+	//	Unlocked,
+	//	Locked
+	//};
+	//private _intervalLockStates _intervalLock;                              // SERWIS COLUMNY+PLAYERA
 
-	private int _currentScore;                                              // SERWIS COLUMNY+PLAYERA
-	public int CurrentScore                                                 // SERWIS COLUMNY+PLAYERA
-	{
-		get
-		{
-			return _currentScore;
-		}
-		set
-		{
-			_currentScore += value;
-			_intervalLock = _intervalLockStates.Locked;
-		}
-	}
+	//private int _currentScore;                                              // SERWIS COLUMNY+PLAYERA
+	//public int CurrentScore                                                 // SERWIS COLUMNY+PLAYERA
+	//{
+	//	get
+	//	{
+	//		return _currentScore;
+	//	}
+	//	set
+	//	{
+	//		_currentScore += value;
+	//		_intervalLock = _intervalLockStates.Locked;
+	//	}
+	//}
 
-	private float _timeIntervalForCoroutine;                                // SERWIS COLUMNY+PLAYERA
-	public float TimeIntervalForCoroutine                                   // SERWIS COLUMNY+PLAYERA
-	{
-		get
-		{
-			return _timeIntervalForCoroutine;
-		}
-		set
-		{
-			_timeIntervalForCoroutine = value;
-		}
-	}
+	//private float _timeIntervalForCoroutine;                                // SERWIS COLUMNY+PLAYERA
+	//public float TimeIntervalForCoroutine                                   // SERWIS COLUMNY+PLAYERA
+	//{
+	//	get
+	//	{
+	//		return _timeIntervalForCoroutine;
+	//	}
+	//	set
+	//	{
+	//		_timeIntervalForCoroutine = value;
+	//	}
+	//}
 
-	private const float _intervalStep = 0.3f;                               // SERWIS COLUMNY+PLAYERA
-
-
-
-	private void Start()
-	{
-		TimeIntervalForCoroutine = 3.0f;											// 3.0f jako wartosc startowa
-
-		StartCoroutine(CreateObstacle());                                           //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
-	}
-
-
-	private IEnumerator CreateObstacle()                                
-	{
-		while (true)
-		{
-			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			Instantiate(ColumnPrefab);
-		}
-	}
+	//private const float _intervalStep = 0.3f;                               // SERWIS COLUMNY+PLAYERA
 
 
 
-	public float CalculateTimeIntervalForObstacles()					// SERWIS COLUMNY+PLAYERA, wylicza (skraca) czas między pojawianiem się kolejnych przeszkód
-	{
-		if (CurrentScore != 0 && CurrentScore % 10 == 0 && TimeIntervalForCoroutine > 1.0f && _intervalLock == _intervalLockStates.Locked)
-		{
-			TimeIntervalForCoroutine = TimeIntervalForCoroutine - _intervalStep;
-		}
-		_intervalLock = _intervalLockStates.Unlocked;
-		return _timeIntervalForCoroutine;
-	}
+	//private void Start()
+	//{
+	//	//TimeIntervalForCoroutine = 3.0f;											// 3.0f jako wartosc startowa
+
+	//	StartCoroutine(CreateObstacle());                                           //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
+	//}
+
+
+	//private IEnumerator CreateObstacle()                                
+	//{
+	//	while (true)
+	//	{
+	//		yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
+	//		Instantiate(ColumnPrefab);
+	//	}
+	//}
 
 
 
-	public bool AchievementToUnlock()                                   // SERWIS COLUMNY+PLAYERA, weryfikuje i przyznaje achievementy, musi miec dane z modelu
-	{
-		if (CurrentScore == 10)
-		{
-			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10)   // nie ma jeszcze achievementu
-			{
-				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10 = true;
-				return true;
-			}
-		}
-		if (CurrentScore == 25)
-		{
-			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25)   // nie ma jeszcze achievementu
-			{
-				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25 = true;
-				return true;
-			}
-		}
-		if (CurrentScore == 50)
-		{
-			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50)   // nie ma jeszcze achievementu
-			{
-				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50 = true;
-				return true;
-			}
-		}
+	//public float CalculateTimeIntervalForObstacles()					// SERWIS COLUMNY+PLAYERA, wylicza (skraca) czas między pojawianiem się kolejnych przeszkód
+	//{
+	//	if (CurrentScore != 0 && CurrentScore % 10 == 0 && TimeIntervalForCoroutine > 1.0f && _intervalLock == _intervalLockStates.Locked)
+	//	{
+	//		TimeIntervalForCoroutine = TimeIntervalForCoroutine - _intervalStep;
+	//	}
+	//	_intervalLock = _intervalLockStates.Unlocked;
+	//	return _timeIntervalForCoroutine;
+	//}
 
-		return false;                                                                                       // brak achievementu do odblokowania, już posiada wszystko, co się należy
-	}
+
+
+	//public bool AchievementToUnlock()                                   // SERWIS COLUMNY+PLAYERA, weryfikuje i przyznaje achievementy, musi miec dane z modelu
+	//{
+	//	if (CurrentScore == 10)
+	//	{
+	//		if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10)   // nie ma jeszcze achievementu
+	//		{
+	//			PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10 = true;
+	//			return true;
+	//		}
+	//	}
+	//	if (CurrentScore == 25)
+	//	{
+	//		if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25)   // nie ma jeszcze achievementu
+	//		{
+	//			PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25 = true;
+	//			return true;
+	//		}
+	//	}
+	//	if (CurrentScore == 50)
+	//	{
+	//		if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50)   // nie ma jeszcze achievementu
+	//		{
+	//			PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50 = true;
+	//			return true;
+	//		}
+	//	}
+
+	//	return false;                                                                                       // brak achievementu do odblokowania, już posiada wszystko, co się należy
+	//}
 }
 
 
