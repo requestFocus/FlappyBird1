@@ -8,12 +8,14 @@ public class PlayerView : MonoBehaviour
 	[SerializeField] private LevelService LevelService;
 	[SerializeField] private ParticleSystem AchievementParticles;
 
+
 	private void Update()
 	{
 		LevelService.MovePlayer(this);
 
 		if (LevelService.AchievementToUnlock())
 		{
+			AchievementParticles = Instantiate(AchievementParticles);
 			AchievementParticles.Play();
 		}
 	}
