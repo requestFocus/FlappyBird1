@@ -30,17 +30,9 @@ public class LevelService : MonoBehaviour
 	public GameObject ColumnPrefab;
 
 	private const float _startXPosition = 8.0f;
-	//private const float _endXPosition = -8.0f;
-	//private const float _acceleration = 5.0f;
 	private const float _minRange = -3.0f;
 	private const float _maxRange = 3.0f;
 	private float _yPosition;
-
-	//// BACKGROUND
-	//private const float _horizontalMove = 0.05f;
-	//private const float _speed = 3.0f;
-	//private const float _rightEdge1 = -11.723f;
-	//private const float _rightEdge2 = 6.68f;
 
 	private void Start()
 	{

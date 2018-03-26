@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BackgroundGameView : MonoBehaviour
 {
-	//[SerializeField] private LevelService LevelService;
-
 	// BACKGROUND
 	private const float _horizontalMove = 0.05f;
 	private const float _speed = 3.0f;
@@ -14,7 +12,6 @@ public class BackgroundGameView : MonoBehaviour
 
 	private void FixedUpdate ()
 	{
-		//LevelService.MoveBackground(this);
 		MoveBackground();
 	}
 

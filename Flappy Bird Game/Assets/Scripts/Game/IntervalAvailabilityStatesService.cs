@@ -4,10 +4,10 @@ using UnityEngine;
 
 public static class IntervalAvailabilityStatesService
 {
-	public enum IntervalLockStates                                        // SERWIS COLUMNY+PLAYERA
+	public enum IntervalLockStates                                        
 	{
 		Unlocked,
 		Locked
 	};
-	public static IntervalLockStates IntervalLock;                              // SERWIS COLUMNY+PLAYERA
+	public static IntervalLockStates IntervalLock;                            
 }

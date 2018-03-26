@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 108064392}
   - component: {fileID: 108064393}
+  - component: {fileID: 108064394}
   m_Layer: 0
   m_Name: CloudsWide
   m_TagString: Untagged
@@ -186,6 +187,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &108064394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 108064391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4520fd84f87c4034ab9662b952897b4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &172581267
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +206,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 172581270}
-  - component: {fileID: 172581268}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -202,17 +213,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &172581268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 172581267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4520fd84f87c4034ab9662b952897b4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &172581270
 Transform:
   m_ObjectHideFlags: 0
