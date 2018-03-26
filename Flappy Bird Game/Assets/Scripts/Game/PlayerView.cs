@@ -6,11 +6,18 @@ using UnityEngine.SceneManagement;
 public class PlayerView : MonoBehaviour
 {
 	[SerializeField] private LevelService LevelService;
+	[SerializeField] private ParticleSystem AchievementParticles;
 
 	private void Update()
 	{
 		LevelService.MovePlayer(this);
-	} 
+
+		if (LevelService.AchievementToUnlock())
+		{
+			AchievementParticles.Play();
+		}
+	}
+
 
 	private void OnTriggerEnter2D(Collider2D collision)            
 	{

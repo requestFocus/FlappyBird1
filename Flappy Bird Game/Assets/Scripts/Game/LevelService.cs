@@ -29,10 +29,11 @@ public class LevelService : MonoBehaviour
 	// COLUMN
 	public GameObject ColumnPrefab;
 
-	//private const float _startXPosition = 8.0f;
-	//private const float _minRange = -3.0f;
-	//private const float _maxRange = 3.0f;
-	//private float _yPosition;
+	private const float _startXPosition = 8.0f;
+	private const float _minRange = -3.0f;
+	private const float _maxRange = 3.0f;
+	private float _yPosition;
+
 
 	private void Start()
 	{
@@ -138,16 +139,16 @@ public class LevelService : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			ColumnPrefab = Instantiate(ColumnPrefab);
-			//InitializeColumn(ColumnPrefab);
+			Instantiate(ColumnPrefab);
+			InitializeColumn(ColumnPrefab);
 		}
 	}
 
 
 
-	//public void InitializeColumn(GameObject column)                                 // COLUMN SERVICE	
-	//{
-	//	_yPosition = Random.Range(_minRange, _maxRange);
-	//	column.transform.position = new Vector3(_startXPosition, _yPosition);
-	//}
+	public void InitializeColumn(GameObject column)                                 // COLUMN SERVICE	
+	{
+		_yPosition = Random.Range(_minRange, _maxRange);
+		column.transform.position = new Vector3(_startXPosition, _yPosition);
+	}
 }
