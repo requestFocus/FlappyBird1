@@ -8,7 +8,7 @@ public class LevelMain : MonoBehaviour
 
 	private void Start()
 	{
-		BackgroundGameView = Instantiate(BackgroundGameView);
+		Instantiate(BackgroundGameView);
 	}
 
 }

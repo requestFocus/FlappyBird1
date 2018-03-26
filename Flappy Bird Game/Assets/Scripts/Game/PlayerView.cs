@@ -12,12 +12,6 @@ public class PlayerView : MonoBehaviour
 	private void Update()
 	{
 		LevelService.MovePlayer(this);
-
-		if (LevelService.AchievementToUnlock())
-		{
-			AchievementParticles = Instantiate(AchievementParticles);
-			AchievementParticles.Play();
-		}
 	}
 
 
@@ -25,5 +19,12 @@ public class PlayerView : MonoBehaviour
 	{
 		LevelService.PointEarned(collision);
 		LevelService.LifeLost(collision);
+
+		if (LevelService.AchievementToUnlock())
+		{
+			AchievementParticles = Instantiate(AchievementParticles, gameObject.transform);
+			AchievementParticles.Play();
+			//Destroy(AchievementParticles.GetComponent<ParticleSystem>(), 2.0f);		//========================jak usunąć ParticleSystem, żeby nie znikał bezpowrotnie??
+		}
 	}
 }
