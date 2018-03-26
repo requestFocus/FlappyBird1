@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GUIMain : MonoBehaviour
 {
-	public LevelService LevelService;
-
 	public GUIGamePlayView GUIGamePlayView;
 	public GUISummaryView GUISummaryView;
 

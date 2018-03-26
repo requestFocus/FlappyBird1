@@ -12,7 +12,6 @@ public class GUIGamePlayView : MonoBehaviour								// GUIGamePlayView jest g≈Ç√
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 
 	[SerializeField] private ParticleSystem AchievementParticles;
-
 	[SerializeField] private LevelService LevelService;					// do wyswietlania aktualnego score'a
 
 	private void Start()

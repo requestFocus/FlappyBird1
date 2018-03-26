@@ -30,17 +30,17 @@ public class LevelService : MonoBehaviour
 	public GameObject ColumnPrefab;
 
 	private const float _startXPosition = 8.0f;
-	private const float _endXPosition = -8.0f;
-	private const float _acceleration = 5.0f;
+	//private const float _endXPosition = -8.0f;
+	//private const float _acceleration = 5.0f;
 	private const float _minRange = -3.0f;
 	private const float _maxRange = 3.0f;
 	private float _yPosition;
 
-	// BACKGROUND
-	private const float _horizontalMove = 0.05f;
-	private const float _speed = 3.0f;
-	private const float _rightEdge1 = -11.723f;
-	private const float _rightEdge2 = 6.68f;
+	//// BACKGROUND
+	//private const float _horizontalMove = 0.05f;
+	//private const float _speed = 3.0f;
+	//private const float _rightEdge1 = -11.723f;
+	//private const float _rightEdge2 = 6.68f;
 
 	private void Start()
 	{
@@ -82,11 +82,6 @@ public class LevelService : MonoBehaviour
 		if (collision.gameObject.CompareTag("Score"))                                                       // zdobyty punkt
 		{
 			CurrentScore += 1;
-			//if (AchievementToUnlock())
-			//{
-			//	AchievementParticles.Play();
-			//	StartCoroutine(GUIGamePlayView.AchievementUnlockedNotification());
-			//}
 		}
 	}
 
@@ -151,43 +146,16 @@ public class LevelService : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			Instantiate(ColumnPrefab);
+			ColumnPrefab = Instantiate(ColumnPrefab);
+			InitializeColumn(ColumnPrefab);
 		}
 	}
 
 
 
-	public bool MoveColumn(ColumnView column)                                       // COLUMN SERVICE								
-	{
-		if (column.transform.position.x <= _startXPosition && column.transform.position.x >= _endXPosition)
-		{
-			column.transform.position += (Vector3.left * Time.deltaTime * _acceleration);
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
-
-
-	public void InitializeColumn(ColumnView column)                                 // COLUMN SERVICE	
+	public void InitializeColumn(GameObject column)                                 // COLUMN SERVICE	
 	{
 		_yPosition = Random.Range(_minRange, _maxRange);
 		column.transform.position = new Vector3(_startXPosition, _yPosition);
-	}
-
-
-
-	public void MoveBackground(BackgroundGameView background)                   // BACKGROUND SERVICE
-	{
-		if (background.transform.position.x >= _rightEdge1 && background.transform.position.x < _rightEdge2)
-		{
-			background.transform.position += (new Vector3(_horizontalMove, 0.0f, 0.0f) * Time.deltaTime * _speed);
-		}
-		else
-		{
-			background.transform.position = new Vector2(_rightEdge1, 0.0f);
-		}
 	}
 }
