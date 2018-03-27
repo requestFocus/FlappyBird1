@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class LevelService : MonoBehaviour
 {
-	// PLAYER
-	private float _sensitivity;
-	private float _velocity;
-	private float _gravity;
-	private float _moveVertical;
-	private Vector2 _gravityMovement;
-	private Vector2 _playerMovement;
-	private Vector2 _mergedMovement;
-
 	private int _currentScore;
 	public int CurrentScore
 	{
@@ -23,12 +14,11 @@ public class LevelService : MonoBehaviour
 			IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
 		}
 	}
-	private float _timeIntervalForCoroutine;                              
-	private const float _intervalStep = 0.3f;
 
-	// COLUMN
 	public GameObject ColumnPrefab;
 
+	private float _timeIntervalForCoroutine;                              
+	private const float _intervalStep = 0.3f;
 	private const float _startXPosition = 8.0f;
 	private const float _minRange = -3.0f;
 	private const float _maxRange = 3.0f;
@@ -37,38 +27,12 @@ public class LevelService : MonoBehaviour
 
 	private void Start()
 	{
-		_sensitivity = 12f;
-		_velocity = 0.0f;
-		_gravity = 3f;
-
-		_playerMovement = new Vector2(0.0f, 0.0f);
-
 		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
 		StartCoroutine(CreateColumn());                                           //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
 
-
-	public void MovePlayer(PlayerView player)                                                   // PLAYER SERVICE                         
-	{
-		_moveVertical = Input.GetAxis("Vertical");
-
-		if (Input.GetKeyUp("s") || Input.GetKeyUp("w") || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
-		{
-			Input.ResetInputAxes();                                                     // reset wartosci getinputaxis, player moze podskoczyc po osiagnieciu wartosci 1
-			_velocity = 0;                                                              // reset predkosci po wzbiciu sie w gore, player znow zaczyna opadać z predkoscia poczatkowa 0
-		}
-
-		_playerMovement = Vector2.up * _moveVertical * Time.deltaTime * _sensitivity;           // wyliczenie wektora ruchu playera na bazie Input.GetAxis()
-
-		_velocity += _gravity * Time.deltaTime;                                         // predkosc jako iloczyn grawitacji (przyspieszenia) i czasu
-		_gravityMovement = Vector2.down * _velocity * Time.deltaTime;                       // wyliczenie wektora przyspieszenia
-
-		_mergedMovement = _playerMovement + _gravityMovement;                                       // suma wektorów ruchu i opadania
-		player.transform.Translate(_mergedMovement);                                                   // przesuniecie o sume wektorów
-	}
-
-
+	
 
 	public void PointEarned(Collider2D collision)									// LEVEL SERVICE
 	{
