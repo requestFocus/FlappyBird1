@@ -15,6 +15,12 @@ public class PlayerView : MonoBehaviour
 	[SerializeField] private LevelService LevelService;
 	[SerializeField] private ParticleSystem AchievementParticles;
 
+	private void Start()
+	{
+		LevelService.CurrentScore = 0;
+	}
+
+
 	private void Update()
 	{
 		MovePlayer();

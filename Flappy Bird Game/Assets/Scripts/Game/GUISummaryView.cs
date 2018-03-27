@@ -28,6 +28,11 @@ public class GUISummaryView : MonoBehaviour {
 		SetSummaryScreen(false);
 	}
 
+	private void Update()
+	{
+		DisplayGUISummaryView();
+	}
+
 	private void OnEnable()                                             // WIDOK SUMMARY
 	{
 		RepeatButton.onClick.AddListener(GUIService.RepeatGame);

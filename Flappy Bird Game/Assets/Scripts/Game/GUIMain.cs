@@ -8,6 +8,7 @@ public class GUIMain : MonoBehaviour
 	public GUISummaryView GUISummaryView;
 
 	private bool _gamePlayExists;
+	private bool _summaryExists;
 
 	private void Start ()
 	{
@@ -27,7 +28,12 @@ public class GUIMain : MonoBehaviour
 				//GUIGamePlayView.DisplayGUIGamePlayView();
 				break;
 			case CurrentGameStateService.GameStates.Summary:
-				GUISummaryView.DisplayGUISummaryView();
+				if (!_summaryExists)
+				{
+					Instantiate(GUISummaryView, gameObject.transform);
+					_summaryExists = true;
+				}
+				//GUISummaryView.DisplayGUISummaryView();
 				break;
 		}
 	}

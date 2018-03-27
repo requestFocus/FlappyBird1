@@ -10,7 +10,7 @@ public class GUIService : MonoBehaviour
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		SceneManager.LoadScene("Game");
-		Time.timeScale = 0;
+		//Time.timeScale = 0;
 	}
 
 
