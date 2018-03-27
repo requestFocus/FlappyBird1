@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GUISummaryView : MonoBehaviour {
-
+public class GUISummaryView : View<GUISummaryModel, GUISUmmaryController>
+{
 	[SerializeField] private Text NameScoreSummary;
 	[SerializeField] private Text NewHighscoreSummary;
 	[SerializeField] private Button RepeatButton;

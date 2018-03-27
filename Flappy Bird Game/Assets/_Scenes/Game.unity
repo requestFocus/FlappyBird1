@@ -434,10 +434,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1169fbbf89df2046bcec4e679f596de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIGamePlayView: {fileID: 114669998206957300, guid: 5305fe6fa2db58d428ff19463d548850,
+  GUIGamePlayViewPrefab: {fileID: 114669998206957300, guid: 5305fe6fa2db58d428ff19463d548850,
     type: 2}
-  GUISummaryView: {fileID: 114550262044378130, guid: 5b860999c9beb5a4183655fbe4b5aa39,
+  GUIGamePlayViewInstance: {fileID: 0}
+  GUISummaryViewPrefab: {fileID: 114550262044378130, guid: 5b860999c9beb5a4183655fbe4b5aa39,
     type: 2}
+  GUISummaryViewInstance: {fileID: 0}
 --- !u!4 &1060523222
 Transform:
   m_ObjectHideFlags: 0

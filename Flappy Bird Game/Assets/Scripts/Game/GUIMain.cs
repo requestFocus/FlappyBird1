@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GUIMain : MonoBehaviour
 {
-	public GUIGamePlayView GUIGamePlayView;
-	public GUISummaryView GUISummaryView;
+	public GUIGamePlayView GUIGamePlayViewPrefab;
+	public GUIGamePlayView GUIGamePlayViewInstance;
+	public GUISummaryView GUISummaryViewPrefab;
+	public GUISummaryView GUISummaryViewInstance;
 
 	private bool _gamePlayExists;
 	private bool _summaryExists;
@@ -22,18 +24,25 @@ public class GUIMain : MonoBehaviour
 			case CurrentGameStateService.GameStates.GamePlay:
 				if (!_gamePlayExists)
 				{
-					Instantiate(GUIGamePlayView, gameObject.transform);
+					GUIGamePlayViewInstance = Instantiate(GUIGamePlayViewPrefab, gameObject.transform);
+					GUIGamePlayViewInstance.Model = new GUIGamePlayModel()
+					{
+						CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile]
+					};
 					_gamePlayExists = true;
 				}
-				//GUIGamePlayView.DisplayGUIGamePlayView();
 				break;
+
 			case CurrentGameStateService.GameStates.Summary:
 				if (!_summaryExists)
 				{
-					Instantiate(GUISummaryView, gameObject.transform);
+					GUISummaryViewInstance = Instantiate(GUISummaryViewPrefab, gameObject.transform);
+					GUISummaryViewInstance.Model = new GUISummaryModel()
+					{
+						CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile]
+					};
 					_summaryExists = true;
 				}
-				//GUISummaryView.DisplayGUISummaryView();
 				break;
 		}
 	}

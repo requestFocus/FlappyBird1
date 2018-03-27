@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerView : MonoBehaviour
+public class PlayerView : View<PlayerModel, PlayerController>
 {
 	private float _sensitivity;
 	private float _velocity;

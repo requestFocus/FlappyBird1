@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundGameView : MonoBehaviour
+public class BackgroundGameView : View<BackgroundGameModel, BackgroundGameController>
 {
 	// BACKGROUND
 	private const float _horizontalMove = 0.05f;
