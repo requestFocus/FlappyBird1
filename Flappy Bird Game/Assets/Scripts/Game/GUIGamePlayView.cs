@@ -11,7 +11,6 @@ public class GUIGamePlayView : MonoBehaviour								// GUIGamePlayView jest g≈Ç√
 	[SerializeField] private Text HighScoreGamePlay;
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 
-	//[SerializeField] private ParticleSystem AchievementParticles;
 	[SerializeField] private LevelService LevelService;					// do wyswietlania aktualnego score'a
 
 	private void Start()
@@ -23,9 +22,10 @@ public class GUIGamePlayView : MonoBehaviour								// GUIGamePlayView jest g≈Ç√
 
 	private void Update()
 	{
+		DisplayGUIGamePlayView();
+
 		if (LevelService.AchievementToUnlock())
 		{
-			//AchievementParticles.Play();
 			StartCoroutine(AchievementUnlockedNotification());
 		}
 	}

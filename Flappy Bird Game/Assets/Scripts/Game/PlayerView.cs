@@ -30,8 +30,8 @@ public class PlayerView : MonoBehaviour
 		{
 			ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles, gameObject.transform);
 			AchievementParticlesInstance.Play();
+		}
 	}
-}
 
 
 
