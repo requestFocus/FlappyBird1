@@ -30,8 +30,8 @@ public class PlayerView : MonoBehaviour
 		{
 			ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles, gameObject.transform);
 			AchievementParticlesInstance.Play();
-		}
 	}
+}
 
 
 
@@ -48,7 +48,7 @@ public class PlayerView : MonoBehaviour
 			_velocity = 0;                                                              // reset predkosci po wzbiciu sie w gore, player znow zaczyna opadać z predkoscia poczatkowa 0
 		}
 
-		_playerMovement = Vector2.up * _moveVertical * Time.deltaTime * 12f;           // wyliczenie wektora ruchu playera na bazie Input.GetAxis()
+		_playerMovement = Vector2.up * _moveVertical * Time.deltaTime * _sensitivity;           // wyliczenie wektora ruchu playera na bazie Input.GetAxis()
 
 		_velocity += _gravity * Time.deltaTime;                                         // predkosc jako iloczyn grawitacji (przyspieszenia) i czasu
 		_gravityMovement = Vector2.down * _velocity * Time.deltaTime;                       // wyliczenie wektora przyspieszenia
