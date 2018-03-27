@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db112eebf12a7cc498d63166b25fa048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundGameView: {fileID: 114799184047625530, guid: 71fef76a6386cbc42b475d57e9b166de,
+  BackgroundGameViewPrefab: {fileID: 114799184047625530, guid: 71fef76a6386cbc42b475d57e9b166de,
     type: 2}
   PlayerViewPrefab: {fileID: 114453430197505186, guid: 700a6a0a0ee631747a2ae10b0a4255ed,
     type: 2}
