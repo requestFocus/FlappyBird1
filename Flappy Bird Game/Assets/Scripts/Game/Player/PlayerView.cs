@@ -32,7 +32,7 @@ public class PlayerView : View<PlayerModel, PlayerController>
 		LevelService.PointEarned(collision);
 		LevelService.LifeLost(collision);
 
-		if (LevelService.AchievementToUnlock())
+		if (LevelService.AchievementToUnlock())								// jeśli TRUE to achievement unlocked, a wtedy ParticleSystem.Play()
 		{
 			ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles, gameObject.transform);
 			AchievementParticlesInstance.Play();

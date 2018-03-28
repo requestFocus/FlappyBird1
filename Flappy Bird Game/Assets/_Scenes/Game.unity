@@ -557,6 +557,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114076411141372944, guid: 472cd12993be3ca4abf0d1a476c7cca4,
+        type: 2}
+      propertyPath: GUIGamePlayView
+      value: 
+      objectReference: {fileID: 114669998206957300, guid: 5305fe6fa2db58d428ff19463d548850,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 472cd12993be3ca4abf0d1a476c7cca4, type: 2}
   m_IsPrefabParent: 0

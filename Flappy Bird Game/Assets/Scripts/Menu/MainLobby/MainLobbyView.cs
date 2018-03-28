@@ -75,7 +75,6 @@ public class MainLobbyView : View<MainLobbyModel, MainLobbyController>
 			else if (_resizeViewService.ClickedWithin(_achievementsRect))
 			{
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Achievements;
-				//AchievementsView.Controller = new AchievementsController();
 				AchievementsView.Model = new AchievementsModel()
 				{
 					EntireList = Model.EntireList,             
@@ -87,7 +86,6 @@ public class MainLobbyView : View<MainLobbyModel, MainLobbyController>
 			else if (_resizeViewService.ClickedWithin(_profileRect))
 			{
 				MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Profile;
-				//ProfileView.Controller = new ProfileController();
 				ProfileView.Model = new ProfileModel()
 				{
 					CurrentProfile = Model.CurrentProfile

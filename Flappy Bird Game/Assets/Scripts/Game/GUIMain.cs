@@ -27,7 +27,7 @@ public class GUIMain : MonoBehaviour
 					GUIGamePlayViewInstance = Instantiate(GUIGamePlayViewPrefab, gameObject.transform);
 					GUIGamePlayViewInstance.Model = new GUIGamePlayModel()
 					{
-						CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile]
+						PlayersProfilesLoadedToModel = PlayersProfiles.Instance
 					};
 					_gamePlayExists = true;
 				}
@@ -39,7 +39,7 @@ public class GUIMain : MonoBehaviour
 					GUISummaryViewInstance = Instantiate(GUISummaryViewPrefab, gameObject.transform);
 					GUISummaryViewInstance.Model = new GUISummaryModel()
 					{
-						CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile]
+						PlayersProfilesSentFromGamePlay = GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel
 					};
 					_summaryExists = true;
 				}

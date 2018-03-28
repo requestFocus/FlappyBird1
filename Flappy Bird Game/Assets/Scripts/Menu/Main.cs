@@ -46,7 +46,6 @@ public class Main : MonoBehaviour {
 				break;
 
 			case MenuScreensService.MenuScreens.MainMenu:
-				//MainLobbyView.Controller = new MainLobbyController();
 				MainLobbyView.Model = new MainLobbyModel()
 				{
 					EntireList = PlayersProfiles.Instance.ListOfProfiles,

@@ -13,8 +13,6 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 	[SerializeField] private LevelService LevelService;                 // do wyswietlania aktualnego score'a
 
-	private bool _flaga;
-
 	private void Start()
 	{
 		Time.timeScale = 1;
@@ -26,18 +24,17 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	{
 		DisplayGUIGamePlayView();
 
-		if (!_flaga && LevelService.TimeForCoroutine)
+		if (LevelService.TimeForAchievementNotificationCoroutine)
 		{
 			StartCoroutine(AchievementUnlockedNotification());
-			_flaga = true;
 		}
 	}
 
 	public void DisplayGUIGamePlayView()                                // WIDOK GAMEPLAY
 	{
-		NameScoreGamePlay.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName;
+		NameScoreGamePlay.text = Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].PlayerName;
 		ScoreGamePlay.text = "score: " + LevelService.CurrentScore;
-		HighScoreGamePlay.text = "highscore: " + PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].HighScore;
+		HighScoreGamePlay.text = "highscore: " + Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].HighScore;
 	}
 
 	public IEnumerator AchievementUnlockedNotification()                // WIDOK GAMEPLAY, wyswietla info o odblokowaniu achievementu
@@ -45,7 +42,6 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		AchievementUnlockedGamePlay.text = "New achievement!";
 		yield return new WaitForSeconds(2);
 		AchievementUnlockedGamePlay.text = "";
-		_flaga = false;
-		LevelService.TimeForCoroutine = false;
+		LevelService.TimeForAchievementNotificationCoroutine = false;		// zwolnienie flagi na potrzeby kolejnego ew. achievementu
 	}
 }

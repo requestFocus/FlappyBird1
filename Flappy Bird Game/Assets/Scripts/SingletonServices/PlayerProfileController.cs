@@ -12,7 +12,7 @@ public class PlayerProfileController {
 
 	public void SaveProfile(PlayersProfiles playersProfilesToSave)
 	{
-		_jsonDataToSet = JsonUtility.ToJson(playersProfilesToSave);                                         //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
+		_jsonDataToSet = JsonUtility.ToJson(playersProfilesToSave);                                               //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
 		PlayerPrefs.SetString(_prefsStringInMemory, _jsonDataToSet);                                                //zapisz json do podanego key w PlayerPrefs
 	}
 

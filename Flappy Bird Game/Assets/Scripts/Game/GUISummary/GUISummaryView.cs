@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GUISummaryView : View<GUISummaryModel, GUISUmmaryController>
+public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 {
 	[SerializeField] private Text NameScoreSummary;
 	[SerializeField] private Text NewHighscoreSummary;
@@ -15,11 +15,7 @@ public class GUISummaryView : View<GUISummaryModel, GUISUmmaryController>
 	[SerializeField] private GUIService GUIService;
 	[SerializeField] private LevelService LevelService;
 
-	private PlayerProfileController _playerProfileController = new PlayerProfileController();
-
-	/*
-	 * może być konieczne Destroy(gameObject) GUIGamePlayView, żeby znikały Texty z GamePlayu na górze ekranu
-	 */
+	//private PlayerProfileController _playerProfileController = new PlayerProfileController();
 
 	private void Start()
 	{
@@ -44,14 +40,16 @@ public class GUISummaryView : View<GUISummaryModel, GUISUmmaryController>
 		Time.timeScale = 0;
 		SetSummaryScreen(true);
 
-		NameScoreSummary.text = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].PlayerName + ", your score is " + LevelService.CurrentScore;
+		NameScoreSummary.text = Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].PlayerName + ", your score is " + LevelService.CurrentScore;
 
 		if (GUIService.CheckHighscoreTable(LevelService.CurrentScore))
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 		}
+
 		// KONTROLER
-		_playerProfileController.SaveProfile(PlayersProfiles.Instance);               // zapisz wyniki przed powrotem do sceny MENU
+		//_playerProfileController.SaveProfile(Model.PlayersProfilesSentFromGamePlay);               // zapisz wyniki przed powrotem do sceny MENU
+		Controller.UpdateModel(Model.PlayersProfilesSentFromGamePlay);
 	}
 
 	private void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz
