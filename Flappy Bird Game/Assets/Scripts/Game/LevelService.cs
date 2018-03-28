@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelService : MonoBehaviour
 {
 	private int _currentScore;
+	public bool TimeForCoroutine;
 	public int CurrentScore
 	{
 		get { return _currentScore; }
@@ -61,6 +62,7 @@ public class LevelService : MonoBehaviour
 			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10)   // nie ma jeszcze achievementu
 			{
 				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete10 = true;
+				TimeForCoroutine = true;
 				return true;
 			}
 		}
@@ -69,6 +71,7 @@ public class LevelService : MonoBehaviour
 			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25)   // nie ma jeszcze achievementu
 			{
 				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete25 = true;
+				TimeForCoroutine = true;
 				return true;
 			}
 		}
@@ -77,10 +80,10 @@ public class LevelService : MonoBehaviour
 			if (!PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50)   // nie ma jeszcze achievementu
 			{
 				PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile].Complete50 = true;
+				TimeForCoroutine = true;
 				return true;
 			}
 		}
-
 		return false;                                                                                       // brak achievementu do odblokowania, już posiada wszystko, co się należy
 	}
 

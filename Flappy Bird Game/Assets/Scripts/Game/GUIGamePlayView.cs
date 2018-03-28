@@ -11,12 +11,14 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	[SerializeField] private Text HighScoreGamePlay;
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 
-	[SerializeField] private LevelService LevelService;					// do wyswietlania aktualnego score'a
+	[SerializeField] private LevelService LevelService;                 // do wyswietlania aktualnego score'a
+
+	private bool _flaga;
 
 	private void Start()
 	{
-		AchievementUnlockedGamePlay.text = "";
 		Time.timeScale = 1;
+		AchievementUnlockedGamePlay.text = "";
 	}
 
 
@@ -24,9 +26,10 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	{
 		DisplayGUIGamePlayView();
 
-		if (LevelService.AchievementToUnlock())
+		if (!_flaga && LevelService.TimeForCoroutine)
 		{
 			StartCoroutine(AchievementUnlockedNotification());
+			_flaga = true;
 		}
 	}
 
@@ -42,5 +45,7 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		AchievementUnlockedGamePlay.text = "New achievement!";
 		yield return new WaitForSeconds(2);
 		AchievementUnlockedGamePlay.text = "";
+		_flaga = false;
+		LevelService.TimeForCoroutine = false;
 	}
 }

@@ -143,6 +143,8 @@ MonoBehaviour:
     type: 2}
   AchievementParticles: {fileID: 198868904761626056, guid: ecff34ae49dc86243ad5c267b4ba590a,
     type: 2}
+  AchievementUnlockedGamePlay: {fileID: 114779258253009932, guid: 5305fe6fa2db58d428ff19463d548850,
+    type: 2}
 --- !u!212 &212540926227083462
 SpriteRenderer:
   m_ObjectHideFlags: 1
