@@ -12,14 +12,8 @@ public class PlayerView : View<PlayerModel, PlayerController>
 	private Vector2 _gravityMovement;
 	private Vector2 _playerMovement;
 	private Vector2 _mergedMovement;
+
 	[SerializeField] private LevelService LevelService;
-	[SerializeField] private ParticleSystem AchievementParticles;
-
-	private void Start()
-	{
-		LevelService.CurrentScore = 0;
-	}
-
 
 	private void Update()
 	{
@@ -31,12 +25,6 @@ public class PlayerView : View<PlayerModel, PlayerController>
 	{
 		LevelService.PointEarned(collision);
 		LevelService.LifeLost(collision);
-
-		if (LevelService.AchievementToUnlock())								// jeśli TRUE to achievement unlocked, a wtedy ParticleSystem.Play()
-		{
-			ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles, gameObject.transform);
-			AchievementParticlesInstance.Play();
-		}
 	}
 
 

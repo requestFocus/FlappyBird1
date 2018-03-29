@@ -25,6 +25,7 @@ public class Main : MonoBehaviour {
 	{
 		//PlayerPrefs.DeleteAll();                                                // CZYSZCZENIE PLAYERPREFS
 
+		Time.timeScale = 1;
 		if (!BackFromGamePlay)													// jeśli uruchomiono aplikacje, ale nie rozegrano gry
 		{
 			MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Login;

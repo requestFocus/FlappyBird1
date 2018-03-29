@@ -15,8 +15,6 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 	[SerializeField] private GUIService GUIService;
 	[SerializeField] private LevelService LevelService;
 
-	//private PlayerProfileController _playerProfileController = new PlayerProfileController();
-
 	private void Start()
 	{
 		NameScoreSummary.text = "";
@@ -42,14 +40,18 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 
 		NameScoreSummary.text = Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].PlayerName + ", your score is " + LevelService.CurrentScore;
 
-		if (GUIService.CheckHighscoreTable(LevelService.CurrentScore))
+		/*
+		 * DODATKOWE INFO: czy odblokowano achievement? 
+		 * jak dodać model GUIGamePlayModel, żeby korzystać z jego zaktualizowanych danych? ----- ten model sam się dodaje w GUIMain, kiedy GUISummary.Model dostaje kopię GUIGamePlay.Model
+		 */
+
+		if (LevelService.CurrentScore > Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].HighScore)
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
-		}
 
-		// KONTROLER
-		//_playerProfileController.SaveProfile(Model.PlayersProfilesSentFromGamePlay);               // zapisz wyniki przed powrotem do sceny MENU
-		Controller.UpdateModel(Model.PlayersProfilesSentFromGamePlay);
+			Controller.CheckHighscoreTable(Model, LevelService.CurrentScore);       // jeśli scena nie będzie przeładowywana, trzeba od razu poinformować model GUIGamePlayView, bo inaczej dane się rozjadą
+			Controller.UpdateModel(Model.PlayersProfilesSentFromGamePlay);
+		}
 	}
 
 	private void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz

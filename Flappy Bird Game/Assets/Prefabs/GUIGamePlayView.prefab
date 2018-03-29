@@ -235,6 +235,8 @@ MonoBehaviour:
   ScoreGamePlay: {fileID: 114440164021449262}
   HighScoreGamePlay: {fileID: 114266481248675924}
   AchievementUnlockedGamePlay: {fileID: 114779258253009932}
+  AchievementParticles: {fileID: 198868904761626056, guid: ecff34ae49dc86243ad5c267b4ba590a,
+    type: 2}
   LevelService: {fileID: 114076411141372944, guid: 472cd12993be3ca4abf0d1a476c7cca4,
     type: 2}
 --- !u!114 &114779258253009932
@@ -347,7 +349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000008285, y: 194.3}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 321.9, y: 15.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224349100273419938

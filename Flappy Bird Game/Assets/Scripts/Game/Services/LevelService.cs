@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LevelService : MonoBehaviour
 {
-	public GameObject ColumnPrefab;
-	public GUIGamePlayView GUIGamePlayViewInstance;
+	[SerializeField] private GameObject ColumnPrefab;
+	[SerializeField] private GUIGamePlayView GUIGamePlayViewInstance;
 
 	private int _currentScore;
 	public int CurrentScore
@@ -16,13 +16,6 @@ public class LevelService : MonoBehaviour
 			_currentScore = value;
 			IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
 		}
-	}
-
-	private bool _timeForAchievementNotificationCoroutine;
-	public bool TimeForAchievementNotificationCoroutine                                                     // czy to czas na coroutine GUIGamePlayView "New achievement"?
-	{
-		get { return _timeForAchievementNotificationCoroutine; }
-		set { _timeForAchievementNotificationCoroutine = value; }
 	}
 
 	private float _timeIntervalForCoroutine;
@@ -37,11 +30,6 @@ public class LevelService : MonoBehaviour
 	{
 		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
 		StartCoroutine(CreateColumn());                                               //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
-
-		GUIGamePlayViewInstance.Model = new GUIGamePlayModel()
-		{
-			PlayersProfilesLoadedToModel = PlayersProfiles.Instance
-		};
 	}
 
 
@@ -63,40 +51,6 @@ public class LevelService : MonoBehaviour
 		{
 			CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
 		}
-	}
-
-
-
-	public bool AchievementToUnlock()                                     		// weryfikuje i przyznaje achievementy, musi miec dane z modelu
-	{
-		if (CurrentScore == 10)
-		{
-			if (!GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.ListOfProfiles[GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)										// nie ma jeszcze achievementu
-			{
-				GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.ListOfProfiles[GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10 = true;
-				TimeForAchievementNotificationCoroutine = true;											// uruchom coroutine GUIGamePlayView
-				return true;
-			}
-		}
-		if (CurrentScore == 25)
-		{
-			if (!GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.ListOfProfiles[GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25)										 // nie ma jeszcze achievementu
-			{
-				GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.ListOfProfiles[GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25 = true;	
-				TimeForAchievementNotificationCoroutine = true;								             // uruchom coroutine GUIGamePlayView
-				return true;
-			}
-		}
-		if (CurrentScore == 50)
-		{
-			if (!GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.ListOfProfiles[GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50)										 // nie ma jeszcze achievementu
-			{
-				GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.ListOfProfiles[GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50 = true;
-				TimeForAchievementNotificationCoroutine = true;								             // uruchom coroutine GUIGamePlayView
-				return true;
-			}
-		}
-		return false;                                                                                    // brak achievementu do odblokowania, już posiada wszystko, co się należy
 	}
 
 
