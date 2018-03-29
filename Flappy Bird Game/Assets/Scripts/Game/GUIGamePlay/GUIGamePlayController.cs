@@ -12,19 +12,19 @@ public class GUIGamePlayController
 
 	public bool UnlockAchievement(GUIGamePlayModel model, int currentScore)
 	{
-		if (currentScore == 2 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)
+		if (currentScore == 10 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)
 		{
 			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10 = true;
 			return true;
 		}
 
-		if (currentScore == 4 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25)
+		if (currentScore == 25 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25)
 		{
 			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25 = true;
 			return true;
 		}
 
-		if (currentScore == 6 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50)
+		if (currentScore == 50 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50)
 		{
 			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50 = true;
 			return true;
