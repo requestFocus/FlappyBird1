@@ -10,5 +10,5 @@ public class GUISummaryModel
 	 */
 
 	public PlayersProfiles PlayersProfilesSentFromGamePlay;
-	public bool NewUnlocked;
+	public bool AchievementIsUnlocked;
 }

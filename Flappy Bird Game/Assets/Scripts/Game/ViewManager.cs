@@ -15,9 +15,11 @@ public class ViewManager : MonoBehaviour {
 		GUIGamePlayViewInstance.Model = new GUIGamePlayModel()
 		{
 			PlayersProfilesLoadedToModel = PlayersProfiles.Instance,
-			NewUnlocked = false
+			AchievementIsUnlocked = false
 		};
 	}
+
+
 
 	public void CreateGUISummaryView()							// ten widok powstaje zawsze jako drugi z dwóch
 	{
@@ -25,7 +27,7 @@ public class ViewManager : MonoBehaviour {
 		GUISummaryViewInstance.Model = new GUISummaryModel()
 		{
 			PlayersProfilesSentFromGamePlay = GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel,
-			NewUnlocked = GUIGamePlayViewInstance.Model.NewUnlocked
+			AchievementIsUnlocked = GUIGamePlayViewInstance.Model.AchievementIsUnlocked
 		};
 	}
 }

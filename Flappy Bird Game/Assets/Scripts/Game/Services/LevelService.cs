@@ -5,7 +5,6 @@ using UnityEngine;
 public class LevelService : MonoBehaviour
 {
 	[SerializeField] private GameObject ColumnPrefab;
-	[SerializeField] private GUIGamePlayView GUIGamePlayViewInstance;
 
 	private int _currentScore;
 	public int CurrentScore

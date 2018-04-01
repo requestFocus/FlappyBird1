@@ -11,7 +11,7 @@ public class GUIGamePlayModel
 
 	//public PlayerProfile CurrentProfile;
 	public PlayersProfiles PlayersProfilesLoadedToModel;
-	public bool NewUnlocked;
+	public bool AchievementIsUnlocked;
 
 	/*
 	 * jesli możliwe będzie przekonwertowanie projektu z C# 4.0 na C# 6.0

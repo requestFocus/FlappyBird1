@@ -56,9 +56,9 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 			Controller.UpdateModel(Model.PlayersProfilesSentFromGamePlay);
 		}
 
-		if (Model.NewUnlocked)
+		if (Model.AchievementIsUnlocked)
 		{
-			NewAchievementsSummary.text = "New achievement unlocked! Congrats!";
+			NewAchievementsSummary.text = "New achievement(s) unlocked! Congrats!";
 		}
 	}
 

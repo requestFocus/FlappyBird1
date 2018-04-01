@@ -14,8 +14,6 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	[SerializeField] private ParticleSystem AchievementParticles;
 	[SerializeField] private LevelService LevelService;                 // do wyswietlania aktualnego score'a
 
-	private bool _achievementIsUnlocked;
-
 	private void Start()
 	{
 		LevelService.CurrentScore = 0;
@@ -25,19 +23,21 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		//Debug.Log(nameof(Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10));	//============================ 4.0 vs 6.0
 	}
 
+	/*
+	 * tutaj mam dostęp do Modelu i Kontrolera, które są mi potrzebne do weryfikowania i przyznawania achievementów
+	 * w PlayerView mam dostęp do OnTriggerEnter2D, gdzie naliczane są punkty lub kończona gra
+	 */
 
 	private void Update()
 	{
 		DisplayGUIGamePlayView();
 
-		if (AchievementToUnlock(LevelService.CurrentScore))                             // jeśli TRUE to achievement unlocked, a wtedy ParticleSystem.Play()
-		{
+		if (Controller.VerifyIfAchievementUnlocked(Model, LevelService.CurrentScore))                             // jeśli TRUE to achievement unlocked, a wtedy ParticleSystem.Play()
+		{																				//========================================= czy mogę wysyłać Model do Kontrolera bezpośrednio z Widoku? podpięcie Modelu pod kontroler sprawi, że zaktualizowany zostanie "inny" Model, nie ten AKTUALNY						
 			ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles);
 			AchievementParticlesInstance.Play();
 
 			StartCoroutine(AchievementUnlockedNotification());
-
-			_achievementIsUnlocked = false;
 		}
 	}
 
@@ -56,13 +56,5 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		AchievementUnlockedGamePlay.text = "New achievement!";
 		yield return new WaitForSeconds(2);
 		AchievementUnlockedGamePlay.text = "";
-	}
-
-
-
-	public bool AchievementToUnlock(int currentScore)                                           // weryfikuje i przyznaje achievementy, musi miec dane z modelu
-	{
-		_achievementIsUnlocked = Controller.UnlockAchievement(Model, currentScore);               //====================== czy mogę wysyłać Model do Kontrolera bezpośrednio z Widoku? podpięcie Modelu pod kontroler sprawi, że zaktualizowany zostanie "inny" Model, nie ten AKTUALNY
-		return _achievementIsUnlocked;
 	}
 }
