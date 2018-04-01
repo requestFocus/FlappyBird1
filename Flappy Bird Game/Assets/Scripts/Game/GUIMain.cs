@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class GUIMain : MonoBehaviour
 {
-	public GUIGamePlayView GUIGamePlayViewPrefab;
-	public GUIGamePlayView GUIGamePlayViewInstance;
-	public GUISummaryView GUISummaryViewPrefab;
-	public GUISummaryView GUISummaryViewInstance;
+	[SerializeField] private ViewManager ViewManagerPrefab;
+	[SerializeField] private ViewManager ViewManagerInstance;
 
 	private bool _gamePlayExists;
 	private bool _summaryExists;
 
-	private void Start ()
+	private void Start()
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+		ViewManagerInstance = Instantiate(ViewManagerPrefab);
 	}
 
 	private void Update()
@@ -24,11 +23,7 @@ public class GUIMain : MonoBehaviour
 			case CurrentGameStateService.GameStates.GamePlay:
 				if (!_gamePlayExists)
 				{
-					GUIGamePlayViewInstance = Instantiate(GUIGamePlayViewPrefab, gameObject.transform);
-					GUIGamePlayViewInstance.Model = new GUIGamePlayModel()
-					{
-						PlayersProfilesLoadedToModel = PlayersProfiles.Instance
-					};
+					ViewManagerInstance.CreateGUIGamePlayView();
 					_gamePlayExists = true;
 				}
 				break;
@@ -36,11 +31,7 @@ public class GUIMain : MonoBehaviour
 			case CurrentGameStateService.GameStates.Summary:
 				if (!_summaryExists)
 				{
-					GUISummaryViewInstance = Instantiate(GUISummaryViewPrefab, gameObject.transform);
-					GUISummaryViewInstance.Model = new GUISummaryModel()
-					{
-						PlayersProfilesSentFromGamePlay = GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel
-					};
+					ViewManagerInstance.CreateGUISummaryView();
 					_summaryExists = true;
 				}
 				break;

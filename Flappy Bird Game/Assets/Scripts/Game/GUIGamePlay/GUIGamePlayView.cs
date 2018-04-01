@@ -58,38 +58,9 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 
 
-	//public bool AchievementToUnlock()                                           // weryfikuje i przyznaje achievementy, musi miec dane z modelu
-	//{
-	//	if (LevelService.CurrentScore == 2)
-	//	{
-	//		if (!Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)                                       // nie ma jeszcze achievementu
-	//		{
-	//			Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10 = true; //===========!
-	//			return true;
-	//		}
-	//	}
-	//	if (LevelService.CurrentScore == 25)
-	//	{
-	//		if (!Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25)                                        // nie ma jeszcze achievementu
-	//		{
-	//			Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25 = true; //===========!
-	//			return true;
-	//		}
-	//	}
-	//	if (LevelService.CurrentScore == 50)
-	//	{
-	//		if (!Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50)                                        // nie ma jeszcze achievementu
-	//		{
-	//			Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50 = true; //===========!
-	//			return true;
-	//		}
-	//	}
-	//	return false;                                                                                    // brak achievementu do odblokowania, już posiada wszystko, co się należy
-	//}
-
 	public bool AchievementToUnlock(int currentScore)                                           // weryfikuje i przyznaje achievementy, musi miec dane z modelu
 	{
-		_achievementIsUnlocked = Controller.UnlockAchievement(Model, currentScore);
+		_achievementIsUnlocked = Controller.UnlockAchievement(Model, currentScore);               //====================== czy mogę wysyłać Model do Kontrolera bezpośrednio z Widoku? podpięcie Modelu pod kontroler sprawi, że zaktualizowany zostanie "inny" Model, nie ten AKTUALNY
 		return _achievementIsUnlocked;
 	}
 }

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerView : View<PlayerModel, PlayerController>
 {
+	[SerializeField] private LevelService LevelService;
+
 	private float _sensitivity;
 	private float _velocity;
 	private float _gravity;
@@ -12,8 +14,6 @@ public class PlayerView : View<PlayerModel, PlayerController>
 	private Vector2 _gravityMovement;
 	private Vector2 _playerMovement;
 	private Vector2 _mergedMovement;
-
-	[SerializeField] private LevelService LevelService;
 
 	private void Update()
 	{

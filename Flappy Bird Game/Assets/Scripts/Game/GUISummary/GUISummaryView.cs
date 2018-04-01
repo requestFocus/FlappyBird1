@@ -8,19 +8,13 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 {
 	[SerializeField] private Text NameScoreSummary;
 	[SerializeField] private Text NewHighscoreSummary;
+	[SerializeField] private Text NewAchievementsSummary;
 	[SerializeField] private Button RepeatButton;
 	[SerializeField] private Button DontRepeatButton;
 	[SerializeField] private GameObject SummaryBackground;
 
 	[SerializeField] private GUIService GUIService;
 	[SerializeField] private LevelService LevelService;
-
-	private void Start()
-	{
-		NameScoreSummary.text = "";
-		NewHighscoreSummary.text = "";
-		SetSummaryScreen(false);
-	}
 
 	private void Update()
 	{
@@ -41,17 +35,24 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		NameScoreSummary.text = Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].PlayerName + ", your score is " + LevelService.CurrentScore;
 
 		/*
-		 * DODATKOWE INFO: czy odblokowano achievement? 
-		 * jak dodać model GUIGamePlayModel, żeby korzystać z jego zaktualizowanych danych? ----- ten model sam się dodaje w GUIMain, kiedy GUISummary.Model dostaje kopię GUIGamePlay.Model
+		 * odblokowanie nowego achievementu oznacza, że jest nowy highscore,
+		 * ale nowy highscore nie oznacza odblokowania nowego achievementu
+		 * 
+		 * HINT: jak dodać model GUIGamePlayModel, żeby korzystać z jego zaktualizowanych danych? ten model sam się dodaje w GUIMain, kiedy GUISummary.Model dostaje kopię GUIGamePlay.Model w ViewManager
 		 */
 
 		if (LevelService.CurrentScore > Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].HighScore)
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 
-			Controller.CheckHighscoreTable(Model, LevelService.CurrentScore);       // jeśli scena nie będzie przeładowywana, trzeba od razu poinformować model GUIGamePlayView, bo inaczej dane się rozjadą
+			Controller.CheckHighscoreTable(Model, LevelService.CurrentScore);       //=================== jeśli scena nie będzie przeładowywana, trzeba tutaj poinformować o tym model GUIGamePlayView, bo inaczej dane się rozjadą
 			Controller.UpdateModel(Model.PlayersProfilesSentFromGamePlay);
 		}
+		else
+		{
+			NewHighscoreSummary.text = "";
+		}
+
 	}
 
 	private void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz

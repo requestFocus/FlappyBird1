@@ -16,6 +16,5 @@ public class GUIService : MonoBehaviour
 	{
 		Main.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
-		//Time.timeScale = 1;
 	}
 }
