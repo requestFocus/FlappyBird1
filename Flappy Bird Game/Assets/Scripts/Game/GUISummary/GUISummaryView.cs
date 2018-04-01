@@ -16,6 +16,13 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 	[SerializeField] private GUIService GUIService;
 	[SerializeField] private LevelService LevelService;
 
+	private void Start()
+	{
+		NameScoreSummary.text = "";
+		NewHighscoreSummary.text = "";
+		NewAchievementsSummary.text = "";
+	}
+
 	private void Update()
 	{
 		DisplayGUISummaryView();
@@ -48,11 +55,11 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 			Controller.CheckHighscoreTable(Model, LevelService.CurrentScore);       //=================== jeśli scena nie będzie przeładowywana, trzeba tutaj poinformować o tym model GUIGamePlayView, bo inaczej dane się rozjadą
 			Controller.UpdateModel(Model.PlayersProfilesSentFromGamePlay);
 		}
-		else
-		{
-			NewHighscoreSummary.text = "";
-		}
 
+		if (Model.NewUnlocked)
+		{
+			NewAchievementsSummary.text = "New achievement unlocked! Congrats!";
+		}
 	}
 
 	private void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz

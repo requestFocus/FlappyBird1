@@ -11,4 +11,12 @@ public class GUIGamePlayModel
 
 	//public PlayerProfile CurrentProfile;
 	public PlayersProfiles PlayersProfilesLoadedToModel;
+	public bool NewUnlocked;
+
+	/*
+	 * jesli możliwe będzie przekonwertowanie projektu z C# 4.0 na C# 6.0
+	 * będę mógł stworzyć klasę tworzącą parę {nazwa_achievementu, czy_zdobyty_podczas_gry}
+	 * co pozwoli mi tworzenie Listy achievementów odblokowanych PODCZAS gry
+	 * a następnie wyświelenie ich w SummaryView
+	 */ 
 }

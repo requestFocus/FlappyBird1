@@ -14,7 +14,8 @@ public class ViewManager : MonoBehaviour {
 		GUIGamePlayViewInstance = Instantiate(GUIGamePlayViewPrefab, gameObject.transform);
 		GUIGamePlayViewInstance.Model = new GUIGamePlayModel()
 		{
-			PlayersProfilesLoadedToModel = PlayersProfiles.Instance
+			PlayersProfilesLoadedToModel = PlayersProfiles.Instance,
+			NewUnlocked = false
 		};
 	}
 
@@ -23,7 +24,8 @@ public class ViewManager : MonoBehaviour {
 		GUISummaryViewInstance = Instantiate(GUISummaryViewPrefab, gameObject.transform);
 		GUISummaryViewInstance.Model = new GUISummaryModel()
 		{
-			PlayersProfilesSentFromGamePlay = GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel
+			PlayersProfilesSentFromGamePlay = GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel,
+			NewUnlocked = GUIGamePlayViewInstance.Model.NewUnlocked
 		};
 	}
 }

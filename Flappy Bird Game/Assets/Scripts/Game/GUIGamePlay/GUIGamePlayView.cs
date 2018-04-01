@@ -21,6 +21,8 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		LevelService.CurrentScore = 0;
 		Time.timeScale = 1;
 		AchievementUnlockedGamePlay.text = "";
+
+		//Debug.Log(nameof(Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10));	//============================ 4.0 vs 6.0
 	}
 
 

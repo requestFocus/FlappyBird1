@@ -10,4 +10,5 @@ public class GUISummaryModel
 	 */
 
 	public PlayersProfiles PlayersProfilesSentFromGamePlay;
+	public bool NewUnlocked;
 }

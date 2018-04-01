@@ -38,18 +38,21 @@ public class GUIGamePlayController
 		if (currentScore == 10 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)
 		{
 			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10 = true;
+			model.NewUnlocked = true;
 			return true;
 		}
 
 		if (currentScore == 25 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25)
 		{
 			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25 = true;
+			model.NewUnlocked = true;
 			return true;
 		}
 
 		if (currentScore == 50 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50)
 		{
 			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50 = true;
+			model.NewUnlocked = true;
 			return true;
 		}
 
