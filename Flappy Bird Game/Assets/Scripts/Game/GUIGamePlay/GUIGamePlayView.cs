@@ -23,11 +23,6 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		//Debug.Log(nameof(Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10));	//============================ 4.0 vs 6.0
 	}
 
-	/*
-	 * tutaj mam dostęp do Modelu i Kontrolera, które są mi potrzebne do weryfikowania i przyznawania achievementów
-	 * w PlayerView mam dostęp do OnTriggerEnter2D, gdzie naliczane są punkty lub kończona gra
-	 */
-
 	private void Update()
 	{
 		DisplayGUIGamePlayView();
