@@ -16,7 +16,8 @@ public class Main : MonoBehaviour {
 	[SerializeField] private ProfileView ProfileView;
 	[SerializeField] private AchievementsView AchievementsView;
 
-	public MainLobbyModel MainLobbyModel;
+	[SerializeField] private MainLobbyModel MainLobbyModel;
+	[SerializeField] private MainLobbyController MainLobbyController;
 
 	private LoginViewService _loginViewService;
 
@@ -24,6 +25,7 @@ public class Main : MonoBehaviour {
 	{
 		//PlayerPrefs.DeleteAll();                                                // CZYSZCZENIE PLAYERPREFS
 
+		Time.timeScale = 1;
 		if (!BackFromGamePlay)													// jeśli uruchomiono aplikacje, ale nie rozegrano gry
 		{
 			MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Login;
@@ -45,10 +47,11 @@ public class Main : MonoBehaviour {
 				break;
 
 			case MenuScreensService.MenuScreens.MainMenu:
-				MainLobbyModel = new MainLobbyModel();
-				MainLobbyModel.EntireList = PlayersProfiles.Instance.ListOfProfiles;
-				MainLobbyModel.CurrentProfile = MainLobbyModel.EntireList[PlayersProfiles.Instance.CurrentProfile];
-				MainLobbyView.SetModel(MainLobbyModel);             
+				MainLobbyView.Model = new MainLobbyModel()
+				{
+					EntireList = PlayersProfiles.Instance.ListOfProfiles,
+					CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile]
+				};
 
 				MainLobbyView.DrawMainMenu();
 				break;

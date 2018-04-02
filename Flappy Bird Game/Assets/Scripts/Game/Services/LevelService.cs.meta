@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 71fcaffa454b9d54c891685116745d9e
+timeCreated: 1521921414
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ColumnPrefab: {fileID: 1076745607600270, guid: aad8f98ec44ce724baa9cb238485aa03,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
