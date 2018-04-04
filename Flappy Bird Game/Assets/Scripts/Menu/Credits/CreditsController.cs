@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreditsController : Controller
+public class CreditsController 
 {
 	/*
 	* CreditsView nie wymaga kontrolerów

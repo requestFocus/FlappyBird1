@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUIGamePlayController
+public class GUIGamePlayController : Controller<GUIGamePlayModel>
 {
 	/*
 	 * Kontroler musi mieć dostęp do modelu, żeby go zaktualizować w przypadku zmiany
@@ -13,24 +13,24 @@ public class GUIGamePlayController
 
 	public bool VerifyIfAchievementUnlocked(GUIGamePlayModel model, int currentScore)
 	{
-		if (currentScore == 10 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)
+		if (currentScore == 2 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)
 		{
-			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10 = true;
-			model.AchievementIsUnlocked = true;
+			Model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10 = true;
+			Model.AchievementIsUnlocked = true;
 			return true;
 		}
 
 		if (currentScore == 25 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25)
 		{
-			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25 = true;
-			model.AchievementIsUnlocked = true;
+			Model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25 = true;
+			Model.AchievementIsUnlocked = true;
 			return true;
 		}
 
 		if (currentScore == 50 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50)
 		{
-			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50 = true;
-			model.AchievementIsUnlocked = true;
+			Model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50 = true;
+			Model.AchievementIsUnlocked = true;
 			return true;
 		}
 

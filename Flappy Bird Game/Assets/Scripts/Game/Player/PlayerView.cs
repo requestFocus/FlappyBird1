@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerView : View<PlayerModel, PlayerController>
+public class PlayerView : MonoBehaviour
 {
 	[SerializeField] private LevelService LevelService;
 

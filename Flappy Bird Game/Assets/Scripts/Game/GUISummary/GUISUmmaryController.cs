@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUISummaryController
+public class GUISummaryController : Controller<GUISummaryModel>
 {
 	/*
 	 * Kontroler potrzebuje dostępu do modelu GUISummaryView w momencie zakończenia gry i potrzeby zapisania wyniku

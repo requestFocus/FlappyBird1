@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainLobbyController : Controller
+public class MainLobbyController 
 {
 	/*
 	* MainLobbyView nie wymaga kontrolerów

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProfileController : Controller
+public class ProfileController
 {
 	/*
 	* ProfileView nie wymaga kontrolerów

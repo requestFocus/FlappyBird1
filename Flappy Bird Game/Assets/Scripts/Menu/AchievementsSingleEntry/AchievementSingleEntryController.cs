@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementSingleEntryController : Controller
+public class AchievementSingleEntryController
 {
 	/*
 	* AchievementsSingleEntryView nie wymaga kontrolerów

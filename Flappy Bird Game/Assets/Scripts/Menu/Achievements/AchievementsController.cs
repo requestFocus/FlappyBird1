@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementsController : Controller
+public class AchievementsController
 {
-	/*
-	* CreditsView nie wymaga kontrolerów
-	*/
+
 }

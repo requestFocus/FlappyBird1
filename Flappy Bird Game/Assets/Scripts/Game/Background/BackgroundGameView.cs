@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundGameView : View<BackgroundGameModel, BackgroundGameController>
+public class BackgroundGameView : MonoBehaviour
 {
-	// BACKGROUND
 	private const float _horizontalMove = 0.05f;
 	private const float _speed = 3.0f;
 	private const float _rightEdge1 = -11.723f;
@@ -15,15 +14,15 @@ public class BackgroundGameView : View<BackgroundGameModel, BackgroundGameContro
 		MoveBackground();
 	}
 
-	private void MoveBackground()                   // BACKGROUND SERVICE
+	private void MoveBackground()                   
 	{
 		if (transform.position.x >= _rightEdge1 && transform.position.x < _rightEdge2)
 		{
-			transform.position += (new Vector3(_horizontalMove, 0.0f, 0.0f) * Time.deltaTime * _speed);
+			transform.position += Vector3.right * _horizontalMove * Time.deltaTime * _speed;
 		}
 		else
 		{
-			transform.position = new Vector2(_rightEdge1, 0.0f);
+			transform.position = Vector2.right * _rightEdge1;
 		}
 	}
 }

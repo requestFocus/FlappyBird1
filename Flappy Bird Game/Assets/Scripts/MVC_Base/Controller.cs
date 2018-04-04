@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller
+public class Controller<TModel>
 {
-	/* 
-	 * dziedziczą z niego wszystkie kontrolery - w tej scenie ich nie ma
-	 */
+	private TModel _model;
+
+	public TModel Model
+	{
+		get { return _model; }
+
+		set { _model = value; }
+	}
 }

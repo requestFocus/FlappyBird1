@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HowToPlayController : Controller
+public class HowToPlayController
 {
 	/*
 	* HowToPlayView nie wymaga kontrolerów
