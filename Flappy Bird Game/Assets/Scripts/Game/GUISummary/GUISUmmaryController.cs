@@ -14,11 +14,11 @@ public class GUISummaryController : Controller<GUISummaryModel>
 
 	private PlayerProfileController _playerProfileController = new PlayerProfileController();
 
-	public void CheckHighscoreTable(GUISummaryModel model, int currentScore)
+	public void CheckHighscoreTable(int currentScore)
 	{
-		if (currentScore > model.PlayersProfilesSentFromGamePlay.ListOfProfiles[model.PlayersProfilesSentFromGamePlay.CurrentProfile].HighScore)
+		if (currentScore > Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].HighScore)
 		{
-			model.PlayersProfilesSentFromGamePlay.ListOfProfiles[model.PlayersProfilesSentFromGamePlay.CurrentProfile].HighScore = currentScore;
+			Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].HighScore = currentScore;
 		}
 	}
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AchievementsView : View<AchievementsModel, AchievementsController> {
+public class AchievementsView : View<AchievementsModel, Controller<AchievementsModel>> {
 
 	[SerializeField] private Texture LogoButton;
 	[SerializeField] private Texture AchievementsButtonInactive;

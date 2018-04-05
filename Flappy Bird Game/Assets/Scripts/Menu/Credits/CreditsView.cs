@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreditsView : View<CreditsModel, CreditsController> {
+public class CreditsView : View<CreditsModel, Controller<CreditsModel>> {
 
 	[SerializeField] private Texture LogoButton;
 	[SerializeField] private Texture CreditsButtonInactive;

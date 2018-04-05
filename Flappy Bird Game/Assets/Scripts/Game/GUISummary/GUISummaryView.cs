@@ -52,7 +52,7 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 
-			Controller.CheckHighscoreTable(Model, LevelService.CurrentScore);       //=================== jeśli scena nie będzie przeładowywana, trzeba tutaj poinformować o tym model GUIGamePlayView, bo inaczej dane się rozjadą
+			Controller.CheckHighscoreTable(LevelService.CurrentScore);       //=================== jeśli scena nie będzie przeładowywana, trzeba tutaj poinformować o tym model GUIGamePlayView, bo inaczej dane się rozjadą
 			Controller.UpdateModel(Model.PlayersProfilesSentFromGamePlay);
 		}
 

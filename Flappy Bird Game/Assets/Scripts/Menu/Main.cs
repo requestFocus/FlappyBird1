@@ -17,7 +17,6 @@ public class Main : MonoBehaviour {
 	[SerializeField] private AchievementsView AchievementsView;
 
 	[SerializeField] private MainLobbyModel MainLobbyModel;
-	[SerializeField] private MainLobbyController MainLobbyController;
 
 	private LoginViewService _loginViewService;
 

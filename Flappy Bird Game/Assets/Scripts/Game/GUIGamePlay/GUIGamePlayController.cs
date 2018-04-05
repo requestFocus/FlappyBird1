@@ -11,25 +11,25 @@ public class GUIGamePlayController : Controller<GUIGamePlayModel>
 	 */
 
 
-	public bool VerifyIfAchievementUnlocked(GUIGamePlayModel model, int currentScore)
+	public bool VerifyIfAchievementUnlocked(int currentScore)
 	{
-		if (currentScore == 2 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)
+		if (currentScore == 2 && !Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)
 		{
-			Model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10 = true;
+			Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10 = true;
 			Model.AchievementIsUnlocked = true;
 			return true;
 		}
 
-		if (currentScore == 25 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25)
+		if (currentScore == 25 && !Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25)
 		{
-			Model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25 = true;
+			Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25 = true;
 			Model.AchievementIsUnlocked = true;
 			return true;
 		}
 
-		if (currentScore == 50 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50)
+		if (currentScore == 50 && !Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50)
 		{
-			Model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50 = true;
+			Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50 = true;
 			Model.AchievementIsUnlocked = true;
 			return true;
 		}

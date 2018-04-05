@@ -17,7 +17,7 @@ public class ViewManager : MonoBehaviour {
 			PlayersProfilesLoadedToModel = PlayersProfiles.Instance,
 			AchievementIsUnlocked = false
 		};
-		GUIGamePlayViewInstance.Controller.Model = GUIGamePlayViewInstance.Model;
+		//GUIGamePlayViewInstance.Controller.Model = GUIGamePlayViewInstance.Model;
 	}
 
 

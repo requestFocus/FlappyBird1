@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProfileView : View<ProfileModel, ProfileController> {
+public class ProfileView : View<ProfileModel, Controller<ProfileModel>> {
 
 	[SerializeField] private Texture LogoButton;
 	[SerializeField] private Texture ProfileButtonInactive;

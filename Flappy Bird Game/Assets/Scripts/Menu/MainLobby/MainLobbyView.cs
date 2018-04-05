@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainLobbyView : View<MainLobbyModel, MainLobbyController>
+public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 {
 	[SerializeField] private Texture LogoButton;                                            // umożliwia wykorzystanie modyfikatora private z dostępem do zmiennej w ramach inspectora unity
 	[SerializeField] private Texture AchievementsButton;

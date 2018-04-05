@@ -27,7 +27,7 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	{
 		DisplayGUIGamePlayView();
 
-		if (Controller.VerifyIfAchievementUnlocked(Model, LevelService.CurrentScore))                             // jeśli TRUE to achievement unlocked, a wtedy ParticleSystem.Play()
+		if (Controller.VerifyIfAchievementUnlocked(LevelService.CurrentScore))                             // jeśli TRUE to achievement unlocked, a wtedy ParticleSystem.Play()
 		{																				//========================================= czy mogę wysyłać Model do Kontrolera bezpośrednio z Widoku? podpięcie Modelu pod kontroler sprawi, że zaktualizowany zostanie "inny" Model, nie ten AKTUALNY						
 			ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles);
 			AchievementParticlesInstance.Play();
