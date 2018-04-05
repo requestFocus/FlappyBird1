@@ -7,8 +7,6 @@ public class GUIMain : MonoBehaviour
 	[SerializeField] private ViewManager ViewManagerPrefab;
 	[SerializeField] private ViewManager ViewManagerInstance;
 
-	private bool _gamePlayExists;
-	private bool _summaryExists;
 
 	private void Start()
 	{
@@ -18,23 +16,13 @@ public class GUIMain : MonoBehaviour
 
 	private void Update()
 	{
-		switch (CurrentGameStateService.CurrentGameState)
+		if (CurrentGameStateService.CurrentGameState == CurrentGameStateService.GameStates.GamePlay)
 		{
-			case CurrentGameStateService.GameStates.GamePlay:
-				if (!_gamePlayExists)
-				{
-					ViewManagerInstance.CreateGUIGamePlayView();
-					_gamePlayExists = true;
-				}
-				break;
-
-			case CurrentGameStateService.GameStates.Summary:
-				if (!_summaryExists)
-				{
-					ViewManagerInstance.CreateGUISummaryView();
-					_summaryExists = true;
-				}
-				break;
+			ViewManagerInstance.SwitchView(CurrentGameStateService.GameStates.GamePlay);
+		}
+		else if (CurrentGameStateService.CurrentGameState == CurrentGameStateService.GameStates.Summary)
+		{
+			ViewManagerInstance.SwitchView(CurrentGameStateService.GameStates.Summary);
 		}
 	}
 }
