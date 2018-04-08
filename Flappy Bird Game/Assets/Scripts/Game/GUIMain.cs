@@ -7,10 +7,9 @@ public class GUIMain : MonoBehaviour
 	[SerializeField] private ViewManager ViewManagerPrefab;
 	[SerializeField] private ViewManager ViewManagerInstance;
 
-
 	private void Start()
 	{
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+		//CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		ViewManagerInstance = Instantiate(ViewManagerPrefab);
 	}
 

@@ -33,6 +33,8 @@ public class LevelService : MonoBehaviour
 
 	private void Start()
 	{
+		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+
 		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
 		StartCoroutine(CreateColumn());                                               //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
