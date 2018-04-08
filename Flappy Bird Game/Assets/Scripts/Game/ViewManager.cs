@@ -40,7 +40,7 @@ public class ViewManager : MonoBehaviour
 		GUIGamePlayViewInstance = Instantiate(GUIGamePlayViewPrefab, gameObject.transform);
 		GUIGamePlayViewInstance.Model = new GUIGamePlayModel()
 		{
-			PlayersProfilesLoadedToModel = PlayersProfiles.Instance,
+			CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID],
 			AchievementIsUnlocked = false
 		};
 	}
@@ -52,8 +52,10 @@ public class ViewManager : MonoBehaviour
 		GUISummaryViewInstance = Instantiate(GUISummaryViewPrefab, gameObject.transform);
 		GUISummaryViewInstance.Model = new GUISummaryModel()
 		{
-			PlayersProfilesSentFromGamePlay = GUIGamePlayViewInstance.Model.PlayersProfilesLoadedToModel,
-			AchievementIsUnlocked = GUIGamePlayViewInstance.Model.AchievementIsUnlocked
+			CurrentProfile = GUIGamePlayViewInstance.Model.CurrentProfile,
+			AchievementIsUnlocked = GUIGamePlayViewInstance.Model.AchievementIsUnlocked,
+
+			PlayersProfilesUpdated = PlayersProfiles.Instance
 		};
 	}
 }

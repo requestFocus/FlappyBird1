@@ -24,7 +24,7 @@ public sealed class PlayersProfiles
 	private PlayersProfiles() { }
 
 	public List<PlayerProfile> ListOfProfiles = new List<PlayerProfile>();                      
-	public int CurrentProfile = -1;
+	public int CurrentProfileID = -1;
 }
 
 

@@ -25,6 +25,12 @@ public class LevelService : MonoBehaviour
 	private const float _minRange = -3.0f;
 	private const float _maxRange = 3.0f;
 
+	public delegate void ParticlesAndNotification();
+	public ParticlesAndNotification ParticlesAndNotificationDelegate;
+
+	public delegate bool VerifyAchievement(int score);
+	public VerifyAchievement VerifyAchievementDelegate;
+
 	private void Start()
 	{
 		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
@@ -39,6 +45,10 @@ public class LevelService : MonoBehaviour
 		if (collision.gameObject.CompareTag("Score"))									                    // zdobyty punkt
 		{
 			CurrentScore += 1;
+			if (VerifyAchievementDelegate(CurrentScore))
+			{
+				ParticlesAndNotificationDelegate();
+			}
 		}
 	}
 

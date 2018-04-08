@@ -19,29 +19,54 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		LevelService.CurrentScore = 0;
 		Time.timeScale = 1;
 		AchievementUnlockedGamePlay.text = "";
-
-		//Debug.Log(nameof(Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10));	//============================ 4.0 vs 6.0
+		LevelService.VerifyAchievementDelegate = OnPointEarned;
+		LevelService.ParticlesAndNotificationDelegate = OnAchievementEarned;
 	}
 
 	private void Update()
 	{
 		DisplayGUIGamePlayView();
-
-		if (Controller.VerifyIfAchievementUnlocked(LevelService.CurrentScore))                             // jeśli TRUE to achievement unlocked, a wtedy ParticleSystem.Play()
-		{																				//========================================= czy mogę wysyłać Model do Kontrolera bezpośrednio z Widoku? podpięcie Modelu pod kontroler sprawi, że zaktualizowany zostanie "inny" Model, nie ten AKTUALNY						
-			ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles);
-			AchievementParticlesInstance.Play();
-
-			StartCoroutine(AchievementUnlockedNotification());
-		}
 	}
+
+
+	public void OnAchievementEarned()						// achievement odblokowany - odpal particle i on-screen notyfikacje
+	{
+		ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles);
+		AchievementParticlesInstance.Play();
+
+		StartCoroutine(AchievementUnlockedNotification());
+	}
+
+	public bool OnPointEarned(int currentScore)				// sprawdzy czy odblokowano achievement
+	{
+		if (currentScore == 10 && !Model.CurrentProfile.Complete10)
+		{
+			Controller.AssignAchievementComplete10();
+			return true;
+		}
+
+		if (currentScore == 25 && !Model.CurrentProfile.Complete25)
+		{
+			Controller.AssignAchievementComplete25();
+			return true;
+		}
+
+		if (currentScore == 50 && !Model.CurrentProfile.Complete50)
+		{
+			Controller.AssignAchievementComplete50();
+			return true;
+		}
+
+		return false;
+	}
+
 
 
 	public void DisplayGUIGamePlayView()                                // WIDOK GAMEPLAY
 	{
-		NameScoreGamePlay.text = Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].PlayerName;
+		NameScoreGamePlay.text = Model.CurrentProfile.PlayerName;
 		ScoreGamePlay.text = "score: " + LevelService.CurrentScore;
-		HighScoreGamePlay.text = "highscore: " + Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].HighScore;
+		HighScoreGamePlay.text = "highscore: " + Model.CurrentProfile.HighScore;
 	}
 
 

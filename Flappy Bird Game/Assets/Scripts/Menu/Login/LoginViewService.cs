@@ -21,7 +21,7 @@ public class LoginViewService
 				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(playerName))   // sprawdza czy podane NAME istnieje w pamięci
 				{
 					_playerProfile = PlayersProfiles.Instance.ListOfProfiles[i];				   // odnaleziony profil, uzywany przy listowaniu achievementow
-					PlayersProfiles.Instance.CurrentProfile = i;									// ID znalezionego profilu, POTRZEBNE TEŻ W CANVAS CONTROLLER
+					PlayersProfiles.Instance.CurrentProfileID = i;									// ID znalezionego profilu, POTRZEBNE TEŻ W CANVAS CONTROLLER
 					_isOnTheList = true;
 					break;
 				}
@@ -48,12 +48,12 @@ public class LoginViewService
 		if (_thereIsAList)																				 // na liście nie ma podanego NAME
 		{
 			PlayersProfiles.Instance.ListOfProfiles.Add(_playerProfile);                             // a teraz dodaje do niej aktualny _playerProfile
-			PlayersProfiles.Instance.CurrentProfile = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
+			PlayersProfiles.Instance.CurrentProfileID = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
 		}
 		else
 		{
 			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile> { _playerProfile };           // tworzę listę, bo _isThereAList == false i dodaje aktualny _playerProfile
-			PlayersProfiles.Instance.CurrentProfile = 0;											 // nadaję userowi pierwszy numer na liście
+			PlayersProfiles.Instance.CurrentProfileID = 0;											 // nadaję userowi pierwszy numer na liście
 		}
 		_playerProfileController.SaveProfile(PlayersProfiles.Instance);							      // zapisuję dane w singletonie	
 	}

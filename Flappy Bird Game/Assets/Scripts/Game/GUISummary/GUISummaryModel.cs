@@ -9,6 +9,7 @@ public class GUISummaryModel
 	 * całego singletona, bo GUISummaryController będzie zapisywał wszystkie zmiany z GUIGamePlayView do PlayerPrefs i struktura jsona musi się zgadzać
 	 */
 
-	public PlayersProfiles PlayersProfilesSentFromGamePlay;
+	public PlayerProfile CurrentProfile;
+	public PlayersProfiles PlayersProfilesUpdated;
 	public bool AchievementIsUnlocked;
 }

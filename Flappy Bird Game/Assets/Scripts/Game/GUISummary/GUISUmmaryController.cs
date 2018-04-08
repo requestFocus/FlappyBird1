@@ -5,7 +5,7 @@ using UnityEngine;
 public class GUISummaryController : Controller<GUISummaryModel>
 {
 	/*
-	 * Kontroler potrzebuje dostępu do modelu GUISummaryView w momencie zakończenia gry i potrzeby zapisania wyniku
+	 * Kontroler uaktywnia sie w momencie zakończenia gry i potrzeby zapisania wyniku
 	 * - jeśli CurrentScore nie jest wiekszy od Highscore nie trzeba robić nic
 	 * - jeśli CurrentScore jest większy od HighScore należy poinformować model, że zmieniły się dane
 	 * 
@@ -14,16 +14,12 @@ public class GUISummaryController : Controller<GUISummaryModel>
 
 	private PlayerProfileController _playerProfileController = new PlayerProfileController();
 
-	public void CheckHighscoreTable(int currentScore)
+	public void UpdateModel(int score)
 	{
-		if (currentScore > Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].HighScore)
-		{
-			Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].HighScore = currentScore;
-		}
-	}
+		Model.CurrentProfile.HighScore = score;
 
-	public void UpdateModel(PlayersProfiles model)
-	{
-		_playerProfileController.SaveProfile(model);               // zapisz wyniki przed powrotem do sceny MENU
+		Model.PlayersProfilesUpdated.ListOfProfiles[Model.PlayersProfilesUpdated.CurrentProfileID] = Model.CurrentProfile;
+
+		_playerProfileController.SaveProfile(Model.PlayersProfilesUpdated);               // zapisz wyniki przed powrotem do sceny MENU
 	}
 }
