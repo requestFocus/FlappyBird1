@@ -12,7 +12,7 @@ public class ViewManager : MonoBehaviour
 	private bool _gamePlayExists;
 	private bool _summaryExists;
 
-	public void SwitchView(CurrentGameStateService.GameStates state)
+	public void SwitchView()
 	{
 		switch (CurrentGameStateService.CurrentGameState)
 		{

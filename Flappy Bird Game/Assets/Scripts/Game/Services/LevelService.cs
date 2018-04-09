@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelService : MonoBehaviour
 {
 	[SerializeField] private GameObject ColumnPrefab;
+	[SerializeField] private GUIMain GUIMain;
 
 	private int _currentScore;
 	public int CurrentScore
@@ -26,20 +27,32 @@ public class LevelService : MonoBehaviour
 	private const float _maxRange = 3.0f;
 
 	public delegate void ParticlesAndNotification();
-	public ParticlesAndNotification ParticlesAndNotificationDelegate;
+	public ParticlesAndNotification ParticlesAndNotificationDel;
 
 	public delegate bool VerifyAchievement(int score);
-	public VerifyAchievement VerifyAchievementDelegate;
+	public VerifyAchievement VerifyAchievementDel;
 
 	private void Start()
 	{
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+		SetGamePlayState();
+
+		//GUIMain.SetStateIns = SetGamePlayState;							 //====================== gdzie przypisać?
+		//GUIMain.SetStateIns = SetSummaryState;							 //====================== gdzie przypisać?
 
 		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
 		StartCoroutine(CreateColumn());                                               //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
 
+	public void SetGamePlayState()
+	{
+		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+	}
+
+	public void SetSummaryState()
+	{
+		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
+	}
 	
 
 	public void PointEarned(Collider2D collision)								
@@ -47,9 +60,9 @@ public class LevelService : MonoBehaviour
 		if (collision.gameObject.CompareTag("Score"))									                    // zdobyty punkt
 		{
 			CurrentScore += 1;
-			if (VerifyAchievementDelegate(CurrentScore))
+			if (VerifyAchievementDel(CurrentScore))
 			{
-				ParticlesAndNotificationDelegate();
+				ParticlesAndNotificationDel();
 			}
 		}
 	}
@@ -60,7 +73,7 @@ public class LevelService : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
-			CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
+			SetSummaryState();
 		}
 	}
 

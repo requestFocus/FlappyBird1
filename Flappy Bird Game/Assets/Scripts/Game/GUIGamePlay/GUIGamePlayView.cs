@@ -19,8 +19,9 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		LevelService.CurrentScore = 0;
 		Time.timeScale = 1;
 		AchievementUnlockedGamePlay.text = "";
-		LevelService.VerifyAchievementDelegate = OnPointEarned;
-		LevelService.ParticlesAndNotificationDelegate = OnAchievementEarned;
+
+		LevelService.VerifyAchievementDel = OnPointEarned;
+		LevelService.ParticlesAndNotificationDel = OnAchievementEarned;
 	}
 
 	private void Update()

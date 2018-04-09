@@ -57,3 +57,4 @@ MonoBehaviour:
   GUISummaryViewPrefab: {fileID: 114550262044378130, guid: 5b860999c9beb5a4183655fbe4b5aa39,
     type: 2}
   GUISummaryViewInstance: {fileID: 0}
+  GUIMain: {fileID: 114713923504403832, guid: 0f893bad420eac545ae21483689e03d8, type: 2}

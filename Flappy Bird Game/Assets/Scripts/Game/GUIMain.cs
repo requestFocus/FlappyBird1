@@ -7,21 +7,23 @@ public class GUIMain : MonoBehaviour
 	[SerializeField] private ViewManager ViewManagerPrefab;
 	[SerializeField] private ViewManager ViewManagerInstance;
 
+	//public delegate void SetState();                                    //========================================
+	//public SetState SetStateIns;                                        //========================================
+
 	private void Start()
 	{
-		//CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		ViewManagerInstance = Instantiate(ViewManagerPrefab);
+
+		//SwitchViewInViewManager(SetStateIns);                           //========================================
 	}
 
 	private void Update()
 	{
-		if (CurrentGameStateService.CurrentGameState == CurrentGameStateService.GameStates.GamePlay)
-		{
-			ViewManagerInstance.SwitchView(CurrentGameStateService.GameStates.GamePlay);
-		}
-		else if (CurrentGameStateService.CurrentGameState == CurrentGameStateService.GameStates.Summary)
-		{
-			ViewManagerInstance.SwitchView(CurrentGameStateService.GameStates.Summary);
-		}
+		ViewManagerInstance.SwitchView();
 	}
+
+	//public void SwitchViewInViewManager(SetState SetStateIns)           //========================================
+	//{                                                                   //========================================
+	//	ViewManagerInstance.SwitchView();                               //========================================
+	//}                                                                   //========================================
 }
