@@ -12,7 +12,6 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 
 	[SerializeField] private ParticleSystem AchievementParticles;
-	//[SerializeField] private LevelService LevelService;                 // do wyswietlania aktualnego score'a
 
 	private void Start()
 	{
@@ -20,8 +19,8 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		Time.timeScale = 1;
 		AchievementUnlockedGamePlay.text = "";
 
-		LevelService.Instance.VerifyAchievementDel = OnPointEarned;
-		LevelService.Instance.ParticlesAndNotificationDel = OnAchievementEarned;
+		LevelService.Instance.OnAchievementEarnedDel = ShowAchievementParticlesNotification;
+		LevelService.Instance.OnPointEarnedDel = VerifyAchievements;
 	}
 
 	private void Update()
@@ -30,7 +29,7 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	}
 
 
-	public void OnAchievementEarned()						// achievement odblokowany - odpal particle i on-screen notyfikacje
+	public void ShowAchievementParticlesNotification()						// achievement odblokowany - odpal particle i on-screen notyfikacje
 	{
 		ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles);
 		AchievementParticlesInstance.Play();
@@ -38,7 +37,7 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		StartCoroutine(AchievementUnlockedNotification());
 	}
 
-	public bool OnPointEarned(int currentScore)				// sprawdzy czy odblokowano achievement
+	public bool VerifyAchievements(int currentScore)				// sprawdzy czy odblokowano achievement
 	{
 		if (currentScore == 10 && !Model.CurrentProfile.Complete10)
 		{

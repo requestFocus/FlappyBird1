@@ -44,66 +44,52 @@ public class LevelService : MonoBehaviour
 	private const float _minRange = -3.0f;
 	private const float _maxRange = 3.0f;
 
-	public delegate void ParticlesAndNotification();
-	public ParticlesAndNotification ParticlesAndNotificationDel;
+	public delegate bool OnPointEarned(int score);
+	public OnPointEarned OnPointEarnedDel;
 
-	public delegate bool VerifyAchievement(int score);
-	public VerifyAchievement VerifyAchievementDel;
+	public delegate void OnAchievementEarned();
+	public OnAchievementEarned OnAchievementEarnedDel;
 
-	public delegate void SetState();
-	public SetState OnCurrentStateChange;
+	public delegate void OnCurrentStateChange();
+	public OnCurrentStateChange OnCurrentStateChangeDel;
 
 	private void Start()
 	{
-		SetGamePlayState();
+		SetState(CurrentGameStateService.GameStates.GamePlay);
 
 		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
 		StartCoroutine(CreateColumn());                                               //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
 
-	public void SetGamePlayState()                                  // działa dla LevelService.Instance.OnCurrentStateChange = SwitchViewInViewManager;
-	{
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
-		OnCurrentStateChange();
-	}
-
-	public void SetSummaryState()                                   // działa dla LevelService.Instance.OnCurrentStateChange = SwitchViewInViewManager;
-	{
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
-		OnCurrentStateChange();
-	}
-
 	//public void OnStateChange(SetState callback)                    // działa dla 		LevelService.Instance.OnStateChange(SwitchViewInViewManager);
 	//{
 	//	OnCurrentStateChange = callback;
 	//}
 
-	//public void SetState(CurrentGameStateService.GameStates state)
-	//{
-	//	CurrentGameStateService.CurrentGameState = state;
-	//}
-	
+	public void SetState(CurrentGameStateService.GameStates state)
+	{
+		CurrentGameStateService.CurrentGameState = state;
+		OnCurrentStateChangeDel();
+	}
 
 	public void PointEarned(Collider2D collision)								
 	{
 		if (collision.gameObject.CompareTag("Score"))									                    // zdobyty punkt
 		{
 			CurrentScore += 1;
-			if (VerifyAchievementDel(CurrentScore))
+			if (OnPointEarnedDel(CurrentScore))
 			{
-				ParticlesAndNotificationDel();
+				OnAchievementEarnedDel(); 
 			}
 		}
 	}
-
-
 
 	public void LifeLost(Collider2D collision)                                      
 	{
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
-			SetSummaryState();
+			SetState(CurrentGameStateService.GameStates.Summary);
 		}
 	}
 

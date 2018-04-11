@@ -10,7 +10,7 @@ public class GUIMain : MonoBehaviour
 	private void Awake()
 	{
 		ViewManagerInstance = Instantiate(ViewManagerPrefab);
-		LevelService.Instance.OnCurrentStateChange = SwitchViewInViewManager;
+		LevelService.Instance.OnCurrentStateChangeDel = SwitchViewInViewManager;
 
 		//LevelService.Instance.OnStateChange(SwitchViewInViewManager);
 	}
