@@ -7,6 +7,24 @@ public class LevelService : MonoBehaviour
 	[SerializeField] private GameObject ColumnPrefab;
 	[SerializeField] private GUIMain GUIMain;
 
+	// Singleton
+	private static LevelService _instance;
+	public static LevelService Instance
+	{
+		get
+		{
+			if (_instance == null)
+			{
+				_instance = FindObjectOfType<LevelService>();
+				if (_instance == null)
+					_instance = new LevelService();
+			}
+			return _instance;
+		}
+	}
+	private LevelService() { }
+	// ===========
+
 	private int _currentScore;
 	public int CurrentScore
 	{
@@ -44,22 +62,22 @@ public class LevelService : MonoBehaviour
 	}
 
 
-	public void SetGamePlayState()
+	public void SetGamePlayState()                                  // działa dla LevelService.Instance.OnCurrentStateChange = SwitchViewInViewManager;
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		OnCurrentStateChange();
 	}
 
-	public void SetSummaryState()
+	public void SetSummaryState()                                   // działa dla LevelService.Instance.OnCurrentStateChange = SwitchViewInViewManager;
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
 		OnCurrentStateChange();
 	}
 
-	public void OnStateChange(SetState callback)
-	{
-		OnCurrentStateChange = callback;
-	}
+	//public void OnStateChange(SetState callback)                    // działa dla 		LevelService.Instance.OnStateChange(SwitchViewInViewManager);
+	//{
+	//	OnCurrentStateChange = callback;
+	//}
 
 	//public void SetState(CurrentGameStateService.GameStates state)
 	//{

@@ -19,8 +19,6 @@ public sealed class PlayersProfiles
 		}
 	}
 
-
-
 	private PlayersProfiles() { }
 
 	public List<PlayerProfile> ListOfProfiles = new List<PlayerProfile>();                      

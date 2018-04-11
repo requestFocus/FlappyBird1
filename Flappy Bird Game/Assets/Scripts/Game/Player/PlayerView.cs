@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerView : MonoBehaviour
 {
-	[SerializeField] private LevelService LevelService;
+	//[SerializeField] private LevelService LevelService;
 
 	private float _sensitivity;
 	private float _velocity;
@@ -23,8 +23,8 @@ public class PlayerView : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)            
 	{
-		LevelService.PointEarned(collision);
-		LevelService.LifeLost(collision);
+		LevelService.Instance.PointEarned(collision);
+		LevelService.Instance.LifeLost(collision);
 	}
 
 
