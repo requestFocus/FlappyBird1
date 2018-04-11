@@ -51,7 +51,7 @@ public class LevelService : MonoBehaviour
 	public OnAchievementEarned OnAchievementEarnedDel;
 
 	public delegate void OnCurrentStateChange();
-	public OnCurrentStateChange OnCurrentStateChangeDel;
+	private OnCurrentStateChange OnCurrentStateChangeDel;                      // jeśli OnStateChange(SwitchViewInViewManager); to obiekt delegata powinien być prywatny, nie jest używany poza tą klasą
 
 	private void Start()
 	{
@@ -62,10 +62,10 @@ public class LevelService : MonoBehaviour
 	}
 
 
-	//public void OnStateChange(SetState callback)                    // działa dla 		LevelService.Instance.OnStateChange(SwitchViewInViewManager);
-	//{
-	//	OnCurrentStateChange = callback;
-	//}
+	public void OnStateChange(OnCurrentStateChange callback)                    // działa dla 		LevelService.Instance.OnStateChange(SwitchViewInViewManager);
+	{
+		OnCurrentStateChangeDel = callback;
+	}
 
 	public void SetState(CurrentGameStateService.GameStates state)
 	{
