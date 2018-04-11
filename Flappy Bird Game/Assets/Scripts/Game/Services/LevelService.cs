@@ -36,9 +36,6 @@ public class LevelService : MonoBehaviour
 	{
 		SetGamePlayState();
 
-		//GUIMain.SetStateIns = SetGamePlayState;							 //====================== gdzie przypisać?
-		//GUIMain.SetStateIns = SetSummaryState;							 //====================== gdzie przypisać?
-
 		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
 		StartCoroutine(CreateColumn());                                               //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
@@ -53,6 +50,11 @@ public class LevelService : MonoBehaviour
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
 	}
+
+	//public void SetState(CurrentGameStateService.GameStates state)
+	//{
+	//	CurrentGameStateService.CurrentGameState = state;
+	//}
 	
 
 	public void PointEarned(Collider2D collision)								
