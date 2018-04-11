@@ -32,6 +32,9 @@ public class LevelService : MonoBehaviour
 	public delegate bool VerifyAchievement(int score);
 	public VerifyAchievement VerifyAchievementDel;
 
+	public delegate void SetState();
+	public SetState OnCurrentStateChange;
+
 	private void Start()
 	{
 		SetGamePlayState();
@@ -44,11 +47,18 @@ public class LevelService : MonoBehaviour
 	public void SetGamePlayState()
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+		OnCurrentStateChange();
 	}
 
 	public void SetSummaryState()
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
+		OnCurrentStateChange();
+	}
+
+	public void OnStateChange(SetState callback)
+	{
+		OnCurrentStateChange = callback;
 	}
 
 	//public void SetState(CurrentGameStateService.GameStates state)
