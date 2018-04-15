@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerView : MonoBehaviour
 {
-	//[SerializeField] private LevelService LevelService;
-
 	private float _sensitivity;
 	private float _velocity;
 	private float _gravity;
@@ -14,6 +12,11 @@ public class PlayerView : MonoBehaviour
 	private Vector2 _gravityMovement;
 	private Vector2 _playerMovement;
 	private Vector2 _mergedMovement;
+
+	private void Start()
+	{
+		LevelService.Instance.OnLifeLostDel += DeletePlayerView;
+	}
 
 	private void Update()
 	{
@@ -25,6 +28,12 @@ public class PlayerView : MonoBehaviour
 	{
 		LevelService.Instance.PointEarned(collision);
 		LevelService.Instance.LifeLost(collision);
+	}
+
+
+	private void DeletePlayerView()
+	{
+		Destroy(gameObject);
 	}
 
 

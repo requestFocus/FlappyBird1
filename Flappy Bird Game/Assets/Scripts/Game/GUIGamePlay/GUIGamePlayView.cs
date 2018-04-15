@@ -21,11 +21,18 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 		LevelService.Instance.OnAchievementEarnedDel = ShowAchievementParticlesNotification;
 		LevelService.Instance.OnPointEarnedDel = VerifyAchievements;
+
+		LevelService.Instance.OnLifeLostDel += DeleteGUIGamePlayView;
 	}
 
 	private void Update()
 	{
 		DisplayGUIGamePlayView();
+	}
+
+	private void DeleteGUIGamePlayView()
+	{
+		Destroy(gameObject);
 	}
 
 
@@ -39,9 +46,10 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 	public bool VerifyAchievements(int currentScore)				// sprawdzy czy odblokowano achievement
 	{
-		if (currentScore == 10 && !Model.CurrentProfile.Complete10)
+		if (currentScore == 2 && !Model.CurrentProfile.Complete10)
 		{
 			Controller.AssignAchievementComplete10();
+			Controller.UsernameChangeTest();						//====================================================TEST
 			return true;
 		}
 

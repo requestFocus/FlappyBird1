@@ -10,7 +10,6 @@ public class GUIGamePlayController : Controller<GUIGamePlayModel>
 	 * nie jest to jeszcze aktualizacja Singletona, ten zostanie zaktualizowany w GUISummaryView
 	 */
 
-
 	//public bool VerifyIfAchievementUnlocked(int currentScore)
 	//{
 	//	if (currentScore == 2 && !Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)
@@ -41,6 +40,13 @@ public class GUIGamePlayController : Controller<GUIGamePlayModel>
 	{
 		Model.CurrentProfile.Complete10 = true;
 		Model.AchievementIsUnlocked = true;
+	}
+
+	public bool UsernameChangeTest()                                        //====================================================TEST
+	{
+		Debug.Log("dasdsad");
+		Model.CurrentProfile.PlayerName += "&";
+		return true;
 	}
 
 	public void AssignAchievementComplete25()

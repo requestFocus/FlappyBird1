@@ -50,6 +50,9 @@ public class LevelService : MonoBehaviour
 	public delegate void OnAchievementEarned();
 	public OnAchievementEarned OnAchievementEarnedDel;
 
+	public delegate void OnLifeLost();
+	public OnLifeLost OnLifeLostDel;
+
 	public delegate void OnCurrentStateChange();
 	private OnCurrentStateChange OnCurrentStateChangeDel;                      // jeśli OnStateChange(SwitchViewInViewManager); to obiekt delegata powinien być prywatny, nie jest używany poza tą klasą
 
@@ -89,6 +92,7 @@ public class LevelService : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
+			OnLifeLostDel();
 			SetState(CurrentGameStateService.GameStates.Summary);
 		}
 	}
