@@ -44,9 +44,9 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		StartCoroutine(AchievementUnlockedNotification());
 	}
 
-	public bool VerifyAchievements(int currentScore)				// sprawdzy czy odblokowano achievement
+	public bool VerifyAchievements(int currentScore)						// sprawdzy czy odblokowano achievement
 	{
-		if (currentScore == 2 && !Model.CurrentProfile.Complete10)
+		if (currentScore == 10 && !Model.CurrentProfile.Complete10)
 		{
 			Controller.AssignAchievementComplete10();
 			return true;
