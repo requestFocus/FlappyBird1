@@ -11,7 +11,7 @@ public class GUIMain : MonoBehaviour
 	{
 		ViewManagerInstance = Instantiate(ViewManagerPrefab);
 
-		//LevelService.Instance.OnCurrentStateChangeDel = SwitchViewInViewManager;					// przy takim wywołaniu obiekt delegata musi być publiczny
+		//LevelService.Instance.OnCurrentStateChangeDel = SwitchViewInViewManager;					// przy takim "standardowym" (dla projektu) wywołaniu obiekt delegata musi być publiczny
 
 		LevelService.Instance.OnStateChange(SwitchViewInViewManager);
 	}

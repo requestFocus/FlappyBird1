@@ -14,7 +14,6 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 	[SerializeField] private GameObject SummaryBackground;
 
 	[SerializeField] private GUIService GUIService;
-	//[SerializeField] private LevelService LevelService;
 
 	private void Start()
 	{

@@ -49,7 +49,6 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		if (currentScore == 2 && !Model.CurrentProfile.Complete10)
 		{
 			Controller.AssignAchievementComplete10();
-			Controller.UsernameChangeTest();						//====================================================TEST
 			return true;
 		}
 

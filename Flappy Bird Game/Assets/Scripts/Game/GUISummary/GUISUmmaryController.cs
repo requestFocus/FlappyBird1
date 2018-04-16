@@ -5,10 +5,6 @@ using UnityEngine;
 public class GUISummaryController : Controller<GUISummaryModel>
 {
 	/*
-	 * Kontroler uaktywnia sie w momencie zakończenia gry i potrzeby zapisania wyniku
-	 * - jeśli CurrentScore nie jest wiekszy od Highscore nie trzeba robić nic
-	 * - jeśli CurrentScore jest większy od HighScore należy poinformować model, że zmieniły się dane
-	 * 
 	 * ten kontroler zapisuje dane Modelu w Singletonie
 	 */
 

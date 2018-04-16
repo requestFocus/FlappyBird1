@@ -15,7 +15,7 @@ public class LevelService : MonoBehaviour
 		{
 			if (_instance == null)
 			{
-				_instance = FindObjectOfType<LevelService>();
+				_instance = FindObjectOfType<LevelService>();				// szuka instancji LevelService na scenie - w obecnej postaci znajdzie, bo LevelService istnieje zawsze
 				if (_instance == null)
 					_instance = new LevelService();
 			}
@@ -60,8 +60,8 @@ public class LevelService : MonoBehaviour
 	{
 		SetState(CurrentGameStateService.GameStates.GamePlay);
 
-		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
-		StartCoroutine(CreateColumn());                                               //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
+		_timeIntervalForCoroutine = 3.0f;                                     // 3.0f jako wartosc startowa
+		StartCoroutine(CreateColumn());                                       //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
 
