@@ -2,38 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUIGamePlayController
+public class GUIGamePlayController : Controller<GUIGamePlayModel>
 {
 	/*
-	 * Kontroler musi mieć dostęp do modelu, żeby go zaktualizować w przypadku zmiany
-	 * 
 	 * nie jest to jeszcze aktualizacja Singletona, ten zostanie zaktualizowany w GUISummaryView
 	 */
 
-
-	public bool VerifyIfAchievementUnlocked(GUIGamePlayModel model, int currentScore)
+	public void AssignAchievementComplete10()
 	{
-		if (currentScore == 10 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10)
-		{
-			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10 = true;
-			model.AchievementIsUnlocked = true;
-			return true;
-		}
+		Model.CurrentProfile.Complete10 = true;
+		Model.AchievementIsUnlocked = true;
+	}
 
-		if (currentScore == 25 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25)
-		{
-			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete25 = true;
-			model.AchievementIsUnlocked = true;
-			return true;
-		}
+	public void AssignAchievementComplete25()
+	{
+		Model.CurrentProfile.Complete25 = true;
+		Model.AchievementIsUnlocked = true;
+	}
 
-		if (currentScore == 50 && !model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50)
-		{
-			model.PlayersProfilesLoadedToModel.ListOfProfiles[model.PlayersProfilesLoadedToModel.CurrentProfile].Complete50 = true;
-			model.AchievementIsUnlocked = true;
-			return true;
-		}
-
-		return false;
+	public void AssignAchievementComplete50()
+	{
+		Model.CurrentProfile.Complete50 = true;
+		Model.AchievementIsUnlocked = true;
 	}
 }

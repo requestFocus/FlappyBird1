@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class AchievementSingleEntryView : View<AchievementSingleEntryModel, AchievementSingleEntryController> 
+ 
+public class AchievementSingleEntryView : MonoBehaviour
 {
 	[SerializeField] private Texture Complete10Active;
 	[SerializeField] private Texture Complete10Inactive;

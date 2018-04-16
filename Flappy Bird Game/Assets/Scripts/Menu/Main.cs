@@ -17,7 +17,6 @@ public class Main : MonoBehaviour {
 	[SerializeField] private AchievementsView AchievementsView;
 
 	[SerializeField] private MainLobbyModel MainLobbyModel;
-	[SerializeField] private MainLobbyController MainLobbyController;
 
 	private LoginViewService _loginViewService;
 
@@ -50,7 +49,7 @@ public class Main : MonoBehaviour {
 				MainLobbyView.Model = new MainLobbyModel()
 				{
 					EntireList = PlayersProfiles.Instance.ListOfProfiles,
-					CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfile]
+					CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID]
 				};
 
 				MainLobbyView.DrawMainMenu();

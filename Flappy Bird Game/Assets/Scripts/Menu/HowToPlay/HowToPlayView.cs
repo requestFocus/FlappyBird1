@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HowToPlayView : View<HowToPlayModel, HowToPlayController>
+public class HowToPlayView : View<HowToPlayModel, Controller<HowToPlayModel>>
 {
 	[SerializeField] private Texture LogoButton;
 	[SerializeField] private Texture HowtoPlayButtonInactive;

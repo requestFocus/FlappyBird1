@@ -14,7 +14,6 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 	[SerializeField] private GameObject SummaryBackground;
 
 	[SerializeField] private GUIService GUIService;
-	[SerializeField] private LevelService LevelService;
 
 	private void Start()
 	{
@@ -39,26 +38,25 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		Time.timeScale = 0;
 		SetSummaryScreen(true);
 
-		NameScoreSummary.text = Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].PlayerName + ", your score is " + LevelService.CurrentScore;
+		NameScoreSummary.text = Model.CurrentProfile.PlayerName + ", your score is " + LevelService.Instance.CurrentScore;
 
 		/*
+		 * nowy highscore wyznacza konieczność uaktualnienia danych
+		 * 
 		 * odblokowanie nowego achievementu oznacza, że jest nowy highscore,
 		 * ale nowy highscore nie oznacza odblokowania nowego achievementu
-		 * 
-		 * HINT: jak dodać model GUIGamePlayModel, żeby korzystać z jego zaktualizowanych danych? ten model sam się dodaje w GUIMain, kiedy GUISummary.Model dostaje kopię GUIGamePlay.Model w ViewManager
 		 */
 
-		if (LevelService.CurrentScore > Model.PlayersProfilesSentFromGamePlay.ListOfProfiles[Model.PlayersProfilesSentFromGamePlay.CurrentProfile].HighScore)
+		if (LevelService.Instance.CurrentScore > Model.CurrentProfile.HighScore)
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 
-			Controller.CheckHighscoreTable(Model, LevelService.CurrentScore);       //=================== jeśli scena nie będzie przeładowywana, trzeba tutaj poinformować o tym model GUIGamePlayView, bo inaczej dane się rozjadą
-			Controller.UpdateModel(Model.PlayersProfilesSentFromGamePlay);
-		}
+			if (Model.AchievementIsUnlocked)							// służy wyłącznie wyświetleniu info o odblokowanym achievemencie, aktualizacja modelu nastąpiła w GUIGamePlayView
+			{
+				NewAchievementsSummary.text = "New achievement(s) unlocked! Congrats!";
+			}
 
-		if (Model.AchievementIsUnlocked)
-		{
-			NewAchievementsSummary.text = "New achievement(s) unlocked! Congrats!";
+			Controller.UpdateModel(LevelService.Instance.CurrentScore);
 		}
 	}
 

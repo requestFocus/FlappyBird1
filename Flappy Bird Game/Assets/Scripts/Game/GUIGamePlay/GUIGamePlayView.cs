@@ -12,36 +12,68 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 
 	[SerializeField] private ParticleSystem AchievementParticles;
-	[SerializeField] private LevelService LevelService;                 // do wyswietlania aktualnego score'a
 
 	private void Start()
 	{
-		LevelService.CurrentScore = 0;
+		LevelService.Instance.CurrentScore = 0;
 		Time.timeScale = 1;
 		AchievementUnlockedGamePlay.text = "";
 
-		//Debug.Log(nameof(Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].Complete10));	//============================ 4.0 vs 6.0
+		LevelService.Instance.OnAchievementEarnedDel = ShowAchievementParticlesNotification;
+		LevelService.Instance.OnPointEarnedDel = VerifyAchievements;
+
+		LevelService.Instance.OnLifeLostDel += DeleteGUIGamePlayView;
 	}
 
 	private void Update()
 	{
 		DisplayGUIGamePlayView();
-
-		if (Controller.VerifyIfAchievementUnlocked(Model, LevelService.CurrentScore))                             // jeśli TRUE to achievement unlocked, a wtedy ParticleSystem.Play()
-		{																				//========================================= czy mogę wysyłać Model do Kontrolera bezpośrednio z Widoku? podpięcie Modelu pod kontroler sprawi, że zaktualizowany zostanie "inny" Model, nie ten AKTUALNY						
-			ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles);
-			AchievementParticlesInstance.Play();
-
-			StartCoroutine(AchievementUnlockedNotification());
-		}
 	}
+
+	private void DeleteGUIGamePlayView()
+	{
+		Destroy(gameObject);
+	}
+
+
+	public void ShowAchievementParticlesNotification()						// achievement odblokowany - odpal particle i on-screen notyfikacje
+	{
+		ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles);
+		AchievementParticlesInstance.Play();
+
+		StartCoroutine(AchievementUnlockedNotification());
+	}
+
+	public bool VerifyAchievements(int currentScore)				// sprawdzy czy odblokowano achievement
+	{
+		if (currentScore == 2 && !Model.CurrentProfile.Complete10)
+		{
+			Controller.AssignAchievementComplete10();
+			return true;
+		}
+
+		if (currentScore == 25 && !Model.CurrentProfile.Complete25)
+		{
+			Controller.AssignAchievementComplete25();
+			return true;
+		}
+
+		if (currentScore == 50 && !Model.CurrentProfile.Complete50)
+		{
+			Controller.AssignAchievementComplete50();
+			return true;
+		}
+
+		return false;
+	}
+
 
 
 	public void DisplayGUIGamePlayView()                                // WIDOK GAMEPLAY
 	{
-		NameScoreGamePlay.text = Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].PlayerName;
-		ScoreGamePlay.text = "score: " + LevelService.CurrentScore;
-		HighScoreGamePlay.text = "highscore: " + Model.PlayersProfilesLoadedToModel.ListOfProfiles[Model.PlayersProfilesLoadedToModel.CurrentProfile].HighScore;
+		NameScoreGamePlay.text = Model.CurrentProfile.PlayerName;
+		ScoreGamePlay.text = "score: " + LevelService.Instance.CurrentScore;
+		HighScoreGamePlay.text = "highscore: " + Model.CurrentProfile.HighScore;
 	}
 
 

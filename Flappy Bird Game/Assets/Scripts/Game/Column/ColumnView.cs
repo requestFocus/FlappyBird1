@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColumnView : View<ColumnModel, ColumnController>
+public class ColumnView : MonoBehaviour
 {
 	private const float _startXPosition = 8.0f;
 	private const float _endXPosition = -8.0f;

@@ -7,34 +7,17 @@ public class GUIMain : MonoBehaviour
 	[SerializeField] private ViewManager ViewManagerPrefab;
 	[SerializeField] private ViewManager ViewManagerInstance;
 
-	private bool _gamePlayExists;
-	private bool _summaryExists;
-
-	private void Start()
+	private void Awake()
 	{
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		ViewManagerInstance = Instantiate(ViewManagerPrefab);
+
+		//LevelService.Instance.OnCurrentStateChangeDel = SwitchViewInViewManager;					// przy takim "standardowym" (dla projektu) wywołaniu obiekt delegata musi być publiczny
+
+		LevelService.Instance.OnStateChange(SwitchViewInViewManager);
 	}
 
-	private void Update()
+	public void SwitchViewInViewManager()
 	{
-		switch (CurrentGameStateService.CurrentGameState)
-		{
-			case CurrentGameStateService.GameStates.GamePlay:
-				if (!_gamePlayExists)
-				{
-					ViewManagerInstance.CreateGUIGamePlayView();
-					_gamePlayExists = true;
-				}
-				break;
-
-			case CurrentGameStateService.GameStates.Summary:
-				if (!_summaryExists)
-				{
-					ViewManagerInstance.CreateGUISummaryView();
-					_summaryExists = true;
-				}
-				break;
-		}
+		ViewManagerInstance.SwitchView();           
 	}
 }

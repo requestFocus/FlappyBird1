@@ -5,6 +5,25 @@ using UnityEngine;
 public class LevelService : MonoBehaviour
 {
 	[SerializeField] private GameObject ColumnPrefab;
+	[SerializeField] private GUIMain GUIMain;
+
+	// Singleton
+	private static LevelService _instance;
+	public static LevelService Instance
+	{
+		get
+		{
+			if (_instance == null)
+			{
+				_instance = FindObjectOfType<LevelService>();				// szuka instancji LevelService na scenie - w obecnej postaci znajdzie, bo LevelService istnieje zawsze
+				if (_instance == null)
+					_instance = new LevelService();
+			}
+			return _instance;
+		}
+	}
+	private LevelService() { }
+	// ===========
 
 	private int _currentScore;
 	public int CurrentScore
@@ -25,30 +44,56 @@ public class LevelService : MonoBehaviour
 	private const float _minRange = -3.0f;
 	private const float _maxRange = 3.0f;
 
+	public delegate bool OnPointEarned(int score);
+	public OnPointEarned OnPointEarnedDel;
+
+	public delegate void OnAchievementEarned();
+	public OnAchievementEarned OnAchievementEarnedDel;
+
+	public delegate void OnLifeLost();
+	public OnLifeLost OnLifeLostDel;
+
+	public delegate void OnCurrentStateChange();
+	private OnCurrentStateChange OnCurrentStateChangeDel;                      // jeśli OnStateChange(SwitchViewInViewManager); to obiekt delegata powinien być prywatny, nie jest używany poza tą klasą
+
 	private void Start()
 	{
-		_timeIntervalForCoroutine = 3.0f;                                            // 3.0f jako wartosc startowa
-		StartCoroutine(CreateColumn());                                               //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
+		SetState(CurrentGameStateService.GameStates.GamePlay);
+
+		_timeIntervalForCoroutine = 3.0f;                                     // 3.0f jako wartosc startowa
+		StartCoroutine(CreateColumn());                                       //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}
 
 
-	
+	public void OnStateChange(OnCurrentStateChange callback)                    // działa dla 		LevelService.Instance.OnStateChange(SwitchViewInViewManager);
+	{
+		OnCurrentStateChangeDel = callback;
+	}
+
+	public void SetState(CurrentGameStateService.GameStates state)
+	{
+		CurrentGameStateService.CurrentGameState = state;
+		OnCurrentStateChangeDel();
+	}
 
 	public void PointEarned(Collider2D collision)								
 	{
 		if (collision.gameObject.CompareTag("Score"))									                    // zdobyty punkt
 		{
 			CurrentScore += 1;
+			if (OnPointEarnedDel(CurrentScore))
+			{
+				OnAchievementEarnedDel(); 
+			}
 		}
 	}
-
-
 
 	public void LifeLost(Collider2D collision)                                      
 	{
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
-			CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.Summary;
+			OnLifeLostDel();
+			SetState(CurrentGameStateService.GameStates.Summary);
 		}
 	}
 

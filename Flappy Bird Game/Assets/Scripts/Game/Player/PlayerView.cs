@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerView : View<PlayerModel, PlayerController>
+public class PlayerView : MonoBehaviour
 {
-	[SerializeField] private LevelService LevelService;
-
 	private float _sensitivity;
 	private float _velocity;
 	private float _gravity;
@@ -14,6 +12,11 @@ public class PlayerView : View<PlayerModel, PlayerController>
 	private Vector2 _gravityMovement;
 	private Vector2 _playerMovement;
 	private Vector2 _mergedMovement;
+
+	private void Start()
+	{
+		LevelService.Instance.OnLifeLostDel += DeletePlayerView;
+	}
 
 	private void Update()
 	{
@@ -23,8 +26,14 @@ public class PlayerView : View<PlayerModel, PlayerController>
 
 	private void OnTriggerEnter2D(Collider2D collision)            
 	{
-		LevelService.PointEarned(collision);
-		LevelService.LifeLost(collision);
+		LevelService.Instance.PointEarned(collision);
+		LevelService.Instance.LifeLost(collision);
+	}
+
+
+	private void DeletePlayerView()
+	{
+		Destroy(gameObject);
 	}
 
 
