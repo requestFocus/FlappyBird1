@@ -13,8 +13,6 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 	[SerializeField] private Button DontRepeatButton;
 	[SerializeField] private GameObject SummaryBackground;
 
-	[SerializeField] private GUIService GUIService;
-
 	private void Start()
 	{
 		NameScoreSummary.text = "";
@@ -29,9 +27,22 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 
 	private void OnEnable()                                             // WIDOK SUMMARY
 	{
-		RepeatButton.onClick.AddListener(GUIService.RepeatGame);
-		DontRepeatButton.onClick.AddListener(GUIService.BackToMenu);
+		RepeatButton.onClick.AddListener(RepeatGame);
+		DontRepeatButton.onClick.AddListener(BackToMenu);
 	}
+
+	public void RepeatGame()                                            // WIDOK SUMMARY
+	{
+		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+		SceneManager.LoadScene("Game");
+	}
+
+	public void BackToMenu()                                            // WIDOK SUMMARY				
+	{
+		Main.BackFromGamePlay = true;
+		SceneManager.LoadScene("Menu");
+	}
+
 
 	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
 	{
