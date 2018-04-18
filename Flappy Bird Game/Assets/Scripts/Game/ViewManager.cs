@@ -5,32 +5,33 @@ using UnityEngine;
 public class ViewManager : MonoBehaviour
 {
 	[SerializeField] private GUIGamePlayView GUIGamePlayView;
-
 	[SerializeField] private GUISummaryView GUISummaryView;
-	//[SerializeField] private GUISummaryView GUISummaryViewPrefab;
-	//[SerializeField] private GUISummaryView GUISummaryViewInstance;
 
-	private bool _gamePlayExists;
-	private bool _summaryExists;
+	//private bool _gamePlayExists;
+	//private bool _summaryExists;
 
 	public void SwitchView()
 	{
 		switch (CurrentGameStateService.CurrentGameState)
 		{
 			case CurrentGameStateService.GameStates.GamePlay:
-				if (!_gamePlayExists)
-				{
-					CreateGUIGamePlayView();
-					_gamePlayExists = true;
-				}
+				CreateGUIGamePlayView();
+
+				//if (!_gamePlayExists)
+				//{
+				//CreateGUIGamePlayView();
+				//_gamePlayExists = true;
+				//}
 				break;
 
 			case CurrentGameStateService.GameStates.Summary:
-				if (!_summaryExists)
-				{
-					CreateGUISummaryView();
-					_summaryExists = true;
-				}
+				CreateGUISummaryView();
+
+				//if (!_summaryExists)
+				//{
+				//CreateGUISummaryView();
+				//_summaryExists = true;
+				//}
 				break;
 		}
 	}

@@ -55,10 +55,13 @@ public class LevelService : MonoBehaviour
 	public delegate void OnCurrentStateChange();
 	public OnCurrentStateChange OnCurrentStateChangeDel;                      // jeśli OnStateChange(SwitchViewInViewManager); to obiekt delegata powinien być prywatny, nie jest używany poza tą klasą
 
-	private void Start()
+	private void Awake()
 	{
 		SetState(CurrentGameStateService.GameStates.GamePlay);
+	}
 
+	private void Start()
+	{
 		_timeIntervalForCoroutine = 3.0f;                                     // 3.0f jako wartosc startowa
 		StartCoroutine(CreateColumn());                                       //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
 	}

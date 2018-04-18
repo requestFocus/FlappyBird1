@@ -16,8 +16,11 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 	private void Start()
 	{
-		LevelService.CurrentScore = 0;
 		Time.timeScale = 1;
+
+		NotUpdatableGUIGamePlayView();
+
+		LevelService.CurrentScore = 0;
 		AchievementUnlockedGamePlay.text = "";
 
 		LevelService.OnAchievementEarnedDel = ShowAchievementParticlesNotification;
@@ -72,8 +75,13 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 	public void DisplayGUIGamePlayView()                                // WIDOK GAMEPLAY
 	{
-		NameScoreGamePlay.text = Model.CurrentProfile.PlayerName;
 		ScoreGamePlay.text = "score: " + LevelService.CurrentScore;
+	}
+
+
+	public void NotUpdatableGUIGamePlayView()                                // WIDOK GAMEPLAY
+	{
+		NameScoreGamePlay.text = Model.CurrentProfile.PlayerName;
 		HighScoreGamePlay.text = "highscore: " + Model.CurrentProfile.HighScore;
 	}
 
