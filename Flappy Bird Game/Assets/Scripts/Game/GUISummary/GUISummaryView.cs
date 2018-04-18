@@ -55,7 +55,7 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		Time.timeScale = 0;
 		SetSummaryScreen(true);
 
-		NameScoreSummary.text = Model.CurrentProfile.PlayerName + ", your score is " + LevelService.CurrentScore;
+		NameScoreSummary.text = Model.CurrentProfile.PlayerName + ", your score is " + Model.CurrentScore;
 
 		/*
 		 * nowy highscore wyznacza konieczność uaktualnienia danych
@@ -64,7 +64,7 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		 * ale nowy highscore nie oznacza odblokowania nowego achievementu
 		 */
 
-		if (LevelService.CurrentScore > Model.CurrentProfile.HighScore)
+		if (Model.CurrentScore > Model.CurrentProfile.HighScore)
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 
@@ -73,7 +73,7 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 				NewAchievementsSummary.text = "New achievement(s) unlocked! Congrats!";
 			}
 
-			Controller.UpdateModel(LevelService.CurrentScore);
+			Controller.UpdateModel(Model.CurrentScore);
 		}
 	}
 

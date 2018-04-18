@@ -14,10 +14,11 @@ public class PlayerView : MonoBehaviour
 	private Vector2 _mergedMovement;
 
 	[SerializeField] private LevelService LevelService;
+	[SerializeField] private GUIGamePlayView GUIGamePlayView;
 
 	private void Start()
 	{
-		LevelService.OnLifeLostDel += DeletePlayerView;
+		GUIGamePlayView.OnLifeLostDel += DeletePlayerView;
 	}
 
 	private void Update()
@@ -28,8 +29,8 @@ public class PlayerView : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)            
 	{
-		LevelService.PointEarned(collision);
-		LevelService.LifeLost(collision);
+		GUIGamePlayView.PointEarned(collision);
+		GUIGamePlayView.LifeLost(collision);
 	}
 
 

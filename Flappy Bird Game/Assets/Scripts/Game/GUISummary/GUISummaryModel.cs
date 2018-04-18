@@ -12,4 +12,15 @@ public class GUISummaryModel
 	public PlayerProfile CurrentProfile;
 	public PlayersProfiles PlayersProfilesUpdated;
 	public bool AchievementIsUnlocked;
+
+	private int _currentScore;
+	public int CurrentScore
+	{
+		get { return _currentScore; }
+		set
+		{
+			_currentScore = value;
+			//IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
+		}
+	}
 }

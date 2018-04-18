@@ -1622,6 +1622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelService: {fileID: 930067167}
+  GUIGamePlayView: {fileID: 409962857}
 --- !u!212 &2037682098
 SpriteRenderer:
   m_ObjectHideFlags: 0

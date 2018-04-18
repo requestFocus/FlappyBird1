@@ -14,25 +14,38 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	[SerializeField] private ParticleSystem AchievementParticles;
 	[SerializeField] private LevelService LevelService;
 
+	//public delegate bool OnPointEarned(int score);				// te dwa delegaty nie są potrzebne, skoro delegowane do nich były funkcje znajdujące się w tej samej klasie
+	//public OnPointEarned OnPointEarnedDel;
+
+	//public delegate void OnAchievementEarned();
+	//public OnAchievementEarned OnAchievementEarnedDel;
+
+	public delegate void OnLifeLost();								// ten jest przydatny, bo niszczy zarówno PlayerView, jak i GUIGamePlayView 
+	public OnLifeLost OnLifeLostDel;
+
+	public delegate void OnPointEarnedGUI();
+	public OnPointEarnedGUI OnPointEarnedGUIDel;
+
 	private void Start()
 	{
 		Time.timeScale = 1;
 
 		NotUpdatableGUIGamePlayView();
 
-		LevelService.CurrentScore = 0;
+		OnPointEarnedGUIDel = UpdateScoreOnPointEarned;
+
 		AchievementUnlockedGamePlay.text = "";
 
-		LevelService.OnAchievementEarnedDel = ShowAchievementParticlesNotification;
-		LevelService.OnPointEarnedDel = VerifyAchievements;
+		//OnAchievementEarnedDel = ShowAchievementParticlesNotification;
+		//OnPointEarnedDel = VerifyAchievements;
 
-		LevelService.OnLifeLostDel += DeleteGUIGamePlayView;
+		OnLifeLostDel += DeleteGUIGamePlayView;
 	}
 
-	private void Update()
-	{
-		DisplayGUIGamePlayView();
-	}
+	//private void Update()
+	//{
+	//	//DisplayGUIGamePlayView();
+	//}
 
 	private void DeleteGUIGamePlayView()
 	{
@@ -73,14 +86,15 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 
 
-	public void DisplayGUIGamePlayView()                                // WIDOK GAMEPLAY
+	public void UpdateScoreOnPointEarned()                                // WIDOK GAMEPLAY
 	{
-		ScoreGamePlay.text = "score: " + LevelService.CurrentScore;
+		ScoreGamePlay.text = "score: " + Model.CurrentScore;
 	}
 
 
 	public void NotUpdatableGUIGamePlayView()                                // WIDOK GAMEPLAY
 	{
+		ScoreGamePlay.text = "score: " + Model.CurrentScore;                // tu wyświetli zawsze score = 0, bo w UpdateScoreOnPointEarned() pierwszy update modelu ma miejsce po zdobyciu pierwszego punktu
 		NameScoreGamePlay.text = Model.CurrentProfile.PlayerName;
 		HighScoreGamePlay.text = "highscore: " + Model.CurrentProfile.HighScore;
 	}
@@ -92,5 +106,34 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		AchievementUnlockedGamePlay.text = "New achievement!";
 		yield return new WaitForSeconds(2);
 		AchievementUnlockedGamePlay.text = "";
+	}
+
+
+	public void PointEarned(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("Score"))                                                       // zdobyty punkt
+		{
+			Model.CurrentScore += 1;
+			IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
+
+			OnPointEarnedGUIDel();
+
+			//if (OnPointEarnedDel(Model.CurrentScore))
+			if (VerifyAchievements(Model.CurrentScore))
+			{
+				//OnAchievementEarnedDel();
+				ShowAchievementParticlesNotification();
+			}
+		}
+	}
+
+
+	public void LifeLost(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
+		{
+			OnLifeLostDel();
+			LevelService.SetState(CurrentGameStateService.GameStates.Summary);
+		}
 	}
 }

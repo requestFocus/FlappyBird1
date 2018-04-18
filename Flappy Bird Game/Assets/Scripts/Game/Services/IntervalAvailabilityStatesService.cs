@@ -4,6 +4,10 @@ using UnityEngine;
 
 public static class IntervalAvailabilityStatesService
 {
+	/*
+	 * dzięki temu enumowi prędkość pojawiania się kolumn nie zwiększa się dwukrotnie w ciągu przejść granicznych, kiedy warunek jest spełniony do momentu zdobycia kolejnego punktu
+	 */ 
+
 	public enum IntervalLockStates                                        
 	{
 		Unlocked,

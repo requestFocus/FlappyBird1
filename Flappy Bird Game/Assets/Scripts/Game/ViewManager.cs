@@ -42,7 +42,9 @@ public class ViewManager : MonoBehaviour
 		GUIGamePlayView.Model = new GUIGamePlayModel()
 		{
 			CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID],
-			AchievementIsUnlocked = false
+			AchievementIsUnlocked = false,
+
+			CurrentScore = 0
 		};
 	}
 
@@ -55,7 +57,9 @@ public class ViewManager : MonoBehaviour
 			CurrentProfile = GUIGamePlayView.Model.CurrentProfile,
 			AchievementIsUnlocked = GUIGamePlayView.Model.AchievementIsUnlocked,
 
-			PlayersProfilesUpdated = PlayersProfiles.Instance
+			PlayersProfilesUpdated = PlayersProfiles.Instance,
+
+			CurrentScore = GUIGamePlayView.Model.CurrentScore
 		};
 	}
 }
