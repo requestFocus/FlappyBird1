@@ -18,11 +18,15 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		NameScoreSummary.text = "";
 		NewHighscoreSummary.text = "";
 		NewAchievementsSummary.text = "";
+		SetSummaryScreen(false);
 	}
 
 	private void Update()
 	{
-		DisplayGUISummaryView();
+		if (CurrentGameStateService.CurrentGameState == CurrentGameStateService.GameStates.Summary)
+		{
+			DisplayGUISummaryView();
+		}
 	}
 
 	private void OnEnable()                                             // WIDOK SUMMARY

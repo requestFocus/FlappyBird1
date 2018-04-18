@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class GUIMain : MonoBehaviour
 {
-	[SerializeField] private ViewManager ViewManagerPrefab;
-	[SerializeField] private ViewManager ViewManagerInstance;
+	[SerializeField] private ViewManager ViewManager;
 
 	private void Awake()
 	{
-		ViewManagerInstance = Instantiate(ViewManagerPrefab);
-
 		LevelService.Instance.OnCurrentStateChangeDel = SwitchViewInViewManager;                    // przy takim "standardowym" (dla projektu) wywołaniu obiekt delegata musi być publiczny
 	}
 
 	public void SwitchViewInViewManager()
 	{
-		ViewManagerInstance.SwitchView();           
+		ViewManager.SwitchView();           
 	}
 }
