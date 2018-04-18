@@ -463,6 +463,7 @@ MonoBehaviour:
   AchievementUnlockedGamePlay: {fileID: 1207826647}
   AchievementParticles: {fileID: 198868904761626056, guid: ecff34ae49dc86243ad5c267b4ba590a,
     type: 2}
+  LevelService: {fileID: 930067167}
 --- !u!114 &409962858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,6 +693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ViewManager: {fileID: 891639882}
+  LevelService: {fileID: 930067167}
 --- !u!4 &512041482
 Transform:
   m_ObjectHideFlags: 0
@@ -946,7 +948,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColumnPrefab: {fileID: 1076745607600270, guid: aad8f98ec44ce724baa9cb238485aa03,
     type: 2}
-  GUIMain: {fileID: 0}
 --- !u!1 &1169622230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,6 +1621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7801ac61be0e1114b8791b9eb209614a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelService: {fileID: 930067167}
 --- !u!212 &2037682098
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1742,6 +1744,7 @@ MonoBehaviour:
   RepeatButton: {fileID: 413207114}
   DontRepeatButton: {fileID: 1582452151}
   SummaryBackground: {fileID: 168638594}
+  LevelService: {fileID: 930067167}
 --- !u!114 &2058378737
 MonoBehaviour:
   m_ObjectHideFlags: 0

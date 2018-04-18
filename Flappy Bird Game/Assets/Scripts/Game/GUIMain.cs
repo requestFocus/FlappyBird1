@@ -5,10 +5,11 @@ using UnityEngine;
 public class GUIMain : MonoBehaviour
 {
 	[SerializeField] private ViewManager ViewManager;
+	[SerializeField] private LevelService LevelService;
 
 	private void Awake()
 	{
-		LevelService.Instance.OnCurrentStateChangeDel = SwitchViewInViewManager;                    // przy takim "standardowym" (dla projektu) wywołaniu obiekt delegata musi być publiczny
+		LevelService.OnCurrentStateChangeDel = SwitchViewInViewManager;                    // przy takim "standardowym" (dla projektu) wywołaniu obiekt delegata musi być publiczny
 	}
 
 	public void SwitchViewInViewManager()

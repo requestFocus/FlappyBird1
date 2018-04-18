@@ -5,24 +5,23 @@ using UnityEngine;
 public class LevelService : MonoBehaviour
 {
 	[SerializeField] private GameObject ColumnPrefab;
-	[SerializeField] private GUIMain GUIMain;
 
 	// Singleton
-	private static LevelService _instance;
-	public static LevelService Instance
-	{
-		get
-		{
-			if (_instance == null)
-			{
-				_instance = FindObjectOfType<LevelService>();				// szuka instancji LevelService na scenie - w obecnej postaci znajdzie, bo LevelService istnieje zawsze
-				if (_instance == null)
-					_instance = new LevelService();
-			}
-			return _instance;
-		}
-	}
-	private LevelService() { }
+	//private static LevelService _instance;
+	//public static LevelService Instance
+	//{
+	//	get
+	//	{
+	//		if (_instance == null)
+	//		{
+	//			_instance = FindObjectOfType<LevelService>();				// szuka instancji LevelService na scenie - w obecnej postaci znajdzie, bo LevelService istnieje zawsze
+	//			if (_instance == null)
+	//				_instance = new LevelService();
+	//		}
+	//		return _instance;
+	//	}
+	//}
+	//private LevelService() { }
 	// ===========
 
 	private int _currentScore;

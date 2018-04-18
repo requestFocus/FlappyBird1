@@ -49,7 +49,6 @@ public class ViewManager : MonoBehaviour
 
 	public void CreateGUISummaryView()                          // ten widok powstaje zawsze jako drugi z dwóch
 	{
-		//GUISummaryViewInstance = Instantiate(GUISummaryViewPrefab, gameObject.transform);
 		GUISummaryView.Model = new GUISummaryModel()
 		{
 			CurrentProfile = GUIGamePlayView.Model.CurrentProfile,

@@ -13,6 +13,8 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 	[SerializeField] private Button DontRepeatButton;
 	[SerializeField] private GameObject SummaryBackground;
 
+	[SerializeField] private LevelService LevelService;
+
 	private void Start()
 	{
 		NameScoreSummary.text = "";
@@ -53,7 +55,7 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		Time.timeScale = 0;
 		SetSummaryScreen(true);
 
-		NameScoreSummary.text = Model.CurrentProfile.PlayerName + ", your score is " + LevelService.Instance.CurrentScore;
+		NameScoreSummary.text = Model.CurrentProfile.PlayerName + ", your score is " + LevelService.CurrentScore;
 
 		/*
 		 * nowy highscore wyznacza konieczność uaktualnienia danych
@@ -62,7 +64,7 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		 * ale nowy highscore nie oznacza odblokowania nowego achievementu
 		 */
 
-		if (LevelService.Instance.CurrentScore > Model.CurrentProfile.HighScore)
+		if (LevelService.CurrentScore > Model.CurrentProfile.HighScore)
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 
@@ -71,7 +73,7 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 				NewAchievementsSummary.text = "New achievement(s) unlocked! Congrats!";
 			}
 
-			Controller.UpdateModel(LevelService.Instance.CurrentScore);
+			Controller.UpdateModel(LevelService.CurrentScore);
 		}
 	}
 

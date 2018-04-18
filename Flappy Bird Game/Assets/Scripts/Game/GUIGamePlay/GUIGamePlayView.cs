@@ -12,17 +12,18 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 
 	[SerializeField] private ParticleSystem AchievementParticles;
+	[SerializeField] private LevelService LevelService;
 
 	private void Start()
 	{
-		LevelService.Instance.CurrentScore = 0;
+		LevelService.CurrentScore = 0;
 		Time.timeScale = 1;
 		AchievementUnlockedGamePlay.text = "";
 
-		LevelService.Instance.OnAchievementEarnedDel = ShowAchievementParticlesNotification;
-		LevelService.Instance.OnPointEarnedDel = VerifyAchievements;
+		LevelService.OnAchievementEarnedDel = ShowAchievementParticlesNotification;
+		LevelService.OnPointEarnedDel = VerifyAchievements;
 
-		LevelService.Instance.OnLifeLostDel += DeleteGUIGamePlayView;
+		LevelService.OnLifeLostDel += DeleteGUIGamePlayView;
 	}
 
 	private void Update()
@@ -72,7 +73,7 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	public void DisplayGUIGamePlayView()                                // WIDOK GAMEPLAY
 	{
 		NameScoreGamePlay.text = Model.CurrentProfile.PlayerName;
-		ScoreGamePlay.text = "score: " + LevelService.Instance.CurrentScore;
+		ScoreGamePlay.text = "score: " + LevelService.CurrentScore;
 		HighScoreGamePlay.text = "highscore: " + Model.CurrentProfile.HighScore;
 	}
 

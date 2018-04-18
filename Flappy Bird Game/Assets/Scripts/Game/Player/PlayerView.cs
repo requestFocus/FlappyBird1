@@ -13,9 +13,11 @@ public class PlayerView : MonoBehaviour
 	private Vector2 _playerMovement;
 	private Vector2 _mergedMovement;
 
+	[SerializeField] private LevelService LevelService;
+
 	private void Start()
 	{
-		LevelService.Instance.OnLifeLostDel += DeletePlayerView;
+		LevelService.OnLifeLostDel += DeletePlayerView;
 	}
 
 	private void Update()
@@ -26,8 +28,8 @@ public class PlayerView : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)            
 	{
-		LevelService.Instance.PointEarned(collision);
-		LevelService.Instance.LifeLost(collision);
+		LevelService.PointEarned(collision);
+		LevelService.LifeLost(collision);
 	}
 
 
