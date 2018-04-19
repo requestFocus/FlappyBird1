@@ -6,6 +6,8 @@ public class GUIGamePlayController : Controller<GUIGamePlayModel>
 {
 	/*
 	 * nie jest to jeszcze aktualizacja Singletona, ten zostanie zaktualizowany w GUISummaryView
+	 * 
+	 * osobne funkcje unlockujące achievementy, bo przecież różne achievementy mogą mieć różne dodatkowe warunki
 	 */
 
 	public void AssignAchievementComplete10()

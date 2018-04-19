@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>								// GUIGamePlayView jest głównym widokiem zawierającym widok player PLUS obstacle
+public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		// GUIGamePlayView jest głównym widokiem zawierającym widok player PLUS obstacle
 {
 	[SerializeField] private Text NameScoreGamePlay;
 	[SerializeField] private Text ScoreGamePlay;
@@ -13,17 +13,8 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 	[SerializeField] private ParticleSystem AchievementParticles;
 	[SerializeField] private LevelService LevelService;
-
-	//public delegate bool OnPointEarned(int score);				// te trzy delegaty nie są już potrzebne, skoro delegowane do nich są funkcje znajdujące się w tej samej klasie
-	//public OnPointEarned OnPointEarnedDel;
-
-	//public delegate void OnAchievementEarned();
-	//public OnAchievementEarned OnAchievementEarnedDel;
-
-	//public delegate void OnPointEarnedGUI();
-	//public OnPointEarnedGUI OnPointEarnedGUIDel;
-
-	public delegate void OnLifeLost();								// niszczy zarówno PlayerView, jak i GUIGamePlayView (ColumnView niszczy się samodzielnie)
+	
+	public delegate void OnLifeLost();												// niszczy zarówno PlayerView, jak i GUIGamePlayView (ColumnView niszczy się samodzielnie)
 	public OnLifeLost OnLifeLostDel;
 
 	private void Start()
@@ -32,17 +23,8 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 		AchievementUnlockedGamePlay.text = "";
 		
-		//OnPointEarnedGUIDel = UpdateScoreOnPointEarned;
-		//OnAchievementEarnedDel = ShowAchievementParticlesNotification;
-		//OnPointEarnedDel = VerifyAchievements;
-
 		OnLifeLostDel += DeleteGUIGamePlayView;
 	}
-
-	//private void Update()
-	//{
-	//	//DisplayGUIGamePlayView();
-	//}
 
 	private void DeleteGUIGamePlayView()
 	{
@@ -50,7 +32,7 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	}
 
 
-	public void ShowAchievementParticlesNotification()						// achievement odblokowany - odpal particle i on-screen notyfikacje
+	public void ShowAchievementParticlesNotification()								// achievement odblokowany - odpal particle i on-screen notyfikacje
 	{
 		ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles);
 		AchievementParticlesInstance.Play();
@@ -58,7 +40,7 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 		StartCoroutine(AchievementUnlockedNotification());
 	}
 
-	public bool VerifyAchievements(int currentScore)						// sprawdzy czy odblokowano achievement
+	public bool VerifyAchievements(int currentScore)								// sprawdzy czy odblokowano achievement
 	{
 		if (currentScore == 2 && !Model.CurrentProfile.Complete10)
 		{
@@ -83,22 +65,20 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 
 
-	public void UpdateScoreOnPointEarned()                                // WIDOK GAMEPLAY
+	public void UpdateScoreOnPointEarned()                                
 	{
 		ScoreGamePlay.text = "score: " + Model.CurrentScore;
 	}
 
 
-	public void NotUpdatableGUIGamePlayView()                                // WIDOK GAMEPLAY
+	public void NotUpdatableGUIGamePlayView()                                
 	{
-		ScoreGamePlay.text = "score: " + Model.CurrentScore;                // tu wyświetli zawsze score = 0, bo w UpdateScoreOnPointEarned() pierwszy update modelu ma miejsce po zdobyciu pierwszego punktu
+		ScoreGamePlay.text = "score: " + Model.CurrentScore;					 // tu wyświetli zawsze score = 0, bo w UpdateScoreOnPointEarned() pierwszy update modelu ma miejsce po zdobyciu pierwszego punktu
 		NameScoreGamePlay.text = Model.CurrentProfile.PlayerName;
 		HighScoreGamePlay.text = "highscore: " + Model.CurrentProfile.HighScore;
 	}
 
-
-
-	public IEnumerator AchievementUnlockedNotification()                // WIDOK GAMEPLAY, wyswietla info o odblokowaniu achievementu
+	public IEnumerator AchievementUnlockedNotification()						// wyswietla info o odblokowaniu achievementu
 	{
 		AchievementUnlockedGamePlay.text = "New achievement!";
 		yield return new WaitForSeconds(2);
@@ -108,18 +88,15 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 
 	public void PointEarned(Collider2D collision)
 	{
-		if (collision.gameObject.CompareTag("Score"))                                                       // zdobyty punkt
+		if (collision.gameObject.CompareTag("Score"))                            // zdobyty punkt
 		{
 			Model.CurrentScore += 1;
 			IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
 
-			//OnPointEarnedGUIDel();
 			UpdateScoreOnPointEarned();
 
-			//if (OnPointEarnedDel(Model.CurrentScore))
 			if (VerifyAchievements(Model.CurrentScore))
 			{
-				//OnAchievementEarnedDel();
 				ShowAchievementParticlesNotification();
 			}
 		}

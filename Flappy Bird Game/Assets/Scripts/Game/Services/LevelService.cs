@@ -6,17 +6,6 @@ public class LevelService : MonoBehaviour
 {
 	[SerializeField] private GameObject ColumnPrefab;
 
-	//private int _currentScore;
-	//public int CurrentScore
-	//{
-	//	get { return _currentScore; }
-	//	set
-	//	{
-	//		_currentScore = value;
-	//		IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
-	//	}
-	//}
-
 	private float _timeIntervalForCoroutine;
 	private float _yPosition;
 
@@ -26,15 +15,6 @@ public class LevelService : MonoBehaviour
 	private const float _maxRange = 3.0f;
 
 	private int _columnsSoFar;
-
-	//public delegate bool OnPointEarned(int score);
-	//public OnPointEarned OnPointEarnedDel;
-
-	//public delegate void OnAchievementEarned();
-	//public OnAchievementEarned OnAchievementEarnedDel;
-
-	//public delegate void OnLifeLost();
-	//public OnLifeLost OnLifeLostDel;
 
 	public delegate void OnCurrentStateChange();
 	public OnCurrentStateChange OnCurrentStateChangeDel;                      // jeśli OnStateChange(SwitchViewInViewManager); to obiekt delegata powinien być prywatny, nie jest używany poza tą klasą
@@ -57,28 +37,7 @@ public class LevelService : MonoBehaviour
 		OnCurrentStateChangeDel();
 	}
 
-	//public void PointEarned(Collider2D collision)								
-	//{
-	//	if (collision.gameObject.CompareTag("Score"))									                    // zdobyty punkt
-	//	{
-	//		CurrentScore += 1;
-	//		if (OnPointEarnedDel(CurrentScore))
-	//		{
-	//			OnAchievementEarnedDel(); 
-	//		}
-	//	}
-	//}
-
-	//public void LifeLost(Collider2D collision)                                      
-	//{
-	//	if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
-	//	{
-	//		OnLifeLostDel();
-	//		SetState(CurrentGameStateService.GameStates.Summary);
-	//	}
-	//}
-
-	public float CalculateTimeIntervalForObstacles()                    // COLUMN SERVICE	
+	public float CalculateTimeIntervalForObstacles()						
 	{
 		if (_columnsSoFar != 0 && _columnsSoFar % 10 == 0 && _timeIntervalForCoroutine > 1.0f && IntervalAvailabilityStatesService.IntervalLock == IntervalAvailabilityStatesService.IntervalLockStates.Locked)
 		{
@@ -88,7 +47,7 @@ public class LevelService : MonoBehaviour
 		return _timeIntervalForCoroutine;
 	}
 
-	public IEnumerator CreateColumn()                                       // COLUMN SERVICE	
+	public IEnumerator CreateColumn()                                       	
 	{
 		while (true)
 		{
@@ -99,7 +58,7 @@ public class LevelService : MonoBehaviour
 		}
 	}
 
-	public void InitializeColumn(GameObject column)                                 // COLUMN SERVICE	
+	public void InitializeColumn(GameObject column)                                
 	{
 		_yPosition = Random.Range(_minRange, _maxRange);
 		column.transform.position = new Vector3(_startXPosition, _yPosition);

@@ -8,4 +8,9 @@ public class ModelFactory
 	{
 		return new GUIGamePlayModel();
 	}
+
+	public GUISummaryModel ConcreteGUISummaryModel(GUIGamePlayModel model)
+	{
+		return new GUISummaryModel(model);
+	}
 }
