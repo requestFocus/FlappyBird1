@@ -34,6 +34,7 @@ public class PlayerView : MonoBehaviour
 	}
 
 
+
 	private void DeletePlayerView()
 	{
 		Destroy(gameObject);

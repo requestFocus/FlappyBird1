@@ -15,7 +15,7 @@ public class ColumnView : MonoBehaviour
 
 	private void MoveColumn()                                       // COLUMN SERVICE								
 	{
-		if (transform.position.x <= _startXPosition && transform.position.x >= _endXPosition)
+		if (transform.position.x <= _startXPosition && transform.position.x >= _endXPosition && CurrentGameStateService.CurrentGameState == CurrentGameStateService.GameStates.GamePlay)
 			transform.position += (Vector3.left * Time.deltaTime * _acceleration);
 		else
 			Destroy(gameObject);

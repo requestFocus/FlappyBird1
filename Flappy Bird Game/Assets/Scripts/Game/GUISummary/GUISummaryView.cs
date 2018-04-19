@@ -52,7 +52,6 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 
 	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
 	{
-		Time.timeScale = 0;
 		SetSummaryScreen(true);
 
 		NameScoreSummary.text = Model.CurrentProfile.PlayerName + ", your score is " + Model.CurrentScore;

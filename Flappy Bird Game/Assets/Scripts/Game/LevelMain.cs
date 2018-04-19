@@ -11,5 +11,4 @@ public class LevelMain : MonoBehaviour
 	{
 		Instantiate(BackgroundGameViewPrefab, gameObject.transform);       // skrypt nie musi byc niszczony, bo obiekt ma zapętlone przejście i wystarczy jedna instancja
 	}
-
 }

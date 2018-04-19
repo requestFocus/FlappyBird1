@@ -14,28 +14,25 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 	[SerializeField] private ParticleSystem AchievementParticles;
 	[SerializeField] private LevelService LevelService;
 
-	//public delegate bool OnPointEarned(int score);				// te dwa delegaty nie są potrzebne, skoro delegowane do nich były funkcje znajdujące się w tej samej klasie
+	//public delegate bool OnPointEarned(int score);				// te trzy delegaty nie są już potrzebne, skoro delegowane do nich są funkcje znajdujące się w tej samej klasie
 	//public OnPointEarned OnPointEarnedDel;
 
 	//public delegate void OnAchievementEarned();
 	//public OnAchievementEarned OnAchievementEarnedDel;
 
-	public delegate void OnLifeLost();								// ten jest przydatny, bo niszczy zarówno PlayerView, jak i GUIGamePlayView 
-	public OnLifeLost OnLifeLostDel;
+	//public delegate void OnPointEarnedGUI();
+	//public OnPointEarnedGUI OnPointEarnedGUIDel;
 
-	public delegate void OnPointEarnedGUI();
-	public OnPointEarnedGUI OnPointEarnedGUIDel;
+	public delegate void OnLifeLost();								// niszczy zarówno PlayerView, jak i GUIGamePlayView (ColumnView niszczy się samodzielnie)
+	public OnLifeLost OnLifeLostDel;
 
 	private void Start()
 	{
-		Time.timeScale = 1;
-
 		NotUpdatableGUIGamePlayView();
 
-		OnPointEarnedGUIDel = UpdateScoreOnPointEarned;
-
 		AchievementUnlockedGamePlay.text = "";
-
+		
+		//OnPointEarnedGUIDel = UpdateScoreOnPointEarned;
 		//OnAchievementEarnedDel = ShowAchievementParticlesNotification;
 		//OnPointEarnedDel = VerifyAchievements;
 
@@ -116,7 +113,8 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>				
 			Model.CurrentScore += 1;
 			IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
 
-			OnPointEarnedGUIDel();
+			//OnPointEarnedGUIDel();
+			UpdateScoreOnPointEarned();
 
 			//if (OnPointEarnedDel(Model.CurrentScore))
 			if (VerifyAchievements(Model.CurrentScore))

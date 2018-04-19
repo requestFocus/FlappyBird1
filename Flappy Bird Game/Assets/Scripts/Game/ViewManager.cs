@@ -7,6 +7,9 @@ public class ViewManager : MonoBehaviour
 	[SerializeField] private GUIGamePlayView GUIGamePlayView;
 	[SerializeField] private GUISummaryView GUISummaryView;
 
+	private ModelFactory _modelFactory;
+	private IGamePlayModel _gamePlayModel;
+
 	//private bool _gamePlayExists;
 	//private bool _summaryExists;
 
@@ -15,7 +18,13 @@ public class ViewManager : MonoBehaviour
 		switch (CurrentGameStateService.CurrentGameState)
 		{
 			case CurrentGameStateService.GameStates.GamePlay:
-				CreateGUIGamePlayView();
+
+				_modelFactory = new ModelFactory();
+				_gamePlayModel = _modelFactory.ConcreteGUIGamePlayModel();
+				GUIGamePlayView.Model = (GUIGamePlayModel)_gamePlayModel;
+
+
+				//CreateGUIGamePlayView();
 
 				//if (!_gamePlayExists)
 				//{

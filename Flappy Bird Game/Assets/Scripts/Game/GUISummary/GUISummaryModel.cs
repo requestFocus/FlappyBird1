@@ -17,10 +17,6 @@ public class GUISummaryModel
 	public int CurrentScore
 	{
 		get { return _currentScore; }
-		set
-		{
-			_currentScore = value;
-			//IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
-		}
+		set { _currentScore = value; }
 	}
 }
