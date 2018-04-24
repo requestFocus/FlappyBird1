@@ -13,8 +13,6 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 	[SerializeField] private Button DontRepeatButton;
 	[SerializeField] private GameObject SummaryBackground;
 
-	[SerializeField] private LevelService LevelService;
-
 	private void Start()
 	{
 		NameScoreSummary.text = "";

@@ -8,8 +8,8 @@ public class ViewManager : MonoBehaviour
 	[SerializeField] private GUISummaryView GUISummaryView;
 
 	private ModelFactory _modelFactory;
-	private IGamePlayModel _gamePlayModel;
-	private ISummaryModel _summaryModel;
+	//private IGamePlayModel _gamePlayModel;
+	//private ISummaryModel _summaryModel;
 
 	public void SwitchView()
 	{
@@ -18,13 +18,17 @@ public class ViewManager : MonoBehaviour
 		switch (CurrentGameStateService.CurrentGameState)
 		{
 			case CurrentGameStateService.GameStates.GamePlay:
-				_gamePlayModel = _modelFactory.ConcreteGUIGamePlayModel();
-				GUIGamePlayView.Model = (GUIGamePlayModel)_gamePlayModel;
+				//_gamePlayModel = _modelFactory.ConcreteGUIGamePlayModel();
+				//GUIGamePlayView.Model = (GUIGamePlayModel)_gamePlayModel;
+
+				GUIGamePlayView.Model = _modelFactory.ConcreteGUIGamePlayModel();
 				break;
 
 			case CurrentGameStateService.GameStates.Summary:
-				_summaryModel = _modelFactory.ConcreteGUISummaryModel((GUIGamePlayModel)_gamePlayModel);
-				GUISummaryView.Model = (GUISummaryModel)_summaryModel;
+				//_summaryModel = _modelFactory.ConcreteGUISummaryModel((GUIGamePlayModel)_gamePlayModel);
+				//GUISummaryView.Model = (GUISummaryModel)_summaryModel;
+
+				GUISummaryView.Model = _modelFactory.ConcreteGUISummaryModel(GUIGamePlayView.Model);
 				break;
 		}
 	}
