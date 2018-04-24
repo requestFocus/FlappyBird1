@@ -4,31 +4,18 @@ using UnityEngine;
 
 public class ViewManager : MonoBehaviour
 {
-	[SerializeField] private GUIGamePlayView GUIGamePlayView;
-	[SerializeField] private GUISummaryView GUISummaryView;
-
-	private ModelFactory _modelFactory;
-	//private IGamePlayModel _gamePlayModel;
-	//private ISummaryModel _summaryModel;
+	[SerializeField] private ViewFactory ViewFactory;
 
 	public void SwitchView()
 	{
-		_modelFactory = new ModelFactory();
-
 		switch (CurrentGameStateService.CurrentGameState)
 		{
 			case CurrentGameStateService.GameStates.GamePlay:
-				//_gamePlayModel = _modelFactory.ConcreteGUIGamePlayModel();
-				//GUIGamePlayView.Model = (GUIGamePlayModel)_gamePlayModel;
-
-				GUIGamePlayView.Model = _modelFactory.ConcreteGUIGamePlayModel();
+				ViewFactory.ConcreteGUIGamePlayView();
 				break;
 
 			case CurrentGameStateService.GameStates.Summary:
-				//_summaryModel = _modelFactory.ConcreteGUISummaryModel((GUIGamePlayModel)_gamePlayModel);
-				//GUISummaryView.Model = (GUISummaryModel)_summaryModel;
-
-				GUISummaryView.Model = _modelFactory.ConcreteGUISummaryModel(GUIGamePlayView.Model);
+				ViewFactory.ConcreteGUISummaryView();
 				break;
 		}
 	}

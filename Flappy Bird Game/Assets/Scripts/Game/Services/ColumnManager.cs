@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelService : MonoBehaviour
+public class ColumnManager : MonoBehaviour
 {
 	[SerializeField] private GameObject ColumnPrefab;
 
@@ -16,14 +16,6 @@ public class LevelService : MonoBehaviour
 
 	private int _columnsSoFar;
 
-	public delegate void OnCurrentStateChange();
-	public OnCurrentStateChange OnCurrentStateChangeDel;                      // jeśli OnStateChange(SwitchViewInViewManager); to obiekt delegata powinien być prywatny, nie jest używany poza tą klasą
-
-	private void Awake()
-	{
-		SetState(CurrentGameStateService.GameStates.GamePlay);
-	}
-
 	private void Start()
 	{
 		_timeIntervalForCoroutine = 3.0f;                                     // 3.0f jako wartosc startowa
@@ -31,13 +23,7 @@ public class LevelService : MonoBehaviour
 	}
 
 
-	public void SetState(CurrentGameStateService.GameStates state)
-	{
-		CurrentGameStateService.CurrentGameState = state;
-		OnCurrentStateChangeDel();
-	}
-
-	public float CalculateTimeIntervalForObstacles()						
+	private float CalculateTimeIntervalForObstacles()						
 	{
 		if (_columnsSoFar != 0 && _columnsSoFar % 10 == 0 && _timeIntervalForCoroutine > 1.0f && IntervalAvailabilityStatesService.IntervalLock == IntervalAvailabilityStatesService.IntervalLockStates.Locked)
 		{
@@ -47,7 +33,7 @@ public class LevelService : MonoBehaviour
 		return _timeIntervalForCoroutine;
 	}
 
-	public IEnumerator CreateColumn()                                       	
+	private IEnumerator CreateColumn()                                       	
 	{
 		while (true)
 		{
@@ -58,7 +44,7 @@ public class LevelService : MonoBehaviour
 		}
 	}
 
-	public void InitializeColumn(GameObject column)                                
+	private void InitializeColumn(GameObject column)                                
 	{
 		_yPosition = Random.Range(_minRange, _maxRange);
 		column.transform.position = new Vector3(_startXPosition, _yPosition);

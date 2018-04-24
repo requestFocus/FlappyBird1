@@ -5,15 +5,16 @@ using UnityEngine;
 public class GUIMain : MonoBehaviour
 {
 	[SerializeField] private ViewManager ViewManager;
-	[SerializeField] private LevelService LevelService;
 
 	private void Awake()
 	{
-		LevelService.OnCurrentStateChangeDel = SwitchViewInViewManager;                    // przy takim "standardowym" (dla projektu) wywołaniu obiekt delegata musi być publiczny
+		SetState(CurrentGameStateService.GameStates.GamePlay);
 	}
 
-	public void SwitchViewInViewManager()
+
+	public void SetState(CurrentGameStateService.GameStates state)
 	{
-		ViewManager.SwitchView();           
+		CurrentGameStateService.CurrentGameState = state;
+		ViewManager.SwitchView();
 	}
 }

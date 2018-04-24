@@ -35,31 +35,31 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		DontRepeatButton.onClick.AddListener(BackToMenu);
 	}
 
-	public void RepeatGame()                                            // WIDOK SUMMARY
+	private void RepeatGame()                                            // WIDOK SUMMARY
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		SceneManager.LoadScene("Game");
 	}
 
-	public void BackToMenu()                                            // WIDOK SUMMARY				
+	private void BackToMenu()                                            // WIDOK SUMMARY				
 	{
 		Main.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
 	}
 
 
-	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
+	/*
+	 * nowy highscore wyznacza konieczność uaktualnienia danych
+	 * 
+	 * odblokowanie nowego achievementu oznacza, że jest nowy highscore,
+	 * ale nowy highscore nie oznacza odblokowania nowego achievementu
+	 */
+
+	private void DisplayGUISummaryView()                                // WIDOK SUMMARY
 	{
 		SetSummaryScreen(true);
 
 		NameScoreSummary.text = Model.CurrentProfile.PlayerName + ", your score is " + Model.CurrentScore;
-
-		/*
-		 * nowy highscore wyznacza konieczność uaktualnienia danych
-		 * 
-		 * odblokowanie nowego achievementu oznacza, że jest nowy highscore,
-		 * ale nowy highscore nie oznacza odblokowania nowego achievementu
-		 */
 
 		if (Model.CurrentScore > Model.CurrentProfile.HighScore)
 		{

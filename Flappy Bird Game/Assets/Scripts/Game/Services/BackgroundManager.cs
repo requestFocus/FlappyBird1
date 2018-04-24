@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelMain : MonoBehaviour
+public class BackgroundManager : MonoBehaviour
 {
 	[SerializeField] private BackgroundGameView BackgroundGameViewPrefab;
 	[SerializeField] private PlayerView PlayerView;

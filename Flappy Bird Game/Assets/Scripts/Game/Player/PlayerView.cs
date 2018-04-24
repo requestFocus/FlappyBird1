@@ -13,11 +13,11 @@ public class PlayerView : MonoBehaviour
 	private Vector2 _playerMovement;
 	private Vector2 _mergedMovement;
 
-	[SerializeField] private LevelService LevelService;
-	[SerializeField] private GUIGamePlayView GUIGamePlayView;
+	private GUIGamePlayView GUIGamePlayView;
 
 	private void Start()
 	{
+		GUIGamePlayView = FindObjectOfType<GUIGamePlayView>();
 		GUIGamePlayView.OnLifeLostDel += DeletePlayerView;
 	}
 
