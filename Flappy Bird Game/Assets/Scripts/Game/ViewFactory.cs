@@ -6,8 +6,13 @@ public class ViewFactory : MonoBehaviour
 {
 	[SerializeField] private GUIGamePlayView GUIGamePlayViewPrefab;
 	[SerializeField] private GUIGamePlayView GUIGamePlayViewInstance;
-	[SerializeField] private GUISummaryView GUISummaryViewPrefab;
-	[SerializeField] private GUISummaryView GUISummaryViewInstance;
+	[SerializeField] private GUISuccessSummaryView GUISuccessSummaryViewPrefab;
+	[SerializeField] private GUISuccessSummaryView GUISuccessSummaryViewInstance;
+
+	[SerializeField] private GUIFailureSummaryView GUIFailureSummaryViewPrefab;
+	[SerializeField] private GUIFailureSummaryView GUIFailureSummaryViewInstance;
+
+	private ISummaryView _summaryView;
 
 	public void ConcreteGUIGamePlayView()
 	{
@@ -16,11 +21,21 @@ public class ViewFactory : MonoBehaviour
 		GUIGamePlayViewInstance.Model = new GUIGamePlayModel();
 	}
 
-
-	public void ConcreteGUISummaryView()
+	public ISummaryView ConcreteGUISummaryView()
 	{
-		GUISummaryViewInstance = Instantiate(GUISummaryViewPrefab);
+		GUISuccessSummaryViewInstance = Instantiate(GUISuccessSummaryViewPrefab);
 		GUIGamePlayViewInstance.transform.SetParent(FindObjectOfType<GUIMain>().transform);
-		GUISummaryViewInstance.Model = new GUISummaryModel(GUIGamePlayViewInstance.Model);
+		GUISuccessSummaryViewInstance.Model = new GUISuccessSummaryModel(GUIGamePlayViewInstance.Model);
+		_summaryView = GUISuccessSummaryViewInstance;
+		return _summaryView;
+	}
+
+	public ISummaryView ConcreteGUIFailureSummaryView()
+	{
+		GUIFailureSummaryViewInstance = Instantiate(GUIFailureSummaryViewPrefab);
+		GUIGamePlayViewInstance.transform.SetParent(FindObjectOfType<GUIMain>().transform);
+		GUIFailureSummaryViewInstance.Model = new GUIFailureSummaryModel(GUIGamePlayViewInstance.Model);
+		_summaryView = GUIFailureSummaryViewInstance;
+		return _summaryView;
 	}
 }

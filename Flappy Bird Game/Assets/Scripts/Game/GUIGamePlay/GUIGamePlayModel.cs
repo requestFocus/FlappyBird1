@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUIGamePlayModel : IGamePlayModel
+public class GUIGamePlayModel
 {
 	/*
 	 * Model potrzebuje dostepu do:

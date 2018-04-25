@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUISummaryController : Controller<GUISummaryModel>
+public class GUIFailureSummaryController : Controller<GUIFailureSummaryModel>
 {
 	/*
 	 * ten kontroler zapisuje dane Modelu w Singletonie

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUISummaryModel : ISummaryModel
+public class GUISuccessSummaryModel
 {
 	/*
 	 * Model potrzebuje dostepu do:
@@ -12,6 +12,7 @@ public class GUISummaryModel : ISummaryModel
 	public PlayerProfile CurrentProfile { get; set; }
 	public PlayersProfiles PlayersProfilesUpdated { get; set; }
 	public bool AchievementIsUnlocked { get; set; }
+	public string GameOutcome;
 
 	private int _currentScore;
 	public int CurrentScore
@@ -20,11 +21,12 @@ public class GUISummaryModel : ISummaryModel
 		set { _currentScore = value; }
 	}
 
-	public GUISummaryModel(GUIGamePlayModel gamePlayModel)
+	public GUISuccessSummaryModel(GUIGamePlayModel gamePlayModel)
 	{
 		CurrentProfile = gamePlayModel.CurrentProfile;
 		AchievementIsUnlocked = gamePlayModel.AchievementIsUnlocked;
 		PlayersProfilesUpdated = PlayersProfiles.Instance;
 		CurrentScore = gamePlayModel.CurrentScore;
+		GameOutcome = "Success";
 	}
 }

@@ -143,9 +143,12 @@ MonoBehaviour:
   GUIGamePlayViewPrefab: {fileID: 114717932551975422, guid: 5305fe6fa2db58d428ff19463d548850,
     type: 2}
   GUIGamePlayViewInstance: {fileID: 0}
-  GUISummaryViewPrefab: {fileID: 114866094965246464, guid: 5b860999c9beb5a4183655fbe4b5aa39,
+  GUISuccessSummaryViewPrefab: {fileID: 114866094965246464, guid: 5b860999c9beb5a4183655fbe4b5aa39,
     type: 2}
-  GUISummaryViewInstance: {fileID: 0}
+  GUISuccessSummaryViewInstance: {fileID: 0}
+  GUIFailureSummaryViewPrefab: {fileID: 114542588335931866, guid: c72c45c460f3fd74ab957e4670b2ad39,
+    type: 2}
+  GUIFailureSummaryViewInstance: {fileID: 0}
 --- !u!4 &147654843
 Transform:
   m_ObjectHideFlags: 0
@@ -189,7 +192,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ViewManager: {fileID: 891639882}
-  LevelService: {fileID: 930067167}
 --- !u!4 &512041482
 Transform:
   m_ObjectHideFlags: 0
@@ -603,7 +605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7801ac61be0e1114b8791b9eb209614a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelService: {fileID: 930067167}
 --- !u!212 &2037682098
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
+public class GUISuccessSummaryView : View<GUISuccessSummaryModel, GUISuccessSummaryController>, ISummaryView
 {
 	[SerializeField] private Text NameScoreSummary;
 	[SerializeField] private Text NewHighscoreSummary;
@@ -19,14 +19,8 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		NewHighscoreSummary.text = "";
 		NewAchievementsSummary.text = "";
 		SetSummaryScreen(false);
-	}
 
-	private void Update()
-	{
-		if (CurrentGameStateService.CurrentGameState == CurrentGameStateService.GameStates.Summary)
-		{
-			DisplayGUISummaryView();
-		}
+		DisplayGUISummaryView();
 	}
 
 	private void OnEnable()                                             // WIDOK SUMMARY
@@ -35,13 +29,13 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		DontRepeatButton.onClick.AddListener(BackToMenu);
 	}
 
-	private void RepeatGame()                                            // WIDOK SUMMARY
+	public void RepeatGame()                                            // WIDOK SUMMARY
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		SceneManager.LoadScene("Game");
 	}
 
-	private void BackToMenu()                                            // WIDOK SUMMARY				
+	public void BackToMenu()                                            // WIDOK SUMMARY				
 	{
 		Main.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
@@ -55,7 +49,7 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 	 * ale nowy highscore nie oznacza odblokowania nowego achievementu
 	 */
 
-	private void DisplayGUISummaryView()                                // WIDOK SUMMARY
+	public void DisplayGUISummaryView()                                // WIDOK SUMMARY
 	{
 		SetSummaryScreen(true);
 
@@ -74,7 +68,7 @@ public class GUISummaryView : View<GUISummaryModel, GUISummaryController>
 		}
 	}
 
-	private void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz
+	public void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz
 	{
 		SummaryBackground.SetActive(state);
 		RepeatButton.gameObject.SetActive(state);

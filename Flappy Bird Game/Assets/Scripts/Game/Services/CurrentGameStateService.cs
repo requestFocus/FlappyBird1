@@ -7,7 +7,8 @@ public static class CurrentGameStateService
 	public enum GameStates
 	{
 		GamePlay,
-		Summary,
+		SummarySuccess,
+		SummaryFailure
 	};
 	public static GameStates CurrentGameState;
 }

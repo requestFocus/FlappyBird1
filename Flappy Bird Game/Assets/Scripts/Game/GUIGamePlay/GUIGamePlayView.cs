@@ -50,7 +50,10 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
 			OnLifeLostDel();
-			_GUIMain.SetState(CurrentGameStateService.GameStates.Summary);
+			if (Model.CurrentScore > Model.CurrentProfile.HighScore)
+				_GUIMain.SetState(CurrentGameStateService.GameStates.SummarySuccess);
+			else
+				_GUIMain.SetState(CurrentGameStateService.GameStates.SummaryFailure);
 		}
 	}
 
