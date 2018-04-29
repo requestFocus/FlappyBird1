@@ -113,101 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &147654841
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 147654843}
-  - component: {fileID: 147654842}
-  m_Layer: 0
-  m_Name: ViewFactory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &147654842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 147654841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0f05b4485dba244190e636b951a4536, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUIGamePlayViewPrefab: {fileID: 114717932551975422, guid: 5305fe6fa2db58d428ff19463d548850,
-    type: 2}
-  GUIGamePlayViewInstance: {fileID: 0}
-  GUISuccessSummaryViewPrefab: {fileID: 114866094965246464, guid: 5b860999c9beb5a4183655fbe4b5aa39,
-    type: 2}
-  GUISuccessSummaryViewInstance: {fileID: 0}
-  GUIFailureSummaryViewPrefab: {fileID: 114542588335931866, guid: c72c45c460f3fd74ab957e4670b2ad39,
-    type: 2}
-  GUIFailureSummaryViewInstance: {fileID: 0}
---- !u!4 &147654843
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 147654841}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2131897, y: 0.039447077, z: 0.19064766}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 512041482}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &512041480
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1160471750007408, guid: 0f893bad420eac545ae21483689e03d8,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 512041482}
-  - component: {fileID: 512041481}
-  m_Layer: 0
-  m_Name: GUIMain
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &512041481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114685529760693942, guid: 0f893bad420eac545ae21483689e03d8,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 512041480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1169fbbf89df2046bcec4e679f596de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ViewManager: {fileID: 891639882}
---- !u!4 &512041482
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4580377672604572, guid: 0f893bad420eac545ae21483689e03d8,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 512041480}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 891639883}
-  - {fileID: 147654843}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &798686270
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 891639883}
   - component: {fileID: 891639882}
+  - component: {fileID: 891639884}
   m_Layer: 0
   m_Name: ViewManager
   m_TagString: Untagged
@@ -318,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b92ffbdc32e4c94f80fcbdad7b5ae95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewFactory: {fileID: 147654842}
+  ViewFactory: {fileID: 891639884}
 --- !u!4 &891639883
 Transform:
   m_ObjectHideFlags: 0
@@ -330,9 +236,26 @@ Transform:
   m_LocalPosition: {x: -1.2131897, y: 0.039447077, z: 0.19064766}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 512041482}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &891639884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 891639881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f05b4485dba244190e636b951a4536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUIGamePlayViewPrefab: {fileID: 114717932551975422, guid: 5305fe6fa2db58d428ff19463d548850,
+    type: 2}
+  GUISuccessSummaryViewPrefab: {fileID: 114866094965246464, guid: 5b860999c9beb5a4183655fbe4b5aa39,
+    type: 2}
+  GUIFailureSummaryViewPrefab: {fileID: 114542588335931866, guid: c72c45c460f3fd74ab957e4670b2ad39,
+    type: 2}
 --- !u!1 &930067166
 GameObject:
   m_ObjectHideFlags: 0

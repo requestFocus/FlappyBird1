@@ -12,15 +12,11 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 	[SerializeField] private ParticleSystem AchievementParticles;
 
-	private GUIMain _GUIMain;
-	
 	public delegate void OnLifeLost();												// niszczy zarówno PlayerView, jak i GUIGamePlayView (ColumnView niszczy się samodzielnie)
 	public OnLifeLost OnLifeLostDel;
 
 	private void Start()
 	{
-		_GUIMain = FindObjectOfType<GUIMain>();
-
 		NotUpdatableGUIGamePlayView();
 
 		AchievementUnlockedGamePlay.text = "";
@@ -51,9 +47,9 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 		{
 			OnLifeLostDel();
 			if (Model.CurrentScore > Model.CurrentProfile.HighScore)
-				_GUIMain.SetState(CurrentGameStateService.GameStates.SummarySuccess);
+				Controller.SetState(CurrentGameStateService.GameStates.SummarySuccess);
 			else
-				_GUIMain.SetState(CurrentGameStateService.GameStates.SummaryFailure);
+				Controller.SetState(CurrentGameStateService.GameStates.SummaryFailure);
 		}
 	}
 

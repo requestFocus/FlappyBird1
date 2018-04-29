@@ -10,6 +10,13 @@ public class GUIGamePlayController : Controller<GUIGamePlayModel>
 	 * osobne funkcje unlockujące achievementy, bo przecież ostatecznie mogą to być achievementy o zupełnie innych kryteriach
 	 */
 
+	public void SetState(CurrentGameStateService.GameStates state)
+	{
+		CurrentGameStateService.CurrentGameState = state;
+		ViewManager ViewManager = GameObject.FindObjectOfType<ViewManager>();
+		ViewManager.SwitchView();
+	}
+
 	public void AssignAchievementComplete10()
 	{
 		Model.CurrentProfile.Complete10 = true;

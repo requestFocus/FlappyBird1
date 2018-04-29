@@ -14,8 +14,10 @@ public class GUISuccessSummaryController : Controller<GUISuccessSummaryModel>
 	{
 		Model.CurrentProfile.HighScore = score;
 
-		Model.PlayersProfilesUpdated.ListOfProfiles[Model.PlayersProfilesUpdated.CurrentProfileID] = Model.CurrentProfile;
+		//Model.PlayersProfilesUpdated.ListOfProfiles[Model.PlayersProfilesUpdated.CurrentProfileID] = Model.CurrentProfile;
+		PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID] = Model.CurrentProfile;
 
-		_playerProfileController.SaveProfile(Model.PlayersProfilesUpdated);               // zapisz wyniki przed powrotem do sceny MENU
+		//_playerProfileController.SaveProfile(Model.PlayersProfilesUpdated);               // zapisz wyniki przed powrotem do sceny MENU
+		_playerProfileController.SaveProfile(PlayersProfiles.Instance);               // zapisz wyniki przed powrotem do sceny MENU
 	}
 }

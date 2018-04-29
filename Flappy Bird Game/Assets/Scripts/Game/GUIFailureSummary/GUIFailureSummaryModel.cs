@@ -10,7 +10,7 @@ public class GUIFailureSummaryModel
 	 */
 
 	public PlayerProfile CurrentProfile { get; set; }
-	public PlayersProfiles PlayersProfilesUpdated { get; set; }
+	//public PlayersProfiles PlayersProfilesUpdated { get; set; }
 	public bool AchievementIsUnlocked { get; set; }
 	public string GameOutcome { get; set; }
 
@@ -25,7 +25,7 @@ public class GUIFailureSummaryModel
 	{
 		CurrentProfile = gamePlayModel.CurrentProfile;
 		AchievementIsUnlocked = gamePlayModel.AchievementIsUnlocked;
-		PlayersProfilesUpdated = PlayersProfiles.Instance;
+		//PlayersProfilesUpdated = PlayersProfiles.Instance;
 		CurrentScore = gamePlayModel.CurrentScore;
 		GameOutcome = "Failure";
 	}
