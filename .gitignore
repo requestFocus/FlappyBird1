@@ -46,3 +46,6 @@ Flappy Bird Game/.vs/Flappy Bird Game/v15/sqlite3/storage.ide
 *.ide-shm
 *.ide-wal
 *.ide
+*.ide
+*.ide-wal
+*.ide

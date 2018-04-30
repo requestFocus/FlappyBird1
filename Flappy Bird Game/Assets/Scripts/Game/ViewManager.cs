@@ -10,8 +10,8 @@ public class ViewManager : MonoBehaviour
 
 	private void Awake()
 	{
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
-		SwitchView();
+		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;		// POCZĄTEK SCENY
+		SwitchView();																				// ZAŁADOWANIE WIDOKU
 	}
 
 	public void SwitchView()
@@ -28,13 +28,11 @@ public class ViewManager : MonoBehaviour
 			case CurrentGameStateService.GameStates.SummarySuccess:
 				SummaryView = ViewFactory.ConcreteGUISuccessSummaryView(GUIGamePlayView);
 				((GUISuccessSummaryView)SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
-					//Debug.Log(((GUISuccessSummaryView)SummaryView).Model.GameOutcome);			// demonstracja użycia interfejsu w factory
 				break;
 
 			case CurrentGameStateService.GameStates.SummaryFailure:
 				SummaryView = ViewFactory.ConcreteGUIFailureSummaryView(GUIGamePlayView);
 				((GUIFailureSummaryView)SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
-					//Debug.Log(((GUIFailureSummaryView)SummaryView).Model.GameOutcome);			// demonstracja użycia interfejsu w factory
 				break;
 		}
 	}
