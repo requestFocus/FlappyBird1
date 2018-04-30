@@ -18,5 +18,5 @@ public class Singleton<TFactory> : MonoBehaviour
 		}
 	}
 
-	//private Singleton() { }
+	private Singleton() { }
 }

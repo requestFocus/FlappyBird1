@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ViewManager : MonoBehaviour
 {
-	[SerializeField] private ViewFactory ViewFactory;
+	//[SerializeField] private ViewFactory ViewFactoryInstance;
 	private GUIGamePlayView GUIGamePlayView;
 	private ISummaryView SummaryView;
 
@@ -21,17 +21,20 @@ public class ViewManager : MonoBehaviour
 		switch (CurrentGameStateService.CurrentGameState)
 		{
 			case CurrentGameStateService.GameStates.GamePlay:
-				GUIGamePlayView = ViewFactory.ConcreteGUIGamePlayView();
+				GUIGamePlayView = ViewFactory.FactoryInstance.ConcreteGUIGamePlayView();
+				//GUIGamePlayView = ViewFactoryInstance.ConcreteGUIGamePlayView();
 				GUIGamePlayView.transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 
 			case CurrentGameStateService.GameStates.SummarySuccess:
-				SummaryView = ViewFactory.ConcreteGUISuccessSummaryView(GUIGamePlayView);
+				SummaryView = ViewFactory.FactoryInstance.ConcreteGUISuccessSummaryView(GUIGamePlayView);
+				//SummaryView = ViewFactoryInstance.ConcreteGUISuccessSummaryView(GUIGamePlayView);
 				((GUISuccessSummaryView)SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 
 			case CurrentGameStateService.GameStates.SummaryFailure:
-				SummaryView = ViewFactory.ConcreteGUIFailureSummaryView(GUIGamePlayView);
+				SummaryView = ViewFactory.FactoryInstance.ConcreteGUIFailureSummaryView(GUIGamePlayView);
+				//SummaryView = ViewFactoryInstance.ConcreteGUIFailureSummaryView(GUIGamePlayView);
 				((GUIFailureSummaryView)SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 		}
