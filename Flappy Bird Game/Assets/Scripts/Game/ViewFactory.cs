@@ -25,11 +25,11 @@ public class ViewFactory : MonoBehaviour
 		}
 	}
 
-	private ViewFactory() { }
+	public string Tekst = "tekst";
 
 	public GUIGamePlayView ConcreteGUIGamePlayView()
 	{
-		GUIGamePlayViewPrefab = Resources.Load("GUIGamePlayView", typeof(GUIGamePlayView)) as GUIGamePlayView;
+		GUIGamePlayViewPrefab = Resources.Load("Prefabs/GUIGamePlayView", typeof(GUIGamePlayView)) as GUIGamePlayView;
 		GUIGamePlayView GUIGamePlayViewInstance = Instantiate(GUIGamePlayViewPrefab);
 		GUIGamePlayViewInstance.Model = new GUIGamePlayModel();
 		return GUIGamePlayViewInstance;
@@ -37,7 +37,7 @@ public class ViewFactory : MonoBehaviour
 
 	public ISummaryView ConcreteGUISuccessSummaryView(GUIGamePlayView gamePlayView)
 	{
-		GUISuccessSummaryViewPrefab = Resources.Load("GUISuccessSummaryView", typeof(GUISuccessSummaryView)) as GUISuccessSummaryView;
+		GUISuccessSummaryViewPrefab = Resources.Load("Prefabs/GUISuccessSummaryView", typeof(GUISuccessSummaryView)) as GUISuccessSummaryView;
 		ISummaryView SummaryView = Instantiate(GUISuccessSummaryViewPrefab);
 		((GUISuccessSummaryView)SummaryView).Model = new GUISuccessSummaryModel(gamePlayView.Model);
 		return SummaryView;
@@ -45,7 +45,7 @@ public class ViewFactory : MonoBehaviour
 
 	public ISummaryView ConcreteGUIFailureSummaryView(GUIGamePlayView gamePlayView)
 	{
-		GUIFailureSummaryViewPrefab = Resources.Load("GUIFailureSummaryView", typeof(GUIFailureSummaryView)) as GUIFailureSummaryView;
+		GUIFailureSummaryViewPrefab = Resources.Load("Prefabs/GUIFailureSummaryView", typeof(GUIFailureSummaryView)) as GUIFailureSummaryView;
 		ISummaryView SummaryView = Instantiate(GUIFailureSummaryViewPrefab);
 		((GUIFailureSummaryView)SummaryView).Model = new GUIFailureSummaryModel(gamePlayView.Model);
 		return SummaryView;
