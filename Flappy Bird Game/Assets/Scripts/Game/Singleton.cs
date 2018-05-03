@@ -14,7 +14,7 @@ public class Singleton<TFactory> : MonoBehaviour
 			if (_factoryInstance == null)
 			{
 				//GameObject singleton = new GameObject(typeof(TFactory) + "SingletonGeneric");
-				//_factoryInstance = singleton.AddComponent<TFactory>();						// nie można dodać komponentu w ten sposób
+				//_factoryInstance = singleton.AddComponent<TFactory>();						  // nie można dodać komponentu w ten sposób
 
 				_factoryInstance = (TFactory)Activator.CreateInstance(typeof(TFactory));        // WARNING: createinstance wykonane, ale "You are trying to create a MonoBehaviour using the 'new' keyword"
 			}

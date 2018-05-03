@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class ViewFactory : MonoBehaviour
 {
-	[SerializeField] private GUIGamePlayView GUIGamePlayViewPrefab;
-	[SerializeField] private GUISuccessSummaryView GUISuccessSummaryViewPrefab;
-	[SerializeField] private GUIFailureSummaryView GUIFailureSummaryViewPrefab;
+	private GUIGamePlayView GUIGamePlayViewPrefab;
+	private GUISuccessSummaryView GUISuccessSummaryViewPrefab;
+	private GUIFailureSummaryView GUIFailureSummaryViewPrefab;
 
 	public GUIGamePlayView ConcreteGUIGamePlayView()
 	{
