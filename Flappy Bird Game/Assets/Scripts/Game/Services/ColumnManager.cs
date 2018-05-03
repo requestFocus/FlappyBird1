@@ -38,14 +38,15 @@ public class ColumnManager : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			Instantiate(ColumnPrefab);
-			InitializeColumn(ColumnPrefab);
+			GameObject column = Instantiate(ColumnPrefab);
+			InitializeColumn(column);
 			_columnsSoFar++;
 		}
 	}
 
-	private void InitializeColumn(GameObject column)                                
+	private void InitializeColumn(GameObject column)
 	{
+		column.transform.SetParent(FindObjectOfType<BackgroundManager>().transform);
 		_yPosition = Random.Range(_minRange, _maxRange);
 		column.transform.position = new Vector3(_startXPosition, _yPosition);
 	}
