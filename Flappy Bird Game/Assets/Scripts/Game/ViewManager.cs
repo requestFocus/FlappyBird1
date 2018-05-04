@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//public class ViewManager : SingletonViewFactory																	  // działa, jeśli ViewManager dziedziczy z SingletonViewFactory
-public class ViewManager : Singleton<ViewFactory>																	// działa, jeśli ViewManager dziedziczy z Singleton<ViewFactory>
+public class ViewManager : SingletonViewFactory                                                                   // działa, jeśli ViewManager dziedziczy z SingletonViewFactory
 {
 	private GUIGamePlayView GUIGamePlayView;
 	private ISummaryView SummaryView;
@@ -21,20 +20,17 @@ public class ViewManager : Singleton<ViewFactory>																	// działa, je
 		switch (CurrentGameStateService.CurrentGameState)
 		{
 			case CurrentGameStateService.GameStates.GamePlay:
-				//GUIGamePlayView = SingletonViewFactoryInstance.ConcreteGUIGamePlayView();                           // działa, jeśli ViewManager dziedziczy z SingletonViewFactory
-				GUIGamePlayView = FactoryInstance.ConcreteGUIGamePlayView();                                        // działa, jeśli ViewManager dziedziczy z Singleton<ViewFactory>
+				GUIGamePlayView = SingletonViewFactoryInstance.ConcreteGUIGamePlayView();                           // działa, jeśli ViewManager dziedziczy z SingletonViewFactory
 				GUIGamePlayView.transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 
 			case CurrentGameStateService.GameStates.SummarySuccess:
-				//SummaryView = SingletonViewFactoryInstance.ConcreteGUISuccessSummaryView(GUIGamePlayView);		  // działa, jeśli ViewManager dziedziczy z SingletonViewFactory
-				SummaryView = FactoryInstance.ConcreteGUISuccessSummaryView(GUIGamePlayView);                       // działa, jeśli ViewManager dziedziczy z Singleton<ViewFactory>
+				SummaryView = SingletonViewFactoryInstance.ConcreteGUISuccessSummaryView(GUIGamePlayView);        // działa, jeśli ViewManager dziedziczy z SingletonViewFactory
 				((GUISuccessSummaryView)SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 
 			case CurrentGameStateService.GameStates.SummaryFailure:
-				//SummaryView = SingletonViewFactoryInstance.ConcreteGUIFailureSummaryView(GUIGamePlayView);		  // działa, jeśli ViewManager dziedziczy z SingletonViewFactory
-				SummaryView = FactoryInstance.ConcreteGUIFailureSummaryView(GUIGamePlayView);                       // działa, jeśli ViewManager dziedziczy z Singleton<ViewFactory>
+				SummaryView = SingletonViewFactoryInstance.ConcreteGUIFailureSummaryView(GUIGamePlayView);        // działa, jeśli ViewManager dziedziczy z SingletonViewFactory
 				((GUIFailureSummaryView)SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 		}
