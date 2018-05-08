@@ -11,10 +11,11 @@ public class Singleton<TFactory> : MonoBehaviour where TFactory : MonoBehaviour
 	{
 		get
 		{
+			_factoryInstance = FindObjectOfType<TFactory>();
 			if (_factoryInstance == null)
 			{
 				GameObject singleton = new GameObject(typeof(TFactory) + "SingletonGeneric");
-				_factoryInstance = singleton.AddComponent<TFactory>();                        // nie można dodać komponentu w ten sposób
+				_factoryInstance = singleton.AddComponent<TFactory>();                        
 			}
 			return _factoryInstance;
 		}
