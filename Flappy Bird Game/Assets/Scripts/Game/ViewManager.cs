@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ViewManager : Singleton<ViewFactory>                                                                  
+public class ViewManager : MonoBehaviour											
 {
-	private GUIGamePlayView GUIGamePlayView;
-	private ISummaryView SummaryView;
+	private GUIGamePlayView _GUIGamePlayView;					// =============================? _gUIGamePlayView?
+	private ISummaryView _SummaryView;
 
 	private void Awake()
 	{
@@ -15,23 +15,23 @@ public class ViewManager : Singleton<ViewFactory>
 
 	public void SwitchView()
 	{
-		SummaryView = null;
+		_SummaryView = null;
 
 		switch (CurrentGameStateService.CurrentGameState)
 		{
 			case CurrentGameStateService.GameStates.GamePlay:
-				GUIGamePlayView = FactoryInstance.ConcreteGUIGamePlayView();                                        
-				GUIGamePlayView.transform.SetParent(FindObjectOfType<ViewManager>().transform);
+				_GUIGamePlayView = ViewFactory.FactoryInstance.ConcreteGUIGamePlayView();                                        
+				_GUIGamePlayView.transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 
 			case CurrentGameStateService.GameStates.SummarySuccess:
-				SummaryView = FactoryInstance.ConcreteGUISuccessSummaryView(GUIGamePlayView);                      
-				((GUISuccessSummaryView)SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
+				_SummaryView = ViewFactory.FactoryInstance.ConcreteGUISuccessSummaryView(_GUIGamePlayView);                     
+				((GUISuccessSummaryView)_SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 
 			case CurrentGameStateService.GameStates.SummaryFailure:
-				SummaryView = FactoryInstance.ConcreteGUIFailureSummaryView(GUIGamePlayView);                 
-				((GUIFailureSummaryView)SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
+				_SummaryView = ViewFactory.FactoryInstance.ConcreteGUIFailureSummaryView(_GUIGamePlayView);
+				((GUIFailureSummaryView)_SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 		}
 	}
