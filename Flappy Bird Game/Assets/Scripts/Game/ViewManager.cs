@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ViewManager : MonoBehaviour											
 {
-	private GUIGamePlayView _GUIGamePlayView;					// =============================? _gUIGamePlayView?
+	private GUIGamePlayView _GUIGamePlayView;					
 	private ISummaryView _SummaryView;
 
 	private void Awake()

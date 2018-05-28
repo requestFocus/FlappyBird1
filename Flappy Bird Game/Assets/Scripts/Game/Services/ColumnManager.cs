@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class ColumnManager : MonoBehaviour
 {
-	[SerializeField] private GameObject ColumnPrefab;
+	private ColumnView _column;
 
 	private float _timeIntervalForCoroutine;
 	private float _yPosition;
 
-	private const float _intervalStep = 0.3f;
+	private const float _intervalStep = 1.3f;
 	private const float _startXPosition = 8.0f;
 	private const float _minRange = -3.0f;
 	private const float _maxRange = 3.0f;
@@ -19,11 +20,10 @@ public class ColumnManager : MonoBehaviour
 	private void Start()
 	{
 		_timeIntervalForCoroutine = 3.0f;                                     // 3.0f jako wartosc startowa
-		StartCoroutine(CreateColumn());                                       //InvokeRepeating("CreateObstacle", 3.0f, 3.0f);
+		StartCoroutine(CreateColumn());                                       
 	}
 
-
-	private float CalculateTimeIntervalForObstacles()						
+	private float CalculateTimeIntervalForObstacles()
 	{
 		if (_columnsSoFar != 0 && _columnsSoFar % 10 == 0 && _timeIntervalForCoroutine > 1.0f && IntervalAvailabilityStatesService.IntervalLock == IntervalAvailabilityStatesService.IntervalLockStates.Locked)
 		{
@@ -33,21 +33,25 @@ public class ColumnManager : MonoBehaviour
 		return _timeIntervalForCoroutine;
 	}
 
-	private IEnumerator CreateColumn()                                       	
+	private IEnumerator CreateColumn()
 	{
 		while (true)
 		{
 			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			GameObject column = Instantiate(ColumnPrefab);
-			InitializeColumn(column);
+			InitializeColumn(_column);
 			_columnsSoFar++;
 		}
 	}
 
-	private void InitializeColumn(GameObject column)
+	[Inject]
+	private void InitializeColumn(ColumnView column)
 	{
-		column.transform.SetParent(FindObjectOfType<BackgroundManager>().transform);
+		_column = column;
 		_yPosition = Random.Range(_minRange, _maxRange);
-		column.transform.position = new Vector3(_startXPosition, _yPosition);
+		_column.transform.position = new Vector3(_startXPosition, _yPosition);
 	}
 }
+
+
+// dlaczego obiekt ColumnView powstaje natychmiast, mimo Bind() Lazy()
+// dlaczego obiekt ColumnView znika w momencie, kiedy tworzony jest kolejny obiekt ColumnView
