@@ -5,7 +5,8 @@ using Zenject;
 
 public class ColumnManager : MonoBehaviour
 {
-	private ColumnView _column;
+	[Inject]
+	private ColumnView _column;												// dlaczego obiekt _column powstaje natychmiast, mimo Bind() Lazy() (nie ma zachowania WaitForSeconds() w CreateColumn())
 
 	private float _timeIntervalForCoroutine;
 	private float _yPosition;
@@ -37,21 +38,21 @@ public class ColumnManager : MonoBehaviour
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			InitializeColumn(_column);
+			//yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
+			yield return new WaitForSeconds(2.0f);
+			Debug.Log("minęły dwie sekundy");
+				// deklaracja zmienna1 = instantiate(prefab);
+				// initializeColumn(zmienna1);
+			InitializeColumn(_column);					
 			_columnsSoFar++;
 		}
 	}
 
-	[Inject]
 	private void InitializeColumn(ColumnView column)
 	{
-		_column = column;
 		_yPosition = Random.Range(_minRange, _maxRange);
-		_column.transform.position = new Vector3(_startXPosition, _yPosition);
+		column.transform.position = new Vector3(_startXPosition, _yPosition);
 	}
 }
 
-
-// dlaczego obiekt ColumnView powstaje natychmiast, mimo Bind() Lazy()
-// dlaczego obiekt ColumnView znika w momencie, kiedy tworzony jest kolejny obiekt ColumnView
+// dlaczego obiekt ColumnView znika w momencie, kiedy tworzony jest kolejny obiekt ColumnView? nastepuje nadpisanie zmiennej Injectowanej?
