@@ -6,8 +6,9 @@ using Zenject;
 public class ColumnManager : MonoBehaviour
 {
 	[Inject]
-	private ColumnView _column;												// dlaczego obiekt _column powstaje natychmiast, mimo Bind() Lazy() (nie ma zachowania WaitForSeconds() w CreateColumn())
+	private ColumnView _column;                                             // dlaczego obiekt _column powstaje natychmiast, mimo Bind() Lazy() (nie ma zachowania WaitForSeconds() w CreateColumn())
 
+	public ColumnView bb;
 	private float _timeIntervalForCoroutine;
 	private float _yPosition;
 
@@ -41,15 +42,18 @@ public class ColumnManager : MonoBehaviour
 			//yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
 			yield return new WaitForSeconds(2.0f);
 			Debug.Log("minęły dwie sekundy");
-				// deklaracja zmienna1 = instantiate(prefab);
-				// initializeColumn(zmienna1);
-			InitializeColumn(_column);					
+			// deklaracja zmienna1 = instantiate(prefab);
+			// initializeColumn(zmienna1);
+			ColumnView cv = Instantiate<ColumnView>(_column);
+
+			InitializeColumn(cv);					
 			_columnsSoFar++;
 		}
 	}
 
 	private void InitializeColumn(ColumnView column)
 	{
+		column.gameObject.SetActive(true);
 		_yPosition = Random.Range(_minRange, _maxRange);
 		column.transform.position = new Vector3(_startXPosition, _yPosition);
 	}
