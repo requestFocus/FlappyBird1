@@ -6,9 +6,9 @@ using Zenject;
 public class ColumnManager : MonoBehaviour
 {
 	[Inject]
-	private ColumnView _column;                                             // dlaczego obiekt _column powstaje natychmiast, mimo Bind() Lazy() (nie ma zachowania WaitForSeconds() w CreateColumn())
+	private ColumnView _column;					// powstało jako FromInstance, jest to tylko prefab, a nie INSTANCJA, dopiero w CreateColumn() następuje instantiate'owanie tego prefaba
 
-	public ColumnView bb;
+	//public ColumnView bb;						// zbedne
 	private float _timeIntervalForCoroutine;
 	private float _yPosition;
 
@@ -39,11 +39,7 @@ public class ColumnManager : MonoBehaviour
 	{
 		while (true)
 		{
-			//yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			yield return new WaitForSeconds(2.0f);
-			Debug.Log("minęły dwie sekundy");
-			// deklaracja zmienna1 = instantiate(prefab);
-			// initializeColumn(zmienna1);
+			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
 			ColumnView cv = Instantiate<ColumnView>(_column);
 
 			InitializeColumn(cv);					
