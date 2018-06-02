@@ -7,14 +7,19 @@ using Zenject;
 public class ViewFactory : Singleton<ViewFactory>
 {
 	[Inject]
-	private GUIGamePlayModel _guiGamePlayModel;
+	private GUIGamePlayView _guiGamePlayViewPrefab;
 	[Inject]
-	private GUIGamePlayView _guiGamePlayView;
+	private GUIGamePlayModel _guiGamePlayModel;
 
-	//[Inject]
-	//private GUISuccessSummaryModel _guiSuccessSummaryModel;
-	//[Inject]
-	//private GUISuccessSummaryView _guiSuccessSummaryView;
+	[Inject]
+	private GUISuccessSummaryView _guiSuccessSummaryViewPrefab;
+	[Inject]
+	private GUISuccessSummaryModel _guiSuccessSummaryModel;
+
+	[Inject]
+	private GUIFailureSummaryView _guiFailureSummaryViewPrefab;
+	[Inject]
+	private GUIFailureSummaryModel _guiFailureSummaryModel;
 
 	[SerializeField] private GUIGamePlayView GUIGamePlayViewPrefab;
 	[SerializeField] private GUISuccessSummaryView GUISuccessSummaryViewPrefab;
@@ -22,28 +27,22 @@ public class ViewFactory : Singleton<ViewFactory>
 
 	public GUIGamePlayView ConcreteGUIGamePlayView()
 	{
-		//GUIGamePlayView GUIGamePlayViewInstance = Instantiate(GUIGamePlayViewPrefab);
-		//GUIGamePlayViewInstance.Model = new GUIGamePlayModel();
-		//return GUIGamePlayViewInstance;
-
-		_guiGamePlayView.Model = _guiGamePlayModel;						//======================== w jaki sposób sprawić, żeby te instancje były faktycznie LAZY?
-		return _guiGamePlayView;
+		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_guiGamePlayViewPrefab);
+		guiGamePlayViewInstance.Model = _guiGamePlayModel;
+		return guiGamePlayViewInstance;
 	}
 
 	public ISummaryView ConcreteGUISuccessSummaryView(GUIGamePlayView gamePlayView)
 	{
-		ISummaryView SummaryViewInstance = Instantiate(GUISuccessSummaryViewPrefab);
-		((GUISuccessSummaryView)SummaryViewInstance).Model = new GUISuccessSummaryModel(gamePlayView.Model);
-		return SummaryViewInstance;
-
-		//_guiSuccessSummaryView.Model = _guiSuccessSummaryModel;         //======================== w jaki sposób sprawić, żeby te instancje były faktycznie LAZY?
-		//return _guiSuccessSummaryView;
+		ISummaryView summaryViewInstance = Instantiate(_guiSuccessSummaryViewPrefab);
+		((GUISuccessSummaryView)summaryViewInstance).Model = _guiSuccessSummaryModel;
+		return summaryViewInstance;
 	}
 
 	public ISummaryView ConcreteGUIFailureSummaryView(GUIGamePlayView gamePlayView)
 	{
-		ISummaryView SummaryViewInstance = Instantiate(GUIFailureSummaryViewPrefab);
-		((GUIFailureSummaryView)SummaryViewInstance).Model = new GUIFailureSummaryModel(gamePlayView.Model);
-		return SummaryViewInstance;
+		ISummaryView summaryViewInstance = Instantiate(_guiFailureSummaryViewPrefab);
+		((GUIFailureSummaryView)summaryViewInstance).Model = _guiFailureSummaryModel;
+		return summaryViewInstance;
 	}
 }

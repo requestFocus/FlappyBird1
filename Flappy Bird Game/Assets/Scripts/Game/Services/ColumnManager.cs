@@ -8,11 +8,10 @@ public class ColumnManager : MonoBehaviour
 	[Inject]
 	private ColumnView _column;					// powstało jako FromInstance, jest to tylko prefab, a nie INSTANCJA, dopiero w CreateColumn() następuje instantiate'owanie tego prefaba
 
-	//public ColumnView bb;						// zbedne
 	private float _timeIntervalForCoroutine;
 	private float _yPosition;
 
-	private const float _intervalStep = 1.3f;
+	private const float _intervalStep = 0.3f;
 	private const float _startXPosition = 8.0f;
 	private const float _minRange = -3.0f;
 	private const float _maxRange = 3.0f;
@@ -40,9 +39,8 @@ public class ColumnManager : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
-			ColumnView cv = Instantiate<ColumnView>(_column);
-
-			InitializeColumn(cv);					
+			ColumnView column = Instantiate<ColumnView>(_column);
+			InitializeColumn(column);					
 			_columnsSoFar++;
 		}
 	}

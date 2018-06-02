@@ -9,6 +9,7 @@ public class GameInstaller : MonoInstaller
 	[SerializeField] private ColumnView _columnViewPrefab;
 	[SerializeField] private GUIGamePlayView _guiGamePlayViewPrefab;
 	[SerializeField] private GUISuccessSummaryView _guiSuccessSummaryViewPrefab;
+	[SerializeField] private GUIFailureSummaryView _guiFailureSummaryViewPrefab;
 
 	public override void InstallBindings()
 	{
@@ -16,9 +17,13 @@ public class GameInstaller : MonoInstaller
 
 		Container.Bind<ColumnView>().FromInstance(_columnViewPrefab).AsTransient().Lazy();
 
-		Container.Bind<GUIGamePlayView>().FromComponentInNewPrefab(_guiGamePlayViewPrefab).AsSingle().Lazy();
+		Container.Bind<GUIGamePlayView>().FromInstance(_guiGamePlayViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUIGamePlayModel>().FromNew().AsSingle().Lazy();
-		Container.Bind<GUISuccessSummaryView>().FromComponentInNewPrefab(_guiSuccessSummaryViewPrefab).AsSingle().Lazy();
+
+		Container.Bind<GUISuccessSummaryView>().FromInstance(_guiSuccessSummaryViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUISuccessSummaryModel>().FromNew().AsSingle().Lazy();
+
+		Container.Bind<GUIFailureSummaryView>().FromInstance(_guiFailureSummaryViewPrefab).AsSingle().Lazy();
+		Container.Bind<GUIFailureSummaryModel>().FromNew().AsSingle().Lazy();
 	}
 }
