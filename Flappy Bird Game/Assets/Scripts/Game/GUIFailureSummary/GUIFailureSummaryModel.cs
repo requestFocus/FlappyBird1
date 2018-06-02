@@ -25,4 +25,11 @@ public class GUIFailureSummaryModel
 		AchievementIsUnlocked = gamePlayModel.AchievementIsUnlocked;
 		CurrentScore = gamePlayModel.CurrentScore;
 	}
+
+	public void SetGUIFailureSummaryModel(GUIGamePlayModel gamePlayModel)
+	{
+		CurrentProfile = gamePlayModel.CurrentProfile;
+		AchievementIsUnlocked = gamePlayModel.AchievementIsUnlocked;
+		CurrentScore = gamePlayModel.CurrentScore;
+	}
 }

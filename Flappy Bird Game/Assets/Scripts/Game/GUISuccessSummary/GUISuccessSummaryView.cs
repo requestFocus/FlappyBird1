@@ -21,6 +21,8 @@ public class GUISuccessSummaryView : View<GUISuccessSummaryModel, GUISuccessSumm
 		SetSummaryScreen(false);
 
 		DisplayGUISummaryView();
+
+		Debug.Log(Model.CurrentScore);
 	}
 
 	private void OnEnable()                                             // WIDOK SUMMARY

@@ -21,10 +21,6 @@ public class ViewFactory : Singleton<ViewFactory>
 	[Inject]
 	private GUIFailureSummaryModel _guiFailureSummaryModel;
 
-	[SerializeField] private GUIGamePlayView GUIGamePlayViewPrefab;
-	[SerializeField] private GUISuccessSummaryView GUISuccessSummaryViewPrefab;
-	[SerializeField] private GUIFailureSummaryView GUIFailureSummaryViewPrefab;
-
 	public GUIGamePlayView ConcreteGUIGamePlayView()
 	{
 		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_guiGamePlayViewPrefab);
@@ -35,6 +31,7 @@ public class ViewFactory : Singleton<ViewFactory>
 	public ISummaryView ConcreteGUISuccessSummaryView(GUIGamePlayView gamePlayView)
 	{
 		ISummaryView summaryViewInstance = Instantiate(_guiSuccessSummaryViewPrefab);
+		_guiSuccessSummaryModel.SetGUISuccessSummaryModel(gamePlayView.Model);
 		((GUISuccessSummaryView)summaryViewInstance).Model = _guiSuccessSummaryModel;
 		return summaryViewInstance;
 	}
@@ -42,6 +39,7 @@ public class ViewFactory : Singleton<ViewFactory>
 	public ISummaryView ConcreteGUIFailureSummaryView(GUIGamePlayView gamePlayView)
 	{
 		ISummaryView summaryViewInstance = Instantiate(_guiFailureSummaryViewPrefab);
+		_guiFailureSummaryModel.SetGUIFailureSummaryModel(gamePlayView.Model);
 		((GUIFailureSummaryView)summaryViewInstance).Model = _guiFailureSummaryModel;
 		return summaryViewInstance;
 	}
