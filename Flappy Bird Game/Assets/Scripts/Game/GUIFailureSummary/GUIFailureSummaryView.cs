@@ -19,8 +19,6 @@ public class GUIFailureSummaryView : View<GUIFailureSummaryModel, GUIFailureSumm
 		SetSummaryScreen(false);
 
 		DisplayGUISummaryView();
-
-		Debug.Log(Model.CurrentScore);
 	}
 
 	

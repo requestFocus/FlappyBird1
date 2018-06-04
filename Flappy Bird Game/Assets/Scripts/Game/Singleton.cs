@@ -3,21 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Singleton<TFactory> : MonoBehaviour where TFactory : MonoBehaviour
+public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-	private static TFactory _factoryInstance;
+	private static T _instance;
 
-	public static TFactory FactoryInstance
+	public static T Instance
 	{
 		get
 		{
-			_factoryInstance = FindObjectOfType<TFactory>();
-			if (_factoryInstance == null)
+			_instance = FindObjectOfType<T>();
+			if (_instance == null)
 			{
-				GameObject singleton = new GameObject(typeof(TFactory) + "SingletonGeneric");
-				_factoryInstance = singleton.AddComponent<TFactory>();                        
+				GameObject singleton = new GameObject(typeof(T) + "SingletonGeneric");
+				_instance = singleton.AddComponent<T>();                        
 			}
-			return _factoryInstance;
+			return _instance;
 		}
 	}
 }

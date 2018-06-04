@@ -4,43 +4,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class ViewFactory : Singleton<ViewFactory>
+public class ViewFactory : MonoBehaviour //Singleton<ViewFactory>
 {
 	[Inject]
-	private GUIGamePlayView _guiGamePlayViewPrefab;
+	private GUIGamePlayView _GUIGamePlayViewPrefab;
 	[Inject]
-	private GUIGamePlayModel _guiGamePlayModel;
+	private GUIGamePlayModel _GUIGamePlayModel;
 
 	[Inject]
-	private GUISuccessSummaryView _guiSuccessSummaryViewPrefab;
+	private GUISuccessSummaryView _GUISuccessSummaryViewPrefab;
 	[Inject]
-	private GUISuccessSummaryModel _guiSuccessSummaryModel;
+	private GUISuccessSummaryModel _GUISuccessSummaryModel;
 
 	[Inject]
-	private GUIFailureSummaryView _guiFailureSummaryViewPrefab;
+	private GUIFailureSummaryView _GUIFailureSummaryViewPrefab;
 	[Inject]
-	private GUIFailureSummaryModel _guiFailureSummaryModel;
+	private GUIFailureSummaryModel _GUIFailureSummaryModel;
 
 	public GUIGamePlayView ConcreteGUIGamePlayView()
 	{
-		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_guiGamePlayViewPrefab);
-		guiGamePlayViewInstance.Model = _guiGamePlayModel;
+		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_GUIGamePlayViewPrefab);
+		guiGamePlayViewInstance.Model = _GUIGamePlayModel;
 		return guiGamePlayViewInstance;
 	}
 
 	public ISummaryView ConcreteGUISuccessSummaryView(GUIGamePlayView gamePlayView)
 	{
-		ISummaryView summaryViewInstance = Instantiate(_guiSuccessSummaryViewPrefab);
-		_guiSuccessSummaryModel.SetGUISuccessSummaryModel(gamePlayView.Model);
-		((GUISuccessSummaryView)summaryViewInstance).Model = _guiSuccessSummaryModel;
+		ISummaryView summaryViewInstance = Instantiate(_GUISuccessSummaryViewPrefab);
+		_GUISuccessSummaryModel.SetGUISuccessSummaryModel(gamePlayView.Model);
+		((GUISuccessSummaryView)summaryViewInstance).Model = _GUISuccessSummaryModel;
 		return summaryViewInstance;
 	}
 
 	public ISummaryView ConcreteGUIFailureSummaryView(GUIGamePlayView gamePlayView)
 	{
-		ISummaryView summaryViewInstance = Instantiate(_guiFailureSummaryViewPrefab);
-		_guiFailureSummaryModel.SetGUIFailureSummaryModel(gamePlayView.Model);
-		((GUIFailureSummaryView)summaryViewInstance).Model = _guiFailureSummaryModel;
+		ISummaryView summaryViewInstance = Instantiate(_GUIFailureSummaryViewPrefab);
+		_GUIFailureSummaryModel.SetGUIFailureSummaryModel(gamePlayView.Model);
+		((GUIFailureSummaryView)summaryViewInstance).Model = _GUIFailureSummaryModel;
 		return summaryViewInstance;
 	}
 }

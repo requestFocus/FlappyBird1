@@ -10,6 +10,7 @@ public class GameInstaller : MonoInstaller
 	[SerializeField] private GUIGamePlayView _guiGamePlayViewPrefab;
 	[SerializeField] private GUISuccessSummaryView _guiSuccessSummaryViewPrefab;
 	[SerializeField] private GUIFailureSummaryView _guiFailureSummaryViewPrefab;
+	[SerializeField] private ViewFactory _viewFactoryPrefab;
 
 	public override void InstallBindings()
 	{
@@ -25,5 +26,7 @@ public class GameInstaller : MonoInstaller
 
 		Container.Bind<GUIFailureSummaryView>().FromInstance(_guiFailureSummaryViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUIFailureSummaryModel>().FromNew().AsSingle().Lazy();
+
+		Container.Bind<ViewFactory>().FromComponentInNewPrefab(_viewFactoryPrefab).AsSingle().NonLazy();
 	}
 }
