@@ -19,12 +19,12 @@ public class GUIFailureSummaryModel
 		set { _currentScore = value; }
 	}
 
-	public GUIFailureSummaryModel(GUIGamePlayModel gamePlayModel)
-	{
-		CurrentProfile = gamePlayModel.CurrentProfile;
-		AchievementIsUnlocked = gamePlayModel.AchievementIsUnlocked;
-		CurrentScore = gamePlayModel.CurrentScore;
-	}
+	//public GUIFailureSummaryModel(GUIGamePlayModel gamePlayModel)
+	//{
+	//	CurrentProfile = gamePlayModel.CurrentProfile;
+	//	AchievementIsUnlocked = gamePlayModel.AchievementIsUnlocked;
+	//	CurrentScore = gamePlayModel.CurrentScore;
+	//}
 
 	public void SetGUIFailureSummaryModel(GUIGamePlayModel gamePlayModel)
 	{
