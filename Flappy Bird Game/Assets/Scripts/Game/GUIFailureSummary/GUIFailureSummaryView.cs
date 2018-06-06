@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 public class GUIFailureSummaryView : View<GUIFailureSummaryModel, GUIFailureSummaryController>, ISummaryView
 {
@@ -11,6 +12,9 @@ public class GUIFailureSummaryView : View<GUIFailureSummaryModel, GUIFailureSumm
 	[SerializeField] private Button RepeatButton;
 	[SerializeField] private Button DontRepeatButton;
 	[SerializeField] private GameObject SummaryBackground;
+
+	[Inject]
+	public CurrentPlayerData _currentPlayerData;
 
 	private void Start()
 	{
@@ -44,7 +48,7 @@ public class GUIFailureSummaryView : View<GUIFailureSummaryModel, GUIFailureSumm
 	{
 		SetSummaryScreen(true);
 
-		NameScoreSummary.text = Model.CurrentProfile.PlayerName + ", your score is " + Model.CurrentScore;
+		NameScoreSummary.text = _currentPlayerData.CurrentProfile.PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
 
 		NoHighscoreSummary.text = "Better luck next time...";
 	}

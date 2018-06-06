@@ -185,15 +185,13 @@ MonoBehaviour:
     type: 2}
   _columnViewPrefab: {fileID: 114137183832374160, guid: aad8f98ec44ce724baa9cb238485aa03,
     type: 2}
-  _guiGamePlayViewPrefab: {fileID: 114717932551975422, guid: 5305fe6fa2db58d428ff19463d548850,
+  _GUIGamePlayViewPrefab: {fileID: 114717932551975422, guid: 5305fe6fa2db58d428ff19463d548850,
     type: 2}
-  _guiSuccessSummaryViewPrefab: {fileID: 114866094965246464, guid: 5b860999c9beb5a4183655fbe4b5aa39,
+  _GUISuccessSummaryViewPrefab: {fileID: 114866094965246464, guid: 5b860999c9beb5a4183655fbe4b5aa39,
     type: 2}
-  _guiFailureSummaryViewPrefab: {fileID: 114542588335931866, guid: c72c45c460f3fd74ab957e4670b2ad39,
+  _GUIFailureSummaryViewPrefab: {fileID: 114542588335931866, guid: c72c45c460f3fd74ab957e4670b2ad39,
     type: 2}
   _viewFactoryPrefab: {fileID: 114162207576250546, guid: 0558d70d8cdb20a41a4822eff9309146,
-    type: 2}
-  _currentPlayerData: {fileID: 114394202539291360, guid: c22a1940b092c744faac9bc357cdec40,
     type: 2}
 --- !u!114 &568383799
 MonoBehaviour:

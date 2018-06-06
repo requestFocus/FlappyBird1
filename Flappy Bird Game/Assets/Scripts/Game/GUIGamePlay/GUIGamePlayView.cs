@@ -24,22 +24,18 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 		AchievementUnlockedGamePlay.text = "";
 		
 		OnLifeLostDel += DeleteGUIGamePlayView;
-
-		Debug.Log("tutut");
-
-		//Debug.Log("GUIGamePlayView: " + _currentPlayerData.TextMessage);
 	}
 
 	public void PointEarned(Collider2D collision)
 	{
 		if (collision.gameObject.CompareTag("Score"))                            // zdobyty punkt
 		{
-			Model.CurrentScore += 1;
+			_currentPlayerData.CurrentScore += 1;
 			IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
 
 			UpdateScoreOnPointEarned();
 
-			if (VerifyAchievements(Model.CurrentScore))
+			if (VerifyAchievements(_currentPlayerData.CurrentScore))
 			{
 				ShowAchievementParticlesNotification();
 			}
@@ -52,11 +48,20 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
 			OnLifeLostDel();
-			if (Model.CurrentScore > Model.CurrentProfile.HighScore)
-				Controller.SetState(CurrentGameStateService.GameStates.SummarySuccess);
+			if (_currentPlayerData.CurrentScore > _currentPlayerData.CurrentProfile.HighScore)
+				//Controller.SetState(CurrentGameStateService.GameStates.SummarySuccess);
+				SetState(CurrentGameStateService.GameStates.SummarySuccess);
 			else
-				Controller.SetState(CurrentGameStateService.GameStates.SummaryFailure);
+				//Controller.SetState(CurrentGameStateService.GameStates.SummaryFailure);
+				SetState(CurrentGameStateService.GameStates.SummaryFailure);
 		}
+	}
+
+	public void SetState(CurrentGameStateService.GameStates state)
+	{
+		CurrentGameStateService.CurrentGameState = state;
+		ViewManager ViewManager = GameObject.FindObjectOfType<ViewManager>();
+		ViewManager.SwitchView();
 	}
 
 
@@ -76,40 +81,61 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 
 	private bool VerifyAchievements(int currentScore)								// sprawdzy czy odblokowano achievement
 	{
-		if (currentScore == 10 && !Model.CurrentProfile.Complete10)
+		if (currentScore == 10 && !_currentPlayerData.CurrentProfile.Complete10)
 		{
-			Controller.AssignAchievementComplete10();
+			//Controller.AssignAchievementComplete10();
+			AssignAchievementComplete10();
 			return true;
 		}
 
-		if (currentScore == 25 && !Model.CurrentProfile.Complete25)
+		if (currentScore == 25 && !_currentPlayerData.CurrentProfile.Complete25)
 		{
-			Controller.AssignAchievementComplete25();
+			//Controller.AssignAchievementComplete25();
+			AssignAchievementComplete25();
 			return true;
 		}
 
-		if (currentScore == 50 && !Model.CurrentProfile.Complete50)
+		if (currentScore == 50 && !_currentPlayerData.CurrentProfile.Complete50)
 		{
-			Controller.AssignAchievementComplete50();
+			//Controller.AssignAchievementComplete50();
+			AssignAchievementComplete50();
 			return true;
 		}
 
 		return false;
 	}
 
+	public void AssignAchievementComplete10()
+	{
+		_currentPlayerData.CurrentProfile.Complete10 = true;
+		_currentPlayerData.AchievementIsUnlocked = true;
+	}
+
+	public void AssignAchievementComplete25()
+	{
+		_currentPlayerData.CurrentProfile.Complete25 = true;
+		_currentPlayerData.AchievementIsUnlocked = true;
+	}
+
+	public void AssignAchievementComplete50()
+	{
+		_currentPlayerData.CurrentProfile.Complete50 = true;
+		_currentPlayerData.AchievementIsUnlocked = true;
+	}
+
 
 
 	private void UpdateScoreOnPointEarned()                                
 	{
-		ScoreGamePlay.text = "score: " + Model.CurrentScore;
+		ScoreGamePlay.text = "score: " + _currentPlayerData.CurrentScore;
 	}
 
 
 	private void NotUpdatableGUIGamePlayView()                                
 	{
-		ScoreGamePlay.text = "score: " + Model.CurrentScore;					 // tu wyświetli zawsze score = 0, bo w UpdateScoreOnPointEarned() pierwszy update modelu ma miejsce po zdobyciu pierwszego punktu
-		NameScoreGamePlay.text = Model.CurrentProfile.PlayerName;
-		HighScoreGamePlay.text = "highscore: " + Model.CurrentProfile.HighScore;
+		ScoreGamePlay.text = "score: " + _currentPlayerData.CurrentScore;					 // tu wyświetli zawsze score = 0, bo w UpdateScoreOnPointEarned() pierwszy update modelu ma miejsce po zdobyciu pierwszego punktu
+		NameScoreGamePlay.text = _currentPlayerData.CurrentProfile.PlayerName;
+		HighScoreGamePlay.text = "highscore: " + _currentPlayerData.CurrentProfile.HighScore;
 	}
 
 	private IEnumerator AchievementUnlockedNotification()						// wyswietla info o odblokowaniu achievementu

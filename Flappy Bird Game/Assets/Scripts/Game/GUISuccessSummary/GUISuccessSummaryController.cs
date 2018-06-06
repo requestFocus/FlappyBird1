@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class GUISuccessSummaryController : Controller<GUISuccessSummaryModel>
 {
@@ -10,14 +11,15 @@ public class GUISuccessSummaryController : Controller<GUISuccessSummaryModel>
 
 	private PlayerProfileController _playerProfileController = new PlayerProfileController();
 
+	[Inject]
+	public CurrentPlayerData _currentPlayerData;
+
 	public void UpdateModel(int score)
 	{
-		Model.CurrentProfile.HighScore = score;
+		_currentPlayerData.CurrentProfile.HighScore = score;
 
-		//Model.PlayersProfilesUpdated.ListOfProfiles[Model.PlayersProfilesUpdated.CurrentProfileID] = Model.CurrentProfile;
-		PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID] = Model.CurrentProfile;
+		PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID] = _currentPlayerData.CurrentProfile;
 
-		//_playerProfileController.SaveProfile(Model.PlayersProfilesUpdated);               // zapisz wyniki przed powrotem do sceny MENU
 		_playerProfileController.SaveProfile(PlayersProfiles.Instance);               // zapisz wyniki przed powrotem do sceny MENU
 	}
 }

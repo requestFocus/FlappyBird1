@@ -7,48 +7,42 @@ using Zenject;
 public class ViewFactory : MonoBehaviour //Singleton<ViewFactory>
 {
 	[Inject]
-	private GUIGamePlayView _GUIGamePlayViewPrefab;
+	private GUIGamePlayView _GUIGamePlayView;
 	[Inject]
 	private GUIGamePlayModel _GUIGamePlayModel;
 
 	[Inject]
-	private GUISuccessSummaryView _GUISuccessSummaryViewPrefab;
+	private GUISuccessSummaryView _GUISuccessSummaryView;
 	[Inject]
 	private GUISuccessSummaryModel _GUISuccessSummaryModel;
 
 	[Inject]
-	private GUIFailureSummaryView _GUIFailureSummaryViewPrefab;
+	private GUIFailureSummaryView _GUIFailureSummaryView;
 	[Inject]
 	private GUIFailureSummaryModel _GUIFailureSummaryModel;
 
-	[Inject]
-	private CurrentPlayerData _currentPlayerData;
-
-	private void Start()
-	{
-		Debug.Log("ViewFactory: " + _currentPlayerData.TextMessage);
-	}
-
 	public GUIGamePlayView ConcreteGUIGamePlayView()
 	{
-		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_GUIGamePlayViewPrefab);
-		guiGamePlayViewInstance.Model = _GUIGamePlayModel;
-		return guiGamePlayViewInstance;
+		_GUIGamePlayView.gameObject.SetActive(true);
+		_GUIGamePlayView.Model = _GUIGamePlayModel;
+		return _GUIGamePlayView;
 	}
 
-	public ISummaryView ConcreteGUISuccessSummaryView(GUIGamePlayView gamePlayView)
+	public GUISuccessSummaryView ConcreteGUISuccessSummaryView()
 	{
-		ISummaryView summaryViewInstance = Instantiate(_GUISuccessSummaryViewPrefab);
-		_GUISuccessSummaryModel.SetGUISuccessSummaryModel(gamePlayView.Model);
-		((GUISuccessSummaryView)summaryViewInstance).Model = _GUISuccessSummaryModel;
-		return summaryViewInstance;
+		_GUIGamePlayView.gameObject.SetActive(false);
+		_GUISuccessSummaryView.gameObject.SetActive(true);
+		//_GUISuccessSummaryModel.SetGUISuccessSummaryModel(gamePlayView.Model);
+		_GUISuccessSummaryView.Model = _GUISuccessSummaryModel;
+		return _GUISuccessSummaryView;
 	}
 
-	public ISummaryView ConcreteGUIFailureSummaryView(GUIGamePlayView gamePlayView)
+	public GUIFailureSummaryView ConcreteGUIFailureSummaryView()
 	{
-		ISummaryView summaryViewInstance = Instantiate(_GUIFailureSummaryViewPrefab);
-		_GUIFailureSummaryModel.SetGUIFailureSummaryModel(gamePlayView.Model);
-		((GUIFailureSummaryView)summaryViewInstance).Model = _GUIFailureSummaryModel;
-		return summaryViewInstance;
+		_GUIGamePlayView.gameObject.SetActive(false);
+		_GUIFailureSummaryView.gameObject.SetActive(true);
+		//_GUIFailureSummaryModel.SetGUIFailureSummaryModel(gamePlayView.Model);
+		_GUIFailureSummaryView.Model = _GUIFailureSummaryModel;
+		return _GUIFailureSummaryView;
 	}
 }

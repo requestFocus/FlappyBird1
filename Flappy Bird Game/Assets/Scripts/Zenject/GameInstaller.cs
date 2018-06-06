@@ -7,9 +7,9 @@ public class GameInstaller : MonoInstaller
 {
 	[SerializeField] private BackgroundGameView _backgroundGameViewPrefab;
 	[SerializeField] private ColumnView _columnViewPrefab;
-	[SerializeField] private GUIGamePlayView _guiGamePlayViewPrefab;
-	[SerializeField] private GUISuccessSummaryView _guiSuccessSummaryViewPrefab;
-	[SerializeField] private GUIFailureSummaryView _guiFailureSummaryViewPrefab;
+	[SerializeField] private GUIGamePlayView _GUIGamePlayViewPrefab;
+	[SerializeField] private GUISuccessSummaryView _GUISuccessSummaryViewPrefab;
+	[SerializeField] private GUIFailureSummaryView _GUIFailureSummaryViewPrefab;
 	[SerializeField] private ViewFactory _viewFactoryPrefab;
 
 	[SerializeField] private CurrentPlayerData _currentPlayerData;
@@ -20,17 +20,17 @@ public class GameInstaller : MonoInstaller
 
 		Container.Bind<ColumnView>().FromInstance(_columnViewPrefab).AsTransient().Lazy();
 
-		Container.Bind<GUIGamePlayView>().FromInstance(_guiGamePlayViewPrefab).AsSingle().Lazy();
+		Container.Bind<GUIGamePlayView>().FromComponentInNewPrefab(_GUIGamePlayViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUIGamePlayModel>().FromNew().AsSingle().Lazy();
 
-		Container.Bind<GUISuccessSummaryView>().FromInstance(_guiSuccessSummaryViewPrefab).AsSingle().Lazy();
+		Container.Bind<GUISuccessSummaryView>().FromComponentInNewPrefab(_GUISuccessSummaryViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUISuccessSummaryModel>().FromNew().AsSingle().Lazy();
 
-		Container.Bind<GUIFailureSummaryView>().FromInstance(_guiFailureSummaryViewPrefab).AsSingle().Lazy();
+		Container.Bind<GUIFailureSummaryView>().FromComponentInNewPrefab(_GUIFailureSummaryViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUIFailureSummaryModel>().FromNew().AsSingle().Lazy();
 
 		Container.Bind<ViewFactory>().FromComponentInNewPrefab(_viewFactoryPrefab).AsSingle().NonLazy();
 
-		Container.Bind<CurrentPlayerData>().FromNew().AsSingle().Lazy();
+		Container.Bind<CurrentPlayerData>().FromNew().AsSingle().NonLazy();
 	}
 }

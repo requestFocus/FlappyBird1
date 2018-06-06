@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class GUIFailureSummaryController : Controller<GUIFailureSummaryModel>
 {
@@ -8,16 +9,17 @@ public class GUIFailureSummaryController : Controller<GUIFailureSummaryModel>
 	 * ten kontroler zapisuje dane Modelu w Singletonie
 	 */
 
-	private PlayerProfileController _playerProfileController = new PlayerProfileController();
+	//private PlayerProfileController _playerProfileController = new PlayerProfileController();
 
-	public void UpdateModel(int score)
-	{
-		Model.CurrentProfile.HighScore = score;
+	//[Inject]
+	//public CurrentPlayerData _currentPlayerData;
 
-		//Model.PlayersProfilesUpdated.ListOfProfiles[Model.PlayersProfilesUpdated.CurrentProfileID] = Model.CurrentProfile;
-		PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID] = Model.CurrentProfile;
+	//public void UpdateModel(int score)
+	//{
+	//	_currentPlayerData.CurrentProfile.HighScore = score;
 
-		//_playerProfileController.SaveProfile(Model.PlayersProfilesUpdated);               // zapisz wyniki przed powrotem do sceny MENU
-		_playerProfileController.SaveProfile(PlayersProfiles.Instance);               // zapisz wyniki przed powrotem do sceny MENU
-	}
+	//	PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID] = _currentPlayerData.CurrentProfile;
+
+	//	_playerProfileController.SaveProfile(PlayersProfiles.Instance);               // zapisz wyniki przed powrotem do sceny MENU
+	//}
 }
