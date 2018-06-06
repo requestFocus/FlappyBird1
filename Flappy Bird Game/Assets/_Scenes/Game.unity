@@ -193,6 +193,8 @@ MonoBehaviour:
     type: 2}
   _viewFactoryPrefab: {fileID: 114162207576250546, guid: 0558d70d8cdb20a41a4822eff9309146,
     type: 2}
+  _currentPlayerData: {fileID: 114394202539291360, guid: c22a1940b092c744faac9bc357cdec40,
+    type: 2}
 --- !u!114 &568383799
 MonoBehaviour:
   m_ObjectHideFlags: 0

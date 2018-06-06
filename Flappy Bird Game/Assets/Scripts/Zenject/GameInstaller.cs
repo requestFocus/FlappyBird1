@@ -12,6 +12,8 @@ public class GameInstaller : MonoInstaller
 	[SerializeField] private GUIFailureSummaryView _guiFailureSummaryViewPrefab;
 	[SerializeField] private ViewFactory _viewFactoryPrefab;
 
+	[SerializeField] private CurrentPlayerData _currentPlayerData;
+
 	public override void InstallBindings()
 	{
 		Container.Bind<BackgroundGameView>().FromComponentInNewPrefab(_backgroundGameViewPrefab).AsSingle().NonLazy();

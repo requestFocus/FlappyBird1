@@ -11,11 +11,11 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 	[SerializeField] private ParticleSystem AchievementParticles;
 
-	[Inject]
-	public CurrentPlayerData CurrentPlayerData;
-
 	public delegate void OnLifeLost();												// niszczy zarówno PlayerView, jak i GUIGamePlayView (ColumnView niszczy się samodzielnie)
 	public OnLifeLost OnLifeLostDel;
+
+	[Inject]
+	public CurrentPlayerData _currentPlayerData;
 
 	private void Start()
 	{
@@ -25,7 +25,9 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 		
 		OnLifeLostDel += DeleteGUIGamePlayView;
 
-		Debug.Log("player: " + CurrentPlayerData.CurrentProfile.PlayerName);
+		Debug.Log("tutut");
+
+		//Debug.Log("GUIGamePlayView: " + _currentPlayerData.TextMessage);
 	}
 
 	public void PointEarned(Collider2D collision)

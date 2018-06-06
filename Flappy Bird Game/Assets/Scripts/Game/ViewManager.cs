@@ -11,10 +11,18 @@ public class ViewManager : MonoBehaviour
 	[Inject]
 	private ViewFactory _viewFactory;
 
+	[Inject]
+	private CurrentPlayerData _currentPlayerData;
+
 	private void Awake()
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;     // POCZĄTEK SCENY
 		SwitchView();                                                                               // ZAŁADOWANIE WIDOKU
+	}
+
+	private void Start()
+	{
+		Debug.Log("ViewManager: " + _currentPlayerData.TextMessage);
 	}
 
 	public void SwitchView()
