@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using Zenject;
 
 public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		// GUIGamePlayView jest głównym widokiem zawierającym widok player PLUS obstacle
 {
@@ -11,6 +10,9 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 	[SerializeField] private Text HighScoreGamePlay;
 	[SerializeField] private Text AchievementUnlockedGamePlay;
 	[SerializeField] private ParticleSystem AchievementParticles;
+
+	[Inject]
+	public CurrentPlayerData CurrentPlayerData;
 
 	public delegate void OnLifeLost();												// niszczy zarówno PlayerView, jak i GUIGamePlayView (ColumnView niszczy się samodzielnie)
 	public OnLifeLost OnLifeLostDel;
@@ -22,6 +24,8 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 		AchievementUnlockedGamePlay.text = "";
 		
 		OnLifeLostDel += DeleteGUIGamePlayView;
+
+		Debug.Log("player: " + CurrentPlayerData.CurrentProfile.PlayerName);
 	}
 
 	public void PointEarned(Collider2D collision)

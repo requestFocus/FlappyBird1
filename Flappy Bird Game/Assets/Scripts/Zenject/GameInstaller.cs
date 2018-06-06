@@ -28,5 +28,7 @@ public class GameInstaller : MonoInstaller
 		Container.Bind<GUIFailureSummaryModel>().FromNew().AsSingle().Lazy();
 
 		Container.Bind<ViewFactory>().FromComponentInNewPrefab(_viewFactoryPrefab).AsSingle().NonLazy();
+
+		Container.Bind<CurrentPlayerData>().FromNew().AsSingle().Lazy();
 	}
 }
