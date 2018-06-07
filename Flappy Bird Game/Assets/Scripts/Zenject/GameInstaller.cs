@@ -14,6 +14,11 @@ public class GameInstaller : MonoInstaller
 
 	[SerializeField] private CurrentPlayerData _currentPlayerData;
 
+	//public override void Start()
+	//{
+		//_viewFactoryPrefab.InjectMeDel = InjectToDel;
+	//}
+
 	public override void InstallBindings()
 	{
 		Container.Bind<BackgroundGameView>().FromComponentInNewPrefab(_backgroundGameViewPrefab).AsSingle().NonLazy();
@@ -33,4 +38,9 @@ public class GameInstaller : MonoInstaller
 
 		Container.Bind<CurrentPlayerData>().FromNew().AsSingle().Lazy();
 	}
+
+	//public GameObject InjectToDel(GUIGamePlayView prefab)
+	//{
+	//	return Container.InstantiatePrefab(prefab);
+	//}
 }

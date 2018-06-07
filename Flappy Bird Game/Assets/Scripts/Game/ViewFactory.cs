@@ -24,14 +24,17 @@ public class ViewFactory : MonoBehaviour //Singleton<ViewFactory>
 	[Inject]
 	private CurrentPlayerData _currentPlayerData;
 
-	private void Start()
-	{
-		Debug.Log("ViewFactory: " + _currentPlayerData.TextMessage);
-	}
+	[Inject]
+	private DiContainer container;
+
+	//public delegate GameObject InjectMe(GUIGamePlayView prefab);
+	//public InjectMe InjectMeDel;
 
 	public GUIGamePlayView ConcreteGUIGamePlayView()
 	{
 		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_GUIGamePlayViewPrefab);
+		container.Inject(guiGamePlayViewInstance);
+		//InjectMeDel(_GUIGamePlayViewPrefab);
 		guiGamePlayViewInstance.Model = _GUIGamePlayModel;
 		return guiGamePlayViewInstance;
 	}

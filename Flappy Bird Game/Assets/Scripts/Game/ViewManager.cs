@@ -20,11 +20,6 @@ public class ViewManager : MonoBehaviour
 		SwitchView();                                                                               // ZAŁADOWANIE WIDOKU
 	}
 
-	private void Start()
-	{
-		Debug.Log("ViewManager: " + _currentPlayerData.TextMessage);
-	}
-
 	public void SwitchView()
 	{
 		_SummaryView = null;
