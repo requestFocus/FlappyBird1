@@ -25,9 +25,7 @@ public class GUIGamePlayView : View<GUIGamePlayModel, GUIGamePlayController>		//
 		
 		OnLifeLostDel += DeleteGUIGamePlayView;
 
-		Debug.Log("tutut");
-
-		//Debug.Log("GUIGamePlayView: " + _currentPlayerData.TextMessage);
+		//Debug.Log("GUIGamePlayView: " + _currentPlayerData.TextMessage);			// nie działa, bo [Inject] CurrentPlayerData to faktycznie nie Inject, a jedynie oznaczenie z wywołania FromInstance
 	}
 
 	public void PointEarned(Collider2D collision)
