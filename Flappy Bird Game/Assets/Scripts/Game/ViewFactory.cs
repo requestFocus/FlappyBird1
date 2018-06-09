@@ -27,14 +27,14 @@ public class ViewFactory : MonoBehaviour //Singleton<ViewFactory>
 	[Inject]
 	private DiContainer container;
 
-	//public delegate GameObject InjectMe(GUIGamePlayView prefab);
-	//public InjectMe InjectMeDel;
+	//public delegate void InjectMethod(GUIGamePlayView instance);
+	//public InjectMethod InjectMethodDel;
 
 	public GUIGamePlayView ConcreteGUIGamePlayView()
 	{
 		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_GUIGamePlayViewPrefab);
 		container.Inject(guiGamePlayViewInstance);
-		//InjectMeDel(_GUIGamePlayViewPrefab);
+		//InjectMethodDel(guiGamePlayViewInstance);
 		guiGamePlayViewInstance.Model = _GUIGamePlayModel;
 		return guiGamePlayViewInstance;
 	}

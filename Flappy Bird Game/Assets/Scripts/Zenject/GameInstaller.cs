@@ -14,10 +14,7 @@ public class GameInstaller : MonoInstaller
 
 	[SerializeField] private CurrentPlayerData _currentPlayerData;
 
-	//public override void Start()
-	//{
-		//_viewFactoryPrefab.InjectMeDel = InjectToDel;
-	//}
+	// _viewFactoryPrefab.InjectMethodDel = InjectInstance; //==================== GDZIE ZAREJESTROWAC DELEGATA?
 
 	public override void InstallBindings()
 	{
@@ -39,8 +36,8 @@ public class GameInstaller : MonoInstaller
 		Container.Bind<CurrentPlayerData>().FromNew().AsSingle().Lazy();
 	}
 
-	//public GameObject InjectToDel(GUIGamePlayView prefab)
-	//{
-	//	return Container.InstantiatePrefab(prefab);
-	//}
+	public void InjectInstance(GUIGamePlayView instance)
+	{
+		Container.Inject(instance);
+	}
 }
