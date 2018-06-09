@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class PlayerView : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerView : MonoBehaviour
 	private Vector2 _playerMovement;
 	private Vector2 _mergedMovement;
 
+	[Inject]
 	private GUIGamePlayView GUIGamePlayView;
 
 	private void Start()

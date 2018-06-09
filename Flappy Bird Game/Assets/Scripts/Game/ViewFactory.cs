@@ -7,42 +7,38 @@ using Zenject;
 public class ViewFactory : MonoBehaviour //Singleton<ViewFactory>
 {
 	[Inject]
-	private GUIGamePlayView _GUIGamePlayView;
+	private GUIGamePlayView _GUIGamePlayViewPrefab;
 	[Inject]
 	private GUIGamePlayModel _GUIGamePlayModel;
 
 	[Inject]
-	private GUISuccessSummaryView _GUISuccessSummaryView;
+	private GUISuccessSummaryView _GUISuccessSummaryViewPrefab;
 	[Inject]
 	private GUISuccessSummaryModel _GUISuccessSummaryModel;
 
 	[Inject]
-	private GUIFailureSummaryView _GUIFailureSummaryView;
+	private GUIFailureSummaryView _GUIFailureSummaryViewPrefab;
 	[Inject]
 	private GUIFailureSummaryModel _GUIFailureSummaryModel;
 
-	public GUIGamePlayView ConcreteGUIGamePlayView()
+	[Inject]
+	private DiContainer _container;
+
+	public void ConcreteGUIGamePlayView()
 	{
-		_GUIGamePlayView.gameObject.SetActive(true);
-		_GUIGamePlayView.Model = _GUIGamePlayModel;
-		return _GUIGamePlayView;
+		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_GUIGamePlayViewPrefab);
+		_container.Inject(guiGamePlayViewInstance);
 	}
 
-	public GUISuccessSummaryView ConcreteGUISuccessSummaryView()
-	{
-		_GUIGamePlayView.gameObject.SetActive(false);
-		_GUISuccessSummaryView.gameObject.SetActive(true);
-		//_GUISuccessSummaryModel.SetGUISuccessSummaryModel(gamePlayView.Model);
-		_GUISuccessSummaryView.Model = _GUISuccessSummaryModel;
-		return _GUISuccessSummaryView;
+	public void ConcreteGUISuccessSummaryView()
+	{ 
+		GUISuccessSummaryView guiSuccessSummaryViewInstance = Instantiate(_GUISuccessSummaryViewPrefab);
+		_container.Inject(guiSuccessSummaryViewInstance);
 	}
 
-	public GUIFailureSummaryView ConcreteGUIFailureSummaryView()
+	public void ConcreteGUIFailureSummaryView()
 	{
-		_GUIGamePlayView.gameObject.SetActive(false);
-		_GUIFailureSummaryView.gameObject.SetActive(true);
-		//_GUIFailureSummaryModel.SetGUIFailureSummaryModel(gamePlayView.Model);
-		_GUIFailureSummaryView.Model = _GUIFailureSummaryModel;
-		return _GUIFailureSummaryView;
+		GUIFailureSummaryView guiFailureSummaryViewInstance = Instantiate(_GUIFailureSummaryViewPrefab);
+		_container.Inject(guiFailureSummaryViewInstance);
 	}
 }

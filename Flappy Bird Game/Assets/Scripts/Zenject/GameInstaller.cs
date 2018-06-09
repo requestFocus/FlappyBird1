@@ -20,13 +20,13 @@ public class GameInstaller : MonoInstaller
 
 		Container.Bind<ColumnView>().FromInstance(_columnViewPrefab).AsTransient().Lazy();
 
-		Container.Bind<GUIGamePlayView>().FromComponentInNewPrefab(_GUIGamePlayViewPrefab).AsSingle().Lazy();
+		Container.Bind<GUIGamePlayView>().FromInstance(_GUIGamePlayViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUIGamePlayModel>().FromNew().AsSingle().Lazy();
 
-		Container.Bind<GUISuccessSummaryView>().FromComponentInNewPrefab(_GUISuccessSummaryViewPrefab).AsSingle().Lazy();
+		Container.Bind<GUISuccessSummaryView>().FromInstance(_GUISuccessSummaryViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUISuccessSummaryModel>().FromNew().AsSingle().Lazy();
 
-		Container.Bind<GUIFailureSummaryView>().FromComponentInNewPrefab(_GUIFailureSummaryViewPrefab).AsSingle().Lazy();
+		Container.Bind<GUIFailureSummaryView>().FromInstance(_GUIFailureSummaryViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUIFailureSummaryModel>().FromNew().AsSingle().Lazy();
 
 		Container.Bind<ViewFactory>().FromComponentInNewPrefab(_viewFactoryPrefab).AsSingle().NonLazy();
