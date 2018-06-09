@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class GUIGamePlayController : Controller<GUIGamePlayModel>
 {
@@ -10,28 +11,31 @@ public class GUIGamePlayController : Controller<GUIGamePlayModel>
 	 * osobne funkcje unlockujące achievementy, bo przecież ostatecznie mogą to być achievementy o zupełnie innych kryteriach
 	 */
 
-	public void SetState(CurrentGameStateService.GameStates state)
-	{
-		CurrentGameStateService.CurrentGameState = state;
-		ViewManager ViewManager = GameObject.FindObjectOfType<ViewManager>();
-		ViewManager.SwitchView();
-	}
+	//[Inject]
+	//private CurrentPlayerData _currentPlayerData;
 
-	public void AssignAchievementComplete10()
-	{
-		Model.CurrentProfile.Complete10 = true;
-		Model.AchievementIsUnlocked = true;
-	}
+	//public void SetState(CurrentGameStateService.GameStates state)
+	//{
+	//	CurrentGameStateService.CurrentGameState = state;
+	//	ViewManager ViewManager = GameObject.FindObjectOfType<ViewManager>();
+	//	ViewManager.SwitchView();
+	//}
 
-	public void AssignAchievementComplete25()
-	{
-		Model.CurrentProfile.Complete25 = true;
-		Model.AchievementIsUnlocked = true;
-	}
+	//public void AssignAchievementComplete10()
+	//{
+	//	_currentPlayerData.CurrentProfile.Complete10 = true;
+	//	_currentPlayerData.AchievementIsUnlocked = true;
+	//}
 
-	public void AssignAchievementComplete50()
-	{
-		Model.CurrentProfile.Complete50 = true;
-		Model.AchievementIsUnlocked = true;
-	}
+	//public void AssignAchievementComplete25()
+	//{
+	//	_currentPlayerData.CurrentProfile.Complete25 = true;
+	//	_currentPlayerData.AchievementIsUnlocked = true;
+	//}
+
+	//public void AssignAchievementComplete50()
+	//{
+	//	_currentPlayerData.CurrentProfile.Complete50 = true;
+	//	_currentPlayerData.AchievementIsUnlocked = true;
+	//}
 }

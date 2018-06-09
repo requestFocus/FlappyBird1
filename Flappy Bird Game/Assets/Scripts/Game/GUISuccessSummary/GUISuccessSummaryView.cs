@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
-public class GUISuccessSummaryView : View<GUISuccessSummaryModel, GUISuccessSummaryController>, ISummaryView
+public class GUISuccessSummaryView : MonoBehaviour 
 {
 	[SerializeField] private Text NameScoreSummary;
 	[SerializeField] private Text NewHighscoreSummary;
@@ -12,6 +13,9 @@ public class GUISuccessSummaryView : View<GUISuccessSummaryModel, GUISuccessSumm
 	[SerializeField] private Button RepeatButton;
 	[SerializeField] private Button DontRepeatButton;
 	[SerializeField] private GameObject SummaryBackground;
+
+	[Inject]
+	private CurrentPlayerData _currentPlayerData;
 
 	private void Start()
 	{
@@ -53,18 +57,18 @@ public class GUISuccessSummaryView : View<GUISuccessSummaryModel, GUISuccessSumm
 	{
 		SetSummaryScreen(true);
 
-		NameScoreSummary.text = Model.CurrentProfile.PlayerName + ", your score is " + Model.CurrentScore;
+		NameScoreSummary.text = _currentPlayerData.CurrentProfile.PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
 
-		if (Model.CurrentScore > Model.CurrentProfile.HighScore)
+		if (_currentPlayerData.CurrentScore > _currentPlayerData.CurrentProfile.HighScore)
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 
-			if (Model.AchievementIsUnlocked)							// służy wyłącznie wyświetleniu info o odblokowanym achievemencie, aktualizacja modelu nastąpiła w GUIGamePlayView
+			if (_currentPlayerData.AchievementIsUnlocked)							// służy wyłącznie wyświetleniu info o odblokowanym achievemencie, aktualizacja modelu nastąpiła w GUIGamePlayView
 			{
 				NewAchievementsSummary.text = "New achievement(s) unlocked! Congrats!";
 			}
 
-			Controller.UpdateModel(Model.CurrentScore);
+			UpdateModel(_currentPlayerData.CurrentScore);
 		}
 	}
 
@@ -73,5 +77,16 @@ public class GUISuccessSummaryView : View<GUISuccessSummaryModel, GUISuccessSumm
 		SummaryBackground.SetActive(state);
 		RepeatButton.gameObject.SetActive(state);
 		DontRepeatButton.gameObject.SetActive(state);
+	}
+
+	private PlayerProfileController _playerProfileController = new PlayerProfileController();
+
+	public void UpdateModel(int score)
+	{
+		_currentPlayerData.CurrentProfile.HighScore = score;
+
+		PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID] = _currentPlayerData.CurrentProfile;
+
+		_playerProfileController.SaveProfile(PlayersProfiles.Instance);               // zapisz wyniki przed powrotem do sceny MENU
 	}
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class ViewFactory : MonoBehaviour //Singleton<ViewFactory>
+public class ViewFactory : MonoBehaviour 
 {
 	[Inject]
 	private GUIGamePlayView _GUIGamePlayViewPrefab;
@@ -13,13 +13,9 @@ public class ViewFactory : MonoBehaviour //Singleton<ViewFactory>
 
 	[Inject]
 	private GUISuccessSummaryView _GUISuccessSummaryViewPrefab;
-	[Inject]
-	private GUISuccessSummaryModel _GUISuccessSummaryModel;
 
 	[Inject]
 	private GUIFailureSummaryView _GUIFailureSummaryViewPrefab;
-	[Inject]
-	private GUIFailureSummaryModel _GUIFailureSummaryModel;
 
 	[Inject]
 	private CurrentPlayerData _currentPlayerData;
@@ -35,23 +31,20 @@ public class ViewFactory : MonoBehaviour //Singleton<ViewFactory>
 		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_GUIGamePlayViewPrefab);
 		container.Inject(guiGamePlayViewInstance);
 		//InjectMethodDel(guiGamePlayViewInstance);
-		guiGamePlayViewInstance.Model = _GUIGamePlayModel;
 		return guiGamePlayViewInstance;
 	}
 
-	public ISummaryView ConcreteGUISuccessSummaryView(GUIGamePlayView gamePlayView)
+	public GUISuccessSummaryView ConcreteGUISuccessSummaryView(GUIGamePlayView gamePlayView)
 	{
-		ISummaryView summaryViewInstance = Instantiate(_GUISuccessSummaryViewPrefab);
-		_GUISuccessSummaryModel.SetGUISuccessSummaryModel(gamePlayView.Model);
-		((GUISuccessSummaryView)summaryViewInstance).Model = _GUISuccessSummaryModel;
-		return summaryViewInstance;
+		GUISuccessSummaryView guiSuccessSummaryViewInstance = Instantiate(_GUISuccessSummaryViewPrefab);
+		container.Inject(guiSuccessSummaryViewInstance);
+		return guiSuccessSummaryViewInstance;
 	}
 
-	public ISummaryView ConcreteGUIFailureSummaryView(GUIGamePlayView gamePlayView)
+	public GUIFailureSummaryView ConcreteGUIFailureSummaryView(GUIGamePlayView gamePlayView)
 	{
-		ISummaryView summaryViewInstance = Instantiate(_GUIFailureSummaryViewPrefab);
-		_GUIFailureSummaryModel.SetGUIFailureSummaryModel(gamePlayView.Model);
-		((GUIFailureSummaryView)summaryViewInstance).Model = _GUIFailureSummaryModel;
-		return summaryViewInstance;
+		GUIFailureSummaryView guiFailureSummaryViewInstance = Instantiate(_GUIFailureSummaryViewPrefab);
+		container.Inject(guiFailureSummaryViewInstance);
+		return guiFailureSummaryViewInstance;
 	}
 }

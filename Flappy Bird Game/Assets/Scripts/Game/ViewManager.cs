@@ -5,8 +5,9 @@ using Zenject;
 
 public class ViewManager : MonoBehaviour											
 {
-	private GUIGamePlayView _GUIGamePlayView;					
-	private ISummaryView _SummaryView;
+	private GUIGamePlayView _GUIGamePlayView;
+	private GUISuccessSummaryView _GUISuccessSummaryView;
+	private GUIFailureSummaryView _guiFailureSummaryView;
 
 	[Inject]
 	private ViewFactory _viewFactory;
@@ -22,8 +23,6 @@ public class ViewManager : MonoBehaviour
 
 	public void SwitchView()
 	{
-		_SummaryView = null;
-
 		switch (CurrentGameStateService.CurrentGameState)
 		{
 			case CurrentGameStateService.GameStates.GamePlay:
@@ -32,13 +31,13 @@ public class ViewManager : MonoBehaviour
 				break;
 
 			case CurrentGameStateService.GameStates.SummarySuccess:
-				_SummaryView = _viewFactory.ConcreteGUISuccessSummaryView(_GUIGamePlayView);
-				((GUISuccessSummaryView)_SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
+				_GUISuccessSummaryView = _viewFactory.ConcreteGUISuccessSummaryView(_GUIGamePlayView);
+				_GUISuccessSummaryView.transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 
 			case CurrentGameStateService.GameStates.SummaryFailure:
-				_SummaryView = _viewFactory.ConcreteGUIFailureSummaryView(_GUIGamePlayView);
-				((GUIFailureSummaryView)_SummaryView).transform.SetParent(FindObjectOfType<ViewManager>().transform);
+				_guiFailureSummaryView = _viewFactory.ConcreteGUIFailureSummaryView(_GUIGamePlayView);
+				_guiFailureSummaryView.transform.SetParent(FindObjectOfType<ViewManager>().transform);
 				break;
 		}
 	}

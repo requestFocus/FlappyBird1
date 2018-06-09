@@ -24,20 +24,16 @@ public class GameInstaller : MonoInstaller
 
 		Container.Bind<GUIGamePlayView>().FromInstance(_guiGamePlayViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUIGamePlayModel>().FromNew().AsSingle().Lazy();
-
 		Container.Bind<GUISuccessSummaryView>().FromInstance(_guiSuccessSummaryViewPrefab).AsSingle().Lazy();
-		Container.Bind<GUISuccessSummaryModel>().FromNew().AsSingle().Lazy();
-
 		Container.Bind<GUIFailureSummaryView>().FromInstance(_guiFailureSummaryViewPrefab).AsSingle().Lazy();
-		Container.Bind<GUIFailureSummaryModel>().FromNew().AsSingle().Lazy();
 
 		Container.Bind<ViewFactory>().FromComponentInNewPrefab(_viewFactoryPrefab).AsSingle().NonLazy();
 
 		Container.Bind<CurrentPlayerData>().FromNew().AsSingle().Lazy();
 	}
 
-	public void InjectInstance(GUIGamePlayView instance)
-	{
-		Container.Inject(instance);
-	}
+	//public void InjectInstance(GUIGamePlayView instance)
+	//{
+	//	Container.Inject(instance);
+	//}
 }
