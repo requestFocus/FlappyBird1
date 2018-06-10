@@ -25,7 +25,6 @@ public class GameInstaller : MonoInstaller
 		Container.Bind<ColumnView>().FromInstance(_columnViewPrefab).AsTransient().Lazy();
 
 		Container.Bind<GUIGamePlayView>().FromInstance(_guiGamePlayViewPrefab).AsSingle().Lazy();
-		Container.Bind<GUIGamePlayModel>().FromNew().AsSingle().Lazy();
 		Container.Bind<GUISuccessSummaryView>().FromInstance(_guiSuccessSummaryViewPrefab).AsSingle().Lazy();
 		Container.Bind<GUIFailureSummaryView>().FromInstance(_guiFailureSummaryViewPrefab).AsSingle().Lazy();
 

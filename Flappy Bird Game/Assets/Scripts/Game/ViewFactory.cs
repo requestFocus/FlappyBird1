@@ -8,8 +8,6 @@ public class ViewFactory : MonoBehaviour
 {
 	[Inject]
 	private GUIGamePlayView _GUIGamePlayViewPrefab;
-	[Inject]
-	private GUIGamePlayModel _GUIGamePlayModel;
 
 	[Inject]
 	private GUISuccessSummaryView _GUISuccessSummaryViewPrefab;
