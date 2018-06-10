@@ -17,6 +17,9 @@ public class GUISuccessSummaryView : MonoBehaviour
 	[Inject]
 	private CurrentPlayerData _currentPlayerData;
 
+	[Inject]
+	private PlayerProfileController _playerProfileController;
+
 	private void Start()
 	{
 		NameScoreSummary.text = "";
@@ -78,8 +81,6 @@ public class GUISuccessSummaryView : MonoBehaviour
 		RepeatButton.gameObject.SetActive(state);
 		DontRepeatButton.gameObject.SetActive(state);
 	}
-
-	private PlayerProfileController _playerProfileController = new PlayerProfileController();
 
 	public void UpdateModel(int score)
 	{

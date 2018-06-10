@@ -18,6 +18,8 @@ public class GameInstaller : MonoInstaller
 
 	public override void InstallBindings()
 	{
+		Container.Bind<PlayerProfileController>().FromNew().AsSingle().NonLazy();
+
 		Container.Bind<BackgroundGameView>().FromComponentInNewPrefab(_backgroundGameViewPrefab).AsSingle().NonLazy();
 
 		Container.Bind<ColumnView>().FromInstance(_columnViewPrefab).AsTransient().Lazy();
