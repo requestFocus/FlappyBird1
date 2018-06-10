@@ -5,6 +5,10 @@ using Zenject;
 
 public class BackgroundManager : MonoBehaviour
 {
-	[Inject]
-	[SerializeField] private BackgroundGameView BackgroundGameViewPrefab;
+	[SerializeField] private BackgroundGameView _backgroundGameViewPrefab;
+
+	private void Start()
+	{
+		Instantiate(_backgroundGameViewPrefab);
+	}
 }
