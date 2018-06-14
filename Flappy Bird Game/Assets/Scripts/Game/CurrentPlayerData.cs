@@ -8,10 +8,14 @@ public class CurrentPlayerData
 	public bool AchievementIsUnlocked { get; set; }                      // informuje czy podczas gry odblokowano nowe achievementy
 
 	private int _currentScore;
+
 	public int CurrentScore
 	{
-		get { return _currentScore; }
-		set { _currentScore = value; }
+		get
+		{ return _currentScore; }
+
+		set
+		{ _currentScore = value; }
 	}
 
 	public CurrentPlayerData()

@@ -62,7 +62,7 @@ public class GUISuccessSummaryView : MonoBehaviour
 
 		NameScoreSummary.text = _currentPlayerData.CurrentProfile.PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
 
-		if (_currentPlayerData.CurrentScore > _currentPlayerData.CurrentProfile.HighScore)
+		if (_currentPlayerData.CurrentScore> _currentPlayerData.CurrentProfile.HighScore)
 		{
 			NewHighscoreSummary.text = "New highscore! You did well!";
 

@@ -30,7 +30,7 @@ public class GUIGamePlayView : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Score"))                            // zdobyty punkt
 		{
-			_currentPlayerData.CurrentScore += 1;
+			_currentPlayerData.CurrentScore = _currentPlayerData.CurrentScore+ 1;
 			IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
 
 			UpdateScoreOnPointEarned();
@@ -48,7 +48,7 @@ public class GUIGamePlayView : MonoBehaviour
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
 			OnLifeLostDel();
-			if (_currentPlayerData.CurrentScore > _currentPlayerData.CurrentProfile.HighScore)
+			if (_currentPlayerData.CurrentScore> _currentPlayerData.CurrentProfile.HighScore)
 				SetState(CurrentGameStateService.GameStates.SummarySuccess);
 			else
 				SetState(CurrentGameStateService.GameStates.SummaryFailure);
