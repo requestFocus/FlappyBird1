@@ -40,7 +40,7 @@ public class GUIFailureSummaryView : MonoBehaviour
 
 	public void BackToMenu()                                            // WIDOK SUMMARY				
 	{
-		Main.BackFromGamePlay = true;
+		MenuManager.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
 	}
 
