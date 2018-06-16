@@ -11,7 +11,10 @@ public class MenuManager : MonoBehaviour {
 
 	[SerializeField] private MainLobbyView MainLobbyView;
 	[SerializeField] private LoginView LoginView;
-
+	[SerializeField] private HowToPlayView HowToPlayView;
+	[SerializeField] private CreditsView CreditsView;
+	[SerializeField] private ProfileView ProfileView;
+	[SerializeField] private AchievementsView AchievementsView;
 	[SerializeField] private MainLobbyModel MainLobbyModel;
 
 	private LoginViewService _loginViewService;
@@ -41,38 +44,36 @@ public class MenuManager : MonoBehaviour {
 		{
 			case MenuScreensService.MenuScreens.Login:
 				LoginView loginView = Instantiate(LoginView);
-				loginView.OnStateSetDel = SetState;
+				loginView.OnLoginViewSetDel = SetState;
 				break;
 
 			case MenuScreensService.MenuScreens.MainMenu:
-				//MainLobbyView.Model = new MainLobbyModel()
-				//{
-				//	EntireList = PlayersProfiles.Instance.ListOfProfiles,
-				//	CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID]
-				//};
-				Debug.Log("switch main");
-				//MainLobbyView.DrawMainMenu();
-				Instantiate(MainLobbyView);
+				MainLobbyView mainLobbyView =  Instantiate(MainLobbyView);
+				mainLobbyView.OnStateSetDel = SetState;
 				break;
 
 			case MenuScreensService.MenuScreens.HowtoPlay:
-				//HowToPlayView.DrawHowtoPlayMenu();
+				HowToPlayView howToPlay = Instantiate(HowToPlayView);
+				howToPlay.OnHowToPlayViewSetDel = SetState;
 				break;
 
 			case MenuScreensService.MenuScreens.Credits:
-				//CreditsView.DrawCreditsMenu();
+				CreditsView creditsView = Instantiate(CreditsView);
+				creditsView.OnCreditsViewSetDel = SetState;
 				break;
 
 			case MenuScreensService.MenuScreens.Achievements:
-				//AchievementsView.DrawAchievementsMenu();
+				AchievementsView achievementsView = Instantiate(AchievementsView);
+				achievementsView.OnAchievementsViewSetDel = SetState;
 				break;
 
 			case MenuScreensService.MenuScreens.NewGame:
-				//SceneManager.LoadScene("Game");
+				SceneManager.LoadScene("Game");
 				break;
 
 			case MenuScreensService.MenuScreens.Profile:
-				//ProfileView.DrawProfileView();
+				ProfileView profileView = Instantiate(ProfileView);
+				profileView.OnProfileViewSetDel = SetState;
 				break;
 		}
 	}

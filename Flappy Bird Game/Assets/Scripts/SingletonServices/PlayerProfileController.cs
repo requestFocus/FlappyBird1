@@ -24,7 +24,7 @@ public class PlayerProfileController {
 		{
 			_jsonDataFromGet = PlayerPrefs.GetString(_prefsStringInMemory);										// wczytaj z PlayerPrefs do JSON
 			_loadedProfilesData = JsonUtility.FromJson<PlayersProfiles>(_jsonDataFromGet);					  // wczytaj z JSON do odpowiadającej mu struktury PlayersProfiles
-			PlayersProfiles.Instance.ListOfProfiles = _loadedProfilesData.ListOfProfiles;						// wpisanie zawartości struktury do SINGLETONA
+			PlayersProfiles.Instance.ListOfProfiles = _loadedProfilesData.ListOfProfiles;                       // wpisanie zawartości struktury do SINGLETONA
 			return true;
 		}
 
@@ -33,9 +33,9 @@ public class PlayerProfileController {
 
 
 
-	public bool CheckIfProfileExist(string playerName)															// szybkie sprawdzenie czy podane NAME istnieje w PlayerPrefs
+	public bool CheckIfProfileExist(string playerName)                                                          // szybkie sprawdzenie czy podane NAME istnieje w PlayerPrefs
 	{
-		return PlayerPrefs.GetString(_prefsStringInMemory).Contains(playerName);		
+		return PlayerPrefs.GetString(_prefsStringInMemory).Contains(playerName);
 	}
 }
  

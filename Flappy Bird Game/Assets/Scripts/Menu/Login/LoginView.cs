@@ -5,22 +5,19 @@ using UnityEngine.UI;
 
 public class LoginView : MonoBehaviour {
 
-	//public string JustPlayerName;
-
 	[SerializeField] private Button LogoButton;
 	[SerializeField] private InputField NameField;
 
 	public Text EnterYourName;
 	private LoginViewService _loginViewService;
 
-	public delegate void OnStateSet(MenuScreensService.MenuScreens state);
-	public OnStateSet OnStateSetDel;
+	public delegate void OnLoginViewSet(MenuScreensService.MenuScreens state);
+	public OnLoginViewSet OnLoginViewSetDel;
 
 	public void Start()
 	{
 		_loginViewService = new LoginViewService();
 
-		//JustPlayerName = "";
 		EnterYourName.text = "Enter your name\nand click on the logo";
 
 		LogoButton.onClick.AddListener(ClickLogo);
@@ -31,7 +28,7 @@ public class LoginView : MonoBehaviour {
 		if (NameField.text.Length > 0)
 		{
 			_loginViewService.CheckPlayerPrefs(NameField.text);                         // odpal LoadProfile, sprawdz aktualna liste i przypisz dane do pol obiektu
-			OnStateSetDel(MenuScreensService.MenuScreens.MainMenu);
+			OnLoginViewSetDel(MenuScreensService.MenuScreens.MainMenu);
 			Destroy(gameObject);
 		}
 	}

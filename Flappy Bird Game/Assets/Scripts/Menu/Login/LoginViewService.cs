@@ -21,7 +21,7 @@ public class LoginViewService
 				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(playerName))   // sprawdza czy podane NAME istnieje w pamięci
 				{
 					_playerProfile = PlayersProfiles.Instance.ListOfProfiles[i];				   // odnaleziony profil, uzywany przy listowaniu achievementow
-					PlayersProfiles.Instance.CurrentProfileID = i;									// ID znalezionego profilu, POTRZEBNE TEŻ W CANVAS CONTROLLER
+					PlayersProfiles.Instance.CurrentProfileID = i;									// ID znalezionego profilu
 					_isOnTheList = true;
 					break;
 				}
@@ -56,7 +56,5 @@ public class LoginViewService
 			PlayersProfiles.Instance.CurrentProfileID = 0;											 // nadaję userowi pierwszy numer na liście
 		}
 		_playerProfileController.SaveProfile(PlayersProfiles.Instance);                               // zapisuję dane w singletonie	
-
-		Debug.Log("posprawdzane, można iść dalej");
 	}
 }

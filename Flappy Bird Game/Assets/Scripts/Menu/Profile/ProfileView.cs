@@ -1,35 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ProfileView : View<ProfileModel, Controller<ProfileModel>> {
-
-	[SerializeField] private Texture LogoButton;
-	[SerializeField] private Texture ProfileButtonInactive;
+public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
+{
+	[SerializeField] private Button LogoButton;
+	[SerializeField] private Text ProfileViewText;
+	[SerializeField] private Image ProfileViewButtonInactive;
 
 	[SerializeField] private AchievementSingleEntryView AchievementSingleEntryView;
-	[SerializeField] private ResizeViewService ResizeViewService;
-	[SerializeField] private DrawElementViewService DrawElementViewService;
-	[SerializeField] private SetGUIStyleViewService SetGUIStyleViewService;
+	AchievementSingleEntryView achievementSingleEntryViewInstance;
 
-	void Start ()
+	public delegate void OnProfileViewSet(MenuScreensService.MenuScreens state);                  //======= wyciagnac na zewnatrz?
+	public OnProfileViewSet OnProfileViewSetDel;
+
+	private const int xPosition = 390;
+	private const int yPosition = 228;
+
+	private void Awake()
 	{
-		ResizeViewService = new ResizeViewService();
-		DrawElementViewService = new DrawElementViewService();
-		SetGUIStyleViewService = new SetGUIStyleViewService();
-		SetGUIStyleViewService.SetGUIStyle();
+		Model = new ProfileModel()
+		{
+			CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID]
+		};
 	}
 
-
-	public void DrawProfileView()               // obsluga NEW GAME
+	private void Start ()
 	{
-		SetGUIStyleViewService.LabelContent.text = "<color=#" + SetGUIStyleViewService.DarkGreyFont + ">NAME\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + Model.CurrentProfile.PlayerName + "</color>\n\n" +
-								"HIGHSCORE\n<color=#" + SetGUIStyleViewService.LightGreyFont + ">" + Model.CurrentProfile.HighScore + "</color>\n\n" +
-								"ACHIEVEMENTS\n</color>";
-		GUI.Label(ResizeViewService.ResizeGUI(new Rect(300, 300, 200, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), SetGUIStyleViewService.LabelContent, SetGUIStyleViewService.LabelStyle);
+		LogoButton.onClick.AddListener(ClickLogo);
+		ProfileViewText.text = "NAME\n" + Model.CurrentProfile.PlayerName + "\n\nHIGHSCORE\n" + Model.CurrentProfile.HighScore + "\n\nACHIEVEMENTS";
 
-		AchievementSingleEntryView.ListAchievements(Model.CurrentProfile, 360, 370);                     // wypisuje achievementy dla zalogowanego playera
+		achievementSingleEntryViewInstance = Instantiate(AchievementSingleEntryView);
+		achievementSingleEntryViewInstance.transform.SetParent(gameObject.transform);
+		achievementSingleEntryViewInstance.ListAchievements(Model.CurrentProfile, xPosition, yPosition);
+	}
 
-		DrawElementViewService.DrawCommonViewELements(LogoButton, ProfileButtonInactive);
+	public void ClickLogo()             //=========================================================================pomyslec o wyrzuceniu tego do jakiegos serwisu
+	{
+		OnProfileViewSetDel(MenuScreensService.MenuScreens.MainMenu);
+		Destroy(gameObject);
 	}
 }

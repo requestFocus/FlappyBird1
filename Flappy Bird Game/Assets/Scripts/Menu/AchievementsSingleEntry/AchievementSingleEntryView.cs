@@ -1,56 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
  
 public class AchievementSingleEntryView : MonoBehaviour
 {
-	[SerializeField] private Texture Complete10Active;
-	[SerializeField] private Texture Complete10Inactive;
-	[SerializeField] private Texture Complete25Active;
-	[SerializeField] private Texture Complete25Inactive;
-	[SerializeField] private Texture Complete50Active;
-	[SerializeField] private Texture Complete50Inactive;
-
-	private DrawElementViewService _drawElementViewService;
-
-	private void Start()
-	{
-		_drawElementViewService = new DrawElementViewService();
-	}
-
-
+	[SerializeField] private Image Complete10Active;
+	[SerializeField] private Image Complete10Inactive;
+	[SerializeField] private Image Complete25Active;
+	[SerializeField] private Image Complete25Inactive;
+	[SerializeField] private Image Complete50Active;
+	[SerializeField] private Image Complete50Inactive;
 
 	public void ListAchievements(PlayerProfile playerProfile, int xPosition, int yPosition)
 	{
+		Complete10Inactive.transform.position = new Vector3(xPosition, yPosition);
+		Complete10Active.transform.position = new Vector3(xPosition, yPosition);
+
 		if (playerProfile.Complete10)
-		{
-			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete10Active, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);         // IKONY ACHIEVEMENTOW MAJA WYMIARY 96x110
-		}
+			Complete10Active.gameObject.SetActive(true);
 		else
-		{
-			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete10Inactive, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
-		}
+			Complete10Active.gameObject.SetActive(false);
 
 		xPosition += 30;
+		Complete25Inactive.transform.position = new Vector3(xPosition, yPosition);
+		Complete25Active.transform.position = new Vector3(xPosition, yPosition);
 
 		if (playerProfile.Complete25)
-		{
-			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete25Active, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
-		}
+			Complete25Active.gameObject.SetActive(true);
 		else
-		{
-			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete25Inactive, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
-		}
+			Complete25Active.gameObject.SetActive(false);
 
 		xPosition += 30;
+		Complete50Inactive.transform.position = new Vector3(xPosition, yPosition);
+		Complete50Active.transform.position = new Vector3(xPosition, yPosition);
 
 		if (playerProfile.Complete50)
-		{
-			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete50Active, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
-		}
+			Complete50Active.gameObject.SetActive(true);
 		else
-		{
-			_drawElementViewService.DrawElement(xPosition, yPosition, 23, 28, Complete50Inactive, ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center);
-		}
+			Complete50Active.gameObject.SetActive(false);
 	}
 }
