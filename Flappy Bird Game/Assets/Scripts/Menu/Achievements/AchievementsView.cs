@@ -12,12 +12,12 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 	[SerializeField] private Image PreviousAchievementPage;
 
 	[Inject]
-	private AchievementSingleEntryView AchievementSingleEntryView;			//=======================================
+	private AchievementSingleEntryView AchievementSingleEntryView;          //=======================================
+
+	[Inject]
+	private DelegateService _delegateService;
 
 	private Font font;
-
-	public delegate void OnAchievementsViewSet(MenuScreensService.MenuScreens state);                  //======= wyciagnac na zewnatrz?
-	public OnAchievementsViewSet OnAchievementsViewSetDel;
 
 	//private int _listAchievementsFrom;
 	//private int _listAchievementsTo;
@@ -39,7 +39,11 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 		//_listAchievementsFrom = 0;
 		//_listAchievementsTo = _scope;
 
-		LogoButton.onClick.AddListener(ClickLogo);
+		LogoButton.onClick.AddListener(delegate
+		{
+			Destroy(gameObject);
+			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
+		});
 
 		//PlayerAchievements.transform.SetParent(gameObject.transform);
 		font = (Font)Resources.Load("Fonts/Bungee-Regular");
@@ -54,12 +58,6 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 			PlayerAchievements.GetComponent<Text>().color = Color.red;
 			PlayerAchievements.GetComponent<Text>().transform.position = new Vector3(300, 200);
 		}
-	}
-
-	public void ClickLogo()             //=========================================================================pomyslec o wyrzuceniu tego do jakiegos serwisu
-	{
-		OnAchievementsViewSetDel(MenuScreensService.MenuScreens.MainMenu);
-		Destroy(gameObject);
 	}
 
 	private void DisplayThem()

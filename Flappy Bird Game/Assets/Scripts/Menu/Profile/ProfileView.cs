@@ -14,10 +14,10 @@ public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
 	private AchievementSingleEntryView _achievementSingleEntryView;
 
 	[Inject]
-	private DiContainer _container;
+	private DelegateService _delegateService;
 
-	public delegate void OnProfileViewSet(MenuScreensService.MenuScreens state);                  //======= wyciagnac na zewnatrz?
-	public OnProfileViewSet OnProfileViewSetDel;
+	[Inject]
+	private DiContainer _container;
 
 	private const int xPosition = 390;
 	private const int yPosition = 228;
@@ -30,20 +30,19 @@ public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
 		};
 	}
 
-	private void Start ()
+	private void Start()
 	{
-		LogoButton.onClick.AddListener(ClickLogo);
+		LogoButton.onClick.AddListener(delegate
+		{
+			Destroy(gameObject);
+			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
+		});
+
 		ProfileViewText.text = "NAME\n" + Model.CurrentProfile.PlayerName + "\n\nHIGHSCORE\n" + Model.CurrentProfile.HighScore + "\n\nACHIEVEMENTS";
 
 		AchievementSingleEntryView achievementSingleEntryViewInstance = Instantiate(_achievementSingleEntryView);
 		_container.Inject(achievementSingleEntryViewInstance);
 		achievementSingleEntryViewInstance.transform.SetParent(gameObject.transform);
 		achievementSingleEntryViewInstance.ListAchievements(Model.CurrentProfile, xPosition, yPosition);
-	}
-
-	public void ClickLogo()             //=========================================================================pomyslec o wyrzuceniu tego do jakiegos serwisu
-	{
-		OnProfileViewSetDel(MenuScreensService.MenuScreens.MainMenu);
-		Destroy(gameObject);
 	}
 }

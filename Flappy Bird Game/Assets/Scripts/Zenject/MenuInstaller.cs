@@ -48,6 +48,8 @@ public class MenuInstaller : MonoInstaller
 
 		Container.Bind<AchievementSingleEntryView>().FromInstance(_achievementSingleEntryView).AsSingle().Lazy();
 
+		Container.Bind<DelegateService>().FromNew().AsSingle().NonLazy();
+
 		//_instance = new PlayersProfiles();										w klasie PlayersProfiles
 	}
 }

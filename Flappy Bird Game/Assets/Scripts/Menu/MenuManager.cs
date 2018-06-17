@@ -16,6 +16,9 @@ public class MenuManager : MonoBehaviour {
 	[Inject]
 	private MenuScreensService _menuScreensService;
 
+	[Inject]
+	private DelegateService _delegateService;
+
 	private void Awake()
 	{
 		//PlayerPrefs.DeleteAll();                                                // CZYSZCZENIE PLAYERPREFS
@@ -36,33 +39,36 @@ public class MenuManager : MonoBehaviour {
 		{
 			case MenuScreensService.MenuScreens.Login:
 				LoginView loginView = _menuFactory.CreateConcreteLoginView();
-				loginView.OnLoginViewSetDel = SetState;
+				loginView.OnLoginViewSetDel = SetState;								// nie korzysta z DelegateService, jego delegat jest nieco inny od pozostałych
 				break;
 
 			case MenuScreensService.MenuScreens.MainMenu:
 				MainLobbyView mainLobbyView = _menuFactory.CreateConcreteMainLobbyView();
-				mainLobbyView.OnStateSetDel = SetState;
+				mainLobbyView.OnMainLobbyStateSetDel = SetState;
 				break;
 
 			case MenuScreensService.MenuScreens.HowtoPlay:
 				HowToPlayView howToPlay = _menuFactory.CreateConcreteHowToPlayView();
-				howToPlay.OnHowToPlayViewSetDel = SetState;
+				howToPlay.transform.SetParent(gameObject.transform);
+				_delegateService.OnStateSetDel = SetState;
 				break;
 
 			case MenuScreensService.MenuScreens.Credits:
 				CreditsView creditsView = _menuFactory.CreateConcreteCreditsView();
-				creditsView.OnCreditsViewSetDel = SetState;
+				creditsView.transform.SetParent(gameObject.transform);
+				_delegateService.OnStateSetDel = SetState;
 				break;
 
 			case MenuScreensService.MenuScreens.Achievements:
 				AchievementsView achievementsView = _menuFactory.CreateConcreteAchievementsView();
-				achievementsView.OnAchievementsViewSetDel = SetState;
+				achievementsView.transform.SetParent(gameObject.transform);
+				_delegateService.OnStateSetDel = SetState;
 				break;
 
 			case MenuScreensService.MenuScreens.Profile:
 				ProfileView profileView = _menuFactory.CreateConcreteProfileView();
-				profileView.OnProfileViewSetDel = SetState;
-				break;
+				profileView.transform.SetParent(gameObject.transform);
+				_delegateService.OnStateSetDel = SetState; break;
 
 			case MenuScreensService.MenuScreens.NewGame:
 				SceneManager.LoadScene("Game");
