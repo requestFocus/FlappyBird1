@@ -33,6 +33,8 @@ public class MenuInstaller : MonoInstaller
 	{
 		Container.Bind<MenuFactory>().FromComponentInNewPrefab(_menuFactory).AsSingle().NonLazy();
 
+		Container.Bind<MenuScreensService>().FromNew().AsSingle().NonLazy();
+
 		Container.Bind<LoginViewService>().FromNew().AsSingle().NonLazy();
 
 		Container.Bind<PlayerProfileController>().FromNew().AsSingle().NonLazy();

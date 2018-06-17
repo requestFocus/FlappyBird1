@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class MenuScreensService
+public class MenuScreensService
 {
 	public enum MenuScreens
 	{
@@ -14,5 +14,5 @@ public static class MenuScreensService
 		NewGame,
 		Profile
 	};
-	public static MenuScreens MenuStates;
+	public MenuScreens MenuStates;
 }

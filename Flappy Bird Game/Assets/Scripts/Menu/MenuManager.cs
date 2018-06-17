@@ -13,6 +13,9 @@ public class MenuManager : MonoBehaviour {
 	[Inject]
 	private MenuFactory _menuFactory;
 
+	[Inject]
+	private MenuScreensService _menuScreensService;
+
 	private void Awake()
 	{
 		//PlayerPrefs.DeleteAll();                                                // CZYSZCZENIE PLAYERPREFS
@@ -29,7 +32,7 @@ public class MenuManager : MonoBehaviour {
 
 	public void SwitchView()
 	{ 
-		switch (MenuScreensService.MenuStates)
+		switch (_menuScreensService.MenuStates)
 		{
 			case MenuScreensService.MenuScreens.Login:
 				LoginView loginView = _menuFactory.CreateConcreteLoginView();
@@ -69,7 +72,7 @@ public class MenuManager : MonoBehaviour {
 
 	public void SetState(MenuScreensService.MenuScreens state)
 	{
-		MenuScreensService.MenuStates = state;
+		_menuScreensService.MenuStates = state;
 		SwitchView();
 	}
 }
