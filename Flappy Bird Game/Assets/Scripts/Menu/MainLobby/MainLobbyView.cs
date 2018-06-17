@@ -13,8 +13,6 @@ public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 	[SerializeField] private Button ProfileButton;
 	[SerializeField] private Button LogoutButton;
 
-	private LoginViewService LoginViewService;
-
 	public delegate void OnStateSet(MenuScreensService.MenuScreens state);
 	public OnStateSet OnStateSetDel;
 
@@ -39,41 +37,38 @@ public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 
 	private void ClickNewGame()
 	{
-		OnStateSetDel(MenuScreensService.MenuScreens.NewGame);
 		Destroy(gameObject);
+		OnStateSetDel(MenuScreensService.MenuScreens.NewGame);
 	}
 
 	private void ClickHowToPlay()
 	{
-		OnStateSetDel(MenuScreensService.MenuScreens.HowtoPlay);
 		Destroy(gameObject);
+		OnStateSetDel(MenuScreensService.MenuScreens.HowtoPlay);
 	}
 
 	private void ClickCredits()
 	{
-		OnStateSetDel(MenuScreensService.MenuScreens.Credits);
 		Destroy(gameObject);
+		OnStateSetDel(MenuScreensService.MenuScreens.Credits);
 	}
-
 
 	private void ClickLogout()
 	{
-		OnStateSetDel(MenuScreensService.MenuScreens.Login);
 		Destroy(gameObject);
+		OnStateSetDel(MenuScreensService.MenuScreens.Login);
 	}
-
 
 	private void ClickProfile()
 	{
-		OnStateSetDel(MenuScreensService.MenuScreens.Profile);
 		Destroy(gameObject);
+		OnStateSetDel(MenuScreensService.MenuScreens.Profile);
 	}
-
 
 	private void ClickAchievements()
 	{
-		OnStateSetDel(MenuScreensService.MenuScreens.Achievements);
 		Destroy(gameObject);
+		OnStateSetDel(MenuScreensService.MenuScreens.Achievements);
 	}
 
 	//// LOGO - MAIN MENU						

@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
-public class LoginView : MonoBehaviour {
+public class LoginView : MonoBehaviour
+{
+	[Inject]
+	private LoginViewService _loginViewService;
 
 	[SerializeField] private Button LogoButton;
 	[SerializeField] private InputField NameField;
 
 	public Text EnterYourName;
-	private LoginViewService _loginViewService;
 
 	public delegate void OnLoginViewSet(MenuScreensService.MenuScreens state);
 	public OnLoginViewSet OnLoginViewSetDel;
 
 	public void Start()
 	{
-		_loginViewService = new LoginViewService();
-
 		EnterYourName.text = "Enter your name\nand click on the logo";
 
 		LogoButton.onClick.AddListener(ClickLogo);

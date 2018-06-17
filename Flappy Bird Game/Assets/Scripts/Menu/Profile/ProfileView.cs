@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
 {
@@ -9,8 +10,11 @@ public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
 	[SerializeField] private Text ProfileViewText;
 	[SerializeField] private Image ProfileViewButtonInactive;
 
-	[SerializeField] private AchievementSingleEntryView AchievementSingleEntryView;
-	AchievementSingleEntryView achievementSingleEntryViewInstance;
+	[Inject]
+	private AchievementSingleEntryView _achievementSingleEntryView;
+
+	[Inject]
+	private DiContainer _container;
 
 	public delegate void OnProfileViewSet(MenuScreensService.MenuScreens state);                  //======= wyciagnac na zewnatrz?
 	public OnProfileViewSet OnProfileViewSetDel;
@@ -31,7 +35,8 @@ public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
 		LogoButton.onClick.AddListener(ClickLogo);
 		ProfileViewText.text = "NAME\n" + Model.CurrentProfile.PlayerName + "\n\nHIGHSCORE\n" + Model.CurrentProfile.HighScore + "\n\nACHIEVEMENTS";
 
-		achievementSingleEntryViewInstance = Instantiate(AchievementSingleEntryView);
+		AchievementSingleEntryView achievementSingleEntryViewInstance = Instantiate(_achievementSingleEntryView);
+		_container.Inject(achievementSingleEntryViewInstance);
 		achievementSingleEntryViewInstance.transform.SetParent(gameObject.transform);
 		achievementSingleEntryViewInstance.ListAchievements(Model.CurrentProfile, xPosition, yPosition);
 	}

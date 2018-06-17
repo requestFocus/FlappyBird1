@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class LoginViewService
 {
 	private bool _thereIsAList;
 	private bool _isOnTheList;
 	private PlayerProfile _playerProfile;
-	private PlayerProfileController _playerProfileController = new PlayerProfileController();
+
+	[Inject]
+	private PlayerProfileController _playerProfileController;
 
 	public void CheckPlayerPrefs(string playerName)																	 // ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
 	{

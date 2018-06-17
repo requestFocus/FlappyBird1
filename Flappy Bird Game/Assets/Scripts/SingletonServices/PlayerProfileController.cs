@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerProfileController {
-
+public class PlayerProfileController
+{
 	private const string _prefsStringInMemory = "ProfileSettings";
 
 	private string _jsonDataToSet;
@@ -15,8 +15,6 @@ public class PlayerProfileController {
 		_jsonDataToSet = JsonUtility.ToJson(playersProfilesToSave);                                               //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
 		PlayerPrefs.SetString(_prefsStringInMemory, _jsonDataToSet);                                                //zapisz json do podanego key w PlayerPrefs
 	}
-
-
 
 	public bool LoadProfiles()
 	{
@@ -30,8 +28,6 @@ public class PlayerProfileController {
 
 		return false;
 	}
-
-
 
 	public bool CheckIfProfileExist(string playerName)                                                          // szybkie sprawdzenie czy podane NAME istnieje w PlayerPrefs
 	{

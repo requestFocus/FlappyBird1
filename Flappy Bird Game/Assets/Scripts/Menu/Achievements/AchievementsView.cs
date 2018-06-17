@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class AchievementsView : View<AchievementsModel, Controller<AchievementsModel>>
 {
@@ -10,10 +11,9 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 	[SerializeField] private Image NextAchievementPage;
 	[SerializeField] private Image PreviousAchievementPage;
 
-	[SerializeField] private AchievementSingleEntryView AchievementSingleEntryView;
-	AchievementSingleEntryView achievementSingleEntryViewInstance;
+	[Inject]
+	private AchievementSingleEntryView AchievementSingleEntryView;			//=======================================
 
-	private LoginViewService _loginViewService;
 	private Font font;
 
 	public delegate void OnAchievementsViewSet(MenuScreensService.MenuScreens state);                  //======= wyciagnac na zewnatrz?

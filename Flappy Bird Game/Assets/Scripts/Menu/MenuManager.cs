@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class MenuManager : MonoBehaviour {
 
 	public static bool BackFromGamePlay;
 
-	[SerializeField] private MenuFactory _menuFactory;
+	[Inject]
+	private MenuFactory _menuFactory;
 
 	private void Awake()
 	{
@@ -23,8 +25,6 @@ public class MenuManager : MonoBehaviour {
 		{
 			SetState(MenuScreensService.MenuScreens.MainMenu);
 		}
-
-		MenuFactory menuFactory = Instantiate(_menuFactory);
 	}
 
 	public void SwitchView()

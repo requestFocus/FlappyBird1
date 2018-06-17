@@ -5,39 +5,47 @@ using Zenject;
 
 public class MenuInstaller : MonoInstaller
 {
+	[SerializeField]
+	private MenuFactory _menuFactory;
+
+	[SerializeField]
+	private LoginView _loginView;
+
+	[SerializeField]
+	private MainLobbyView _mainLobbyView;
+
+	[SerializeField]
+	private HowToPlayView _howToPlayViewPrefab;
+
+	[SerializeField]
+	private CreditsView _creditsView;
+
+	[SerializeField]
+	private AchievementsView _achievementsView;
+
+	[SerializeField]
+	private ProfileView _profileView;
+
+	[SerializeField]
+	private AchievementSingleEntryView _achievementSingleEntryView;
 
 	public override void InstallBindings()
 	{
+		Container.Bind<MenuFactory>().FromComponentInNewPrefab(_menuFactory).AsSingle().NonLazy();
+
+		Container.Bind<LoginViewService>().FromNew().AsSingle().NonLazy();
+
+		Container.Bind<PlayerProfileController>().FromNew().AsSingle().NonLazy();
+
+		Container.Bind<LoginView>().FromInstance(_loginView).AsSingle().Lazy();
+		Container.Bind<MainLobbyView>().FromInstance(_mainLobbyView).AsSingle().Lazy();
+		Container.Bind<HowToPlayView>().FromInstance(_howToPlayViewPrefab).AsSingle().Lazy();
+		Container.Bind<CreditsView>().FromInstance(_creditsView).AsSingle().Lazy();
+		Container.Bind<AchievementsView>().FromInstance(_achievementsView).AsSingle().Lazy();
+		Container.Bind<ProfileView>().FromInstance(_profileView).AsSingle().Lazy();
+
+		Container.Bind<AchievementSingleEntryView>().FromInstance(_achievementSingleEntryView).AsSingle().Lazy();
+
 		//_instance = new PlayersProfiles();										w klasie PlayersProfiles
-
-		// private ResizeViewService ResizeViewService = new ResizeViewService();	w klasie DrawElementViewService
-
-		//_resizeViewService = new ResizeViewService();								w klasie AchievementsView
-		//_drawElementViewService = new DrawElementViewService();
-		//_setGUIStyleViewService = new SetGUIStyleViewService();
-
-		//_drawElementViewService = new DrawElementViewService();					w klasie AchievementSingleEntryView
-
-		//_resizeViewService = new ResizeViewService();								w klasie CreditsView
-		//_drawElementViewService = new DrawElementViewService();
-		//_setGUIStyleViewService = new SetGUIStyleViewService();
-
-		//ResizeViewService = new ResizeViewService();								w klasie HowToPlayView
-		//DrawElementViewService = new DrawElementViewService();
-		//SetGUIStyleViewService = new SetGUIStyleViewService();
-
-		//_resizeViewService = new ResizeViewService();								w klasie LoginView
-		//_drawElementViewService = new DrawElementViewService();
-		//_setGUIStyleViewService = new SetGUIStyleViewService();
-		//_loginViewService = new LoginViewService();
-
-		//private PlayerProfileController _playerProfileController = new PlayerProfileController();		w klasie LoginViewService
-
-		//_resizeViewService = new ResizeViewService();								w klasie MainLobbyView
-		//_drawElementViewService = new DrawElementViewService();
-
-		//ResizeViewService = new ResizeViewService()								w klasie ProfileView
-		//DrawElementViewService = new DrawElementViewService();
-		//SetGUIStyleViewService = new SetGUIStyleViewService();
 	}
 }

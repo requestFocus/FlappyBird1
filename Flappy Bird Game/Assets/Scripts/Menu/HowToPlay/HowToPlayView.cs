@@ -15,7 +15,7 @@ public class HowToPlayView : View<HowToPlayModel, Controller<HowToPlayModel>>
 	public void Start()
 	{
 		LogoButton.onClick.AddListener(ClickLogo);
-		HowToPlayText.text = "USE ARROWS ↑ / ↓ TO CONTROL THE BEE\n\nBEAT HIGHSCORES, UNLOCK ACHIEVEMENTS \nAND HAVE FUN!\n\nWATCH OUT! GRAVITY KILLS!\n\nGOOD LUCK!";
+		HowToPlayText.text = "USE ARROWS ↑ / ↓ TO CONTROL THE BEE\n\nBEAT HIGHSCORES, UNLOCK ACHIEVEMENTS\nAND HAVE FUN!\n\nWATCH OUT! GRAVITY KILLS!\n\nGOOD LUCK!";
 	}
 
 	public void ClickLogo()				//=========================================================================pomyslec o wyrzuceniu tego do jakiegos serwisu
