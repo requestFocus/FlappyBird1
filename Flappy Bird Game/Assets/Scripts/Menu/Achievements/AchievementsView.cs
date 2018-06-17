@@ -19,9 +19,9 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 	public delegate void OnAchievementsViewSet(MenuScreensService.MenuScreens state);                  //======= wyciagnac na zewnatrz?
 	public OnAchievementsViewSet OnAchievementsViewSetDel;
 
-	private int _listAchievementsFrom;
-	private int _listAchievementsTo;
-	private const int _scope = 5;
+	//private int _listAchievementsFrom;
+	//private int _listAchievementsTo;
+	//private const int _scope = 5;
 
 	private GameObject PlayerAchievements;
 
@@ -36,8 +36,8 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 
 	private void Start()
 	{
-		_listAchievementsFrom = 0;
-		_listAchievementsTo = _scope;
+		//_listAchievementsFrom = 0;
+		//_listAchievementsTo = _scope;
 
 		LogoButton.onClick.AddListener(ClickLogo);
 
@@ -77,8 +77,8 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 
 	private void ListNameScoreAchievements(int listFrom, int listTo)
 	{
-		int yPosition = 270;
-		int xPosition = 465;
+		//int yPosition = 270;
+		//int xPosition = 465;
 
 		for (int i = listFrom; i < Model.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
 		{
@@ -96,7 +96,7 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 			// ACHIEVEMENTS
 			//AchievementSingleEntryView.ListAchievements(Model.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
 
-			yPosition += 30;
+			//yPosition += 30;
 		}
 	}
 
