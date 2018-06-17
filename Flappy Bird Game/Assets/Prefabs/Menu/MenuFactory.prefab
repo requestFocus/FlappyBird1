@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1239581301502082}
+  m_IsPrefabParent: 1
+--- !u!1 &1239581301502082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4102631988876120}
+  - component: {fileID: 114143274712392296}
+  m_Layer: 0
+  m_Name: MenuFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4102631988876120
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1239581301502082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 263.29987, y: 376.24548, z: -8.088753}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114143274712392296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1239581301502082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ca0479c53eef24fbeb8c456bb9196a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _loginView: {fileID: 114889900376575336, guid: 0a6d33d0afadae6469f8d0c3b4a06840,
+    type: 2}
+  _mainLobbyView: {fileID: 114559045453426928, guid: e1c6a0c15b5952e4c9ac023cc260df1f,
+    type: 2}
+  _howToPlayView: {fileID: 114758935517518258, guid: e8bbcda38256fd849bf37332523b5132,
+    type: 2}
+  _creditsView: {fileID: 114749781252983332, guid: 71a63eb9c79d08545ac84edc49684f98,
+    type: 2}
+  _achievementsView: {fileID: 114655684163298020, guid: 9676a399f56aa2b408d0966c4a850294,
+    type: 2}
+  _profileView: {fileID: 114662367237697910, guid: d6ebb21298b026445bb0602435afa714,
+    type: 2}

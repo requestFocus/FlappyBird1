@@ -14,26 +14,90 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 	AchievementSingleEntryView achievementSingleEntryViewInstance;
 
 	private LoginViewService _loginViewService;
+	private Font font;
 
 	public delegate void OnAchievementsViewSet(MenuScreensService.MenuScreens state);                  //======= wyciagnac na zewnatrz?
 	public OnAchievementsViewSet OnAchievementsViewSetDel;
 
-	private float _listAchievementsFrom;
-	private float _listAchievementsTo;
-	private const float _scope = 5;
+	private int _listAchievementsFrom;
+	private int _listAchievementsTo;
+	private const int _scope = 5;
 
-	private void Start ()
+	private GameObject PlayerAchievements;
+
+	private void Awake()
+	{
+		Model = new AchievementsModel()
+		{
+			EntireList = PlayersProfiles.Instance.ListOfProfiles,
+			CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID]
+		};
+	}
+
+	private void Start()
 	{
 		_listAchievementsFrom = 0;
 		_listAchievementsTo = _scope;
 
 		LogoButton.onClick.AddListener(ClickLogo);
+
+		//PlayerAchievements.transform.SetParent(gameObject.transform);
+		font = (Font)Resources.Load("Fonts/Bungee-Regular");
+
+		//DisplayThem();
+		for (int i = 0; i < 1; i++)
+		{
+			PlayerAchievements = new GameObject("element");
+			PlayerAchievements.AddComponent<Text>();
+			PlayerAchievements.GetComponent<Text>().text = "element" + i;
+			PlayerAchievements.GetComponent<Text>().font = font;
+			PlayerAchievements.GetComponent<Text>().color = Color.red;
+			PlayerAchievements.GetComponent<Text>().transform.position = new Vector3(300, 200);
+		}
 	}
 
 	public void ClickLogo()             //=========================================================================pomyslec o wyrzuceniu tego do jakiegos serwisu
 	{
 		OnAchievementsViewSetDel(MenuScreensService.MenuScreens.MainMenu);
 		Destroy(gameObject);
+	}
+
+	private void DisplayThem()
+	{
+		for (int i = 0; i < 1; i++)
+		{
+			PlayerAchievements = new GameObject("element");
+			PlayerAchievements.AddComponent<Text>();
+			PlayerAchievements.GetComponent<Text>().text = "element" + i;
+			PlayerAchievements.GetComponent<Text>().font = font;
+			PlayerAchievements.GetComponent<Text>().color = Color.red;
+			PlayerAchievements.GetComponent<Text>().transform.position = new Vector3(300, 200);
+		}
+	}
+
+	private void ListNameScoreAchievements(int listFrom, int listTo)
+	{
+		int yPosition = 270;
+		int xPosition = 465;
+
+		for (int i = listFrom; i < Model.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
+		{
+			if (Model.EntireList[i].PlayerName.Equals(Model.CurrentProfile.PlayerName))             // jeśli wypisuje aktualnego playera
+			{
+				// np. TextComponent.color = Color.red;
+			}
+
+			// PLAYERNAME
+			//Model.EntireList[i].PlayerName;
+
+			// HIGHSCORE
+			//Model.EntireList[i].HighScore;
+
+			// ACHIEVEMENTS
+			//AchievementSingleEntryView.ListAchievements(Model.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
+
+			yPosition += 30;
+		}
 	}
 
 	//private void Update ()
@@ -45,18 +109,8 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 	//}
 
 
-
-	//public void DrawAchievementsMenu()
-	//{
-	//	ListNameScoreAchievements(_listAchievementsFrom, _listAchievementsTo);
-	//}
-
-
-
-
 	//private void ListNameScoreAchievements(float listFrom, float listTo)
 	//{
-	//	// LABELS
 	//	GUI.Label(_resizeViewService.ResizeGUI(new Rect(200, 240, 150, 30), ResizeViewService.Horizontal.left, ResizeViewService.Vertical.center), "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">NAME</color>", _setGUIStyleViewService.LabelStyle);
 	//	GUI.Label(_resizeViewService.ResizeGUI(new Rect(300, 240, 150, 30), ResizeViewService.Horizontal.center, ResizeViewService.Vertical.center), "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">HIGHSCORE</color>", _setGUIStyleViewService.LabelStyle);
 	//	GUI.Label(_resizeViewService.ResizeGUI(new Rect(430, 240, 150, 30), ResizeViewService.Horizontal.right, ResizeViewService.Vertical.center), "<color=#" + _setGUIStyleViewService.DarkGreyFont + ">ACHIEVEMENTS</color>", _setGUIStyleViewService.LabelStyle);

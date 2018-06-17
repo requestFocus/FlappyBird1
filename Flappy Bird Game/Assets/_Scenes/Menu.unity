@@ -409,6 +409,8 @@ MonoBehaviour:
     type: 2}
   AchievementsView: {fileID: 114655684163298020, guid: 9676a399f56aa2b408d0966c4a850294,
     type: 2}
+  _menuFactory: {fileID: 114143274712392296, guid: 3cc91e43e7c575948a101a8a5fec79da,
+    type: 2}
 --- !u!4 &1551131929
 Transform:
   m_ObjectHideFlags: 0
