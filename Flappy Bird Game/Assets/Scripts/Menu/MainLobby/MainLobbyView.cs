@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 {
@@ -13,8 +14,8 @@ public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 	[SerializeField] private Button ProfileButton;
 	[SerializeField] private Button LogoutButton;
 
-	public delegate void OnMainLobbyStateSet(MenuScreensService.MenuScreens state);
-	public OnMainLobbyStateSet OnMainLobbyStateSetDel;
+	[Inject]
+	private DelegateService _delegateService;
 
 	private void Awake()
 	{
@@ -27,49 +28,43 @@ public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 
 	private void Start()
 	{
-		NewGameButton.onClick.AddListener(ClickNewGame);
-		HowtoPlayButton.onClick.AddListener(ClickHowToPlay);
-		CreditsButton.onClick.AddListener(ClickCredits);
-		AchievementsButton.onClick.AddListener(ClickAchievements);
-		ProfileButton.onClick.AddListener(ClickProfile);
-		LogoutButton.onClick.AddListener(ClickLogout);
+		NewGameButton.onClick.AddListener(delegate
+		{
+			Destroy(gameObject);
+			_delegateService.ClickLogo(MenuScreensService.MenuScreens.NewGame);
+		});
+
+		HowtoPlayButton.onClick.AddListener(delegate
+		{
+			Destroy(gameObject);
+			_delegateService.ClickLogo(MenuScreensService.MenuScreens.HowtoPlay);
+		});
+
+		CreditsButton.onClick.AddListener(delegate
+		{
+			Destroy(gameObject);
+			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Credits);
+		});
+
+		AchievementsButton.onClick.AddListener(delegate
+		{
+			Destroy(gameObject);
+			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Achievements);
+		});
+
+		ProfileButton.onClick.AddListener(delegate
+		{
+			Destroy(gameObject);
+			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Profile);
+		});
+
+		LogoutButton.onClick.AddListener(delegate
+		{
+			Destroy(gameObject);
+			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Login);
+		});
 	}
 
-	private void ClickNewGame()
-	{
-		Destroy(gameObject);
-		OnMainLobbyStateSetDel(MenuScreensService.MenuScreens.NewGame);
-	}
-
-	private void ClickHowToPlay()
-	{
-		Destroy(gameObject);
-		OnMainLobbyStateSetDel(MenuScreensService.MenuScreens.HowtoPlay);
-	}
-
-	private void ClickCredits()
-	{
-		Destroy(gameObject);
-		OnMainLobbyStateSetDel(MenuScreensService.MenuScreens.Credits);
-	}
-
-	private void ClickLogout()
-	{
-		Destroy(gameObject);
-		OnMainLobbyStateSetDel(MenuScreensService.MenuScreens.Login);
-	}
-
-	private void ClickProfile()
-	{
-		Destroy(gameObject);
-		OnMainLobbyStateSetDel(MenuScreensService.MenuScreens.Profile);
-	}
-
-	private void ClickAchievements()
-	{
-		Destroy(gameObject);
-		OnMainLobbyStateSetDel(MenuScreensService.MenuScreens.Achievements);
-	}
 
 	//// LOGO - MAIN MENU						
 	//if (_resizeViewService.ClickedWithin(_logoRect))

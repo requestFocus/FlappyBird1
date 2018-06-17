@@ -39,12 +39,14 @@ public class MenuManager : MonoBehaviour {
 		{
 			case MenuScreensService.MenuScreens.Login:
 				LoginView loginView = _menuFactory.CreateConcreteLoginView();
+				loginView.transform.SetParent(gameObject.transform);
 				loginView.OnLoginViewSetDel = SetState;								// nie korzysta z DelegateService, jego delegat jest nieco inny od pozostałych
 				break;
 
 			case MenuScreensService.MenuScreens.MainMenu:
 				MainLobbyView mainLobbyView = _menuFactory.CreateConcreteMainLobbyView();
-				mainLobbyView.OnMainLobbyStateSetDel = SetState;
+				mainLobbyView.transform.SetParent(gameObject.transform);
+				_delegateService.OnStateSetDel = SetState;
 				break;
 
 			case MenuScreensService.MenuScreens.HowtoPlay:
