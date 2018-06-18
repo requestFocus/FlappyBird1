@@ -6,13 +6,13 @@ using Zenject;
 
 public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 {
-	[SerializeField] private Image LogoButton;                                            // umożliwia wykorzystanie modyfikatora private z dostępem do zmiennej w ramach inspectora unity
-	[SerializeField] private Button AchievementsButton;
-	[SerializeField] private Button CreditsButton;
-	[SerializeField] private Button HowtoPlayButton;
-	[SerializeField] private Button NewGameButton;
-	[SerializeField] private Button ProfileButton;
-	[SerializeField] private Button LogoutButton;
+	[SerializeField] private Image _logoButton;                                            // umożliwia wykorzystanie modyfikatora private z dostępem do zmiennej w ramach inspectora unity
+	[SerializeField] private Button _achievementsButton;
+	[SerializeField] private Button _creditsButton;
+	[SerializeField] private Button _howToPlayButton;
+	[SerializeField] private Button _newGameButton;
+	[SerializeField] private Button _profileButton;
+	[SerializeField] private Button _logoutButton;
 
 	[Inject]
 	private DelegateService _delegateService;
@@ -28,37 +28,37 @@ public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 
 	private void Start()
 	{
-		NewGameButton.onClick.AddListener(delegate
+		_newGameButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.NewGame);
 		});
 
-		HowtoPlayButton.onClick.AddListener(delegate
+		_howToPlayButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.HowtoPlay);
 		});
 
-		CreditsButton.onClick.AddListener(delegate
+		_creditsButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Credits);
 		});
 
-		AchievementsButton.onClick.AddListener(delegate
+		_achievementsButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Achievements);
 		});
 
-		ProfileButton.onClick.AddListener(delegate
+		_profileButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Profile);
 		});
 
-		LogoutButton.onClick.AddListener(delegate
+		_logoutButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Login);

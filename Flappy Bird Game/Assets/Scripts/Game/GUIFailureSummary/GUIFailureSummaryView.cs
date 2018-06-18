@@ -7,19 +7,19 @@ using Zenject;
 
 public class GUIFailureSummaryView : MonoBehaviour 
 {
-	[SerializeField] private Text NameScoreSummary;
-	[SerializeField] private Text NoHighscoreSummary;
-	[SerializeField] private Button RepeatButton;
-	[SerializeField] private Button DontRepeatButton;
-	[SerializeField] private GameObject SummaryBackground;
+	[SerializeField] private Text _nameScoreSummary;
+	[SerializeField] private Text _noHighscoreSummary;
+	[SerializeField] private Button _repeatButton;
+	[SerializeField] private Button _dontRepeatButton;
+	[SerializeField] private GameObject _summaryBackground;
 
 	[Inject]
 	private CurrentPlayerData _currentPlayerData;
 
 	private void Start()
 	{
-		NameScoreSummary.text = "";
-		NoHighscoreSummary.text = "";
+		_nameScoreSummary.text = "";
+		_noHighscoreSummary.text = "";
 		SetSummaryScreen(false);
 
 		DisplayGUISummaryView();
@@ -28,8 +28,8 @@ public class GUIFailureSummaryView : MonoBehaviour
 	
 	private void OnEnable()                                             // WIDOK SUMMARY
 	{
-		RepeatButton.onClick.AddListener(RepeatGame);
-		DontRepeatButton.onClick.AddListener(BackToMenu);
+		_repeatButton.onClick.AddListener(RepeatGame);
+		_dontRepeatButton.onClick.AddListener(BackToMenu);
 	}
 
 	public void RepeatGame()                                            // WIDOK SUMMARY
@@ -48,15 +48,15 @@ public class GUIFailureSummaryView : MonoBehaviour
 	{
 		SetSummaryScreen(true);
 
-		NameScoreSummary.text = _currentPlayerData.CurrentProfile.PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
+		_nameScoreSummary.text = _currentPlayerData.CurrentProfile.PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
 
-		NoHighscoreSummary.text = "Better luck next time...";
+		_noHighscoreSummary.text = "Better luck next time...";
 	}
 
 	public void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz
 	{
-		SummaryBackground.SetActive(state);
-		RepeatButton.gameObject.SetActive(state);
-		DontRepeatButton.gameObject.SetActive(state);
+		_summaryBackground.SetActive(state);
+		_repeatButton.gameObject.SetActive(state);
+		_dontRepeatButton.gameObject.SetActive(state);
 	}
 }

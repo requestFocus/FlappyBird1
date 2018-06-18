@@ -6,9 +6,9 @@ using Zenject;
 
 public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
 {
-	[SerializeField] private Button LogoButton;
-	[SerializeField] private Text ProfileViewText;
-	[SerializeField] private Image ProfileViewButtonInactive;
+	[SerializeField] private Button _logoButton;
+	[SerializeField] private Text _profileViewText;
+	[SerializeField] private Image _profileViewButtonInactive;
 
 	[Inject]
 	private AchievementSingleEntryView _achievementSingleEntryView;
@@ -32,13 +32,13 @@ public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
 
 	private void Start()
 	{
-		LogoButton.onClick.AddListener(delegate
+		_logoButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
 
-		ProfileViewText.text = "NAME\n" + Model.CurrentProfile.PlayerName + "\n\nHIGHSCORE\n" + Model.CurrentProfile.HighScore + "\n\nACHIEVEMENTS";
+		_profileViewText.text = "NAME\n" + Model.CurrentProfile.PlayerName + "\n\nHIGHSCORE\n" + Model.CurrentProfile.HighScore + "\n\nACHIEVEMENTS";
 
 		AchievementSingleEntryView achievementSingleEntryViewInstance = Instantiate(_achievementSingleEntryView);
 		_container.Inject(achievementSingleEntryViewInstance);

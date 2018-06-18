@@ -6,21 +6,21 @@ using Zenject;
 
 public class HowToPlayView : View<HowToPlayModel, Controller<HowToPlayModel>>
 {
-	[SerializeField] private Button LogoButton;
-	[SerializeField] private Text HowToPlayText;
-	[SerializeField] private Image HowToPlayButtonInactive;
+	[SerializeField] private Button _logoButton;
+	[SerializeField] private Text _howToPlayText;
+	[SerializeField] private Image _howToPlayButtonInactive;
 
 	[Inject]
 	private DelegateService _delegateService;
 
 	public void Start()
 	{
-		LogoButton.onClick.AddListener(delegate
+		_logoButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
 
-		HowToPlayText.text = "USE ARROWS ↑ / ↓ TO CONTROL THE BEE\n\nBEAT HIGHSCORES, UNLOCK ACHIEVEMENTS\nAND HAVE FUN!\n\nWATCH OUT! GRAVITY KILLS!\n\nGOOD LUCK!";
+		_howToPlayText.text = "USE ARROWS ↑ / ↓ TO CONTROL THE BEE\n\nBEAT HIGHSCORES, UNLOCK ACHIEVEMENTS\nAND HAVE FUN!\n\nWATCH OUT! GRAVITY KILLS!\n\nGOOD LUCK!";
 	}
 }

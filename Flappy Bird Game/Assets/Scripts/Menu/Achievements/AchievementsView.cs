@@ -6,18 +6,18 @@ using Zenject;
 
 public class AchievementsView : View<AchievementsModel, Controller<AchievementsModel>>
 {
-	[SerializeField] private Button LogoButton;
-	[SerializeField] private Image AchievementsButtonInactive;
-	[SerializeField] private Image NextAchievementPage;
-	[SerializeField] private Image PreviousAchievementPage;
+	[SerializeField] private Button _logoButton;
+	[SerializeField] private Image _achievementsButtonInactive;
+	[SerializeField] private Image _nextAchievementPage;
+	[SerializeField] private Image _previousAchievementPage;
 
 	[Inject]
-	private AchievementSingleEntryView AchievementSingleEntryView;          //=======================================
+	private AchievementSingleEntryView _achievementSingleEntryView;          //=======================================
 
 	[Inject]
 	private DelegateService _delegateService;
 
-	private Font font;
+	private Font _font;
 
 	//private int _listAchievementsFrom;
 	//private int _listAchievementsTo;
@@ -39,14 +39,14 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 		//_listAchievementsFrom = 0;
 		//_listAchievementsTo = _scope;
 
-		LogoButton.onClick.AddListener(delegate
+		_logoButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
 
 		//PlayerAchievements.transform.SetParent(gameObject.transform);
-		font = (Font)Resources.Load("Fonts/Bungee-Regular");
+		_font = (Font)Resources.Load("Fonts/Bungee-Regular");
 
 		//DisplayThem();
 		for (int i = 0; i < 1; i++)
@@ -54,7 +54,7 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 			PlayerAchievements = new GameObject("element");
 			PlayerAchievements.AddComponent<Text>();
 			PlayerAchievements.GetComponent<Text>().text = "element" + i;
-			PlayerAchievements.GetComponent<Text>().font = font;
+			PlayerAchievements.GetComponent<Text>().font = _font;
 			PlayerAchievements.GetComponent<Text>().color = Color.red;
 			PlayerAchievements.GetComponent<Text>().transform.position = new Vector3(300, 200);
 		}
@@ -67,7 +67,7 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 			PlayerAchievements = new GameObject("element");
 			PlayerAchievements.AddComponent<Text>();
 			PlayerAchievements.GetComponent<Text>().text = "element" + i;
-			PlayerAchievements.GetComponent<Text>().font = font;
+			PlayerAchievements.GetComponent<Text>().font = _font;
 			PlayerAchievements.GetComponent<Text>().color = Color.red;
 			PlayerAchievements.GetComponent<Text>().transform.position = new Vector3(300, 200);
 		}

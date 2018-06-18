@@ -266,11 +266,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fa101fa1c6cc9348b8a45e01fcf4c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NameScoreGamePlay: {fileID: 114455876816168386}
-  ScoreGamePlay: {fileID: 114379122045755004}
-  HighScoreGamePlay: {fileID: 114289397880681380}
-  AchievementUnlockedGamePlay: {fileID: 114397307208079464}
-  AchievementParticles: {fileID: 198868904761626056, guid: ecff34ae49dc86243ad5c267b4ba590a,
+  _nameScoreGamePlay: {fileID: 114455876816168386}
+  _scoreGamePlay: {fileID: 114379122045755004}
+  _highScoreGamePlay: {fileID: 114289397880681380}
+  _achievementUnlockedGamePlay: {fileID: 114397307208079464}
+  _achievementParticles: {fileID: 198868904761626056, guid: ecff34ae49dc86243ad5c267b4ba590a,
     type: 2}
 --- !u!114 &114823993231565462
 MonoBehaviour:

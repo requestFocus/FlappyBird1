@@ -221,11 +221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a1d6318f00b614bb5b4dc4c428f4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoButton: {fileID: 114369640651134314}
-  ProfileViewText: {fileID: 114193602001302044}
-  ProfileViewButtonInactive: {fileID: 114859642003353212}
-  AchievementSingleEntryView: {fileID: 114238801231400538, guid: 3b0dea77ce29ab445ae2bb2b60a6b570,
-    type: 2}
+  _logoButton: {fileID: 114369640651134314}
+  _profileViewText: {fileID: 114193602001302044}
+  _profileViewButtonInactive: {fileID: 114859642003353212}
 --- !u!114 &114841694992830580
 MonoBehaviour:
   m_ObjectHideFlags: 1

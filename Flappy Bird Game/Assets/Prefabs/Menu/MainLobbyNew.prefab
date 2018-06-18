@@ -706,13 +706,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad1e7c51a159d5459e276d2671b5f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoButton: {fileID: 114108495100231118}
-  AchievementsButton: {fileID: 114999343131226742}
-  CreditsButton: {fileID: 114029790983819590}
-  HowtoPlayButton: {fileID: 114715888022114334}
-  NewGameButton: {fileID: 114362739878181512}
-  ProfileButton: {fileID: 114901904989769482}
-  LogoutButton: {fileID: 114380485296340420}
+  _logoButton: {fileID: 114108495100231118}
+  _achievementsButton: {fileID: 114999343131226742}
+  _creditsButton: {fileID: 114029790983819590}
+  _howToPlayButton: {fileID: 114715888022114334}
+  _newGameButton: {fileID: 114362739878181512}
+  _profileButton: {fileID: 114901904989769482}
+  _logoutButton: {fileID: 114380485296340420}
 --- !u!114 &114622529883366132
 MonoBehaviour:
   m_ObjectHideFlags: 1

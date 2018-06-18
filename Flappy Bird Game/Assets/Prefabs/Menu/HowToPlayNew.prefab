@@ -260,9 +260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def8362d9a5f14544960a8015857287e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoButton: {fileID: 114657755724701876}
-  HowToPlayText: {fileID: 114143859806623416}
-  HowToPlayButtonInactive: {fileID: 114858251544994946}
+  _logoButton: {fileID: 114657755724701876}
+  _howToPlayText: {fileID: 114143859806623416}
+  _howToPlayButtonInactive: {fileID: 114858251544994946}
 --- !u!114 &114790546568506344
 MonoBehaviour:
   m_ObjectHideFlags: 1

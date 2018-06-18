@@ -329,11 +329,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1cbb167c3b624046ad87d80086500c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NameScoreSummary: {fileID: 114747356934222432}
-  NoHighscoreSummary: {fileID: 114554064794256020}
-  RepeatButton: {fileID: 114402120265744902}
-  DontRepeatButton: {fileID: 114854398543743938}
-  SummaryBackground: {fileID: 1784546522412334}
+  _nameScoreSummary: {fileID: 114747356934222432}
+  _noHighscoreSummary: {fileID: 114554064794256020}
+  _repeatButton: {fileID: 114402120265744902}
+  _dontRepeatButton: {fileID: 114854398543743938}
+  _summaryBackground: {fileID: 1784546522412334}
 --- !u!114 &114554064794256020
 MonoBehaviour:
   m_ObjectHideFlags: 1

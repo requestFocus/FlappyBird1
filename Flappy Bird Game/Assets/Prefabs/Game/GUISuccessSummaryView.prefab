@@ -492,12 +492,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c532f684d5c784fa0b45b86544d795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NameScoreSummary: {fileID: 114769036811141388}
-  NewHighscoreSummary: {fileID: 114586410672121418}
-  NewAchievementsSummary: {fileID: 114850107224432226}
-  RepeatButton: {fileID: 114654132576668080}
-  DontRepeatButton: {fileID: 114968482837522444}
-  SummaryBackground: {fileID: 1558192145781704}
+  _nameScoreSummary: {fileID: 114769036811141388}
+  _newHighscoreSummary: {fileID: 114586410672121418}
+  _newAchievementsSummary: {fileID: 114850107224432226}
+  _repeatButton: {fileID: 114654132576668080}
+  _dontRepeatButton: {fileID: 114968482837522444}
+  _summaryBackground: {fileID: 1558192145781704}
 --- !u!114 &114968482837522444
 MonoBehaviour:
   m_ObjectHideFlags: 1

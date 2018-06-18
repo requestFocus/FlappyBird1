@@ -343,12 +343,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32aa05425bce6ba47adaffa178bfd305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoButton: {fileID: 114294339058211986}
-  AchievementsButtonInactive: {fileID: 114509610573394628}
-  NextAchievementPage: {fileID: 114742171630853770}
-  PreviousAchievementPage: {fileID: 114927955567954128}
-  AchievementSingleEntryView: {fileID: 114238801231400538, guid: 3b0dea77ce29ab445ae2bb2b60a6b570,
-    type: 2}
+  _logoButton: {fileID: 114294339058211986}
+  _achievementsButtonInactive: {fileID: 114509610573394628}
+  _nextAchievementPage: {fileID: 114742171630853770}
+  _previousAchievementPage: {fileID: 114927955567954128}
 --- !u!114 &114722348673470066
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -7,13 +7,13 @@ using Zenject;
 public class ViewFactory : MonoBehaviour 
 {
 	[Inject]
-	private GUIGamePlayView _GUIGamePlayViewPrefab;
+	private GUIGamePlayView _guiGamePlayViewPrefab;
 
 	[Inject]
-	private GUISuccessSummaryView _GUISuccessSummaryViewPrefab;
+	private GUISuccessSummaryView _guiSuccessSummaryViewPrefab;
 
 	[Inject]
-	private GUIFailureSummaryView _GUIFailureSummaryViewPrefab;
+	private GUIFailureSummaryView _guiFailureSummaryViewPrefab;
 
 	[Inject]
 	private CurrentPlayerData _currentPlayerData;
@@ -23,21 +23,21 @@ public class ViewFactory : MonoBehaviour
 
 	public GUIGamePlayView ConcreteGUIGamePlayView()
 	{
-		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_GUIGamePlayViewPrefab);
+		GUIGamePlayView guiGamePlayViewInstance = Instantiate(_guiGamePlayViewPrefab);
 		container.Inject(guiGamePlayViewInstance);
 		return guiGamePlayViewInstance;
 	}
 
 	public GUISuccessSummaryView ConcreteGUISuccessSummaryView(GUIGamePlayView gamePlayView)
 	{
-		GUISuccessSummaryView guiSuccessSummaryViewInstance = Instantiate(_GUISuccessSummaryViewPrefab);
+		GUISuccessSummaryView guiSuccessSummaryViewInstance = Instantiate(_guiSuccessSummaryViewPrefab);
 		container.Inject(guiSuccessSummaryViewInstance);
 		return guiSuccessSummaryViewInstance;
 	}
 
 	public GUIFailureSummaryView ConcreteGUIFailureSummaryView(GUIGamePlayView gamePlayView)
 	{
-		GUIFailureSummaryView guiFailureSummaryViewInstance = Instantiate(_GUIFailureSummaryViewPrefab);
+		GUIFailureSummaryView guiFailureSummaryViewInstance = Instantiate(_guiFailureSummaryViewPrefab);
 		container.Inject(guiFailureSummaryViewInstance);
 		return guiFailureSummaryViewInstance;
 	}

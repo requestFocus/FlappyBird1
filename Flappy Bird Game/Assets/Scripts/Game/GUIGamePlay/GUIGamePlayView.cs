@@ -5,11 +5,11 @@ using Zenject;
 
 public class GUIGamePlayView : MonoBehaviour 
 {
-	[SerializeField] private Text NameScoreGamePlay;
-	[SerializeField] private Text ScoreGamePlay;
-	[SerializeField] private Text HighScoreGamePlay;
-	[SerializeField] private Text AchievementUnlockedGamePlay;
-	[SerializeField] private ParticleSystem AchievementParticles;
+	[SerializeField] private Text _nameScoreGamePlay;
+	[SerializeField] private Text _scoreGamePlay;
+	[SerializeField] private Text _highScoreGamePlay;
+	[SerializeField] private Text _achievementUnlockedGamePlay;
+	[SerializeField] private ParticleSystem _achievementParticles;
 
 	public delegate void OnLifeLost();												// niszczy zarówno PlayerView, jak i GUIGamePlayView (ColumnView niszczy się samodzielnie)
 	public OnLifeLost OnLifeLostDel;
@@ -21,7 +21,7 @@ public class GUIGamePlayView : MonoBehaviour
 	{
 		NotUpdatableGUIGamePlayView();
 
-		AchievementUnlockedGamePlay.text = "";
+		_achievementUnlockedGamePlay.text = "";
 		
 		OnLifeLostDel += DeleteGUIGamePlayView;
 	}
@@ -64,7 +64,7 @@ public class GUIGamePlayView : MonoBehaviour
 
 	private void ShowAchievementParticlesNotification()								// achievement odblokowany - odpal particle i on-screen notyfikacje
 	{
-		ParticleSystem AchievementParticlesInstance = Instantiate(AchievementParticles);
+		ParticleSystem AchievementParticlesInstance = Instantiate(_achievementParticles);
 		AchievementParticlesInstance.Play();
 
 		StartCoroutine(AchievementUnlockedNotification());
@@ -97,22 +97,22 @@ public class GUIGamePlayView : MonoBehaviour
 
 	private void UpdateScoreOnPointEarned()                                
 	{
-		ScoreGamePlay.text = "score: " + _currentPlayerData.CurrentScore;
+		_scoreGamePlay.text = "score: " + _currentPlayerData.CurrentScore;
 	}
 
 
 	private void NotUpdatableGUIGamePlayView()                                
 	{
-		ScoreGamePlay.text = "score: " + _currentPlayerData.CurrentScore;					 // tu wyświetli zawsze score = 0, bo w UpdateScoreOnPointEarned() pierwszy update modelu ma miejsce po zdobyciu pierwszego punktu
-		NameScoreGamePlay.text = _currentPlayerData.CurrentProfile.PlayerName;
-		HighScoreGamePlay.text = "highscore: " + _currentPlayerData.CurrentProfile.HighScore;
+		_scoreGamePlay.text = "score: " + _currentPlayerData.CurrentScore;					 // tu wyświetli zawsze score = 0, bo w UpdateScoreOnPointEarned() pierwszy update modelu ma miejsce po zdobyciu pierwszego punktu
+		_nameScoreGamePlay.text = _currentPlayerData.CurrentProfile.PlayerName;
+		_highScoreGamePlay.text = "highscore: " + _currentPlayerData.CurrentProfile.HighScore;
 	}
 
 	private IEnumerator AchievementUnlockedNotification()						// wyswietla info o odblokowaniu achievementu
 	{
-		AchievementUnlockedGamePlay.text = "New achievement!";
+		_achievementUnlockedGamePlay.text = "New achievement!";
 		yield return new WaitForSeconds(2);
-		AchievementUnlockedGamePlay.text = "";
+		_achievementUnlockedGamePlay.text = "";
 	}
 
 

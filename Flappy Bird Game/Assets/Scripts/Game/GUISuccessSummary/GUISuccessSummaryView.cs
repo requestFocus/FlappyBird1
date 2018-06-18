@@ -7,12 +7,12 @@ using Zenject;
 
 public class GUISuccessSummaryView : MonoBehaviour 
 {
-	[SerializeField] private Text NameScoreSummary;
-	[SerializeField] private Text NewHighscoreSummary;
-	[SerializeField] private Text NewAchievementsSummary;
-	[SerializeField] private Button RepeatButton;
-	[SerializeField] private Button DontRepeatButton;
-	[SerializeField] private GameObject SummaryBackground;
+	[SerializeField] private Text _nameScoreSummary;
+	[SerializeField] private Text _newHighscoreSummary;
+	[SerializeField] private Text _newAchievementsSummary;
+	[SerializeField] private Button _repeatButton;
+	[SerializeField] private Button _dontRepeatButton;
+	[SerializeField] private GameObject _summaryBackground;
 
 	[Inject]
 	private CurrentPlayerData _currentPlayerData;
@@ -22,9 +22,9 @@ public class GUISuccessSummaryView : MonoBehaviour
 
 	private void Start()
 	{
-		NameScoreSummary.text = "";
-		NewHighscoreSummary.text = "";
-		NewAchievementsSummary.text = "";
+		_nameScoreSummary.text = "";
+		_newHighscoreSummary.text = "";
+		_newAchievementsSummary.text = "";
 		SetSummaryScreen(false);
 
 		DisplayGUISummaryView();
@@ -32,8 +32,8 @@ public class GUISuccessSummaryView : MonoBehaviour
 
 	private void OnEnable()                                             // WIDOK SUMMARY
 	{
-		RepeatButton.onClick.AddListener(RepeatGame);
-		DontRepeatButton.onClick.AddListener(BackToMenu);
+		_repeatButton.onClick.AddListener(RepeatGame);
+		_dontRepeatButton.onClick.AddListener(BackToMenu);
 	}
 
 	public void RepeatGame()                                            // WIDOK SUMMARY
@@ -60,26 +60,21 @@ public class GUISuccessSummaryView : MonoBehaviour
 	{
 		SetSummaryScreen(true);
 
-		NameScoreSummary.text = _currentPlayerData.CurrentProfile.PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
+		_nameScoreSummary.text = _currentPlayerData.CurrentProfile.PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
 
-		if (_currentPlayerData.CurrentScore> _currentPlayerData.CurrentProfile.HighScore)
-		{
-			NewHighscoreSummary.text = "New highscore! You did well!";
+		_newHighscoreSummary.text = "New highscore! You did well!";
 
-			if (_currentPlayerData.AchievementIsUnlocked)							// służy wyłącznie wyświetleniu info o odblokowanym achievemencie, aktualizacja modelu nastąpiła w GUIGamePlayView
-			{
-				NewAchievementsSummary.text = "New achievement(s) unlocked! Congrats!";
-			}
+		if (_currentPlayerData.AchievementIsUnlocked)							// służy wyłącznie wyświetleniu info o odblokowanym achievemencie, aktualizacja modelu nastąpiła w GUIGamePlayView
+			_newAchievementsSummary.text = "New achievement(s) unlocked! Congrats!";
 
-			UpdateModel(_currentPlayerData.CurrentScore);
-		}
+		UpdateModel(_currentPlayerData.CurrentScore);
 	}
 
 	public void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz
 	{
-		SummaryBackground.SetActive(state);
-		RepeatButton.gameObject.SetActive(state);
-		DontRepeatButton.gameObject.SetActive(state);
+		_summaryBackground.SetActive(state);
+		_repeatButton.gameObject.SetActive(state);
+		_dontRepeatButton.gameObject.SetActive(state);
 	}
 
 	public void UpdateModel(int score)

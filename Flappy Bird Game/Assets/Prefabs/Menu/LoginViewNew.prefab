@@ -390,9 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be2500f996a027419ed61056b36a8b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoButton: {fileID: 114675367492644534}
-  NameField: {fileID: 114831143724713834}
-  EnterYourName: {fileID: 114921243860720134}
+  _logoButton: {fileID: 114675367492644534}
+  _nameField: {fileID: 114831143724713834}
+  _enterYourName: {fileID: 114921243860720134}
 --- !u!114 &114890094955862160
 MonoBehaviour:
   m_ObjectHideFlags: 1

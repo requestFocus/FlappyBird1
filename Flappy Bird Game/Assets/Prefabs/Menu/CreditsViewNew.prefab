@@ -248,9 +248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb2bd29cf5312c418d36389087e551a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoButton: {fileID: 114704369268724094}
-  CreditsViewText: {fileID: 114327943618723082}
-  CreditsViewButtonInactive: {fileID: 114012386825324466}
+  _logoButton: {fileID: 114704369268724094}
+  _creditsViewText: {fileID: 114327943618723082}
+  _creditsViewButtonInactive: {fileID: 114012386825324466}
 --- !u!114 &114813737510646610
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -5,39 +5,39 @@ using UnityEngine.UI;
  
 public class AchievementSingleEntryView : MonoBehaviour
 {
-	[SerializeField] private Image Complete10Active;
-	[SerializeField] private Image Complete10Inactive;
-	[SerializeField] private Image Complete25Active;
-	[SerializeField] private Image Complete25Inactive;
-	[SerializeField] private Image Complete50Active;
-	[SerializeField] private Image Complete50Inactive;
+	[SerializeField] private Image _complete10Active;
+	[SerializeField] private Image _complete10Inactive;
+	[SerializeField] private Image _complete25Active;
+	[SerializeField] private Image _complete25Inactive;
+	[SerializeField] private Image _complete50Active;
+	[SerializeField] private Image _complete50Inactive;
 
 	public void ListAchievements(PlayerProfile playerProfile, int xPosition, int yPosition)
 	{
-		Complete10Inactive.transform.position = new Vector3(xPosition, yPosition);
-		Complete10Active.transform.position = new Vector3(xPosition, yPosition);
+		_complete10Inactive.transform.position = new Vector3(xPosition, yPosition);
+		_complete10Active.transform.position = new Vector3(xPosition, yPosition);
 
 		if (playerProfile.Complete10)
-			Complete10Active.gameObject.SetActive(true);
+			_complete10Active.gameObject.SetActive(true);
 		else
-			Complete10Active.gameObject.SetActive(false);
+			_complete10Active.gameObject.SetActive(false);
 
 		xPosition += 30;
-		Complete25Inactive.transform.position = new Vector3(xPosition, yPosition);
-		Complete25Active.transform.position = new Vector3(xPosition, yPosition);
+		_complete25Inactive.transform.position = new Vector3(xPosition, yPosition);
+		_complete25Active.transform.position = new Vector3(xPosition, yPosition);
 
 		if (playerProfile.Complete25)
-			Complete25Active.gameObject.SetActive(true);
+			_complete25Active.gameObject.SetActive(true);
 		else
-			Complete25Active.gameObject.SetActive(false);
+			_complete25Active.gameObject.SetActive(false);
 
 		xPosition += 30;
-		Complete50Inactive.transform.position = new Vector3(xPosition, yPosition);
-		Complete50Active.transform.position = new Vector3(xPosition, yPosition);
+		_complete50Inactive.transform.position = new Vector3(xPosition, yPosition);
+		_complete50Active.transform.position = new Vector3(xPosition, yPosition);
 
 		if (playerProfile.Complete50)
-			Complete50Active.gameObject.SetActive(true);
+			_complete50Active.gameObject.SetActive(true);
 		else
-			Complete50Active.gameObject.SetActive(false);
+			_complete50Active.gameObject.SetActive(false);
 	}
 }
