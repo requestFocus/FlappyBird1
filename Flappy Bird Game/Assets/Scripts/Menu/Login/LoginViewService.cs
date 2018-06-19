@@ -5,59 +5,61 @@ using Zenject;
 
 public class LoginViewService
 {
-	private bool _thereIsAList;
+	private bool _playerPrefsExist;
 	private bool _isOnTheList;
 	private PlayerProfile _playerProfile;
+
+	private const string _prefsStringInMemory = "ProfileSettings";
+
+	[Inject]
+	private ProjectData _projectData;
 
 	[Inject]
 	private PlayerProfileController _playerProfileController;
 
 	public void CheckPlayerPrefs(string playerName)																	 // ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
 	{
-		_thereIsAList = _playerProfileController.LoadProfiles();
-		_isOnTheList = false;
+		_playerPrefsExist = _playerProfileController.IsPlayerPrefsNotEmpty();
 
-		if (_thereIsAList)																			 // jesli istnieje lista w pamieci
+		if (_playerPrefsExist)
 		{
-			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)                 // parsuje całą listę obiektów
+			_projectData = _playerProfileController.LoadProfiles();
+
+			for (int i = 0; i < _projectData.EntireList.Count; i++)                 // parsuje całą listę obiektów
 			{
-				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(playerName))   // sprawdza czy podane NAME istnieje w pamięci
+				if (_projectData.EntireList[i].PlayerName.Equals(playerName))   // sprawdza czy podane NAME istnieje w pamięci
 				{
-					_playerProfile = PlayersProfiles.Instance.ListOfProfiles[i];				   // odnaleziony profil, uzywany przy listowaniu achievementow
-					PlayersProfiles.Instance.CurrentProfileID = i;									// ID znalezionego profilu
+					_projectData.CurrentID = i;                                 // ID znalezionego profilu
 					_isOnTheList = true;
+
+					Debug.Log("name istnieje pod ID: " + _projectData.CurrentID);
 					break;
 				}
 			}
-
-			if (!_isOnTheList)                                                                       // jesli na liscie nie wystepuje podane NAME
-			{
-				AddNewProfile(playerName);
-			}
 		}
-		else                                                                                            // jesli w pamieci nie istnieje lista userów
+		else
 		{
+			_projectData.EntireList = new List<PlayerProfile>();
+		}
+
+		if (!_isOnTheList)                                                                       // jesli na liscie nie wystepuje podane NAME
+		{
+			Debug.Log("name nie istnieje");
 			AddNewProfile(playerName);
 		}
 
-		_isOnTheList = false;
+		_isOnTheList = false;																			// zerowanie flagi
 	}
-
-
 
 	private void AddNewProfile(string playerName)
 	{
 		_playerProfile = new PlayerProfile(playerName, 0, false, false, false);          // tworzę nowy profil gracza z domyślnymi wartościami
-		if (_thereIsAList)																				 // na liście nie ma podanego NAME
-		{
-			PlayersProfiles.Instance.ListOfProfiles.Add(_playerProfile);                             // a teraz dodaje do niej aktualny _playerProfile
-			PlayersProfiles.Instance.CurrentProfileID = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
-		}
-		else
-		{
-			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile> { _playerProfile };           // tworzę listę, bo _isThereAList == false i dodaje aktualny _playerProfile
-			PlayersProfiles.Instance.CurrentProfileID = 0;											 // nadaję userowi pierwszy numer na liście
-		}
-		_playerProfileController.SaveProfile(PlayersProfiles.Instance);                               // zapisuję dane w singletonie	
+
+		_projectData.EntireList.Add(_playerProfile);                             // a teraz dodaje do niej aktualny _playerProfile
+		_projectData.CurrentID = _projectData.EntireList.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
+
+		Debug.Log("name dodane na końcu pod ID: " + _projectData.CurrentID);
+
+		_playerProfileController.SaveProfile(_projectData);                               // zapisuję dane w singletonie	
 	}
 }

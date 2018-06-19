@@ -15,16 +15,10 @@ public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 	[SerializeField] private Button _logoutButton;
 
 	[Inject]
-	private DelegateService _delegateService;
+	private ProjectData _projectData;
 
-	private void Awake()
-	{
-		Model = new MainLobbyModel()
-		{
-			EntireList = PlayersProfiles.Instance.ListOfProfiles,
-			CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID]
-		};
-	}
+	[Inject]
+	private DelegateService _delegateService;
 
 	private void Start()
 	{
