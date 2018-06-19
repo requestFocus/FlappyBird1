@@ -11,6 +11,9 @@ public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
 	[SerializeField] private Image _profileViewButtonInactive;
 
 	[Inject]
+	private ProjectData _projectData;
+
+	[Inject]
 	private AchievementSingleEntryView _achievementSingleEntryView;
 
 	[Inject]
@@ -22,14 +25,6 @@ public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
 	private const int xPosition = 390;
 	private const int yPosition = 228;
 
-	private void Awake()
-	{
-		Model = new ProfileModel()
-		{
-			CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID]
-		};
-	}
-
 	private void Start()
 	{
 		_logoButton.onClick.AddListener(delegate
@@ -38,11 +33,11 @@ public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
 
-		_profileViewText.text = "NAME\n" + Model.CurrentProfile.PlayerName + "\n\nHIGHSCORE\n" + Model.CurrentProfile.HighScore + "\n\nACHIEVEMENTS";
+		_profileViewText.text = "NAME\n" + _projectData.EntireList[_projectData.CurrentID].PlayerName + "\n\nHIGHSCORE\n" + _projectData.EntireList[_projectData.CurrentID].HighScore + "\n\nACHIEVEMENTS";
 
 		AchievementSingleEntryView achievementSingleEntryViewInstance = Instantiate(_achievementSingleEntryView);
 		_container.Inject(achievementSingleEntryViewInstance);
 		achievementSingleEntryViewInstance.transform.SetParent(gameObject.transform);
-		achievementSingleEntryViewInstance.ListAchievements(Model.CurrentProfile, xPosition, yPosition);
+		achievementSingleEntryViewInstance.ListAchievements(_projectData.EntireList[_projectData.CurrentID], xPosition, yPosition);
 	}
 }

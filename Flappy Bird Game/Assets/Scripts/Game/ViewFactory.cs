@@ -16,9 +16,6 @@ public class ViewFactory : MonoBehaviour
 	private GUIFailureSummaryView _guiFailureSummaryViewPrefab;
 
 	[Inject]
-	private CurrentPlayerData _currentPlayerData;
-
-	[Inject]
 	private DiContainer container;
 
 	public GUIGamePlayView ConcreteGUIGamePlayView()

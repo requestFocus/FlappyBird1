@@ -12,9 +12,6 @@ public class ViewManager : MonoBehaviour
 	[Inject]
 	private ViewFactory _viewFactory;
 
-	[Inject]
-	private CurrentPlayerData _currentPlayerData;
-
 	private void Awake()
 	{
 		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;     // POCZĄTEK SCENY

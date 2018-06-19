@@ -18,85 +18,43 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 	private DelegateService _delegateService;
 
 	private Font _font;
-
-	//private int _listAchievementsFrom;
-	//private int _listAchievementsTo;
-	//private const int _scope = 5;
-
 	private GameObject PlayerAchievements;
-
-	private void Awake()
-	{
-		Model = new AchievementsModel()
-		{
-			EntireList = PlayersProfiles.Instance.ListOfProfiles,
-			CurrentProfile = PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID]
-		};
-	}
 
 	private void Start()
 	{
-		//_listAchievementsFrom = 0;
-		//_listAchievementsTo = _scope;
-
 		_logoButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
 
-		//PlayerAchievements.transform.SetParent(gameObject.transform);
 		_font = (Font)Resources.Load("Fonts/Bungee-Regular");
-
-		//DisplayThem();
-		for (int i = 0; i < 1; i++)
-		{
-			PlayerAchievements = new GameObject("element");
-			PlayerAchievements.AddComponent<Text>();
-			PlayerAchievements.GetComponent<Text>().text = "element" + i;
-			PlayerAchievements.GetComponent<Text>().font = _font;
-			PlayerAchievements.GetComponent<Text>().color = Color.red;
-			PlayerAchievements.GetComponent<Text>().transform.position = new Vector3(300, 200);
-		}
 	}
 
-	private void DisplayThem()
-	{
-		for (int i = 0; i < 1; i++)
-		{
-			PlayerAchievements = new GameObject("element");
-			PlayerAchievements.AddComponent<Text>();
-			PlayerAchievements.GetComponent<Text>().text = "element" + i;
-			PlayerAchievements.GetComponent<Text>().font = _font;
-			PlayerAchievements.GetComponent<Text>().color = Color.red;
-			PlayerAchievements.GetComponent<Text>().transform.position = new Vector3(300, 200);
-		}
-	}
+	//private void ListNameScoreAchievements(int listFrom, int listTo)
+	//{
+	//	int yPosition = 270;
+	//	int xPosition = 465;
 
-	private void ListNameScoreAchievements(int listFrom, int listTo)
-	{
-		//int yPosition = 270;
-		//int xPosition = 465;
+	//	for (int i = listFrom; i < Model.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
+	//	{
+	//		if (Model.EntireList[i].PlayerName.Equals(Model.CurrentProfile.PlayerName))             // jeśli wypisuje aktualnego playera
+	//		{
+	//			// np. TextComponent.color = Color.red;
+	//		}
 
-		for (int i = listFrom; i < Model.EntireList.Count && i < (int)listTo; i++)                              // wypisze liste userów od A do B
-		{
-			if (Model.EntireList[i].PlayerName.Equals(Model.CurrentProfile.PlayerName))             // jeśli wypisuje aktualnego playera
-			{
-				// np. TextComponent.color = Color.red;
-			}
+	//		PLAYERNAME
+	//		Model.EntireList[i].PlayerName;
 
-			// PLAYERNAME
-			//Model.EntireList[i].PlayerName;
+	//		HIGHSCORE
+	//		Model.EntireList[i].HighScore;
 
-			// HIGHSCORE
-			//Model.EntireList[i].HighScore;
+	//		ACHIEVEMENTS
+	//		AchievementSingleEntryView.ListAchievements(Model.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
 
-			// ACHIEVEMENTS
-			//AchievementSingleEntryView.ListAchievements(Model.EntireList[i], xPosition, yPosition);                      // wypisuje achievementy dla aktualnie parsowanego w pętli obiektu
-
-			//yPosition += 30;
-		}
-	}
+	//		yPosition += 30;
+	//	}
+	//}
 
 	//private void Update ()
 	//{

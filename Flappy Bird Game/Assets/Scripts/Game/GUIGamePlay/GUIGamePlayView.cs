@@ -15,6 +15,9 @@ public class GUIGamePlayView : MonoBehaviour
 	public OnLifeLost OnLifeLostDel;
 
 	[Inject]
+	private ProjectData _projectData;
+
+	[Inject]
 	public CurrentPlayerData _currentPlayerData;
 
 	private void Start()
@@ -48,7 +51,7 @@ public class GUIGamePlayView : MonoBehaviour
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
 			OnLifeLostDel();
-			if (_currentPlayerData.CurrentScore> _currentPlayerData.CurrentProfile.HighScore)
+			if (_currentPlayerData.CurrentScore> _projectData.EntireList[_projectData.CurrentID].HighScore)
 				SetState(CurrentGameStateService.GameStates.SummarySuccess);
 			else
 				SetState(CurrentGameStateService.GameStates.SummaryFailure);
@@ -72,19 +75,19 @@ public class GUIGamePlayView : MonoBehaviour
 
 	private bool VerifyAchievements(int currentScore)								// sprawdzy czy odblokowano achievement
 	{
-		if (currentScore == 10 && !_currentPlayerData.CurrentProfile.Complete10)
+		if (currentScore == 10 && !_projectData.EntireList[_projectData.CurrentID].Complete10)
 		{
 			AssignAchievementComplete10();
 			return true;
 		}
 
-		if (currentScore == 25 && !_currentPlayerData.CurrentProfile.Complete25)
+		if (currentScore == 25 && !_projectData.EntireList[_projectData.CurrentID].Complete25)
 		{
 			AssignAchievementComplete25();
 			return true;
 		}
 
-		if (currentScore == 50 && !_currentPlayerData.CurrentProfile.Complete50)
+		if (currentScore == 50 && !_projectData.EntireList[_projectData.CurrentID].Complete50)
 		{
 			AssignAchievementComplete50();
 			return true;
@@ -104,8 +107,8 @@ public class GUIGamePlayView : MonoBehaviour
 	private void NotUpdatableGUIGamePlayView()                                
 	{
 		_scoreGamePlay.text = "score: " + _currentPlayerData.CurrentScore;					 // tu wyświetli zawsze score = 0, bo w UpdateScoreOnPointEarned() pierwszy update modelu ma miejsce po zdobyciu pierwszego punktu
-		_nameScoreGamePlay.text = _currentPlayerData.CurrentProfile.PlayerName;
-		_highScoreGamePlay.text = "highscore: " + _currentPlayerData.CurrentProfile.HighScore;
+		_nameScoreGamePlay.text = _projectData.EntireList[_projectData.CurrentID].PlayerName;
+		_highScoreGamePlay.text = "highscore: " + _projectData.EntireList[_projectData.CurrentID].HighScore;
 	}
 
 	private IEnumerator AchievementUnlockedNotification()						// wyswietla info o odblokowaniu achievementu
@@ -125,19 +128,19 @@ public class GUIGamePlayView : MonoBehaviour
 
 	public void AssignAchievementComplete10()
 	{
-		_currentPlayerData.CurrentProfile.Complete10 = true;
+		_projectData.EntireList[_projectData.CurrentID].Complete10 = true;
 		_currentPlayerData.AchievementIsUnlocked = true;
 	}
 
 	public void AssignAchievementComplete25()
 	{
-		_currentPlayerData.CurrentProfile.Complete25 = true;
+		_projectData.EntireList[_projectData.CurrentID].Complete25 = true;
 		_currentPlayerData.AchievementIsUnlocked = true;
 	}
 
 	public void AssignAchievementComplete50()
 	{
-		_currentPlayerData.CurrentProfile.Complete50 = true;
+		_projectData.EntireList[_projectData.CurrentID].Complete50 = true;
 		_currentPlayerData.AchievementIsUnlocked = true;
 	}
 }

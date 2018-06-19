@@ -10,6 +10,9 @@ public class LoginViewService
 	private PlayerProfile _playerProfile;
 
 	[Inject]
+	private ProjectData _projectData;
+
+	[Inject]
 	private PlayerProfileController _playerProfileController;
 
 	public void CheckPlayerPrefs(string playerName)																	 // ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
@@ -19,12 +22,12 @@ public class LoginViewService
 
 		if (_thereIsAList)																			 // jesli istnieje lista w pamieci
 		{
-			for (int i = 0; i < PlayersProfiles.Instance.ListOfProfiles.Count; i++)                 // parsuje całą listę obiektów
+			for (int i = 0; i < _projectData.EntireList.Count; i++)                 // parsuje całą listę obiektów
 			{
-				if (PlayersProfiles.Instance.ListOfProfiles[i].PlayerName.Equals(playerName))   // sprawdza czy podane NAME istnieje w pamięci
+				if (_projectData.EntireList[i].PlayerName.Equals(playerName))   // sprawdza czy podane NAME istnieje w pamięci
 				{
-					_playerProfile = PlayersProfiles.Instance.ListOfProfiles[i];				   // odnaleziony profil, uzywany przy listowaniu achievementow
-					PlayersProfiles.Instance.CurrentProfileID = i;									// ID znalezionego profilu
+					_playerProfile = _projectData.EntireList[i];				   // odnaleziony profil, uzywany przy listowaniu achievementow
+					_projectData.CurrentID = i;									// ID znalezionego profilu
 					_isOnTheList = true;
 					break;
 				}
@@ -48,16 +51,15 @@ public class LoginViewService
 	private void AddNewProfile(string playerName)
 	{
 		_playerProfile = new PlayerProfile(playerName, 0, false, false, false);          // tworzę nowy profil gracza z domyślnymi wartościami
+		_projectData.EntireList.Add(_playerProfile);									// a teraz dodaje do listy aktualny _playerProfile
 		if (_thereIsAList)																				 // na liście nie ma podanego NAME
 		{
-			PlayersProfiles.Instance.ListOfProfiles.Add(_playerProfile);                             // a teraz dodaje do niej aktualny _playerProfile
-			PlayersProfiles.Instance.CurrentProfileID = PlayersProfiles.Instance.ListOfProfiles.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
+			_projectData.CurrentID = _projectData.EntireList.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
 		}
 		else
 		{
-			PlayersProfiles.Instance.ListOfProfiles = new List<PlayerProfile> { _playerProfile };           // tworzę listę, bo _isThereAList == false i dodaje aktualny _playerProfile
-			PlayersProfiles.Instance.CurrentProfileID = 0;											 // nadaję userowi pierwszy numer na liście
+			_projectData.CurrentID = 0;											 // nadaję userowi pierwszy numer na liście
 		}
-		_playerProfileController.SaveProfile(PlayersProfiles.Instance);                               // zapisuję dane w singletonie	
+		_playerProfileController.SaveProfile(_projectData);                               // zapisuję dane w singletonie	
 	}
 }

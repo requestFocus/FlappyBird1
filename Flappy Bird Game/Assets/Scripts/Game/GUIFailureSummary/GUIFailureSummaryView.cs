@@ -14,6 +14,9 @@ public class GUIFailureSummaryView : MonoBehaviour
 	[SerializeField] private GameObject _summaryBackground;
 
 	[Inject]
+	private ProjectData _projectData;
+
+	[Inject]
 	private CurrentPlayerData _currentPlayerData;
 
 	private void Start()
@@ -48,7 +51,7 @@ public class GUIFailureSummaryView : MonoBehaviour
 	{
 		SetSummaryScreen(true);
 
-		_nameScoreSummary.text = _currentPlayerData.CurrentProfile.PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
+		_nameScoreSummary.text = _projectData.EntireList[_projectData.CurrentID].PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
 
 		_noHighscoreSummary.text = "Better luck next time...";
 	}

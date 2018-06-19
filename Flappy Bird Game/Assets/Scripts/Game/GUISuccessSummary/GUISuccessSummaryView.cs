@@ -15,6 +15,9 @@ public class GUISuccessSummaryView : MonoBehaviour
 	[SerializeField] private GameObject _summaryBackground;
 
 	[Inject]
+	private ProjectData _projectData;
+
+	[Inject]
 	private CurrentPlayerData _currentPlayerData;
 
 	[Inject]
@@ -60,7 +63,7 @@ public class GUISuccessSummaryView : MonoBehaviour
 	{
 		SetSummaryScreen(true);
 
-		_nameScoreSummary.text = _currentPlayerData.CurrentProfile.PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
+		_nameScoreSummary.text = _projectData.EntireList[_projectData.CurrentID].PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
 
 		_newHighscoreSummary.text = "New highscore! You did well!";
 
@@ -79,10 +82,14 @@ public class GUISuccessSummaryView : MonoBehaviour
 
 	public void UpdateModel(int score)
 	{
-		_currentPlayerData.CurrentProfile.HighScore = score;
+		_projectData.EntireList[_projectData.CurrentID].HighScore = score;
 
-		PlayersProfiles.Instance.ListOfProfiles[PlayersProfiles.Instance.CurrentProfileID] = _currentPlayerData.CurrentProfile;
+		Debug.Log(_projectData.EntireList[_projectData.CurrentID].PlayerName);
+		Debug.Log(_projectData.EntireList[_projectData.CurrentID].HighScore);
+		Debug.Log(_projectData.EntireList[_projectData.CurrentID].Complete10);
+		Debug.Log(_projectData.EntireList[_projectData.CurrentID].Complete25);
+		Debug.Log(_projectData.EntireList[_projectData.CurrentID].Complete50);
 
-		_playerProfileController.SaveProfile(PlayersProfiles.Instance);               // zapisz wyniki przed powrotem do sceny MENU
+		_playerProfileController.SaveProfile(_projectData);               // zapisz wyniki przed powrotem do sceny MENU
 	}
 }
