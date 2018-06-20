@@ -15,9 +15,6 @@ public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 	[SerializeField] private Button _logoutButton;
 
 	[Inject]
-	private ProjectData _projectData;
-
-	[Inject]
 	private DelegateService _delegateService;
 
 	private void Start()
@@ -58,56 +55,4 @@ public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Login);
 		});
 	}
-
-
-	//// LOGO - MAIN MENU						
-	//if (_resizeViewService.ClickedWithin(_logoRect))
-	//{
-	//	MenuScreensService.MenuStates = MenuScreensService.MenuScreens.MainMenu;
-	//}
-
-	//// NEW GAME
-	//else if (_resizeViewService.ClickedWithin(_newGameRect))
-	//{
-	//	MenuScreensService.MenuStates = MenuScreensService.MenuScreens.NewGame;
-	//}
-
-	//// HOW TO PLAY
-	//else if (_resizeViewService.ClickedWithin(_howtoPlayRect))
-	//{
-	//	MenuScreensService.MenuStates = MenuScreensService.MenuScreens.HowtoPlay;
-	//}
-
-	//// CREDITS
-	//else if (_resizeViewService.ClickedWithin(_creditsRect))
-	//{
-	//	MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Credits;
-	//}
-
-	//// ACHIEVEMENTS
-	//else if (_resizeViewService.ClickedWithin(_achievementsRect))
-	//{
-	//	MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Achievements;
-	//	AchievementsView.Model = new AchievementsModel()
-	//	{
-	//		EntireList = Model.EntireList,             
-	//		CurrentProfile = Model.CurrentProfile
-	//	};
-	//}
-
-	//// MY PROFILE
-	//else if (_resizeViewService.ClickedWithin(_profileRect))
-	//{
-	//	MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Profile;
-	//	ProfileView.Model = new ProfileModel()
-	//	{
-	//		CurrentProfile = Model.CurrentProfile
-	//	};
-	//}
-
-	//// LOGOUT 
-	//else if (_resizeViewService.ClickedWithin(_logoutRect))
-	//{
-	//	MenuScreensService.MenuStates = MenuScreensService.MenuScreens.Login;
-	//}
 }

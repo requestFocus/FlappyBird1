@@ -11,11 +11,9 @@ public class PlayerProfileController
 	private string _jsonDataFromGet;
 	private ProjectData _loadedProfilesData;
 
-	public void SaveProfile(ProjectData projectDataToSave)
+	public void SaveProfile(ProjectData listToSave)
 	{
-		Debug.Log("CurrentID: " + projectDataToSave.CurrentID);
-
-		_jsonDataToSet = JsonUtility.ToJson(projectDataToSave);                                               //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
+		_jsonDataToSet = JsonUtility.ToJson(listToSave);                                               //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
 		PlayerPrefs.SetString(_prefsStringInMemory, _jsonDataToSet);                                                //zapisz json do podanego key w PlayerPrefs
 	}
 
@@ -23,6 +21,9 @@ public class PlayerProfileController
 	{
 		_jsonDataFromGet = PlayerPrefs.GetString(_prefsStringInMemory);                                     // wczytaj z PlayerPrefs do JSON
 		_loadedProfilesData = JsonUtility.FromJson<ProjectData>(_jsonDataFromGet);                               // wczytaj z JSON do odpowiadającej mu struktury ProjectData
+		Debug.Log("przed zerowaniem _loadedProfilesData.CurrentID: " + _loadedProfilesData.CurrentID);
+		_loadedProfilesData.CurrentID = 0;
+		Debug.Log("po zerowaniu _loadedProfilesData.CurrentID: " + _loadedProfilesData.CurrentID);
 		return _loadedProfilesData;
 	}
 

@@ -12,7 +12,7 @@ public class LoginViewService
 	private const string _prefsStringInMemory = "ProfileSettings";
 
 	[Inject]
-	private ProjectData _projectData;
+	public ProjectData _projectData;
 
 	[Inject]
 	private PlayerProfileController _playerProfileController;
@@ -23,32 +23,36 @@ public class LoginViewService
 
 		if (_playerPrefsExist)
 		{
-			_projectData = _playerProfileController.LoadProfiles();
+			ProjectData tmp = _playerProfileController.LoadProfiles();
+			_projectData.EntireList.Clear();
+			_projectData.EntireList.InsertRange(0, tmp.EntireList);
+			_projectData.CurrentID = tmp.CurrentID;
 
 			for (int i = 0; i < _projectData.EntireList.Count; i++)                 // parsuje całą listę obiektów
 			{
-				if (_projectData.EntireList[i].PlayerName.Equals(playerName))   // sprawdza czy podane NAME istnieje w pamięci
+				if (_projectData.EntireList[i].PlayerName.Equals(playerName))		// sprawdza czy podane NAME istnieje w pamięci
 				{
-					_projectData.CurrentID = i;                                 // ID znalezionego profilu
+					_projectData.CurrentID = i;									  // ID znalezionego profilu
 					_isOnTheList = true;
 
-					Debug.Log("name istnieje pod ID: " + _projectData.CurrentID);
+					Debug.Log("name: " + playerName + " istnieje pod _projectData.CurrentID: " + _projectData.CurrentID);
 					break;
 				}
 			}
+
+			if (!_isOnTheList)
+			{
+				Debug.Log("playerprefs istnieje, dodaje kolejny profil");
+				AddNewProfile(playerName);                          // dodaj KOLEJNY profil
+			}
 		}
-		else
+		else																	// czyli playerprefs nie istnieje, czyli nie ma takiego name, ALE lista istnieje, jest tworzona zawsze w konstruktorze ProjectData
 		{
-			_projectData.EntireList = new List<PlayerProfile>();
+			Debug.Log("playerprefs nie istnieje, dodaje pierwszy profil");
+			AddNewProfile(playerName);                          // dodaj PIERWSZY profil
 		}
 
-		if (!_isOnTheList)                                                                       // jesli na liscie nie wystepuje podane NAME
-		{
-			Debug.Log("name nie istnieje");
-			AddNewProfile(playerName);
-		}
-
-		_isOnTheList = false;																			// zerowanie flagi
+		_isOnTheList = false;                               // zerowanie flagi
 	}
 
 	private void AddNewProfile(string playerName)
@@ -57,8 +61,7 @@ public class LoginViewService
 
 		_projectData.EntireList.Add(_playerProfile);                             // a teraz dodaje do niej aktualny _playerProfile
 		_projectData.CurrentID = _projectData.EntireList.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
-
-		Debug.Log("name dodane na końcu pod ID: " + _projectData.CurrentID);
+		Debug.Log("name: " + playerName + " dodane pod _projectData.CurrentID: " + _projectData.CurrentID);
 
 		_playerProfileController.SaveProfile(_projectData);                               // zapisuję dane w singletonie	
 	}

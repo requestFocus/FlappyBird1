@@ -11,10 +11,15 @@ public class CreditsView : View<CreditsModel, Controller<CreditsModel>>
 	[SerializeField] private Image _creditsViewButtonInactive;
 
 	[Inject]
+	private ProjectData _projectData;
+
+	[Inject]
 	private DelegateService _delegateService;
 
 	public void Start()
 	{
+		//Debug.Log("CreditsView Tekst oryginalny: " + _projectData.Tekst);
+
 		_logoButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);

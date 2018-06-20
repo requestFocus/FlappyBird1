@@ -22,7 +22,9 @@ public class GUIGamePlayView : MonoBehaviour
 
 	private void Start()
 	{
-		Debug.Log("imie gracza: " + _projectData.EntireList[_projectData.CurrentID].PlayerName);
+		//Debug.Log("GUIGamePlayView Tekst: " + _projectData.Tekst);
+
+		//Debug.Log("imie gracza: " + _projectData.EntireList[_projectData.CurrentID].PlayerName);
 
 		NotUpdatableGUIGamePlayView();
 

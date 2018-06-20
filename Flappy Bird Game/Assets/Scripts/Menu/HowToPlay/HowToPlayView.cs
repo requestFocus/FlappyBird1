@@ -13,8 +13,15 @@ public class HowToPlayView : View<HowToPlayModel, Controller<HowToPlayModel>>
 	[Inject]
 	private DelegateService _delegateService;
 
+	[Inject]
+	private ProjectData _projectData;
+
 	public void Start()
 	{
+		Debug.Log("_projectData.CurrentID w HowToPlayView: " + _projectData.CurrentID);
+		//_projectData.Tekst = "tekst zmieniony w HowToPlayView";
+		//Debug.Log("HowToPlayView Tekst: " + _projectData.Tekst);
+
 		_logoButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
