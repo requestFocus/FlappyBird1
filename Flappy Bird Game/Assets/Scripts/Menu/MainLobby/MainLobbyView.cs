@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class MainLobbyView : View<MainLobbyModel, Controller<MainLobbyModel>>
+public class MainLobbyView : MonoBehaviour
 {
 	[SerializeField] private Image _logoButton;                                            // umożliwia wykorzystanie modyfikatora private z dostępem do zmiennej w ramach inspectora unity
 	[SerializeField] private Button _achievementsButton;

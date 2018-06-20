@@ -1,25 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class CreditsView : View<CreditsModel, Controller<CreditsModel>>
+public class CreditsView : MonoBehaviour
 {
 	[SerializeField] private Button _logoButton;
 	[SerializeField] private Text _creditsViewText;
 	[SerializeField] private Image _creditsViewButtonInactive;
 
 	[Inject]
-	private ProjectData _projectData;
-
-	[Inject]
 	private DelegateService _delegateService;
 
 	public void Start()
 	{
-		//Debug.Log("CreditsView Tekst oryginalny: " + _projectData.Tekst);
-
 		_logoButton.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);

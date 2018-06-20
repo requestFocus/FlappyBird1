@@ -23,10 +23,10 @@ public class LoginViewService
 
 		if (_playerPrefsExist)
 		{
-			ProjectData tmp = _playerProfileController.LoadProfiles();
+			ProjectData tempProjectData = _playerProfileController.LoadProfiles();
 			_projectData.EntireList.Clear();
-			_projectData.EntireList.InsertRange(0, tmp.EntireList);
-			_projectData.CurrentID = tmp.CurrentID;
+			_projectData.EntireList.InsertRange(0, tempProjectData.EntireList);
+			_projectData.CurrentID = tempProjectData.CurrentID;
 
 			for (int i = 0; i < _projectData.EntireList.Count; i++)                 // parsuje całą listę obiektów
 			{
@@ -34,21 +34,17 @@ public class LoginViewService
 				{
 					_projectData.CurrentID = i;									  // ID znalezionego profilu
 					_isOnTheList = true;
-
-					Debug.Log("name: " + playerName + " istnieje pod _projectData.CurrentID: " + _projectData.CurrentID);
 					break;
 				}
 			}
 
 			if (!_isOnTheList)
 			{
-				Debug.Log("playerprefs istnieje, dodaje kolejny profil");
 				AddNewProfile(playerName);                          // dodaj KOLEJNY profil
 			}
 		}
 		else																	// czyli playerprefs nie istnieje, czyli nie ma takiego name, ALE lista istnieje, jest tworzona zawsze w konstruktorze ProjectData
 		{
-			Debug.Log("playerprefs nie istnieje, dodaje pierwszy profil");
 			AddNewProfile(playerName);                          // dodaj PIERWSZY profil
 		}
 
@@ -61,8 +57,6 @@ public class LoginViewService
 
 		_projectData.EntireList.Add(_playerProfile);                             // a teraz dodaje do niej aktualny _playerProfile
 		_projectData.CurrentID = _projectData.EntireList.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
-		Debug.Log("name: " + playerName + " dodane pod _projectData.CurrentID: " + _projectData.CurrentID);
-
 		_playerProfileController.SaveProfile(_projectData);                               // zapisuję dane w singletonie	
 	}
 }

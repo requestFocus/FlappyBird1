@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
@@ -26,21 +23,16 @@ public class PlayerView : MonoBehaviour
 		MovePlayer();
 	}
 
-
 	private void OnTriggerEnter2D(Collider2D collision)            
 	{
 		GUIGamePlayView.PointEarned(collision);
 		GUIGamePlayView.LifeLost(collision);
 	}
 
-
-
 	private void DeletePlayerView()
 	{
 		Destroy(gameObject);
 	}
-
-
 
 	private void MovePlayer()                                                   // PLAYER SERVICE                         
 	{

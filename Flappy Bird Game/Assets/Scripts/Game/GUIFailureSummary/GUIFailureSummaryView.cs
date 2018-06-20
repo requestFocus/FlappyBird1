@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
@@ -52,7 +50,6 @@ public class GUIFailureSummaryView : MonoBehaviour
 		SetSummaryScreen(true);
 
 		_nameScoreSummary.text = _projectData.EntireList[_projectData.CurrentID].PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
-
 		_noHighscoreSummary.text = "Better luck next time...";
 	}
 

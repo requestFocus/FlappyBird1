@@ -14,8 +14,6 @@ public class BackgroundView : MonoBehaviour
 		MoveBackground();
 	}
 
-
-
 	private void MoveBackground()
 	{
 		if (transform.position.x >= _rightEdge1 && transform.position.x < _rightEdge2)

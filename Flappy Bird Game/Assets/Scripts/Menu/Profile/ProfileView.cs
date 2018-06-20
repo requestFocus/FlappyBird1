@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class ProfileView : View<ProfileModel, Controller<ProfileModel>>
+public class ProfileView : MonoBehaviour
 {
 	[SerializeField] private Button _logoButton;
 	[SerializeField] private Text _profileViewText;

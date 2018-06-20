@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -20,7 +19,7 @@ public class ColumnManager : MonoBehaviour
 
 	private void Start()
 	{
-		_timeIntervalForCoroutine = 3.0f;                                     // 3.0f jako wartosc startowa
+		_timeIntervalForCoroutine = 3.0f;                                     // 3.0f jako wartosc startowa, wartość ta jest systematycznie zmniejszana, az osiągnie minimalną grywalną wartość 1.0f
 		StartCoroutine(CreateColumn());                                       
 	}
 
@@ -53,4 +52,3 @@ public class ColumnManager : MonoBehaviour
 	}
 }
 
-// dlaczego obiekt ColumnView znika w momencie, kiedy tworzony jest kolejny obiekt ColumnView? nastepuje nadpisanie zmiennej Injectowanej?

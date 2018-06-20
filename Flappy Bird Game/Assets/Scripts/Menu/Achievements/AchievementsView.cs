@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class AchievementsView : View<AchievementsModel, Controller<AchievementsModel>>
+public class AchievementsView : MonoBehaviour
 {
 	[SerializeField] private Button _logoButton;
 	[SerializeField] private Image _achievementsButtonInactive;
@@ -12,15 +10,9 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 	[SerializeField] private Image _previousAchievementPage;
 
 	[Inject]
-	private ProjectData _projectData;										//=======================================
-
-	[Inject]
-	private AchievementSingleEntryView _achievementSingleEntryView;          //=======================================
-
-	[Inject]
 	private DelegateService _delegateService;
 
-	private Font _font;
+	//private Font _font;
 
 	//private int _listAchievementsFrom;
 	//private int _listAchievementsTo;
@@ -39,7 +31,7 @@ public class AchievementsView : View<AchievementsModel, Controller<AchievementsM
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
 
-		_font = (Font)Resources.Load("Fonts/Bungee-Regular");
+		//_font = (Font)Resources.Load("Fonts/Bungee-Regular");
 
 		//DisplayThem();
 	}

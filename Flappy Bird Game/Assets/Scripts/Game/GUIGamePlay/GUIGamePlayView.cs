@@ -22,10 +22,6 @@ public class GUIGamePlayView : MonoBehaviour
 
 	private void Start()
 	{
-		//Debug.Log("GUIGamePlayView Tekst: " + _projectData.Tekst);
-
-		//Debug.Log("imie gracza: " + _projectData.EntireList[_projectData.CurrentID].PlayerName);
-
 		NotUpdatableGUIGamePlayView();
 
 		_achievementUnlockedGamePlay.text = "";
