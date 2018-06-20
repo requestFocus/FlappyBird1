@@ -5,7 +5,13 @@ using Zenject;
 public class ColumnManager : MonoBehaviour
 {
 	[Inject]
-	private ColumnView _column;					// powstało jako FromInstance, jest to tylko prefab, a nie INSTANCJA, dopiero w CreateColumn() następuje instantiate'owanie tego prefaba
+	private ColumnView _column;                 // powstało jako FromInstance, jest to tylko prefab, a nie INSTANCJA, dopiero w CreateColumn() następuje instantiate'owanie tego prefaba
+
+	[Inject]
+	private DiContainer _container;
+
+	[Inject]
+	private IntervalAvailabilityStatesService _intervalAvailabilityStatesService;
 
 	private float _timeIntervalForCoroutine;
 	private float _yPosition;
@@ -25,11 +31,11 @@ public class ColumnManager : MonoBehaviour
 
 	private float CalculateTimeIntervalForObstacles()
 	{
-		if (_columnsSoFar != 0 && _columnsSoFar % 10 == 0 && _timeIntervalForCoroutine > 1.0f && IntervalAvailabilityStatesService.IntervalLock == IntervalAvailabilityStatesService.IntervalLockStates.Locked)
+		if (_columnsSoFar != 0 && _columnsSoFar % 10 == 0 && _timeIntervalForCoroutine > 1.0f && _intervalAvailabilityStatesService.IntervalLock == IntervalAvailabilityStatesService.IntervalLockStates.Locked)
 		{
 			_timeIntervalForCoroutine = _timeIntervalForCoroutine - _intervalStep;
 		}
-		IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Unlocked;
+		_intervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Unlocked;
 		return _timeIntervalForCoroutine;
 	}
 
@@ -39,6 +45,7 @@ public class ColumnManager : MonoBehaviour
 		{
 			yield return new WaitForSeconds(CalculateTimeIntervalForObstacles());
 			ColumnView column = Instantiate<ColumnView>(_column);
+			_container.Inject(column);
 			InitializeColumn(column);					
 			_columnsSoFar++;
 		}

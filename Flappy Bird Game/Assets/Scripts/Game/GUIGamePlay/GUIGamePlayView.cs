@@ -18,7 +18,13 @@ public class GUIGamePlayView : MonoBehaviour
 	private ProjectData _projectData;
 
 	[Inject]
-	public CurrentPlayerData _currentPlayerData;
+	private CurrentPlayerData _currentPlayerData;
+
+	[Inject]
+	private CurrentGameStateService _currentGameStateService;
+
+	[Inject]
+	private IntervalAvailabilityStatesService _intervalAvailabilityStatesService;
 
 	private void Start()
 	{
@@ -34,7 +40,7 @@ public class GUIGamePlayView : MonoBehaviour
 		if (collision.gameObject.CompareTag("Score"))                            // zdobyty punkt
 		{
 			_currentPlayerData.CurrentScore = _currentPlayerData.CurrentScore+ 1;
-			IntervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
+			_intervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
 
 			UpdateScoreOnPointEarned();
 
@@ -121,7 +127,7 @@ public class GUIGamePlayView : MonoBehaviour
 
 	public void SetState(CurrentGameStateService.GameStates state)
 	{
-		CurrentGameStateService.CurrentGameState = state;
+		_currentGameStateService.CurrentGameState = state;
 		ViewManager ViewManager = GameObject.FindObjectOfType<ViewManager>();
 		ViewManager.SwitchView();
 	}

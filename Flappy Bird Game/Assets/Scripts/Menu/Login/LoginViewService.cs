@@ -15,7 +15,7 @@ public class LoginViewService
 	public ProjectData _projectData;
 
 	[Inject]
-	private PlayerProfileController _playerProfileController;
+	private ProjectDataService _playerProfileController;
 
 	public void CheckPlayerPrefs(string playerName)																	 // ładowane po kliknieciu LOGO w menu LOGIN po podaniu username
 	{
@@ -26,7 +26,6 @@ public class LoginViewService
 			ProjectData tempProjectData = _playerProfileController.LoadProfiles();
 			_projectData.EntireList.Clear();
 			_projectData.EntireList.InsertRange(0, tempProjectData.EntireList);
-			_projectData.CurrentID = tempProjectData.CurrentID;
 
 			for (int i = 0; i < _projectData.EntireList.Count; i++)                 // parsuje całą listę obiektów
 			{
@@ -43,12 +42,12 @@ public class LoginViewService
 				AddNewProfile(playerName);                          // dodaj KOLEJNY profil
 			}
 		}
-		else																	// czyli playerprefs nie istnieje, czyli nie ma takiego name, ALE lista istnieje, jest tworzona zawsze w konstruktorze ProjectData
+		else														
 		{
 			AddNewProfile(playerName);                          // dodaj PIERWSZY profil
 		}
 
-		_isOnTheList = false;                               // zerowanie flagi
+		_isOnTheList = false;                               // zerowanie flagi wystąpienia playerName na liście
 	}
 
 	private void AddNewProfile(string playerName)
@@ -57,6 +56,6 @@ public class LoginViewService
 
 		_projectData.EntireList.Add(_playerProfile);                             // a teraz dodaje do niej aktualny _playerProfile
 		_projectData.CurrentID = _projectData.EntireList.Count - 1;         // nadanie nowemu userowi najwyzszego numeru na liscie
-		_playerProfileController.SaveProfile(_projectData);                               // zapisuję dane w singletonie	
+		_playerProfileController.SaveProfiles(_projectData);                               // zapisuję dane w singletonie	
 	}
 }

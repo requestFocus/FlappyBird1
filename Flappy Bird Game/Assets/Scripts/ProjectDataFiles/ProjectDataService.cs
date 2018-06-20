@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class PlayerProfileController
+public class ProjectDataService
 {
 	private const string _prefsStringInMemory = "ProfileSettings";
 
@@ -8,9 +9,9 @@ public class PlayerProfileController
 	private string _jsonDataFromGet;
 	private ProjectData _loadedProfilesData;
 
-	public void SaveProfile(ProjectData listToSave)
+	public void SaveProfiles(ProjectData listToSave)
 	{
-		_jsonDataToSet = JsonUtility.ToJson(listToSave);													//Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
+		_jsonDataToSet = JsonUtility.ToJson(listToSave);                                                    //Convert to Json, czyli do stringa, tj. cały obiekt zostaje rozpisany na łańcuch znakow
 		PlayerPrefs.SetString(_prefsStringInMemory, _jsonDataToSet);                                        //zapisz json do podanego key w PlayerPrefs
 	}
 

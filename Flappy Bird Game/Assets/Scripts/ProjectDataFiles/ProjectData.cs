@@ -4,6 +4,7 @@ public class ProjectData
 {
 	public List<PlayerProfile> EntireList;
 	public int CurrentID;
+	public bool BackFromGamePlay;
 
 	public ProjectData()
 	{

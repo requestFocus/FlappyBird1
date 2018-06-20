@@ -1,10 +1,10 @@
 ﻿
-public static class IntervalAvailabilityStatesService
+public class IntervalAvailabilityStatesService
 {
 	public enum IntervalLockStates
 	{
 		Unlocked,
 		Locked
 	};
-	public static IntervalLockStates IntervalLock;
+	public IntervalLockStates IntervalLock;
 }

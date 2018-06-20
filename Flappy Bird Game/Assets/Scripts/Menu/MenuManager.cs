@@ -4,10 +4,11 @@ using Zenject;
 
 public class MenuManager : MonoBehaviour {
 
-	public static bool BackFromGamePlay;
-
 	[Inject]
 	private MenuFactory _menuFactory;
+
+	[Inject]
+	private ProjectData _projectData;
 
 	[Inject]
 	private MenuScreensService _menuScreensService;
@@ -17,15 +18,15 @@ public class MenuManager : MonoBehaviour {
 
 	private void Awake()
 	{
-		//PlayerPrefs.DeleteAll();                                                // CZYSZCZENIE PLAYERPREFS
+		//PlayerPrefs.DeleteAll();												// CZYSZCZENIE PLAYERPREFS
 
-		if (!BackFromGamePlay)                                                  // jeśli uruchomiono aplikacje, ale nie rozegrano gry
+		if (!_projectData.BackFromGamePlay)                                     // jeśli uruchomiono aplikacje, ale nie rozegrano jeszcze gry
 		{
-			SetState(MenuScreensService.MenuScreens.Login);
+			SetState(MenuScreensService.MenuScreens.Login);						// apka startuje od LoginView na wejściu sceny MENU
 		}
-		else                                                                    // jeśli nastąpil powrot z gry i przeładowano scene z GAME na MENU
+		else                                                                    // jeśli nastąpil powrot z gry i przeładowanie scene z GAME na MENU
 		{
-			SetState(MenuScreensService.MenuScreens.MainMenu);
+			SetState(MenuScreensService.MenuScreens.MainMenu);					// apka startuje z MainLobbyView na wejściu sceny GAME
 		}
 	}
 

@@ -37,7 +37,7 @@ public class MenuInstaller : MonoInstaller
 
 		Container.Bind<LoginViewService>().FromNew().AsSingle().NonLazy();
 
-		Container.Bind<PlayerProfileController>().FromNew().AsSingle().NonLazy();
+		Container.Bind<ProjectDataService>().FromNew().AsSingle().NonLazy();
 
 		Container.Bind<LoginView>().FromInstance(_loginView).AsSingle().Lazy();
 		Container.Bind<MainLobbyView>().FromInstance(_mainLobbyView).AsSingle().Lazy();

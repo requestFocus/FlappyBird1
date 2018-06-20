@@ -19,7 +19,10 @@ public class GUISuccessSummaryView : MonoBehaviour
 	private CurrentPlayerData _currentPlayerData;
 
 	[Inject]
-	private PlayerProfileController _playerProfileController;
+	private ProjectDataService _playerProfileController;
+
+	[Inject]
+	private CurrentGameStateService _currentGameStateService;
 
 	private void Start()
 	{
@@ -39,13 +42,13 @@ public class GUISuccessSummaryView : MonoBehaviour
 
 	public void RepeatGame()                                           
 	{
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+		_currentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		SceneManager.LoadScene("Game");
 	}
 
 	public void BackToMenu()                                           		
 	{
-		MenuManager.BackFromGamePlay = true;
+		_projectData.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
 	}
 
@@ -74,6 +77,6 @@ public class GUISuccessSummaryView : MonoBehaviour
 	{
 		_projectData.EntireList[_projectData.CurrentID].HighScore = score;
 
-		_playerProfileController.SaveProfile(_projectData);               // zapisz wyniki przed powrotem do sceny MENU
+		_playerProfileController.SaveProfiles(_projectData);               // zapisz wyniki przed powrotem do sceny MENU
 	}
 }

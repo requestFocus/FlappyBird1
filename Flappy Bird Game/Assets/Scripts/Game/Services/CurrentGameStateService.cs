@@ -1,5 +1,5 @@
 ﻿
-public static class CurrentGameStateService
+public class CurrentGameStateService
 {
 	public enum GameStates
 	{
@@ -7,5 +7,5 @@ public static class CurrentGameStateService
 		SummarySuccess,
 		SummaryFailure
 	};
-	public static GameStates CurrentGameState;
+	public GameStates CurrentGameState;
 }

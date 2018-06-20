@@ -16,7 +16,7 @@ public class GameInstaller : MonoInstaller
 
 	public override void InstallBindings()
 	{
-		Container.Bind<PlayerProfileController>().FromNew().AsSingle().NonLazy();
+		Container.Bind<ProjectDataService>().FromNew().AsSingle().NonLazy();
 
 		Container.Bind<BackgroundGameView>().FromComponentInNewPrefab(_backgroundGameViewPrefab).AsSingle().NonLazy();
 
@@ -29,5 +29,8 @@ public class GameInstaller : MonoInstaller
 		Container.Bind<ViewFactory>().FromComponentInNewPrefab(_viewFactoryPrefab).AsSingle().NonLazy();
 
 		Container.Bind<CurrentPlayerData>().FromNew().AsSingle().Lazy();
+
+		Container.Bind<CurrentGameStateService>().FromNew().AsSingle().Lazy();
+		Container.Bind<IntervalAvailabilityStatesService>().FromNew().AsSingle().Lazy();
 	}
 }

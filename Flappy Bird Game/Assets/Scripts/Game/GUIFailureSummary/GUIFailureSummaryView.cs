@@ -17,6 +17,9 @@ public class GUIFailureSummaryView : MonoBehaviour
 	[Inject]
 	private CurrentPlayerData _currentPlayerData;
 
+	[Inject]
+	private CurrentGameStateService _currentGameStateService;
+
 	private void Start()
 	{
 		_nameScoreSummary.text = "";
@@ -35,13 +38,13 @@ public class GUIFailureSummaryView : MonoBehaviour
 
 	public void RepeatGame()                                            // WIDOK SUMMARY
 	{
-		CurrentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+		_currentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		SceneManager.LoadScene("Game");
 	}
 
 	public void BackToMenu()                                            // WIDOK SUMMARY				
 	{
-		MenuManager.BackFromGamePlay = true;
+		_projectData.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
 	}
 
