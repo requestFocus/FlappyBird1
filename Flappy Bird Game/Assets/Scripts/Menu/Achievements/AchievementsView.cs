@@ -20,7 +20,7 @@ public class AchievementsView : MonoBehaviour
 	private ProjectData _projectData;
 
 	[Inject]
-	private SinglePlayerStatsView _singlePlayerStatsView;
+	private MultiplePlayerStatsView _multiplePlayerStatsView;
 
 	private void Start()
 	{
@@ -34,26 +34,14 @@ public class AchievementsView : MonoBehaviour
 		_highscoreLabel.text = "HIGHSCORE";
 		_achievementsLabel.text = "ACHIEVEMENTS";
 
-		ListPlayerWithStats();
-	}
+		Vector3 playerNameLabelPos = _playerNameLabel.transform.position;
+		Vector3 highscoreLabelPos = _highscoreLabel.transform.position;
+		Vector3 achievementsLabelPos = _achievementsLabel.transform.position;
 
-	private void ListPlayerWithStats()
-	{
-		Vector3 playerNamePos = _playerNameLabel.transform.position;
-		Vector3 highscorePos = _highscoreLabel.transform.position;
-		Vector3 achievementsPos = _achievementsLabel.transform.position;
+		MultiplePlayerStatsView multiplePlayerStatsViewInstance = Instantiate(_multiplePlayerStatsView);
+		_container.Inject(multiplePlayerStatsViewInstance);
+		multiplePlayerStatsViewInstance.transform.SetParent(gameObject.transform);
 
-		for (int i = 0; i < _projectData.EntireList.Count; i++)
-		{
-			SinglePlayerStatsView singlePlayerStatsViewInstance = Instantiate(_singlePlayerStatsView);
-			_container.Inject(singlePlayerStatsViewInstance);
-			singlePlayerStatsViewInstance.transform.SetParent(gameObject.transform);
-
-			singlePlayerStatsViewInstance.CreateSinglePlayerStatsView(_projectData.EntireList[i], playerNamePos, highscorePos, achievementsPos);
-
-			playerNamePos.y -= 30;
-			highscorePos.y -= 30;
-			achievementsPos.y -= 30;
-		}
+		multiplePlayerStatsViewInstance.ListPlayerWithStats(_projectData, playerNameLabelPos, highscoreLabelPos, achievementsLabelPos);
 	}
 }

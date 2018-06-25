@@ -5,32 +5,16 @@ using Zenject;
 
 public class MenuInstaller : MonoInstaller
 {
-	[SerializeField]
-	private MenuFactory _menuFactory;
-
-	[SerializeField]
-	private LoginView _loginView;
-
-	[SerializeField]
-	private MainLobbyView _mainLobbyView;
-
-	[SerializeField]
-	private HowToPlayView _howToPlayViewPrefab;
-
-	[SerializeField]
-	private CreditsView _creditsView;
-
-	[SerializeField]
-	private AchievementsView _achievementsView;
-
-	[SerializeField]
-	private ProfileView _profileView;
-
-	[SerializeField]
-	private AchievementSingleEntryView _achievementSingleEntryView;
-
-	[SerializeField]
-	private SinglePlayerStatsView _singlePlayerStatsView;
+	[SerializeField] private MenuFactory _menuFactory;
+	[SerializeField] private LoginView _loginView;
+	[SerializeField] private MainLobbyView _mainLobbyView;
+	[SerializeField] private HowToPlayView _howToPlayViewPrefab;
+	[SerializeField] private CreditsView _creditsView;
+	[SerializeField] private AchievementsView _achievementsView;
+	[SerializeField] private ProfileView _profileView;
+	[SerializeField] private AchievementSingleEntryView _achievementSingleEntryView;
+	[SerializeField] private MultiplePlayerStatsView _multiplePlayerStatsView;
+	[SerializeField] private SinglePlayerStatsView _singlePlayerStatsView;
 
 	public override void InstallBindings()
 	{
@@ -51,6 +35,7 @@ public class MenuInstaller : MonoInstaller
 
 		Container.Bind<AchievementSingleEntryView>().FromInstance(_achievementSingleEntryView).AsCached().Lazy();
 		Container.Bind<SinglePlayerStatsView>().FromInstance(_singlePlayerStatsView).AsTransient().Lazy();
+		Container.Bind<MultiplePlayerStatsView>().FromInstance(_multiplePlayerStatsView).AsTransient().Lazy();
 
 		Container.Bind<DelegateService>().FromNew().AsSingle().NonLazy();
 	}
