@@ -5,23 +5,22 @@ using Zenject;
 public class ProfileView : MonoBehaviour
 {
 	[SerializeField] private Button _logoButton;
-	[SerializeField] private Text _profileViewText;
 	[SerializeField] private Image _profileViewButtonInactive;
+	[SerializeField] private Text _playerNameLabel;
+	[SerializeField] private Text _highscoreLabel;
+	[SerializeField] private Text _achievementsLabel;
 
 	[Inject]
 	private ProjectData _projectData;
 
 	[Inject]
-	private AchievementSingleEntryView _achievementSingleEntryView;
+	private SinglePlayerStatsView _singlePlayerStatsView;
 
 	[Inject]
 	private DelegateService _delegateService;
 
 	[Inject]
 	private DiContainer _container;
-
-	private const int xPosition = 390;
-	private const int yPosition = 228;
 
 	private void Start()
 	{
@@ -31,11 +30,18 @@ public class ProfileView : MonoBehaviour
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
 
-		_profileViewText.text = "NAME\n" + _projectData.EntireList[_projectData.CurrentID].PlayerName + "\n\nHIGHSCORE\n" + _projectData.EntireList[_projectData.CurrentID].HighScore + "\n\nACHIEVEMENTS";
+		_playerNameLabel.text = "NAME";
+		_highscoreLabel.text = "HIGHSCORE";
+		_achievementsLabel.text = "ACHIEVEMENTS";
 
-		AchievementSingleEntryView achievementSingleEntryViewInstance = Instantiate(_achievementSingleEntryView);
-		_container.Inject(achievementSingleEntryViewInstance);
-		achievementSingleEntryViewInstance.transform.SetParent(gameObject.transform);
-		achievementSingleEntryViewInstance.ListAchievements(_projectData.EntireList[_projectData.CurrentID], xPosition, yPosition);
+		Vector3 playerNamePos = _playerNameLabel.transform.position;
+		Vector3 highscorePos = _highscoreLabel.transform.position;
+		Vector3 achievementsPos = _achievementsLabel.transform.position;
+
+		SinglePlayerStatsView singlePlayerStatsViewInstance = Instantiate(_singlePlayerStatsView);
+		_container.Inject(singlePlayerStatsViewInstance);
+		singlePlayerStatsViewInstance.transform.SetParent(gameObject.transform);
+
+		singlePlayerStatsViewInstance.CreateSinglePlayerStatsView(_projectData.EntireList[_projectData.CurrentID], playerNamePos, highscorePos, achievementsPos);
 	}
 }

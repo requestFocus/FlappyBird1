@@ -29,6 +29,9 @@ public class MenuInstaller : MonoInstaller
 	[SerializeField]
 	private AchievementSingleEntryView _achievementSingleEntryView;
 
+	[SerializeField]
+	private SinglePlayerStatsView _singlePlayerStatsView;
+
 	public override void InstallBindings()
 	{
 		Container.Bind<MenuFactory>().FromComponentInNewPrefab(_menuFactory).AsSingle().NonLazy();
@@ -46,7 +49,8 @@ public class MenuInstaller : MonoInstaller
 		Container.Bind<AchievementsView>().FromInstance(_achievementsView).AsSingle().Lazy();
 		Container.Bind<ProfileView>().FromInstance(_profileView).AsSingle().Lazy();
 
-		Container.Bind<AchievementSingleEntryView>().FromInstance(_achievementSingleEntryView).AsSingle().Lazy();
+		Container.Bind<AchievementSingleEntryView>().FromInstance(_achievementSingleEntryView).AsCached().Lazy();
+		Container.Bind<SinglePlayerStatsView>().FromInstance(_singlePlayerStatsView).AsTransient().Lazy();
 
 		Container.Bind<DelegateService>().FromNew().AsSingle().NonLazy();
 	}

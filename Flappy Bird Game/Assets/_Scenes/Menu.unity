@@ -481,9 +481,11 @@ MonoBehaviour:
     type: 2}
   _creditsView: {fileID: 114749781252983332, guid: 71a63eb9c79d08545ac84edc49684f98,
     type: 2}
-  _achievementsView: {fileID: 114655684163298020, guid: 9676a399f56aa2b408d0966c4a850294,
+  _achievementsView: {fileID: 114341850799299260, guid: 9676a399f56aa2b408d0966c4a850294,
     type: 2}
   _profileView: {fileID: 114662367237697910, guid: d6ebb21298b026445bb0602435afa714,
     type: 2}
   _achievementSingleEntryView: {fileID: 114238801231400538, guid: 3b0dea77ce29ab445ae2bb2b60a6b570,
+    type: 2}
+  _singlePlayerStatsView: {fileID: 114633511215961302, guid: 568549d73d43dcd4abcc6035971f778e,
     type: 2}
