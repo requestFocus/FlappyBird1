@@ -12,6 +12,9 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private List<SinglePlayerStatsView> _listOfSingleEntries = new List<SinglePlayerStatsView>();
 
+	private Vector3 _startPos;
+	private Vector3 _delta;
+
 	private void Update()
 	{
 		FollowMouse();
@@ -44,8 +47,19 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private void FollowMouse()
 	{
-		if (Input.GetMouseButton(0) && Input.mousePosition.x > 260 && Input.mousePosition.x < 650 && Input.mousePosition.y < 350 && Input.mousePosition.y > 250)
-			Debug.Log(Input.mousePosition.y);
+		if (Input.GetMouseButtonDown(0))
+		{
+			_startPos = Input.mousePosition;
+		}
+		else if (Input.GetMouseButton(0) && Input.mousePosition.x > 260 && Input.mousePosition.x < 650 && Input.mousePosition.y < 350 && Input.mousePosition.y > 250)
+		{
+			_delta = _startPos - Input.mousePosition;
+			Debug.Log(_delta.y);
+		}
+		else if (Input.GetMouseButtonUp(0))
+		{
+			_startPos = new Vector3(0, 0, 0);
+		}
 	}
 }
 
