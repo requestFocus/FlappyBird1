@@ -10,7 +10,8 @@ public class SinglePlayerStatsView : MonoBehaviour
 	[Inject]
 	private AchievementSingleEntryView _achievementSingleEntryView;
 
-	[SerializeField] private Text _playerName;
+	//[SerializeField] private Text _playerName;
+	public Text _playerName;
 	[SerializeField] private Text _highscore;
 
 	public void CreateSinglePlayerStatsView(PlayerProfile playerProfile, Vector3 playerNamePos, Vector3 highscorePos, Vector3 achievementsPos)
@@ -26,6 +27,7 @@ public class SinglePlayerStatsView : MonoBehaviour
 		AchievementSingleEntryView achievementSingleEntryViewInstance = Instantiate(_achievementSingleEntryView);
 		_container.Inject(achievementSingleEntryViewInstance);
 		achievementSingleEntryViewInstance.transform.SetParent(gameObject.transform);
+		achievementsPos.y -= 40;
 		achievementSingleEntryViewInstance.ListAchievements(playerProfile, achievementsPos);
 	}
 }

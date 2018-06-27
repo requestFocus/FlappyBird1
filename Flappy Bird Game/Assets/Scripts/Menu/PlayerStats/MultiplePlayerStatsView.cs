@@ -16,11 +16,12 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	private Vector3 _delta;
 	private Vector3 _movement;
 
+	private int _unitStep;
+
 	private void Update()
 	{
 		FollowMouse();
 
-		//Debug.Log(Input.mousePosition.x + " // " + Input.mousePosition.y);
 	}
 
 	public void ListPlayerWithStats(ProjectData projectData, Vector3 playerNamePos, Vector3 highscorePos, Vector3 achievementsPos)
@@ -44,12 +45,15 @@ public class MultiplePlayerStatsView : MonoBehaviour
 			SinglePlayerStatsView singlePlayerStatsViewInstance = Instantiate(_singlePlayerStatsView);
 			_container.Inject(singlePlayerStatsViewInstance);
 			singlePlayerStatsViewInstance.transform.SetParent(gameObject.transform);
+			singlePlayerStatsViewInstance.name = "SinglePlayerViewInstance" + i;
 			_listOfSingleEntries.Add(singlePlayerStatsViewInstance);
 		}
 	}
 
 	private void FollowMouse()
 	{
+		_unitStep = 210;
+
 		if (Input.GetMouseButtonDown(0))
 		{
 			_startPos = Input.mousePosition;
@@ -57,15 +61,19 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		else if (Input.GetMouseButton(0) && Input.mousePosition.x > 260 && Input.mousePosition.x < 650 && Input.mousePosition.y < 350 && Input.mousePosition.y > 250)
 		{
 			_delta = _startPos - Input.mousePosition;
-			//Debug.Log(_delta.y);
 
 			for (int i = 0; i < 7; i++)
 			{
-				if (_listOfSingleEntries[0].transform.position.y >= 300 || _listOfSingleEntries[4].transform.position.y <= 300)
+				_movement = new Vector3(_listOfSingleEntries[i].transform.position.x, _listOfSingleEntries[i].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
+				_listOfSingleEntries[i].transform.position = _movement;
+
+				if (_listOfSingleEntries[i]._playerName.transform.position.y > 350)
 				{
-					Debug.Log(_listOfSingleEntries[0].transform.position.y + " // " + _listOfSingleEntries[4].transform.position.y);
-					_movement = new Vector3(_listOfSingleEntries[i].transform.position.x, _listOfSingleEntries[i].transform.position.y - _delta.y, 0);
-					_listOfSingleEntries[i].transform.position = _movement;
+					_listOfSingleEntries[i].transform.position = new Vector3(_listOfSingleEntries[i].transform.position.x, _listOfSingleEntries[i].transform.position.y - _unitStep, 0);
+				}
+				else if (_listOfSingleEntries[i]._playerName.transform.position.y < 130)
+				{
+					_listOfSingleEntries[i].transform.position = new Vector3(_listOfSingleEntries[i].transform.position.x, _listOfSingleEntries[i].transform.position.y + _unitStep, 0);
 				}
 			}
 		}
@@ -80,3 +88,11 @@ public class MultiplePlayerStatsView : MonoBehaviour
 // prawy gorny 655, 355
 // lewy dolny 260, 250
 // prawy dolny 655, 255
+
+
+// -210 podczas przesuniecia w dół
+
+//Debug.Log(_delta.y);
+//Debug.Log(_listOfSingleEntries[0].transform.position.y + " // " + _listOfSingleEntries[4].transform.position.y);
+//Debug.Log(_listOfSingleEntries[0]._playerName.transform.position.y + " // " + _listOfSingleEntries[1]._playerName.transform.position.y + " // " + _listOfSingleEntries[2]._playerName.transform.position.y);
+//Debug.Log(Input.mousePosition.x + " // " + Input.mousePosition.y);
