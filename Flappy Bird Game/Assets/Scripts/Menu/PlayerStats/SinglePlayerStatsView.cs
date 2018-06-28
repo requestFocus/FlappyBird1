@@ -11,14 +11,14 @@ public class SinglePlayerStatsView : MonoBehaviour
 	private AchievementSingleEntryView _achievementSingleEntryView;
 
 	//[SerializeField] private Text _playerName;
-	public Text _playerName;
+	public Text playerName;
 	[SerializeField] private Text _highscore;
 
 	public void CreateSinglePlayerStatsView(PlayerProfile playerProfile, Vector3 playerNamePos, Vector3 highscorePos, Vector3 achievementsPos)
 	{
-		_playerName.text = playerProfile.PlayerName;
+		playerName.text = playerProfile.PlayerName;
 		playerNamePos.y -= 20;
-		_playerName.transform.position = playerNamePos;
+		playerName.transform.position = playerNamePos;
 
 		_highscore.text = playerProfile.HighScore.ToString();
 		highscorePos.y -= 20;
