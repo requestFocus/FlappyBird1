@@ -34,6 +34,11 @@ public class ProfileView : MonoBehaviour
 		_highscoreLabel.text = "HIGHSCORE";
 		_achievementsLabel.text = "ACHIEVEMENTS";
 
+		InitiateProfileStatsView();
+	}
+
+	private void InitiateProfileStatsView()
+	{
 		Vector3 playerNamePos = _playerNameLabel.transform.position;
 		Vector3 highscorePos = _highscoreLabel.transform.position;
 		Vector3 achievementsPos = _achievementsLabel.transform.position;
