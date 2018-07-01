@@ -180,6 +180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerName: {fileID: 114382363173195092}
   HighScore: {fileID: 114108533083098394}
+  AchievementSingleEntryViewInstance: {fileID: 114792677378236830, guid: 3b0dea77ce29ab445ae2bb2b60a6b570,
+    type: 2}
 --- !u!222 &222552548485171744
 CanvasRenderer:
   m_ObjectHideFlags: 1

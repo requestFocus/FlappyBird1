@@ -3,41 +3,41 @@ using UnityEngine.UI;
  
 public class AchievementSingleEntryView : MonoBehaviour
 {
-	[SerializeField] private Image _complete10Active;
-	[SerializeField] private Image _complete10Inactive;
-	[SerializeField] private Image _complete25Active;
-	[SerializeField] private Image _complete25Inactive;
-	[SerializeField] private Image _complete50Active;
-	[SerializeField] private Image _complete50Inactive;
+	public Image Complete10Active;
+	public Image Complete10Inactive;
+	public Image Complete25Active;
+	public Image Complete25Inactive;
+	public Image Complete50Active;
+	public Image Complete50Inactive;
 
 	public void ListAchievements(PlayerProfile playerProfile, Vector3 achievementsPos)
 	{
 		achievementsPos.x -= 30;                                        // wyrównanie do środka
 		achievementsPos.y += 20;										// ============================ dlaczego musze to robic?
-		_complete10Inactive.transform.position = achievementsPos;
-		_complete10Active.transform.position = achievementsPos;
+		Complete10Inactive.transform.position = achievementsPos;
+		Complete10Active.transform.position = achievementsPos;
 
 		if (playerProfile.Complete10)
-			_complete10Active.gameObject.SetActive(true);
+			Complete10Active.gameObject.SetActive(true);
 		else
-			_complete10Active.gameObject.SetActive(false);
+			Complete10Active.gameObject.SetActive(false);
 
 		achievementsPos.x += 30;
-		_complete25Inactive.transform.position = achievementsPos;
-		_complete25Active.transform.position = achievementsPos;
+		Complete25Inactive.transform.position = achievementsPos;
+		Complete25Active.transform.position = achievementsPos;
 
 		if (playerProfile.Complete25)
-			_complete25Active.gameObject.SetActive(true);
+			Complete25Active.gameObject.SetActive(true);
 		else
-			_complete25Active.gameObject.SetActive(false);
+			Complete25Active.gameObject.SetActive(false);
 
 		achievementsPos.x += 30;
-		_complete50Inactive.transform.position = achievementsPos;
-		_complete50Active.transform.position = achievementsPos;
+		Complete50Inactive.transform.position = achievementsPos;
+		Complete50Active.transform.position = achievementsPos;
 
 		if (playerProfile.Complete50)
-			_complete50Active.gameObject.SetActive(true);
+			Complete50Active.gameObject.SetActive(true);
 		else
-			_complete50Active.gameObject.SetActive(false);
+			Complete50Active.gameObject.SetActive(false);
 	}
 }
