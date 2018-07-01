@@ -11,23 +11,26 @@ public class SinglePlayerStatsView : MonoBehaviour
 	private AchievementSingleEntryView _achievementSingleEntryView;
 
 	//[SerializeField] private Text _playerName;
-	public Text playerName;
-	[SerializeField] private Text _highscore;
+	//[SerializeField] private Text _highscore;
+	public Text PlayerName;
+	public Text HighScore;
 
-	public void CreateSinglePlayerStatsView(PlayerProfile playerProfile, Vector3 playerNamePos, Vector3 highscorePos, Vector3 achievementsPos)
+	private AchievementSingleEntryView _achievementSingleEntryViewInstance;
+
+	public void CreateSinglePlayerStatsView(PlayerProfile playerProfile, Vector3 playerNameLabelPos, Vector3 highscoreLabelPos, Vector3 achievementsLabelPos)
 	{
-		playerName.text = playerProfile.PlayerName;
-		playerNamePos.y -= 20;
-		playerName.transform.position = playerNamePos;
+		PlayerName.text = playerProfile.PlayerName;
+		playerNameLabelPos.y -= 20;
+		PlayerName.transform.position = playerNameLabelPos;
 
-		_highscore.text = playerProfile.HighScore.ToString();
-		highscorePos.y -= 20;
-		_highscore.transform.position = highscorePos;
+		HighScore.text = playerProfile.HighScore.ToString();
+		highscoreLabelPos.y -= 20;
+		HighScore.transform.position = highscoreLabelPos;
 
-		AchievementSingleEntryView achievementSingleEntryViewInstance = Instantiate(_achievementSingleEntryView);
-		_container.Inject(achievementSingleEntryViewInstance);
-		achievementSingleEntryViewInstance.transform.SetParent(gameObject.transform);
-		achievementsPos.y -= 40;
-		achievementSingleEntryViewInstance.ListAchievements(playerProfile, achievementsPos);
+		_achievementSingleEntryViewInstance = Instantiate(_achievementSingleEntryView);
+		_container.Inject(_achievementSingleEntryViewInstance);
+		_achievementSingleEntryViewInstance.transform.SetParent(gameObject.transform);
+		achievementsLabelPos.y -= 40;
+		_achievementSingleEntryViewInstance.ListAchievements(playerProfile, achievementsLabelPos);
 	}
 }

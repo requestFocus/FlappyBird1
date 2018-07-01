@@ -485,7 +485,7 @@ MonoBehaviour:
     type: 2}
   _profileView: {fileID: 114662367237697910, guid: d6ebb21298b026445bb0602435afa714,
     type: 2}
-  _achievementSingleEntryView: {fileID: 114238801231400538, guid: 3b0dea77ce29ab445ae2bb2b60a6b570,
+  _achievementSingleEntryView: {fileID: 114792677378236830, guid: 3b0dea77ce29ab445ae2bb2b60a6b570,
     type: 2}
   _multiplePlayerStatsView: {fileID: 114086896064676998, guid: c53f19904381d054d9f4d9ae0536c385,
     type: 2}

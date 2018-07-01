@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 223512552873188616}
   - component: {fileID: 114308065144920592}
   - component: {fileID: 114897951080252792}
-  - component: {fileID: 114238801231400538}
+  - component: {fileID: 114792677378236830}
   m_Layer: 5
   m_Name: AchievementSingleEntryViewNew
   m_TagString: Untagged
@@ -213,23 +213,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114238801231400538
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1612292239586674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b0e9e9c145dae748b714b42cd18248b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _complete10Active: {fileID: 114035806144741778}
-  _complete10Inactive: {fileID: 114304437611303960}
-  _complete25Active: {fileID: 114033263090551970}
-  _complete25Inactive: {fileID: 114272061156550308}
-  _complete50Active: {fileID: 114771010534055448}
-  _complete50Inactive: {fileID: 114113108261917304}
 --- !u!114 &114272061156550308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -332,6 +315,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114792677378236830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612292239586674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0e9e9c145dae748b714b42cd18248b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _complete10Active: {fileID: 114035806144741778}
+  _complete10Inactive: {fileID: 114304437611303960}
+  _complete25Active: {fileID: 114033263090551970}
+  _complete25Inactive: {fileID: 114272061156550308}
+  _complete50Active: {fileID: 114771010534055448}
+  _complete50Inactive: {fileID: 114113108261917304}
 --- !u!114 &114897951080252792
 MonoBehaviour:
   m_ObjectHideFlags: 1

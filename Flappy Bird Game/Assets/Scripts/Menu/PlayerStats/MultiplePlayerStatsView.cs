@@ -14,7 +14,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	[Inject]
 	private ProjectData _projectData;
 
-	private List<SinglePlayerStatsView> _listOfSingleEntries = new List<SinglePlayerStatsView>();
+	private List<SinglePlayerStatsView> _listOfContainers = new List<SinglePlayerStatsView>();
 
 	[SerializeField] private Text _playerNameLabel;
 	[SerializeField] private Text _highscoreLabel;
@@ -29,6 +29,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	private Vector3 _movement;
 
 	private int _unitStep;
+	private int _currentTopEntry;
 
 	private void Start()
 	{
@@ -40,15 +41,19 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		_highscoreLabelPos = _highscoreLabel.transform.position;
 		_achievementsLabelPos = _achievementsLabel.transform.position;
 
-		FillContainersWithData();
+		FillContainersOnStart();
+
+		_currentTopEntry = 0;			// pozycja wyswietlana aktualnie jako PIERWSZA
 	}
 
 	private void Update()
 	{
 		FollowMouse();
+
+
 	}
 
-	public void CreateEmptyContainers() 
+	public void CreateEmptyContainers()					// tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
 	{
 		for (int i = 0; i < 7; i++)
 		{
@@ -56,15 +61,15 @@ public class MultiplePlayerStatsView : MonoBehaviour
 			_container.Inject(singlePlayerStatsViewInstance);
 			singlePlayerStatsViewInstance.transform.SetParent(gameObject.transform);
 			singlePlayerStatsViewInstance.name = "SinglePlayerViewInstance" + i;
-			_listOfSingleEntries.Add(singlePlayerStatsViewInstance);
+			_listOfContainers.Add(singlePlayerStatsViewInstance);
 		}
 	}
 
-	public void FillContainersWithData()
+	public void FillContainersOnStart()				// wypełnia tyle kontenerów, ile znajduje się w hierarchii
 	{
 		for (int i = 0; i < 7; i++)						//============= sprobuj zmieniac wartosci i wraz z pierwszym wyświetlanym aktualnie kontenerem. i = nr kontenera na szczycie, i < 7 + nr kontenera
 		{
-			_listOfSingleEntries[i].CreateSinglePlayerStatsView(_projectData.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       // ...nastepnie wypełnia danymi playera
+			_listOfContainers[i].CreateSinglePlayerStatsView(_projectData.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       // ...nastepnie wypełnia danymi playera
 
 			_playerNameLabelPos.y -= 30;
 			_highscoreLabelPos.y -= 30;
@@ -78,11 +83,11 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		{
 			_startPos = Input.mousePosition;
 		}
-		else if (Input.GetMouseButton(0) && Input.mousePosition.x > 260 && Input.mousePosition.x < 650 && Input.mousePosition.y < 350 && Input.mousePosition.y > 250)
+		else if (Input.GetMouseButton(0) && Input.mousePosition.x > 0 && Input.mousePosition.x < 800 && Input.mousePosition.y < 400 && Input.mousePosition.y > 0)
 		{
 			_delta = _startPos - Input.mousePosition;
 
-			for (int i = 0; i < 7; i++)																// przesuwa gorne elementy na dol, a dolne na gore
+			for (int i = 0; i < 7; i++)                                                         // przesuwa gorne elementy na dol, a dolne na gore
 			{
 				MoveDataFilledContainers(i);
 			}
@@ -97,20 +102,40 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	{
 		_unitStep = 210;
 
-		_movement = new Vector3(_listOfSingleEntries[index].transform.position.x, _listOfSingleEntries[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
-		_listOfSingleEntries[index].transform.position = _movement;
-
-		if (_listOfSingleEntries[index].playerName.transform.position.y > 350)                  // gorna granica listy
+		_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
+		_listOfContainers[index].transform.position = _movement;                                // przesuniecie kontenera we wskazanym kierunku
+																							// sprawdz czy kontenery przekraczaja zadane granice i zareaguj
+		if (_listOfContainers[index].PlayerName.transform.position.y > 350)                  // gorna granica listy, przesun pierwszy element na dol
 		{
-			_listOfSingleEntries[index].transform.position = new Vector3(_listOfSingleEntries[index].transform.position.x, _listOfSingleEntries[index].transform.position.y - _unitStep, 0);
+			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _unitStep, 0);
+			_currentTopEntry++;
+			_listOfContainers[index].PlayerName.text = _projectData.EntireList[_currentTopEntry + 7 - 1].PlayerName;
+			_listOfContainers[index].HighScore.text = _projectData.EntireList[_currentTopEntry + 7 - 1].HighScore.ToString();
+			// ==============nadpisanie ACHIEVEMENTOW
 		}
-		else if (_listOfSingleEntries[index].playerName.transform.position.y < 130)         // dolna granica listy
+		else if (_listOfContainers[index].PlayerName.transform.position.y < 130)             // dolna granica listy, przesun ostatni element na gore
 		{
-			_listOfSingleEntries[index].transform.position = new Vector3(_listOfSingleEntries[index].transform.position.x, _listOfSingleEntries[index].transform.position.y + _unitStep, 0);
+			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y + _unitStep, 0);
+			_currentTopEntry--;
+			_listOfContainers[index].PlayerName.text = _projectData.EntireList[_currentTopEntry].PlayerName;
+			_listOfContainers[index].HighScore.text = _projectData.EntireList[_currentTopEntry].HighScore.ToString();
+			// ==============nadpisanie ACHIEVEMENTOW
 		}
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+// jeśli w kontenerze0 znajduje się pierwszy player i kontener0.transform.position.y > 350 to zablokuj modyfikacje jego transform.position.y w dół
+// jeśli w kontenerze[index] znajduje się ostatni player i kontener[index].transform.position.y < 250 to zablokuj modyfikacje jego transform.position.y w górę 
 
 
 
