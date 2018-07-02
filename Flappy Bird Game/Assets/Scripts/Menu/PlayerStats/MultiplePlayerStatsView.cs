@@ -108,28 +108,33 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	{
 		_unitStep = 210;
 
-		_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
-		_listOfContainers[index].transform.position = _movement;                                // przesuniecie kontenera we wskazanym kierunku
-		
-		// sprawdz czy kontenery przekraczaja zadane granice i zareaguj
-		if (_listOfContainers[index].PlayerName.transform.position.y > 350)                  // gorna granica listy, przesun pierwszy element na dol
+		if (_currentTopEntry >= 0 && (_currentTopEntry + 7) <= _projectData.EntireList.Count)
 		{
-			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _unitStep, 0);
-			_currentTopEntry++;
+			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
+			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
-			ReplaceProfile(index, (_currentTopEntry + _scope - 1));
-		}
-		else if (_listOfContainers[index].PlayerName.transform.position.y < 130)             // dolna granica listy, przesun ostatni element na gore
-		{
-			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y + _unitStep, 0);
-			_currentTopEntry--;
+			// sprawdz czy kontenery przekraczaja zadane granice i zareaguj
+			if (_listOfContainers[index].PlayerName.transform.position.y > 350)                  // gorna granica listy, przesun pierwszy element na dol
+			{
+				_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _unitStep, 0);
+				_currentTopEntry++;
 
-			ReplaceProfile(index, _currentTopEntry);
+				ReplaceProfile(index, (_currentTopEntry + _scope - 1));
+			}
+			else if (_listOfContainers[index].PlayerName.transform.position.y < 130)             // dolna granica listy, przesun ostatni element na gore
+			{
+				_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y + _unitStep, 0);
+				_currentTopEntry--;
+
+				ReplaceProfile(index, _currentTopEntry);
+			}
 		}
+
+		Debug.Log("currentTopEntry po zmianach: " + _currentTopEntry);
 	}
 
 	private void ReplaceProfile(int index, int currentTopEntry)
-	{
+	{ 
 		_listOfContainers[index].PlayerName.text = _projectData.EntireList[currentTopEntry].PlayerName;
 		_listOfContainers[index].HighScore.text = _projectData.EntireList[currentTopEntry].HighScore.ToString();
 
@@ -137,12 +142,21 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(false);
 		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(false);
 
-		if (_projectData.EntireList[currentTopEntry].Complete10)
-			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
-		if (_projectData.EntireList[currentTopEntry].Complete25)
-			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
 		if (_projectData.EntireList[currentTopEntry].Complete50)
+		{
 			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(true);
+			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
+			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
+		}
+		else if (_projectData.EntireList[currentTopEntry].Complete25)
+		{
+			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
+			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
+		}
+		else if (_projectData.EntireList[currentTopEntry].Complete10)
+		{
+			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
+		}
 	}
 }
 
