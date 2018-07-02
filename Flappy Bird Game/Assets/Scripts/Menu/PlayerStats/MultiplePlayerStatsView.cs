@@ -30,6 +30,8 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private int _unitStep;
 	private int _currentTopEntry;
+	private const int _scope = 7;
+	private int _elementsToDisplay;											// playerów w pamięci może być mniej niż _scope, dlatego to jest ostateczna ilość playerów do wyswietlenia
 
 	private void Start()
 	{
@@ -43,7 +45,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 		FillContainersOnStart();
 
-		_currentTopEntry = 0;			// pozycja wyswietlana aktualnie jako PIERWSZA
+		_currentTopEntry = 0;           // pozycja wyswietlana aktualnie jako PIERWSZA
 	}
 
 	private void Update()
@@ -53,7 +55,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	public void CreateEmptyContainers()					// tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
 	{
-		for (int i = 0; i < 7; i++)
+		for (int i = 0; i < _scope; i++)
 		{
 			SinglePlayerStatsView singlePlayerStatsViewInstance = Instantiate(_singlePlayerStatsView);											// tworzy puste obiekty w hierarchii, ktore...
 			_container.Inject(singlePlayerStatsViewInstance);
@@ -65,7 +67,12 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	public void FillContainersOnStart()				// wypełnia tyle kontenerów, ile znajduje się w hierarchii
 	{
-		for (int i = 0; i < 7; i++)						//============= sprobuj zmieniac wartosci i wraz z pierwszym wyświetlanym aktualnie kontenerem. i = nr kontenera na szczycie, i < 7 + nr kontenera
+		if (_projectData.EntireList.Count <= _scope)
+			_elementsToDisplay = _projectData.EntireList.Count;
+		else
+			_elementsToDisplay = _scope;
+
+		for (int i = 0; i < _elementsToDisplay; i++)						
 		{
 			_listOfContainers[i].CreateSinglePlayerStatsView(_projectData.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       // ...nastepnie wypełnia danymi playera
 
@@ -85,9 +92,10 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		{
 			_delta = _startPos - Input.mousePosition;
 
-			for (int i = 0; i < 7; i++)                                                         // przesuwa gorne elementy na dol, a dolne na gore
+			for (int i = 0; i < _elementsToDisplay; i++)                                                         // przesuwa gorne elementy na dol, a dolne na gore
 			{
-				MoveDataFilledContainers(i);
+				if (_projectData.EntireList.Count > _scope)
+					MoveDataFilledContainers(i);
 			}
 		}
 		else if (Input.GetMouseButtonUp(0))
@@ -102,13 +110,14 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 		_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
 		_listOfContainers[index].transform.position = _movement;                                // przesuniecie kontenera we wskazanym kierunku
-																							// sprawdz czy kontenery przekraczaja zadane granice i zareaguj
+		
+		// sprawdz czy kontenery przekraczaja zadane granice i zareaguj
 		if (_listOfContainers[index].PlayerName.transform.position.y > 350)                  // gorna granica listy, przesun pierwszy element na dol
 		{
 			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _unitStep, 0);
 			_currentTopEntry++;
 
-			ReplaceProfile(index, (_currentTopEntry + 7 - 1));
+			ReplaceProfile(index, (_currentTopEntry + _scope - 1));
 		}
 		else if (_listOfContainers[index].PlayerName.transform.position.y < 130)             // dolna granica listy, przesun ostatni element na gore
 		{
