@@ -28,10 +28,10 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	private Vector3 _delta;
 	private Vector3 _movement;
 
-	private int _unitStep;
+	private int _containerGap;
 	private int _currentTopEntry;
 	private const int _scope = 7;
-	private int _elementsToDisplay;											// playerów w pamięci może być mniej niż _scope, dlatego to jest ostateczna ilość playerów do wyswietlenia
+	private int _elementsToDisplayOnStart;											// playerów w pamięci może być mniej niż _scope, dlatego to jest ostateczna ilość playerów do wyswietlenia
 
 	private void Start()
 	{
@@ -67,12 +67,12 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	public void FillContainersOnStart()				// wypełnia tyle kontenerów, ile znajduje się w hierarchii
 	{
-		if (_projectData.EntireList.Count <= _scope)
-			_elementsToDisplay = _projectData.EntireList.Count;
+		if (_projectData.EntireList.Count < _scope)
+			_elementsToDisplayOnStart = _projectData.EntireList.Count;
 		else
-			_elementsToDisplay = _scope;
+			_elementsToDisplayOnStart = _scope;
 
-		for (int i = 0; i < _elementsToDisplay; i++)						
+		for (int i = 0; i < _elementsToDisplayOnStart; i++)						
 		{
 			_listOfContainers[i].CreateSinglePlayerStatsView(_projectData.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       // ...nastepnie wypełnia danymi playera
 
@@ -84,54 +84,60 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private void FollowMouse()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (_projectData.EntireList.Count > _scope)						// jeśli playerów na liście jest mniej niż kontenerów to nie ma sensu w ogóle odpalać Update()
 		{
-			_startPos = Input.mousePosition;
-		}
-		else if (Input.GetMouseButton(0) && Input.mousePosition.x > 0 && Input.mousePosition.x < 800 && Input.mousePosition.y < 400 && Input.mousePosition.y > 0)
-		{
-			_delta = _startPos - Input.mousePosition;
-
-			for (int i = 0; i < _elementsToDisplay; i++)                                                         // przesuwa gorne elementy na dol, a dolne na gore
+			if (Input.GetMouseButtonDown(0))
 			{
-				if (_projectData.EntireList.Count > _scope)
+				_startPos = Input.mousePosition;
+			}
+			else if (Input.GetMouseButton(0) && Input.mousePosition.x > 0 && Input.mousePosition.x < 800 && Input.mousePosition.y < 400 && Input.mousePosition.y > 0)
+			{
+				_delta = _startPos - Input.mousePosition;
+
+				for (int i = 0; i < _scope; i++)                                                         
+				{
 					MoveDataFilledContainers(i);
+				}
+			}
+			else if (Input.GetMouseButtonUp(0))
+			{
+				_startPos = new Vector3(0, 0, 0);
 			}
 		}
-		else if (Input.GetMouseButtonUp(0))
-		{
-			_startPos = new Vector3(0, 0, 0);
-		}
 	}
+
+
+
+
 
 	private void MoveDataFilledContainers(int index)
 	{
-		_unitStep = 210;
+		_containerGap = 210;
 
-		if (_currentTopEntry >= 0 && (_currentTopEntry + 7) <= _projectData.EntireList.Count)
+		_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
+		_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
+
+		if (_listOfContainers[index].PlayerName.transform.position.y > 350)                  // gorna granica listy, przesun pierwszy element na dol
 		{
-			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
-			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
+			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _containerGap, 0);
+			ReplaceProfile(index, (_currentTopEntry + _scope));
+			_currentTopEntry++;
 
-			// sprawdz czy kontenery przekraczaja zadane granice i zareaguj
-			if (_listOfContainers[index].PlayerName.transform.position.y > 350)                  // gorna granica listy, przesun pierwszy element na dol
-			{
-				_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _unitStep, 0);
-				_currentTopEntry++;
-
-				ReplaceProfile(index, (_currentTopEntry + _scope - 1));
-			}
-			else if (_listOfContainers[index].PlayerName.transform.position.y < 130)             // dolna granica listy, przesun ostatni element na gore
-			{
-				_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y + _unitStep, 0);
-				_currentTopEntry--;
-
-				ReplaceProfile(index, _currentTopEntry);
-			}
+			Debug.Log("myszka w górę, pokaż niższe wpisy");
 		}
+		else if (_listOfContainers[index].PlayerName.transform.position.y < 140)             // dolna granica listy, przesun ostatni element na gore
+		{
+			_currentTopEntry--;
+			ReplaceProfile(index, _currentTopEntry);
+			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y + _containerGap, 0);
 
-		Debug.Log("currentTopEntry po zmianach: " + _currentTopEntry);
+			Debug.Log("myszka w dół, pokaż wyższe wpisy");
+		}
 	}
+
+
+
+
 
 	private void ReplaceProfile(int index, int currentTopEntry)
 	{ 
@@ -142,7 +148,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(false);
 		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(false);
 
-		if (_projectData.EntireList[currentTopEntry].Complete50)
+		if (_projectData.EntireList[currentTopEntry].Complete50)							// sprawdzanie każdego achievementu osobnym ifem to trzy sprawdzenia zawsze, tutaj w niektórych przypadkach wystarczy raz lub dwa lub trzy
 		{
 			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(true);
 			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
