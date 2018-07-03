@@ -106,10 +106,6 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-
-
-
-
 	private void MoveDataFilledContainers(int index)
 	{
 		_containerGap = 210;
@@ -122,78 +118,58 @@ public class MultiplePlayerStatsView : MonoBehaviour
 			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _containerGap, 0);
 			ReplaceProfile(index, (_currentTopEntry + _scope));
 			_currentTopEntry++;
-
-			Debug.Log("myszka w górę, pokaż niższe wpisy");
 		}
 		else if (_listOfContainers[index].PlayerName.transform.position.y < 140)             // dolna granica listy, przesun ostatni element na gore
 		{
 			_currentTopEntry--;
 			ReplaceProfile(index, _currentTopEntry);
 			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y + _containerGap, 0);
-
-			Debug.Log("myszka w dół, pokaż wyższe wpisy");
 		}
 	}
 
+	private void ReplaceProfile(int index, int entryToReplace)
+	{
+		entryToReplace = LoopListIndex(entryToReplace);
 
+		_listOfContainers[index].PlayerName.text = _projectData.EntireList[entryToReplace].PlayerName;
 
-
-
-	private void ReplaceProfile(int index, int currentTopEntry)
-	{ 
-		_listOfContainers[index].PlayerName.text = _projectData.EntireList[currentTopEntry].PlayerName;
-		_listOfContainers[index].HighScore.text = _projectData.EntireList[currentTopEntry].HighScore.ToString();
+		_listOfContainers[index].HighScore.text = _projectData.EntireList[entryToReplace].HighScore.ToString();
 
 		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(false);
 		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(false);
 		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(false);
 
-		if (_projectData.EntireList[currentTopEntry].Complete50)							// sprawdzanie każdego achievementu osobnym ifem to trzy sprawdzenia zawsze, tutaj w niektórych przypadkach wystarczy raz lub dwa lub trzy
-		{
-			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(true);
-			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
-			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
-		}
-		else if (_projectData.EntireList[currentTopEntry].Complete25)
-		{
-			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
-			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
-		}
-		else if (_projectData.EntireList[currentTopEntry].Complete10)
+		if (_projectData.EntireList[entryToReplace].Complete10)
 		{
 			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
+
+			if (_projectData.EntireList[entryToReplace].Complete25)
+			{
+				_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
+
+				if (_projectData.EntireList[entryToReplace].Complete50)
+				{
+					_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(true);
+				}
+			}
+
 		}
 	}
+
+	private int LoopListIndex(int entryToReplace)
+	{
+		if (entryToReplace >= _projectData.EntireList.Count)
+		{
+			entryToReplace = entryToReplace % _projectData.EntireList.Count;
+		}
+		else if (entryToReplace < 0)
+		{
+			entryToReplace = _projectData.EntireList.Count - Mathf.Abs(entryToReplace % _projectData.EntireList.Count);
+
+			if (entryToReplace == 11)
+				entryToReplace = 0;
+		}
+
+		return entryToReplace;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-// jeśli w kontenerze0 znajduje się pierwszy player i kontener0.transform.position.y > 350 to zablokuj modyfikacje jego transform.position.y w dół
-// jeśli w kontenerze[index] znajduje się ostatni player i kontener[index].transform.position.y < 250 to zablokuj modyfikacje jego transform.position.y w górę 
-
-
-
-
-
-
-
-// lewy gorny 260, 350
-// prawy gorny 655, 355
-// lewy dolny 260, 250
-// prawy dolny 655, 255
-
-
-// -210 podczas przesuniecia w dół
-
-//Debug.Log(_delta.y);
-//Debug.Log(_listOfSingleEntries[0].transform.position.y + " // " + _listOfSingleEntries[4].transform.position.y);
-//Debug.Log(_listOfSingleEntries[0]._playerName.transform.position.y + " // " + _listOfSingleEntries[1]._playerName.transform.position.y + " // " + _listOfSingleEntries[2]._playerName.transform.position.y);
-//Debug.Log(Input.mousePosition.x + " // " + Input.mousePosition.y);
