@@ -166,7 +166,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		{
 			entryToReplace = _projectData.EntireList.Count - Mathf.Abs(entryToReplace % _projectData.EntireList.Count);
 
-			if (entryToReplace == 11)
+			if (entryToReplace == _projectData.EntireList.Count)
 				entryToReplace = 0;
 		}
 
