@@ -45,6 +45,9 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 		FillContainersOnStart();
 
+		// initialize(LISTPREFAB);
+		// LISTPREFAB.fillcontainersonstart(_projectData, _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);
+
 		_currentTopEntry = 0;           // pozycja wyswietlana aktualnie jako PIERWSZA
 	}
 
@@ -53,6 +56,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		FollowMouse();
 	}
 
+	// LISTPREFAB
 	public void CreateEmptyContainers()					// tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
 	{
 		for (int i = 0; i < _scope; i++)
@@ -65,6 +69,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
+	// LISTPREFAB
 	public void FillContainersOnStart()				// wypełnia tyle kontenerów, ile znajduje się w hierarchii
 	{
 		if (_projectData.EntireList.Count < _scope)
@@ -82,6 +87,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
+	// LISTPREFAB
 	private void FollowMouse()
 	{
 		if (_projectData.EntireList.Count > _scope)						// jeśli playerów na liście jest mniej niż kontenerów to nie ma sensu w ogóle odpalać Update()
@@ -106,6 +112,9 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
+	// LISTPREFAB
+	// zamiast przerzucać tylko te elementy, ktore przekraczają krawędzie, zrobic to tak, ze jesli kontener zostaje przesuniety na gore/dol, CAŁA lista jest nadpisywana wg zakresu
+	// np. 0-6, 1-7, 2-8, 3-9, wczytanie nowego zakresu nalezy sprawdzac przed ruchem myszki i przesunieciem kontenera
 	private void MoveDataFilledContainers(int index)
 	{
 		_containerGap = 210;
@@ -127,6 +136,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
+	// LISTPREFAB
 	private void ReplaceProfile(int index, int entryToReplace)
 	{
 		entryToReplace = LoopListIndex(entryToReplace);
@@ -156,6 +166,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
+	// LISTPREFAB
 	private int LoopListIndex(int entryToReplace)
 	{
 		if (entryToReplace >= _projectData.EntireList.Count)
