@@ -27,7 +27,8 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	private int _containerGap;
 	private int _currentTopEntry;
 	private const int _scope = 7;
-	private int _elementsToDisplayOnStart;											// playerów w pamięci może być mniej niż _scope, dlatego to jest ostateczna ilość playerów do wyswietlenia
+	private int _elementsToDisplayOnStart;                                          // playerów w pamięci może być mniej niż _scope, dlatego to jest ostateczna ilość playerów do wyswietlenia
+	private int _startingEntry;
 
 	private void Start()
 	{
@@ -43,13 +44,14 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		FollowMouse();
 	}
 
-	public void CreateEmptyContainers(ProjectData projectData)					// tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
+	public void CreateEmptyContainers(ProjectData projectData)                  // tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
 	{
-		_dataToDisplay = projectData;											// ta funkcja wywoływana jest z poziomu innej klasy i wymaga zestawu danych jako argumentu
+		_dataToDisplay = projectData;                                           // ta funkcja wywoływana jest z poziomu innej klasy i wymaga zestawu danych jako argumentu
+		Debug.Log("_dataToDisplay: " + _dataToDisplay.EntireList.Count);
 
 		for (int i = 0; i < _scope; i++)
 		{
-			SinglePlayerStatsView singlePlayerStatsViewInstance = Instantiate(_singlePlayerStatsView);											// tworzy puste obiekty w hierarchii, ktore...
+			SinglePlayerStatsView singlePlayerStatsViewInstance = Instantiate(_singlePlayerStatsView);                                          // tworzy puste obiekty w hierarchii, ktore...
 			_container.Inject(singlePlayerStatsViewInstance);
 			singlePlayerStatsViewInstance.transform.SetParent(gameObject.transform);
 			singlePlayerStatsViewInstance.name = "SinglePlayerViewInstance" + i;
@@ -57,14 +59,14 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	private void FillContainersOnStart()				// wypełnia tyle kontenerów, ile znajduje się w hierarchii
+	private void FillContainersOnStart()                // wypełnia tyle kontenerów, ile znajduje się w hierarchii
 	{
 		if (_dataToDisplay.EntireList.Count < _scope)
 			_elementsToDisplayOnStart = _dataToDisplay.EntireList.Count;
 		else
 			_elementsToDisplayOnStart = _scope;
 
-		for (int i = 0; i < _elementsToDisplayOnStart; i++)						
+		for (int i = 0; i < _elementsToDisplayOnStart; i++)
 		{
 			_playerNameLabelPos.y -= 30;
 			_highscoreLabelPos.y -= 30;
@@ -76,7 +78,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private void FollowMouse()
 	{
-		if (_dataToDisplay.EntireList.Count > _scope)						// jeśli playerów na liście jest mniej niż kontenerów to nie ma sensu w ogóle odpalać Update()
+		if (_dataToDisplay.EntireList.Count > _scope)                       // jeśli playerów na liście jest mniej niż kontenerów to nie ma sensu w ogóle odpalać Update()
 		{
 			if (Input.GetMouseButtonDown(0))
 			{
@@ -86,7 +88,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 			{
 				_delta = _startPos - Input.mousePosition;
 
-				for (int i = 0; i < _scope; i++)                                                         
+				for (int i = 0; i < _scope; i++)
 				{
 					MoveDataFilledContainers(i);
 				}
@@ -98,72 +100,91 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	// zamiast przerzucać tylko te elementy, ktore przekraczają krawędzie, zrobic to tak, ze jesli kontener zostaje przesuniety na gore/dol, CAŁA lista jest nadpisywana wg zakresu
-	// np. 0-6, 1-7, 2-8, 3-9, wczytanie nowego zakresu nalezy sprawdzac przed ruchem myszki i przesunieciem kontenera
+	/*
+	 * dwa podejścia:
+	 * 1) kontener X po przekroczeniu granicy jest przesuwany na górę/dół, a ten, który dotychczas był drugi jest teraz pierwszy. Wadą jest tworzenie dwóch pętli for, które najpierw wypełniają kontenery do ostatniego, a później od pierwszego
+	 * 2) kontenery po przekroczeniu granicy są przesuwane w całości o niewielką odległość w dół/górę. Wadą(?) jest brak faktycznego zapętlenia kontenerów
+	 */
+
+	// podejście 2
 	private void MoveDataFilledContainers(int index)
 	{
-		_containerGap = 210;
+		_containerGap = 30;
 
 		_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
 		_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
-		if (_listOfContainers[index].PlayerName.transform.position.y > 320)                  // gorna granica listy, przesun pierwszy element na dol
+		if (_listOfContainers[0].PlayerName.transform.position.y > 320)         // gorna granica listy, wczytaj poprzednie elementy
 		{
-			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _containerGap, 0);
-			ReplaceProfile(index, (_currentTopEntry + _scope));
+			for (int i = 0; i < _scope; i++)
+			{
+				_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, _listOfContainers[i].transform.position.y - _containerGap, 0);
+			}
 			_currentTopEntry++;
+			ReplaceProfiles(_currentTopEntry);
 		}
-		else if (_listOfContainers[index].PlayerName.transform.position.y < 110)             // dolna granica listy, przesun ostatni element na gore
+
+		if (_listOfContainers[0].PlayerName.transform.position.y < 290)         // dolna granica listy, wczytaj nastepne elementy
 		{
+			for (int i = 0; i < _scope; i++)
+			{
+				_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, _listOfContainers[i].transform.position.y + _containerGap, 0);
+			}
 			_currentTopEntry--;
-			ReplaceProfile(index, _currentTopEntry);
-			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y + _containerGap, 0);
+			ReplaceProfiles(_currentTopEntry);
 		}
 	}
 
-	private void ReplaceProfile(int index, int entryToReplace)
+	// podejscie 1
+	//private void MoveDataFilledContainers(int index)
+	//{
+	//	_containerGap = 210;
+
+	//	_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
+	//	_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
+
+	//	if (_listOfContainers[index].PlayerName.transform.position.y > 320)                  // gorna granica listy, przesun pierwszy element na dol
+	//	{
+	//		_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _containerGap, 0);
+	//		ReplaceProfiles(_currentTopEntry);
+	//		_currentTopEntry++;
+	//	}
+	//	else if (_listOfContainers[index].PlayerName.transform.position.y < 110)             // dolna granica listy, przesun ostatni element na gore
+	//	{
+	//		_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y + _containerGap, 0);
+	//		ReplaceProfiles(_currentTopEntry);
+	//		_currentTopEntry--;
+	//	}
+	//}
+
+	private void ReplaceProfiles(int startingEntry)
 	{
-		entryToReplace = LoopListIndex(entryToReplace);
-
-		_listOfContainers[index].PlayerName.text = _dataToDisplay.EntireList[entryToReplace].PlayerName;
-
-		_listOfContainers[index].HighScore.text = _dataToDisplay.EntireList[entryToReplace].HighScore.ToString();
-
-		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(false);
-		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(false);
-		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(false);
-
-		if (_dataToDisplay.EntireList[entryToReplace].Complete10)
+		for (int i = 0; i < _scope; i++)
 		{
-			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
+			_listOfContainers[i].PlayerName.text = _dataToDisplay.EntireList[startingEntry].PlayerName;
 
-			if (_dataToDisplay.EntireList[entryToReplace].Complete25)
+			_listOfContainers[i].HighScore.text = _dataToDisplay.EntireList[startingEntry].HighScore.ToString();
+
+			_listOfContainers[i].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(false);
+			_listOfContainers[i].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(false);
+			_listOfContainers[i].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(false);
+
+			if (_dataToDisplay.EntireList[startingEntry].Complete10)
 			{
-				_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
+				_listOfContainers[i].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
 
-				if (_dataToDisplay.EntireList[entryToReplace].Complete50)
+				if (_dataToDisplay.EntireList[startingEntry].Complete25)
 				{
-					_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(true);
+					_listOfContainers[i].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
+
+					if (_dataToDisplay.EntireList[startingEntry].Complete50)
+					{
+						_listOfContainers[i].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(true);
+					}
 				}
 			}
 
+			startingEntry++;
 		}
-	}
-
-	private int LoopListIndex(int entryToReplace)
-	{
-		if (entryToReplace >= _dataToDisplay.EntireList.Count)
-		{
-			entryToReplace = entryToReplace % _dataToDisplay.EntireList.Count;
-		}
-		else if (entryToReplace < 0)
-		{
-			entryToReplace = _dataToDisplay.EntireList.Count - Mathf.Abs(entryToReplace % _dataToDisplay.EntireList.Count);
-
-			if (entryToReplace == _dataToDisplay.EntireList.Count)
-				entryToReplace = 0;
-		}
-
-		return entryToReplace;
 	}
 }
