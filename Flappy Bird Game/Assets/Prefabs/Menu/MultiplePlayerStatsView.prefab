@@ -113,7 +113,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: qwe
+  m_Text: 
 --- !u!114 &114086896064676998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,9 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38381328f237294c9ab04485dfa8723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerNameLabel: {fileID: 114030238686634174}
-  _highscoreLabel: {fileID: 114441660824942404}
-  _achievementsLabel: {fileID: 114666660399459540}
 --- !u!114 &114441660824942404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,7 +157,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 123
+  m_Text: 
 --- !u!114 &114483170755160548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -209,7 +206,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: qwe
+  m_Text: 
 --- !u!114 &114811029468337048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -284,7 +281,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 300, y: 370}
+  m_AnchoredPosition: {x: 330, y: 370}
   m_SizeDelta: {x: 100, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224264637718127854
@@ -323,7 +320,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 400, y: 370}
+  m_AnchoredPosition: {x: 430, y: 370}
   m_SizeDelta: {x: 100, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224961044923368870
@@ -341,6 +338,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 530, y: 370}
+  m_AnchoredPosition: {x: 550, y: 370}
   m_SizeDelta: {x: 150, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -14,7 +14,14 @@ public class AchievementsView : MonoBehaviour
 	private DelegateService _delegateService;
 
 	[Inject]
+	private ProjectData _projectData;
+
+	[Inject]
 	private MultiplePlayerStatsView _multiplePlayerStatsView;
+
+	[SerializeField] private Text _playerNameLabel;
+	[SerializeField] private Text _highscoreLabel;
+	[SerializeField] private Text _achievementsLabel;
 
 	private void Start()
 	{
@@ -23,6 +30,10 @@ public class AchievementsView : MonoBehaviour
 			Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
+
+		_playerNameLabel.text = "NAME";
+		_highscoreLabel.text = "HIGHSCORE";
+		_achievementsLabel.text = "ACHIEVEMENTS";
 
 		InitiateMultipleStatsView();
 	}
@@ -33,6 +44,6 @@ public class AchievementsView : MonoBehaviour
 		_container.Inject(multiplePlayerStatsViewInstance);
 		multiplePlayerStatsViewInstance.transform.SetParent(gameObject.transform);
 
-		multiplePlayerStatsViewInstance.CreateEmptyContainers();
+		multiplePlayerStatsViewInstance.CreateEmptyContainers(_projectData);
 	}
 }

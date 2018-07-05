@@ -11,14 +11,10 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	[Inject]
 	private SinglePlayerStatsView _singlePlayerStatsView;
 
-	[Inject]
-	private ProjectData _projectData;
+	//[Inject]
+	private ProjectData _dataToDisplay;
 
 	private List<SinglePlayerStatsView> _listOfContainers = new List<SinglePlayerStatsView>();
-
-	[SerializeField] private Text _playerNameLabel;
-	[SerializeField] private Text _highscoreLabel;
-	[SerializeField] private Text _achievementsLabel;
 
 	private Vector3 _playerNameLabelPos;
 	private Vector3 _highscoreLabelPos;
@@ -35,20 +31,11 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private void Start()
 	{
-		_playerNameLabel.text = "NAME";
-		_highscoreLabel.text = "HIGHSCORE";
-		_achievementsLabel.text = "ACHIEVEMENTS";
-
-		_playerNameLabelPos = _playerNameLabel.transform.position;
-		_highscoreLabelPos = _highscoreLabel.transform.position;
-		_achievementsLabelPos = _achievementsLabel.transform.position;
+		_playerNameLabelPos = new Vector3(330, 350, 0);
+		_highscoreLabelPos = new Vector3(430, 350, 0);
+		_achievementsLabelPos = new Vector3(550, 350, 0);
 
 		FillContainersOnStart();
-
-		// initialize(LISTPREFAB);
-		// LISTPREFAB.fillcontainersonstart(_projectData, _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);
-
-		_currentTopEntry = 0;           // pozycja wyswietlana aktualnie jako PIERWSZA
 	}
 
 	private void Update()
@@ -56,9 +43,10 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		FollowMouse();
 	}
 
-	// LISTPREFAB
-	public void CreateEmptyContainers()					// tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
+	public void CreateEmptyContainers(ProjectData projectData)					// tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
 	{
+		_dataToDisplay = projectData;											// ta funkcja wywoływana jest z poziomu innej klasy i wymaga zestawu danych jako argumentu
+
 		for (int i = 0; i < _scope; i++)
 		{
 			SinglePlayerStatsView singlePlayerStatsViewInstance = Instantiate(_singlePlayerStatsView);											// tworzy puste obiekty w hierarchii, ktore...
@@ -69,28 +57,26 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	// LISTPREFAB
-	public void FillContainersOnStart()				// wypełnia tyle kontenerów, ile znajduje się w hierarchii
+	private void FillContainersOnStart()				// wypełnia tyle kontenerów, ile znajduje się w hierarchii
 	{
-		if (_projectData.EntireList.Count < _scope)
-			_elementsToDisplayOnStart = _projectData.EntireList.Count;
+		if (_dataToDisplay.EntireList.Count < _scope)
+			_elementsToDisplayOnStart = _dataToDisplay.EntireList.Count;
 		else
 			_elementsToDisplayOnStart = _scope;
 
 		for (int i = 0; i < _elementsToDisplayOnStart; i++)						
 		{
-			_listOfContainers[i].CreateSinglePlayerStatsView(_projectData.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       // ...nastepnie wypełnia danymi playera
-
 			_playerNameLabelPos.y -= 30;
 			_highscoreLabelPos.y -= 30;
 			_achievementsLabelPos.y -= 30;
+
+			_listOfContainers[i].CreateSinglePlayerStatsView(_dataToDisplay.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       // ...nastepnie wypełnia danymi playera
 		}
 	}
 
-	// LISTPREFAB
 	private void FollowMouse()
 	{
-		if (_projectData.EntireList.Count > _scope)						// jeśli playerów na liście jest mniej niż kontenerów to nie ma sensu w ogóle odpalać Update()
+		if (_dataToDisplay.EntireList.Count > _scope)						// jeśli playerów na liście jest mniej niż kontenerów to nie ma sensu w ogóle odpalać Update()
 		{
 			if (Input.GetMouseButtonDown(0))
 			{
@@ -112,7 +98,6 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	// LISTPREFAB
 	// zamiast przerzucać tylko te elementy, ktore przekraczają krawędzie, zrobic to tak, ze jesli kontener zostaje przesuniety na gore/dol, CAŁA lista jest nadpisywana wg zakresu
 	// np. 0-6, 1-7, 2-8, 3-9, wczytanie nowego zakresu nalezy sprawdzac przed ruchem myszki i przesunieciem kontenera
 	private void MoveDataFilledContainers(int index)
@@ -122,13 +107,13 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
 		_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
-		if (_listOfContainers[index].PlayerName.transform.position.y > 350)                  // gorna granica listy, przesun pierwszy element na dol
+		if (_listOfContainers[index].PlayerName.transform.position.y > 320)                  // gorna granica listy, przesun pierwszy element na dol
 		{
 			_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _containerGap, 0);
 			ReplaceProfile(index, (_currentTopEntry + _scope));
 			_currentTopEntry++;
 		}
-		else if (_listOfContainers[index].PlayerName.transform.position.y < 140)             // dolna granica listy, przesun ostatni element na gore
+		else if (_listOfContainers[index].PlayerName.transform.position.y < 110)             // dolna granica listy, przesun ostatni element na gore
 		{
 			_currentTopEntry--;
 			ReplaceProfile(index, _currentTopEntry);
@@ -136,28 +121,27 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	// LISTPREFAB
 	private void ReplaceProfile(int index, int entryToReplace)
 	{
 		entryToReplace = LoopListIndex(entryToReplace);
 
-		_listOfContainers[index].PlayerName.text = _projectData.EntireList[entryToReplace].PlayerName;
+		_listOfContainers[index].PlayerName.text = _dataToDisplay.EntireList[entryToReplace].PlayerName;
 
-		_listOfContainers[index].HighScore.text = _projectData.EntireList[entryToReplace].HighScore.ToString();
+		_listOfContainers[index].HighScore.text = _dataToDisplay.EntireList[entryToReplace].HighScore.ToString();
 
 		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(false);
 		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(false);
 		_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(false);
 
-		if (_projectData.EntireList[entryToReplace].Complete10)
+		if (_dataToDisplay.EntireList[entryToReplace].Complete10)
 		{
 			_listOfContainers[index].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
 
-			if (_projectData.EntireList[entryToReplace].Complete25)
+			if (_dataToDisplay.EntireList[entryToReplace].Complete25)
 			{
 				_listOfContainers[index].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
 
-				if (_projectData.EntireList[entryToReplace].Complete50)
+				if (_dataToDisplay.EntireList[entryToReplace].Complete50)
 				{
 					_listOfContainers[index].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(true);
 				}
@@ -166,18 +150,17 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	// LISTPREFAB
 	private int LoopListIndex(int entryToReplace)
 	{
-		if (entryToReplace >= _projectData.EntireList.Count)
+		if (entryToReplace >= _dataToDisplay.EntireList.Count)
 		{
-			entryToReplace = entryToReplace % _projectData.EntireList.Count;
+			entryToReplace = entryToReplace % _dataToDisplay.EntireList.Count;
 		}
 		else if (entryToReplace < 0)
 		{
-			entryToReplace = _projectData.EntireList.Count - Mathf.Abs(entryToReplace % _projectData.EntireList.Count);
+			entryToReplace = _dataToDisplay.EntireList.Count - Mathf.Abs(entryToReplace % _dataToDisplay.EntireList.Count);
 
-			if (entryToReplace == _projectData.EntireList.Count)
+			if (entryToReplace == _dataToDisplay.EntireList.Count)
 				entryToReplace = 0;
 		}
 
