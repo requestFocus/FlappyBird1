@@ -68,11 +68,11 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 		for (int i = 0; i < _elementsToDisplayOnStart; i++)
 		{
+			_listOfContainers[i].CreateSinglePlayerStatsView(_dataToDisplay.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       // ...nastepnie wypełnia danymi playera
+
 			_playerNameLabelPos.y -= 30;
 			_highscoreLabelPos.y -= 30;
 			_achievementsLabelPos.y -= 30;
-
-			_listOfContainers[i].CreateSinglePlayerStatsView(_dataToDisplay.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       // ...nastepnie wypełnia danymi playera
 		}
 	}
 
@@ -90,7 +90,10 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 				for (int i = 0; i < _scope; i++)
 				{
-					MoveDataFilledContainers(i);
+					if (_delta.y < 0)
+						MoveDataFilledContainersDown(i);
+					else if (_delta.y > 0)
+						MoveDataFilledContainersUp(i);
 				}
 			}
 			else if (Input.GetMouseButtonUp(0))
@@ -107,31 +110,47 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	 */
 
 	// podejście 2
-	private void MoveDataFilledContainers(int index)
+	private void MoveDataFilledContainersDown(int index)					// delta ujemna
 	{
 		_containerGap = 30;
 
-		_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
-		_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
-
-		if (_listOfContainers[0].PlayerName.transform.position.y > 320)         // gorna granica listy, wczytaj poprzednie elementy
+		if (_currentTopEntry < (_dataToDisplay.EntireList.Count - _scope))
 		{
-			for (int i = 0; i < _scope; i++)
+			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
+			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
+
+			if (_listOfContainers[0].PlayerName.transform.position.y > 350)         // gorna granica listy, wczytaj poprzednie elementy
 			{
-				_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, _listOfContainers[i].transform.position.y - _containerGap, 0);
+				for (int i = 0; i < _scope; i++)
+				{
+					_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, _listOfContainers[i].transform.position.y - _containerGap, 0);
+				}
+				_currentTopEntry++;
+				Debug.Log(_currentTopEntry);
+				ReplaceProfiles(_currentTopEntry);
 			}
-			_currentTopEntry++;
-			ReplaceProfiles(_currentTopEntry);
 		}
+	}
 
-		if (_listOfContainers[0].PlayerName.transform.position.y < 290)         // dolna granica listy, wczytaj nastepne elementy
+	private void MoveDataFilledContainersUp(int index)                      // delta dodatnia
+	{
+		_containerGap = 30;
+
+		if (_currentTopEntry > 0)
 		{
-			for (int i = 0; i < _scope; i++)
+			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
+			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
+
+			if (_listOfContainers[0].PlayerName.transform.position.y < 290)         // dolna granica listy, wczytaj nastepne elementy
 			{
-				_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, _listOfContainers[i].transform.position.y + _containerGap, 0);
+				for (int i = 0; i < _scope; i++)
+				{
+					_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, _listOfContainers[i].transform.position.y + _containerGap, 0);
+				}
+				_currentTopEntry--;
+				Debug.Log(_currentTopEntry);
+				ReplaceProfiles(_currentTopEntry);
 			}
-			_currentTopEntry--;
-			ReplaceProfiles(_currentTopEntry);
 		}
 	}
 
