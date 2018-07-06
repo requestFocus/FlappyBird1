@@ -47,7 +47,6 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	public void CreateEmptyContainers(ProjectData projectData)                  // tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
 	{
 		_dataToDisplay = projectData;                                           // ta funkcja wywoływana jest z poziomu innej klasy i wymaga zestawu danych jako argumentu
-		Debug.Log("_dataToDisplay: " + _dataToDisplay.EntireList.Count);
 
 		for (int i = 0; i < _scope; i++)
 		{
@@ -126,7 +125,6 @@ public class MultiplePlayerStatsView : MonoBehaviour
 					_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, _listOfContainers[i].transform.position.y - _containerGap, 0);
 				}
 				_currentTopEntry++;
-				Debug.Log(_currentTopEntry);
 				ReplaceProfiles(_currentTopEntry);
 			}
 		}
@@ -148,7 +146,6 @@ public class MultiplePlayerStatsView : MonoBehaviour
 					_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, _listOfContainers[i].transform.position.y + _containerGap, 0);
 				}
 				_currentTopEntry--;
-				Debug.Log(_currentTopEntry);
 				ReplaceProfiles(_currentTopEntry);
 			}
 		}
