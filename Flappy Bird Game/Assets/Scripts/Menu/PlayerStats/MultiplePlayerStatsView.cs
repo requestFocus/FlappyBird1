@@ -2,6 +2,7 @@
 using UnityEngine;
 using Zenject;
 using UnityEngine.UI;
+using System;
 
 public class MultiplePlayerStatsView : MonoBehaviour
 {
@@ -111,18 +112,20 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	// podejście 2
 	private void MoveDataFilledContainersDown(int index)					// delta ujemna
 	{
-		_containerGap = 30;
+		_containerGap = 30;										// ================ DRUGI ELEMENT MINIMALNIE OPADA, KIEDY STAJE SIE PIERWSZYM, DLACZEGO?
 
 		if (_currentTopEntry < (_dataToDisplay.EntireList.Count - _scope))
 		{
 			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
-			if (_listOfContainers[0].PlayerName.transform.position.y > 350)         // gorna granica listy, wczytaj poprzednie elementy
+			Debug.Log("DOWN: " + (float)Math.Round(_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y));
+
+			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y > 350)         // gorna granica listy, wczytaj poprzednie elementy
 			{
 				for (int i = 0; i < _scope; i++)
 				{
-					_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, _listOfContainers[i].transform.position.y - _containerGap, 0);
+					_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, (float)Math.Round(_listOfContainers[i].transform.position.y - _containerGap), 0);
 				}
 				_currentTopEntry++;
 				ReplaceProfiles(_currentTopEntry);
@@ -139,14 +142,17 @@ public class MultiplePlayerStatsView : MonoBehaviour
 			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
-			if (_listOfContainers[0].PlayerName.transform.position.y < 290)         // dolna granica listy, wczytaj nastepne elementy
+			Debug.Log("UP: " + (float)Math.Round(_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y));
+
+			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 290)         // dolna granica listy, wczytaj nastepne elementy
 			{
-				for (int i = 0; i < _scope; i++)
-				{
-					_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, _listOfContainers[i].transform.position.y + _containerGap, 0);
-				}
 				_currentTopEntry--;
 				ReplaceProfiles(_currentTopEntry);
+				for (int i = 0; i < _scope; i++)
+				{
+					_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, (float)Math.Round(_listOfContainers[i].transform.position.y + _containerGap), 0);
+				}
+
 			}
 		}
 	}
