@@ -116,10 +116,11 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 		if (_currentTopEntry < (_dataToDisplay.EntireList.Count - _scope))
 		{
-			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
+			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 100, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
-			Debug.Log("DOWN: " + (float)Math.Round(_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y));
+			//Debug.Log("_movement.y: " + _movement.y);
+			//Debug.Log("DOWN: " + (float)Math.Round(_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y));
 
 			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y > 350)         // gorna granica listy, wczytaj poprzednie elementy
 			{
@@ -139,10 +140,10 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 		if (_currentTopEntry > 0)
 		{
-			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
+			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 100, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
-			Debug.Log("UP: " + (float)Math.Round(_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y));
+			//Debug.Log("UP: " + (float)Math.Round(_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y));
 
 			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 290)         // dolna granica listy, wczytaj nastepne elementy
 			{
@@ -208,5 +209,10 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 			startingEntry++;
 		}
+	}
+
+	private void MarkCurrentProfile()
+	{
+
 	}
 }

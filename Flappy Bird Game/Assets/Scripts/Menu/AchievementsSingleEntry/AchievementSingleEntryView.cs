@@ -13,7 +13,6 @@ public class AchievementSingleEntryView : MonoBehaviour
 	public void ListAchievements(PlayerProfile playerProfile, Vector3 achievementsPos)
 	{
 		achievementsPos.x -= 30;                                        // wyrównanie do środka
-		//achievementsPos.y += 20;										// ============================ dlaczego musze to robic?
 		Complete10Inactive.transform.position = achievementsPos;
 		Complete10Active.transform.position = achievementsPos;
 

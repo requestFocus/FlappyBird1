@@ -17,40 +17,27 @@ public class MainLobbyView : MonoBehaviour
 
 	private void Start()
 	{
-		_newGameButton.onClick.AddListener(delegate
-		{
-			Destroy(gameObject);
-			_delegateService.ClickLogo(MenuScreensService.MenuScreens.NewGame);
-		});
+		ActOnClick(_newGameButton, MenuScreensService.MenuScreens.NewGame);
 
-		_howToPlayButton.onClick.AddListener(delegate
-		{
-			Destroy(gameObject);
-			_delegateService.ClickLogo(MenuScreensService.MenuScreens.HowtoPlay);
-		});
+		ActOnClick(_howToPlayButton, MenuScreensService.MenuScreens.HowtoPlay);
 
-		_creditsButton.onClick.AddListener(delegate
-		{
-			Destroy(gameObject);
-			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Credits);
-		});
+		ActOnClick(_creditsButton, MenuScreensService.MenuScreens.Credits);
 
-		_achievementsButton.onClick.AddListener(delegate
-		{
-			Destroy(gameObject);
-			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Achievements);
-		});
+		ActOnClick(_achievementsButton, MenuScreensService.MenuScreens.Achievements);
 
-		_profileButton.onClick.AddListener(delegate
-		{
-			Destroy(gameObject);
-			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Profile);
-		});
+		ActOnClick(_profileButton, MenuScreensService.MenuScreens.Profile);
 
-		_logoutButton.onClick.AddListener(delegate
+		ActOnClick(_logoutButton, MenuScreensService.MenuScreens.Login);
+	}
+
+	private void ActOnClick(Button button, MenuScreensService.MenuScreens state)
+	{
+		button.onClick.AddListener(delegate
 		{
 			Destroy(gameObject);
-			_delegateService.ClickLogo(MenuScreensService.MenuScreens.Login);
+			_delegateService.ClickLogo(state);
 		});
 	}
 }
+
+
