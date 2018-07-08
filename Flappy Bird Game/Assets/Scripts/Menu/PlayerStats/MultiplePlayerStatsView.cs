@@ -33,9 +33,9 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private void Start()
 	{
-		_playerNameLabelPos = new Vector3(330, 350, 0);
-		_highscoreLabelPos = new Vector3(430, 350, 0);
-		_achievementsLabelPos = new Vector3(550, 350, 0);
+		_playerNameLabelPos = new Vector3(317, 370, 0);
+		_highscoreLabelPos = new Vector3(417, 370, 0);
+		_achievementsLabelPos = new Vector3(537, 370, 0);
 
 		FillContainersOnStart();
 	}
@@ -70,9 +70,9 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		{
 			_listOfContainers[i].CreateSinglePlayerStatsView(_dataToDisplay.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       // ...nastepnie wypełnia danymi playera
 
-			_playerNameLabelPos.y -= 30;
-			_highscoreLabelPos.y -= 30;
-			_achievementsLabelPos.y -= 30;
+			_playerNameLabelPos.y -= 40;
+			_highscoreLabelPos.y -= 40;
+			_achievementsLabelPos.y -= 40;
 		}
 	}
 
@@ -103,20 +103,14 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	/*
-	 * dwa podejścia:
-	 * 1) kontener X po przekroczeniu granicy jest przesuwany na górę/dół, a ten, który dotychczas był drugi jest teraz pierwszy. Wadą jest tworzenie dwóch pętli for, które najpierw wypełniają kontenery do ostatniego, a później od pierwszego
-	 * 2) kontenery po przekroczeniu granicy są przesuwane w całości o niewielką odległość w dół/górę. Wadą(?) jest brak faktycznego zapętlenia kontenerów
-	 */
-
 	// podejście 2
 	private void MoveDataFilledContainersDown(int index)					// delta ujemna
 	{
-		_containerGap = 30;										// ================ DRUGI ELEMENT MINIMALNIE OPADA, KIEDY STAJE SIE PIERWSZYM, DLACZEGO?
+		_containerGap = 40;										// ================ DRUGI ELEMENT MINIMALNIE OPADA, KIEDY STAJE SIE PIERWSZYM, DLACZEGO?
 
 		if (_currentTopEntry < (_dataToDisplay.EntireList.Count - _scope))
 		{
-			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 100, 0);          // dziele przez X, żeby skok nie był tak duży
+			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
 			//Debug.Log("_movement.y: " + _movement.y);
@@ -136,16 +130,16 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private void MoveDataFilledContainersUp(int index)                      // delta dodatnia
 	{
-		_containerGap = 30;
+		_containerGap = 40;
 
 		if (_currentTopEntry > 0)
 		{
-			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 100, 0);          // dziele przez X, żeby skok nie był tak duży
+			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
 			//Debug.Log("UP: " + (float)Math.Round(_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y));
 
-			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 290)         // dolna granica listy, wczytaj nastepne elementy
+			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 280)         // dolna granica listy, wczytaj nastepne elementy
 			{
 				_currentTopEntry--;
 				ReplaceProfiles(_currentTopEntry);
