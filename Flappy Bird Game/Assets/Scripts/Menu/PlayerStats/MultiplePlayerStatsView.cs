@@ -106,15 +106,12 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	// podejście 2
 	private void MoveDataFilledContainersDown(int index)					// delta ujemna
 	{
-		_containerGap = 40;										// ================ DRUGI ELEMENT MINIMALNIE OPADA, KIEDY STAJE SIE PIERWSZYM, DLACZEGO?
+		_containerGap = 40;										
 
 		if (_currentTopEntry < (_dataToDisplay.EntireList.Count - _scope))
 		{
 			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
-
-			//Debug.Log("_movement.y: " + _movement.y);
-			//Debug.Log("DOWN: " + (float)Math.Round(_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y));
 
 			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y > 350)         // gorna granica listy, wczytaj poprzednie elementy
 			{
@@ -137,8 +134,6 @@ public class MultiplePlayerStatsView : MonoBehaviour
 			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
-			//Debug.Log("UP: " + (float)Math.Round(_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y));
-
 			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 280)         // dolna granica listy, wczytaj nastepne elementy
 			{
 				_currentTopEntry--;
@@ -151,28 +146,6 @@ public class MultiplePlayerStatsView : MonoBehaviour
 			}
 		}
 	}
-
-	// podejscie 1
-	//private void MoveDataFilledContainers(int index)
-	//{
-	//	_containerGap = 210;
-
-	//	_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 10, 0);          // dziele przez X, żeby skok nie był tak duży
-	//	_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
-
-	//	if (_listOfContainers[index].PlayerName.transform.position.y > 320)                  // gorna granica listy, przesun pierwszy element na dol
-	//	{
-	//		_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _containerGap, 0);
-	//		ReplaceProfiles(_currentTopEntry);
-	//		_currentTopEntry++;
-	//	}
-	//	else if (_listOfContainers[index].PlayerName.transform.position.y < 110)             // dolna granica listy, przesun ostatni element na gore
-	//	{
-	//		_listOfContainers[index].transform.position = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y + _containerGap, 0);
-	//		ReplaceProfiles(_currentTopEntry);
-	//		_currentTopEntry--;
-	//	}
-	//}
 
 	private void ReplaceProfiles(int startingEntry)
 	{
@@ -203,10 +176,5 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 			startingEntry++;
 		}
-	}
-
-	private void MarkCurrentProfile()
-	{
-
 	}
 }
