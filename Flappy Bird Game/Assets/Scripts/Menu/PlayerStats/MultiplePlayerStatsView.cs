@@ -12,7 +12,6 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	[Inject]
 	private SinglePlayerStatsView _singlePlayerStatsView;
 
-	//[Inject]
 	private ProjectData _dataToDisplay;
 
 	private List<SinglePlayerStatsView> _listOfContainers = new List<SinglePlayerStatsView>();
@@ -33,9 +32,9 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private void Start()
 	{
-		_playerNameLabelPos = new Vector3(317, 370, 0);
-		_highscoreLabelPos = new Vector3(417, 370, 0);
-		_achievementsLabelPos = new Vector3(537, 370, 0);
+		_playerNameLabelPos = new Vector3(300, 370, 0);					// czy powinienem to zamienić na automatyczne pobranie position odpowiedniego labela w prefabie AchievementsView?
+		_highscoreLabelPos = new Vector3(400, 370, 0);
+		_achievementsLabelPos = new Vector3(520, 370, 0);
 
 		FillContainersOnStart();
 	}
@@ -91,9 +90,15 @@ public class MultiplePlayerStatsView : MonoBehaviour
 				for (int i = 0; i < _scope; i++)
 				{
 					if (_delta.y < 0)
+					{
 						MoveDataFilledContainersDown(i);
+						//Debug.Log(_listOfContainers[0].PlayerName.transform.position.y);
+					}
 					else if (_delta.y > 0)
+					{
 						MoveDataFilledContainersUp(i);
+						//Debug.Log(_listOfContainers[0].PlayerName.transform.position.y);
+					}
 				}
 			}
 			else if (Input.GetMouseButtonUp(0))
@@ -134,7 +139,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
-			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 280)         // dolna granica listy, wczytaj nastepne elementy
+			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 280)         
 			{
 				_currentTopEntry--;
 				ReplaceProfiles(_currentTopEntry);
@@ -142,7 +147,6 @@ public class MultiplePlayerStatsView : MonoBehaviour
 				{
 					_listOfContainers[i].transform.position = new Vector3(_listOfContainers[i].transform.position.x, (float)Math.Round(_listOfContainers[i].transform.position.y + _containerGap), 0);
 				}
-
 			}
 		}
 	}

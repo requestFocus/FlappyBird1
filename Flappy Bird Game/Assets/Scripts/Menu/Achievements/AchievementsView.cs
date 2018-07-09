@@ -43,6 +43,7 @@ public class AchievementsView : MonoBehaviour
 		MultiplePlayerStatsView multiplePlayerStatsViewInstance = Instantiate(_multiplePlayerStatsView);
 		_container.Inject(multiplePlayerStatsViewInstance);
 		multiplePlayerStatsViewInstance.transform.SetParent(gameObject.transform);
+		//multiplePlayerStatsViewInstance.transform.SetParent(GameObject.FindGameObjectWithTag("Mask").transform);
 
 		multiplePlayerStatsViewInstance.CreateEmptyContainers(_projectData);
 	}
