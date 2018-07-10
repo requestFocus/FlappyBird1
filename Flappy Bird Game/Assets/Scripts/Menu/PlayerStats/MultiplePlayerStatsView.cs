@@ -46,11 +46,11 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	public void CreateEmptyContainers(ProjectData projectData)                  // tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
 	{
-		_dataToDisplay = projectData;                                           // ta funkcja wywoływana jest z poziomu innej klasy i wymaga zestawu danych jako argumentu
+		_dataToDisplay = projectData;                                           // funkcja CreateEmptyContainers wywoływana jest z poziomu innej klasy i wymaga zestawu danych jako argumentu
 
 		for (int i = 0; i < _scope; i++)
 		{
-			SinglePlayerStatsView singlePlayerStatsViewInstance = Instantiate(_singlePlayerStatsView);                                          // tworzy puste obiekty w hierarchii, ktore...
+			SinglePlayerStatsView singlePlayerStatsViewInstance = Instantiate(_singlePlayerStatsView);            // tworzy puste obiekty w hierarchii
 			_container.Inject(singlePlayerStatsViewInstance);
 			singlePlayerStatsViewInstance.transform.SetParent(gameObject.transform);
 			singlePlayerStatsViewInstance.name = "SinglePlayerViewInstance" + i;
@@ -65,9 +65,13 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		else
 			_elementsToDisplayOnStart = _scope;
 
+		_playerNameLabelPos.y -= 40;
+		_highscoreLabelPos.y -= 40;
+		_achievementsLabelPos.y -= 40;
+
 		for (int i = 0; i < _elementsToDisplayOnStart; i++)
 		{
-			_listOfContainers[i].CreateSinglePlayerStatsView(_dataToDisplay.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       // ...nastepnie wypełnia danymi playera
+			_listOfContainers[i].CreateSinglePlayerStatsView(_dataToDisplay.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       
 
 			_playerNameLabelPos.y -= 40;
 			_highscoreLabelPos.y -= 40;
@@ -91,13 +95,11 @@ public class MultiplePlayerStatsView : MonoBehaviour
 				{
 					if (_delta.y < 0)
 					{
-						MoveDataFilledContainersDown(i);
-						//Debug.Log(_listOfContainers[0].PlayerName.transform.position.y);
+						ScrollDataFilledContainersDown(i);
 					}
 					else if (_delta.y > 0)
 					{
-						MoveDataFilledContainersUp(i);
-						//Debug.Log(_listOfContainers[0].PlayerName.transform.position.y);
+						ScrollDataFilledContainersUp(i);
 					}
 				}
 			}
@@ -108,17 +110,16 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	// podejście 2
-	private void MoveDataFilledContainersDown(int index)					// delta ujemna
+	private void ScrollDataFilledContainersDown(int index)					  // delta ujemna = scrolluje w dół
 	{
-		_containerGap = 40;										
+		_containerGap = 40;
 
-		if (_currentTopEntry < (_dataToDisplay.EntireList.Count - _scope))
+		if (!(_listOfContainers[_scope - 1].PlayerName.text.ToString().Equals(_dataToDisplay.EntireList[_dataToDisplay.EntireList.Count - 1].PlayerName) && _listOfContainers[_scope - 1].PlayerName.transform.position.y > 135))
 		{
 			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
-			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
+			_listOfContainers[index].transform.position = _movement;                            // przesuniecie kontenera we wskazanym kierunku
 
-			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y > 350)         // gorna granica listy, wczytaj poprzednie elementy
+			if (_currentTopEntry < (_dataToDisplay.EntireList.Count - _scope) && _listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y > 350)         // gorna granica listy, wczytaj poprzednie elementy
 			{
 				for (int i = 0; i < _scope; i++)
 				{
@@ -130,16 +131,16 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	private void MoveDataFilledContainersUp(int index)                      // delta dodatnia
+	private void ScrollDataFilledContainersUp(int index)                      // delta dodatnia = scrolluje w gore
 	{
 		_containerGap = 40;
 
-		if (_currentTopEntry > 0)
+		if (!(_listOfContainers[0].PlayerName.text.ToString().Equals(_dataToDisplay.EntireList[0].PlayerName) && _listOfContainers[0].PlayerName.transform.position.y < 300))
 		{
 			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
-			if (_listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 280)         
+			if (_currentTopEntry > 0 && _listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 310)          // dolna granica listy, wczytaj kolejne elementy
 			{
 				_currentTopEntry--;
 				ReplaceProfiles(_currentTopEntry);
