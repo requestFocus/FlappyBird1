@@ -204,6 +204,7 @@ MonoBehaviour:
   _logoButton: {fileID: 114964349786186116}
   _achievementsButtonInactive: {fileID: 114820461770870184}
   _playerNameLabel: {fileID: 114629330920058158}
+  PlayerNameLabel: {fileID: 114629330920058158}
   _highscoreLabel: {fileID: 114944146018441238}
   _achievementsLabel: {fileID: 114758217037908070}
 --- !u!114 &114407312439241834

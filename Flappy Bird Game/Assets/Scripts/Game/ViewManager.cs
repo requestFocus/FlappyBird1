@@ -11,9 +11,6 @@ public class ViewManager : MonoBehaviour
 	private ViewFactory _viewFactory;
 
 	[Inject]
-	private CurrentPlayerData _currentPlayerData;
-
-	[Inject]
 	private CurrentGameStateService _currentGameStateService;
 
 	private void Awake()

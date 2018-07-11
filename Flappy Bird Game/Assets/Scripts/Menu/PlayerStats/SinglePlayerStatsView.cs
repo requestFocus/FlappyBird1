@@ -32,3 +32,4 @@ public class SinglePlayerStatsView : MonoBehaviour
 		AchievementSingleEntryViewInstance.ListAchievements(playerProfile, achievementsLabelPos);
 	}
 }
+

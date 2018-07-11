@@ -27,14 +27,13 @@ public class MultiplePlayerStatsView : MonoBehaviour
 	private int _containerGap;
 	private int _currentTopEntry;
 	private const int _scope = 7;
-	private int _elementsToDisplayOnStart;                                          // playerów w pamięci może być mniej niż _scope, dlatego to jest ostateczna ilość playerów do wyswietlenia
-	private int _startingEntry;
+	private int _elementsToDisplayOnStart;                                        // playerów w pamięci może być mniej niż _scope, dlatego to jest ostateczna ilość playerów do wyswietlenia w Start()
 
 	private void Start()
 	{
-		_playerNameLabelPos = new Vector3(300, 370, 0);					// czy powinienem to zamienić na automatyczne pobranie position odpowiedniego labela w prefabie AchievementsView?
-		_highscoreLabelPos = new Vector3(400, 370, 0);
-		_achievementsLabelPos = new Vector3(520, 370, 0);
+		_playerNameLabelPos = new Vector3(300, 330, 0);						
+		_highscoreLabelPos = new Vector3(400, 330, 0);
+		_achievementsLabelPos = new Vector3(520, 330, 0);
 
 		FillContainersOnStart();
 	}
@@ -58,16 +57,12 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	private void FillContainersOnStart()                // wypełnia tyle kontenerów, ile znajduje się w hierarchii
+	private void FillContainersOnStart()										// wypełnia tyle kontenerów, ile znajduje się w hierarchii
 	{
 		if (_dataToDisplay.EntireList.Count < _scope)
 			_elementsToDisplayOnStart = _dataToDisplay.EntireList.Count;
 		else
 			_elementsToDisplayOnStart = _scope;
-
-		_playerNameLabelPos.y -= 40;
-		_highscoreLabelPos.y -= 40;
-		_achievementsLabelPos.y -= 40;
 
 		for (int i = 0; i < _elementsToDisplayOnStart; i++)
 		{
@@ -81,7 +76,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private void FollowMouse()
 	{
-		if (_dataToDisplay.EntireList.Count > _scope)                       // jeśli playerów na liście jest mniej niż kontenerów to nie ma sensu w ogóle odpalać Update()
+		if (_dataToDisplay.EntireList.Count > _scope)							// jeśli playerów na liście jest mniej niż kontenerów to nie ma sensu w ogóle odpalać Update()
 		{
 			if (Input.GetMouseButtonDown(0))
 			{
