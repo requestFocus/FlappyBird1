@@ -167,16 +167,24 @@ public class MultiplePlayerStatsView : MonoBehaviour
 			if (_dataToDisplay.EntireList[startingEntry].Complete10)
 			{
 				_listOfContainers[i].AchievementSingleEntryViewInstance.Complete10Active.gameObject.SetActive(true);
-
-				if (_dataToDisplay.EntireList[startingEntry].Complete25)
-				{
-					_listOfContainers[i].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
-
-					if (_dataToDisplay.EntireList[startingEntry].Complete50)
-					{
-						_listOfContainers[i].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(true);
-					}
-				}
+			}
+			else
+			{
+				startingEntry++;
+				continue;
+			}
+			if (_dataToDisplay.EntireList[startingEntry].Complete25)
+			{
+				_listOfContainers[i].AchievementSingleEntryViewInstance.Complete25Active.gameObject.SetActive(true);
+			}
+			else
+			{
+				startingEntry++;
+				continue;
+			}
+			if (_dataToDisplay.EntireList[startingEntry].Complete50)
+			{
+				_listOfContainers[i].AchievementSingleEntryViewInstance.Complete50Active.gameObject.SetActive(true);
 			}
 
 			startingEntry++;
