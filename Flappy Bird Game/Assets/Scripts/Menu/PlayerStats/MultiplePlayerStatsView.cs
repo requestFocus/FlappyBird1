@@ -3,8 +3,9 @@ using UnityEngine;
 using Zenject;
 using UnityEngine.UI;
 using System;
+using UnityEngine.EventSystems;
 
-public class MultiplePlayerStatsView : MonoBehaviour
+public class MultiplePlayerStatsView : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	[Inject]
 	private DiContainer _container;
@@ -22,6 +23,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 	private Vector3 _startPos;
 	private Vector3 _delta;
+	private Vector2 _deltaValue;
 	private Vector3 _movement;
 
 	private int _containerGap;
@@ -38,10 +40,72 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		FillContainersOnStart();
 	}
 
-	private void Update()
-	{
-		FollowMouse();
-	}
+    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+    {
+        //    if (eventData.button == PointerEventData.InputButton.Left)
+        //    {
+        //        _startPos = Input.mousePosition;
+        //        //Debug.Log(_startPos);
+        //    }
+    }
+
+    void IPointerUpHandler.OnPointerUp(PointerEventData eventData)              // przycisk myszy zwolniony, zresetuj położenie startowe
+    {
+        //    if (eventData.button == PointerEventData.InputButton.Left)
+        //    {
+        //        _startPos = new Vector3(0, 0, 0);
+        //        //Debug.Log(_startPos);
+        //    }
+    }
+
+    void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+    {
+        //if (eventData.button == PointerEventData.InputButton.Left)
+        //{
+        //    _startPos = eventData.position;
+        //    _delta = _startPos - Input.mousePosition;
+        //    Debug.Log("=================== eventData.position: " + eventData.position.y + " // startPos: " + _startPos.y + " // deltaValue: " + _deltaValue.y);
+
+        //    for (int i = 0; i < _scope; i++)
+        //    {
+        //        if (_deltaValue.y < 0)
+        //        {
+        //            ScrollDataFilledContainersDown(i);
+        //        }
+        //        else if (_deltaValue.y > 0)
+        //        {
+        //            ScrollDataFilledContainersUp(i);
+        //        }
+        //    }
+        //}
+    }
+
+    void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
+    {
+        _deltaValue = Vector2.zero;
+    }
+
+    void IDragHandler.OnDrag(PointerEventData eventData)
+    {
+        _deltaValue += eventData.delta;
+
+        for (int i = 0; i < _scope; i++)
+        {
+            if (_deltaValue.y < 0)
+            {
+                ScrollDataFilledContainersDown(i);
+            }
+            else if (_deltaValue.y > 0)
+            {
+                ScrollDataFilledContainersUp(i);
+            }
+        }
+    }
+
+    void IEndDragHandler.OnEndDrag(PointerEventData eventData)
+    {
+        _deltaValue = Vector2.zero;
+    }
 
 	public void CreateEmptyContainers(ProjectData projectData)                  // tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
 	{
@@ -74,36 +138,39 @@ public class MultiplePlayerStatsView : MonoBehaviour
 		}
 	}
 
-	private void FollowMouse()
-	{
-		if (_dataToDisplay.EntireList.Count > _scope)							// jeśli playerów na liście jest mniej niż kontenerów to nie ma sensu w ogóle odpalać Update()
-		{
-			if (Input.GetMouseButtonDown(0))
-			{
-				_startPos = Input.mousePosition;
-			}
-			else if (Input.GetMouseButton(0) && Input.mousePosition.x > 0 && Input.mousePosition.x < 800 && Input.mousePosition.y < 400 && Input.mousePosition.y > 0)
-			{
-				_delta = _startPos - Input.mousePosition;
+	//private void FollowMouse()
+	//{
+	//	if (_dataToDisplay.EntireList.Count > _scope)							// jeśli playerów na liście jest mniej niż kontenerów to nie ma sensu w ogóle odpalać Update()
+	//	{
+ //           if (Input.GetMouseButtonDown(0))
+ //           {
+ //               _startPos = Input.mousePosition;
+ //           }
+ //           else
+ //           if (Input.GetMouseButton(0) && Input.mousePosition.x > 0 && Input.mousePosition.x < 800 && Input.mousePosition.y < 400 && Input.mousePosition.y > 0)
+ //           {
+ //               _delta = _startPos - Input.mousePosition;
 
-				for (int i = 0; i < _scope; i++)
-				{
-					if (_delta.y < 0)
-					{
-						ScrollDataFilledContainersDown(i);
-					}
-					else if (_delta.y > 0)
-					{
-						ScrollDataFilledContainersUp(i);
-					}
-				}
-			}
-			else if (Input.GetMouseButtonUp(0))
-			{
-				_startPos = new Vector3(0, 0, 0);
-			}
-		}
-	}
+ //               for (int i = 0; i < _scope; i++)
+ //               {
+ //                   if (_delta.y < 0)
+ //                   {
+ //                       ScrollDataFilledContainersDown(i);
+ //                   }
+ //                   else if (_delta.y > 0)
+ //                   {
+ //                       ScrollDataFilledContainersUp(i);
+ //                   }
+ //               }
+
+ //               Debug.Log("Input.mousePosition: " + Input.mousePosition.y + " // startPos: " + _startPos.y + " // delta: " + _delta.y);
+ //           }
+ //           else if (Input.GetMouseButtonUp(0))
+ //           {
+ //               _startPos = new Vector3(0, 0, 0);
+ //           }
+ //       }
+	//}
 
 	private void ScrollDataFilledContainersDown(int index)					  // delta ujemna = scrolluje w dół
 	{
@@ -111,7 +178,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 		if (!(_listOfContainers[_scope - 1].PlayerName.text.ToString().Equals(_dataToDisplay.EntireList[_dataToDisplay.EntireList.Count - 1].PlayerName) && _listOfContainers[_scope - 1].PlayerName.transform.position.y > 135))
 		{
-			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
+			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _deltaValue.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                            // przesuniecie kontenera we wskazanym kierunku
 
 			if (_currentTopEntry < (_dataToDisplay.EntireList.Count - _scope) && _listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y > 350)         // gorna granica listy, wczytaj poprzednie elementy
@@ -132,7 +199,7 @@ public class MultiplePlayerStatsView : MonoBehaviour
 
 		if (!(_listOfContainers[0].PlayerName.text.ToString().Equals(_dataToDisplay.EntireList[0].PlayerName) && _listOfContainers[0].PlayerName.transform.position.y < 300))
 		{
-			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _delta.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
+			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _deltaValue.y / 30, 0);          // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                             // przesuniecie kontenera we wskazanym kierunku
 
 			if (_currentTopEntry > 0 && _listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 310)          // dolna granica listy, wczytaj kolejne elementy
