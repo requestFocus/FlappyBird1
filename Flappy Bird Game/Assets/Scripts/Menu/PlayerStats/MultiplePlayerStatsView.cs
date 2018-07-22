@@ -28,8 +28,9 @@ public class MultiplePlayerStatsView : MonoBehaviour, IDragHandler, IBeginDragHa
 
 	private int _containerGap;
 	private int _currentTopEntry;
-	private const int _scope = 7;
-	private int _elementsToDisplayOnStart;                                        // playerów w pamięci może być mniej niż _scope, dlatego to jest ostateczna ilość playerów do wyswietlenia w Start()
+	private int _scope;
+    private const int _visibleScope = 5;
+    private int _elementsToDisplayOnStart;                                        // playerów w pamięci może być mniej niż _scope, dlatego to jest ostateczna ilość playerów do wyswietlenia w Start()
 
 	private void Start()
 	{
@@ -47,17 +48,20 @@ public class MultiplePlayerStatsView : MonoBehaviour, IDragHandler, IBeginDragHa
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
-        _deltaValue += eventData.delta;
-
-        for (int i = 0; i < _scope; i++)
+        if (_scope > _visibleScope)                                             // jeśli elementów listy jest mniej niż wyświetlanych pozycji (=5) to w ogole nie umozliwiaj "draggowania" listy
         {
-            if (_deltaValue.y < 0)
+            _deltaValue += eventData.delta;
+
+            for (int i = 0; i < _scope; i++)
             {
-                ScrollDataFilledContainersDown(i);
-            }
-            else if (_deltaValue.y > 0)
-            {
-                ScrollDataFilledContainersUp(i);
+                if (_deltaValue.y < 0)
+                {
+                    ScrollDataFilledContainersDown(i);
+                }
+                else if (_deltaValue.y > 0)
+                {
+                    ScrollDataFilledContainersUp(i);
+                }
             }
         }
     }
@@ -67,9 +71,13 @@ public class MultiplePlayerStatsView : MonoBehaviour, IDragHandler, IBeginDragHa
         _deltaValue = Vector2.zero;
     }
 
-	public void CreateEmptyContainers(ProjectData projectData)                  // tyle ile kontenerów ma byc w hierarchii, widocznych oraz niewidocznych
+	public void CreateEmptyContainers(ProjectData projectData)                  // to, ile kontenerów ma byc w hierarchii wynika z ilości wpisów na liście playerów
 	{
 		_dataToDisplay = projectData;                                           // funkcja CreateEmptyContainers wywoływana jest z poziomu innej klasy i wymaga zestawu danych jako argumentu
+        if (_dataToDisplay.EntireList.Count < 7)
+            _scope = _dataToDisplay.EntireList.Count;
+        else
+            _scope = 7;
 
 		for (int i = 0; i < _scope; i++)
 		{
@@ -83,12 +91,7 @@ public class MultiplePlayerStatsView : MonoBehaviour, IDragHandler, IBeginDragHa
 
 	private void FillContainersOnStart()										// wypełnia tyle kontenerów, ile znajduje się w hierarchii
 	{
-		if (_dataToDisplay.EntireList.Count < _scope)
-			_elementsToDisplayOnStart = _dataToDisplay.EntireList.Count;
-		else
-			_elementsToDisplayOnStart = _scope;
-
-		for (int i = 0; i < _elementsToDisplayOnStart; i++)
+		for (int i = 0; i < _scope; i++)
 		{
 			_listOfContainers[i].CreateSinglePlayerStatsView(_dataToDisplay.EntireList[i], _playerNameLabelPos, _highscoreLabelPos, _achievementsLabelPos);       
 
@@ -107,13 +110,15 @@ public class MultiplePlayerStatsView : MonoBehaviour, IDragHandler, IBeginDragHa
 	{
 		_containerGap = 40;
 
+        int upperBorder = 130;
+
         // dopoki ostatni kontener nie zawiera ostatniego elementu listy playerów oraz Y-pozycja ostatniego kontenera jest wieksza niz 135
-		if (!(_listOfContainers[_scope - 1].PlayerName.text.ToString().Equals(_dataToDisplay.EntireList[_dataToDisplay.EntireList.Count - 1].PlayerName) && _listOfContainers[_scope - 1].PlayerName.transform.position.y > 135))
+		if (!(_listOfContainers[_scope - 1].PlayerName.text.ToString().Equals(_dataToDisplay.EntireList[_dataToDisplay.EntireList.Count - 1].PlayerName) && _listOfContainers[_scope - 1].PlayerName.transform.position.y > upperBorder))
 		{
 			_movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - _deltaValue.y / 10, 0);      // dziele przez X, żeby skok nie był tak duży
 			_listOfContainers[index].transform.position = _movement;                                                                                            // przesuniecie kontenera we wskazanym kierunku
 
-            // sprawdza czy pozycja aktualnie znajdująca na poczatku listy umożliwia wypisanie scope-elementów bez rzucania wyjątkiem oraz czy Y-pozycja pierwszego kontenera wykracza poza górną granicę listy
+            // sprawdza czy pozycja aktualnie znajdująca na poczatku listy umożliwia wypisanie scope-elementów bez rzucania wyjątkiem oraz czy Y-pozycja pierwszego kontenera wykracza poza dostepna granice
 			if (_currentTopEntry < (_dataToDisplay.EntireList.Count - _scope) && _listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y > 350)
 			{
 				for (int i = 0; i < _scope; i++)
@@ -123,20 +128,26 @@ public class MultiplePlayerStatsView : MonoBehaviour, IDragHandler, IBeginDragHa
 				_currentTopEntry++;
 				ReplaceProfiles(_currentTopEntry);
 			}
-		}
+        }
 	}
 
 	private void ScrollDataFilledContainersUp(int index)                      // delta dodatnia = scrolluje w gore
 	{
 		_containerGap = 40;
 
+        int lowerBorder;
+        if (_scope == 6)
+            lowerBorder = 100;
+        else
+            lowerBorder = 60;
+
         // dopoki pierwszy kontener nie zawiera pierwszego elementu listy playerów oraz Y-pozycja ostatniego kontenera jest mniejsza niż 60
-        if (!(_listOfContainers[0].PlayerName.text.ToString().Equals(_dataToDisplay.EntireList[0].PlayerName) && _listOfContainers[_scope - 1].PlayerName.transform.position.y < 60))
+        if (!(_listOfContainers[0].PlayerName.text.ToString().Equals(_dataToDisplay.EntireList[0].PlayerName) && _listOfContainers[_scope - 1].PlayerName.transform.position.y < lowerBorder))
         {
             _movement = new Vector3(_listOfContainers[index].transform.position.x, _listOfContainers[index].transform.position.y - (int)_deltaValue.y / 10, 0);     // dziele przez X, żeby skok nie był tak duży
             _listOfContainers[index].transform.position = _movement;                                                                                                // przesuniecie kontenera we wskazanym kierunku
 
-            // sprawdza czy pozycja aktualnie znajdująca na poczatku listy nie jest jeszcze pierwszym elementem oraz czy Y-pozycja pierwszego kontenera wykracza poza dolną granicę listy
+            // sprawdza czy pozycja aktualnie znajdująca na poczatku listy nie jest jeszcze pierwszym elementem oraz czy Y-pozycja pierwszego kontenera wykracza poza dostepna granice
             if (_currentTopEntry > 0 && _listOfContainers[0].AchievementSingleEntryViewInstance.Complete10Inactive.transform.position.y < 310)
             {
                 _currentTopEntry--;

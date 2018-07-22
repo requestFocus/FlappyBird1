@@ -18,9 +18,9 @@ public class MenuManager : MonoBehaviour {
 
 	private void Awake()
 	{
-		//PlayerPrefs.DeleteAll();												// CZYSZCZENIE PLAYERPREFS
+        //PlayerPrefs.DeleteAll();												// CZYSZCZENIE PLAYERPREFS
 
-		if (!_projectData.BackFromGamePlay)                                     // jeśli uruchomiono aplikacje, ale nie rozegrano jeszcze gry
+        if (!_projectData.BackFromGamePlay)                                     // jeśli uruchomiono aplikacje, ale nie rozegrano jeszcze gry
 		{
 			SetState(MenuScreensService.MenuScreens.Login);						// apka startuje od LoginView na wejściu sceny MENU
 		}
