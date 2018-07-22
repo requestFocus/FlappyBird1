@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222838815405257914}
   - component: {fileID: 114885469975352688}
   m_Layer: 5
-  m_Name: Image
+  m_Name: TransparentImageForDragging
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

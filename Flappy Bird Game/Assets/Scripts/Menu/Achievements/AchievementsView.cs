@@ -42,9 +42,9 @@ public class AchievementsView : MonoBehaviour
 	{
 		MultiplePlayerStatsView multiplePlayerStatsViewInstance = Instantiate(_multiplePlayerStatsView);
 		_container.Inject(multiplePlayerStatsViewInstance);
-		//multiplePlayerStatsViewInstance.transform.SetParent(gameObject.transform);
-		multiplePlayerStatsViewInstance.transform.SetParent(GameObject.FindGameObjectWithTag("Mask").transform);
+        //multiplePlayerStatsViewInstance.transform.SetParent(gameObject.transform);                // użyj, jeśli chcesz wyłączyć maske i testować liste achievementów
+        multiplePlayerStatsViewInstance.transform.SetParent(GameObject.FindGameObjectWithTag("Mask").transform);
 
-		multiplePlayerStatsViewInstance.CreateEmptyContainers(_projectData);
+        multiplePlayerStatsViewInstance.CreateEmptyContainers(_projectData);
 	}
 }
