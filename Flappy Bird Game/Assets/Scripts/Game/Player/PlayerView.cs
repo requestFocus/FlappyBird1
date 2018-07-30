@@ -10,6 +10,9 @@ public class PlayerView : MonoBehaviour
 	private Vector2 _playerMovement;
 	private Vector2 _mergedMovement;
 
+    private Vector3 _startPos;
+    private Vector3 _delta;
+
     private GUIGamePlayView GUIGamePlayView;
 
 	private void Start()
@@ -20,8 +23,8 @@ public class PlayerView : MonoBehaviour
 
 	private void Update()
 	{
-        //MovePlayer();
-        MovePlayerWithMouse();
+        MovePlayer();
+        //MovePlayerWithMouse();
     }
 
 	private void OnTriggerEnter2D(Collider2D collision)            
@@ -35,57 +38,57 @@ public class PlayerView : MonoBehaviour
 		Destroy(gameObject);
 	}
 
-	private void MovePlayer()                                                   // PLAYER SERVICE                         
-	{
-		_sensitivity = 12f;
-		_gravity = 3f;
-
-		_moveVertical = Input.GetAxis("Vertical");
-
-		if (Input.GetKeyUp("s") || Input.GetKeyUp("w") || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
-		{
-			Input.ResetInputAxes();                                                     // reset wartosci getinputaxis, player moze podskoczyc po osiagnieciu wartosci 1
-			_velocity = 0;                                                              // reset predkosci po wzbiciu sie w gore, player znow zaczyna opadać z predkoscia poczatkowa 0
-		}
-
-		_playerMovement = Vector2.up * _moveVertical * Time.deltaTime * _sensitivity;           // wyliczenie wektora ruchu playera na bazie Input.GetAxis()
-
-		_velocity += _gravity * Time.deltaTime;                                         // predkosc jako iloczyn grawitacji (przyspieszenia) i czasu
-		_gravityMovement = Vector2.down * _velocity * Time.deltaTime;                       // wyliczenie wektora przyspieszenia
-
-		_mergedMovement = _playerMovement + _gravityMovement;                                       // suma wektorów ruchu i opadania
-		transform.Translate(_mergedMovement);                                                   // przesuniecie o sume wektorów
-	}
-
-    private void MovePlayerWithMouse()                                                   // PLAYER SERVICE                         
+    private void MovePlayer()                                                   // PLAYER SERVICE                         
     {
-        Vector2 startMov = Vector2.zero;
-        Vector2 stopMov = Vector2.zero;
-        Vector2 actualMov;
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Input.ResetInputAxes();
-            _velocity = 0;
-            startMov = Input.mousePosition;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            stopMov = Input.mousePosition;
-        }
-
-        actualMov = startMov - stopMov;
-
         _sensitivity = 12f;
         _gravity = 3f;
 
-        _playerMovement = Vector2.up * actualMov.y * Time.deltaTime * _sensitivity;           // wyliczenie wektora ruchu playera na bazie Input.GetAxis()
+        _moveVertical = Input.GetAxis("Vertical");
+
+        if (Input.GetKeyUp("s") || Input.GetKeyUp("w") || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            Input.ResetInputAxes();                                                     // reset wartosci getinputaxis, player moze podskoczyc po osiagnieciu wartosci 1
+            _velocity = 0;                                                              // reset predkosci po wzbiciu sie w gore, player znow zaczyna opadać z predkoscia poczatkowa 0
+        }
+
+        _playerMovement = Vector2.up * _moveVertical * Time.deltaTime * _sensitivity;           // wyliczenie wektora ruchu playera na bazie Input.GetAxis()
 
         _velocity += _gravity * Time.deltaTime;                                         // predkosc jako iloczyn grawitacji (przyspieszenia) i czasu
         _gravityMovement = Vector2.down * _velocity * Time.deltaTime;                       // wyliczenie wektora przyspieszenia
 
         _mergedMovement = _playerMovement + _gravityMovement;                                       // suma wektorów ruchu i opadania
         transform.Translate(_mergedMovement);                                                   // przesuniecie o sume wektorów
+    }
+
+    private void MovePlayerWithMouse()                                                               
+    {
+        _sensitivity = 0.05f;
+        _gravity = 5f;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            _startPos = Input.mousePosition;
+            //_velocity = 0;
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            _delta = _startPos - Input.mousePosition;
+
+            _playerMovement = Vector2.up * _delta.y * Time.deltaTime * _sensitivity;           // wyliczenie wektora ruchu playera na bazie Input.mousePosition
+            transform.Translate(_playerMovement);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            _startPos = Vector3.zero;
+            _velocity = 0;
+        }
+
+        _velocity += _gravity * Time.deltaTime;                                         // predkosc opadania jako iloczyn grawitacji (przyspieszenia) i czasu
+        _gravityMovement = Vector2.down * _velocity * Time.deltaTime;                       // wyliczenie wektora przyspieszenia
+
+        _mergedMovement = _playerMovement + _gravityMovement;                                       // suma wektorów ruchu i opadania
+        transform.Translate(_mergedMovement);                                                   // przesuniecie o sume wektorów
+
+        Debug.Log(_delta.y + " // " + _playerMovement.y + " // " + _gravityMovement.y + " // " + _mergedMovement.y);
     }
 }

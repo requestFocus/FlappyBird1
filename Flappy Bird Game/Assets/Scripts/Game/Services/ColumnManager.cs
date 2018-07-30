@@ -13,9 +13,6 @@ public class ColumnManager : MonoBehaviour
 	[Inject]
 	private IntervalAvailabilityStatesService _intervalAvailabilityStatesService;
 
-    [Inject]
-    private CurrentGameStateService _currentGameStateService;
-
     private float _timeIntervalForCoroutine;
 	private float _yPosition;
 
@@ -31,7 +28,7 @@ public class ColumnManager : MonoBehaviour
     private void Start()
 	{
 		_timeIntervalForCoroutine = 3.0f;                                     // 3.0f jako wartosc startowa, wartość ta jest systematycznie zmniejszana, az osiągnie minimalną grywalną wartość 1.0f
-		StartCoroutine(CreateColumn());
+        StartCoroutine(CreateColumn());
 
         GUIGamePlayView = FindObjectOfType<GUIGamePlayView>();
         GUIGamePlayView.OnLifeLostDel += DeleteColumnManager;
@@ -58,11 +55,6 @@ public class ColumnManager : MonoBehaviour
             _columnsSoFar++;
         }
     }   
-
-    private void SetCurrentState(CurrentGameStateService state)
-    {
-        _currentGameStateService = state;
-    }
 
 	private void InitializeColumn(ColumnView column)
 	{
