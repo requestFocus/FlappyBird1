@@ -52,6 +52,8 @@ public class MultiplePlayerStatsView : MonoBehaviour, IDragHandler, IBeginDragHa
         {
             _deltaValue += eventData.delta;
 
+            Debug.Log(_deltaValue);
+
             for (int i = 0; i < _scope; i++)
             {
                 if (_deltaValue.y < 0)

@@ -11,7 +11,7 @@ public class GUIGamePlayView : MonoBehaviour
 	[SerializeField] private Text _achievementUnlockedGamePlay;
 	[SerializeField] private ParticleSystem _achievementParticles;
 
-	public delegate void OnLifeLost();												// niszczy zarówno PlayerView, jak i GUIGamePlayView (ColumnView niszczy się samodzielnie)
+	public delegate void OnLifeLost();												// niszczy zarówno PlayerView, jak i GUIGamePlayView ORAZ ColumnView
 	public OnLifeLost OnLifeLostDel;
 
 	[Inject]
@@ -57,10 +57,14 @@ public class GUIGamePlayView : MonoBehaviour
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
 			OnLifeLostDel();
-			if (_currentPlayerData.CurrentScore> _projectData.EntireList[_projectData.CurrentID].HighScore)
-				SetState(CurrentGameStateService.GameStates.SummarySuccess);
-			else
-				SetState(CurrentGameStateService.GameStates.SummaryFailure);
+            if (_currentPlayerData.CurrentScore > _projectData.EntireList[_projectData.CurrentID].HighScore)
+            {
+                SetState(CurrentGameStateService.GameStates.SummarySuccess);
+            }
+            else
+            {
+                SetState(CurrentGameStateService.GameStates.SummaryFailure);
+            }
 		}
 	}
 
