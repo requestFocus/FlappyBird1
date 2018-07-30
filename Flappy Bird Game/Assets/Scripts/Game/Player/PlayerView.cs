@@ -23,8 +23,8 @@ public class PlayerView : MonoBehaviour
 
 	private void Update()
 	{
-        MovePlayer();
-        //MovePlayerWithMouse();
+        //MovePlayer();
+        MovePlayerWithMouse();
     }
 
 	private void OnTriggerEnter2D(Collider2D collision)            
@@ -68,7 +68,6 @@ public class PlayerView : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             _startPos = Input.mousePosition;
-            //_velocity = 0;
         }
         else if (Input.GetMouseButton(0))
         {
@@ -76,11 +75,11 @@ public class PlayerView : MonoBehaviour
 
             _playerMovement = Vector2.up * _delta.y * Time.deltaTime * _sensitivity;           // wyliczenie wektora ruchu playera na bazie Input.mousePosition
             transform.Translate(_playerMovement);
+            _velocity = 0;
         }
         else if (Input.GetMouseButtonUp(0))
         {
             _startPos = Vector3.zero;
-            _velocity = 0;
         }
 
         _velocity += _gravity * Time.deltaTime;                                         // predkosc opadania jako iloczyn grawitacji (przyspieszenia) i czasu
