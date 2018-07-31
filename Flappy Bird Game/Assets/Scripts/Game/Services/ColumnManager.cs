@@ -16,8 +16,8 @@ public class ColumnManager : MonoBehaviour
     private float _timeIntervalForCoroutine;
 	private float _yPosition;
 
-	private const float _intervalStep = 0.3f;
-	private const float _startXPosition = 8.0f;
+	private const float _intervalStep = 0.3f;                                 // o ile zmniejszany jest interwał czasowy między kolejnymi kolumnami
+	private const float _startXPosition = 10.5f;                                // tutaj następuje instantiate kolumny
 	private const float _minRange = -3.0f;
 	private const float _maxRange = 3.0f;
 
@@ -27,7 +27,7 @@ public class ColumnManager : MonoBehaviour
 
     private void Start()
 	{
-		_timeIntervalForCoroutine = 3.0f;                                     // 3.0f jako wartosc startowa, wartość ta jest systematycznie zmniejszana, az osiągnie minimalną grywalną wartość 1.0f
+		_timeIntervalForCoroutine = 4.0f;                                     // 3.0f jako wartosc startowa, wartość ta jest systematycznie zmniejszana, az osiągnie minimalną grywalną wartość 1.0f
         StartCoroutine(CreateColumn());
 
         GUIGamePlayView = FindObjectOfType<GUIGamePlayView>();
