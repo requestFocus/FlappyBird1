@@ -52,8 +52,8 @@ public class GUIFailureSummaryView : MonoBehaviour
 	{
 		SetSummaryScreen(true);
 
-		_nameScoreSummary.text = _projectData.EntireList[_projectData.CurrentID].PlayerName + ", your score is " + _currentPlayerData.CurrentScore;
-		_noHighscoreSummary.text = "Better luck next time...";
+		_nameScoreSummary.text = _projectData.EntireList[_projectData.CurrentID].PlayerName + ", your score is " + _currentPlayerData.CurrentScore + "...";
+		_noHighscoreSummary.text = "Better luck next time!";
 	}
 
 	public void SetSummaryScreen(bool state)                           // WIDOK SUMMARY, aktywuje i wyswietla tło i przyciski powrót/powtórz
