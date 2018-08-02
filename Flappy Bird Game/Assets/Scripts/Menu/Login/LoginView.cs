@@ -21,7 +21,15 @@ public class LoginView : MonoBehaviour
 		_logoButton.onClick.AddListener(ClickLogo);
 	}
 
-	public void ClickLogo()
+    private void Update()                                               // poki co tylko tutaj, pozniej w summarySuccess i summaryFailure
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
+    public void ClickLogo()
 	{
 		if (_nameField.text.Length > 0)
 		{

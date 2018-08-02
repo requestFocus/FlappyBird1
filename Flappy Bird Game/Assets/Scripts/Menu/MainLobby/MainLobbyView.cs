@@ -15,14 +15,6 @@ public class MainLobbyView : MonoBehaviour
 	[Inject]
 	private DelegateService _delegateService;
 
-    private void Update()                                               // poki co tylko tutaj, pozniej w summarySuccess i summaryFailure
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-    }
-
     private void Start()
 	{
 		ActOnClick(_newGameButton, MenuScreensService.MenuScreens.NewGame);
