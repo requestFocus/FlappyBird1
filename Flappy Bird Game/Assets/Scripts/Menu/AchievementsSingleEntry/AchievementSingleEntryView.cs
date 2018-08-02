@@ -12,7 +12,7 @@ public class AchievementSingleEntryView : MonoBehaviour
 
 	public void ListAchievements(PlayerProfile playerProfile, Vector3 achievementsPos)
 	{
-		achievementsPos.x -= 30;                                        // wyrównanie do środka
+		achievementsPos.x -= 40;                                        // wyrównanie do środka
 		Complete10Inactive.transform.position = achievementsPos;
 		Complete10Active.transform.position = achievementsPos;
 
@@ -21,7 +21,7 @@ public class AchievementSingleEntryView : MonoBehaviour
 		else
 			Complete10Active.gameObject.SetActive(false);
 
-		achievementsPos.x += 30;
+		achievementsPos.x += 40;
 		Complete25Inactive.transform.position = achievementsPos;
 		Complete25Active.transform.position = achievementsPos;
 
@@ -30,7 +30,7 @@ public class AchievementSingleEntryView : MonoBehaviour
 		else
 			Complete25Active.gameObject.SetActive(false);
 
-		achievementsPos.x += 30;
+		achievementsPos.x += 40;
 		Complete50Inactive.transform.position = achievementsPos;
 		Complete50Active.transform.position = achievementsPos;
 

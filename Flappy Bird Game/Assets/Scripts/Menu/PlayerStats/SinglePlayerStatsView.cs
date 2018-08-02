@@ -18,17 +18,17 @@ public class SinglePlayerStatsView : MonoBehaviour
 	public void CreateSinglePlayerStatsView(PlayerProfile playerProfile, Vector3 playerNameLabelPos, Vector3 highscoreLabelPos, Vector3 achievementsLabelPos)
 	{
 		PlayerName.text = playerProfile.PlayerName;
-		playerNameLabelPos.y -= 30;
+		playerNameLabelPos.y -= 40;
 		PlayerName.transform.position = playerNameLabelPos;
 
 		HighScore.text = playerProfile.HighScore.ToString();
-		highscoreLabelPos.y -= 30;
+		highscoreLabelPos.y -= 40;
 		HighScore.transform.position = highscoreLabelPos;
 
 		AchievementSingleEntryViewInstance = Instantiate(_achievementSingleEntryView);
 		_container.Inject(AchievementSingleEntryViewInstance);
 		AchievementSingleEntryViewInstance.transform.SetParent(gameObject.transform);
-		achievementsLabelPos.y -= 22;
+		achievementsLabelPos.y -= 32;
 		AchievementSingleEntryViewInstance.ListAchievements(playerProfile, achievementsLabelPos);
 	}
 }
