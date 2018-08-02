@@ -16,7 +16,7 @@ public class LoginView : MonoBehaviour
 
 	public void Start()
 	{
-		_enterYourName.text = "Enter your name\nand click on the logo";
+		_enterYourName.text = "Enter your name\nand tap on the logo";
 
 		_logoButton.onClick.AddListener(ClickLogo);
 	}
