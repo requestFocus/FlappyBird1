@@ -193,6 +193,8 @@ MonoBehaviour:
     type: 2}
   _viewFactoryPrefab: {fileID: 114162207576250546, guid: 0558d70d8cdb20a41a4822eff9309146,
     type: 2}
+  _currentPlayerData: {fileID: 114394202539291360, guid: c22a1940b092c744faac9bc357cdec40,
+    type: 2}
 --- !u!114 &568383799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,7 +485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db112eebf12a7cc498d63166b25fa048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _backgroundGameViewPrefab: {fileID: 0}
+  BackgroundGameViewPrefab: {fileID: 114799184047625530, guid: 71fef76a6386cbc42b475d57e9b166de,
+    type: 2}
 --- !u!4 &1607600902
 Transform:
   m_ObjectHideFlags: 0
@@ -663,21 +666,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!224 &2037682099
-RectTransform:
+--- !u!4 &2037682099
+Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 4851204520637774, guid: 700a6a0a0ee631747a2ae10b0a4255ed,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2037682093}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: -5.5, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1403406494}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.5, y: 0}
-  m_SizeDelta: {x: 0.64, y: 0.86}
-  m_Pivot: {x: 0.5, y: 0.5}

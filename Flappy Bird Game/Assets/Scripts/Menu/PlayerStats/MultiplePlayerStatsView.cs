@@ -55,9 +55,13 @@ public class MultiplePlayerStatsView : MonoBehaviour, IDragHandler, IBeginDragHa
             for (int i = 0; i < _scope; i++)
             {
                 if (_deltaValue.y < 0)
+                {
                     ScrollDataFilledContainersDown(i);
+                }
                 else if (_deltaValue.y > 0)
+                {
                     ScrollDataFilledContainersUp(i);
+                }
             }
         }
     }

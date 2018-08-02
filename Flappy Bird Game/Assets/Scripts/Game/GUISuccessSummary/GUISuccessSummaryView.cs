@@ -34,7 +34,7 @@ public class GUISuccessSummaryView : MonoBehaviour
 		DisplayGUISummaryView();
 	}
 
-    private void OnEnable()                                            
+	private void OnEnable()                                            
 	{
 		_repeatButton.onClick.AddListener(RepeatGame);
 		_dontRepeatButton.onClick.AddListener(BackToMenu);
