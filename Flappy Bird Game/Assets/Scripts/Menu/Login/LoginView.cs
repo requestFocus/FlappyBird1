@@ -10,8 +10,9 @@ public class LoginView : MonoBehaviour
 	[SerializeField] private Button _logoButton;
 	[SerializeField] private InputField _nameField;
 	[SerializeField] private Text _enterYourName;
+    [SerializeField] private Button _powerButton;
 
-	public delegate void OnLoginViewSet(MenuScreensService.MenuScreens state);
+    public delegate void OnLoginViewSet(MenuScreensService.MenuScreens state);
 	public OnLoginViewSet OnLoginViewSetDel;
 
 	public void Start()
@@ -19,6 +20,7 @@ public class LoginView : MonoBehaviour
 		_enterYourName.text = "Enter your name\nand tap on the logo";
 
 		_logoButton.onClick.AddListener(ClickLogo);
+		_powerButton.onClick.AddListener(PowerOff);
 	}
 
     private void Update()                                               // poki co tylko tutaj, pozniej w summarySuccess i summaryFailure
@@ -38,4 +40,9 @@ public class LoginView : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+
+    public void PowerOff()
+    {
+        Application.Quit();
+    }
 }

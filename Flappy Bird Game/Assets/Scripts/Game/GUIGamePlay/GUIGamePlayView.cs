@@ -12,7 +12,7 @@ public class GUIGamePlayView : MonoBehaviour
 	[SerializeField] private ParticleSystem _achievementParticles;
 
 	public delegate void OnLifeLost();												// niszczy zarówno PlayerView, jak i GUIGamePlayView ORAZ ColumnView
-	public OnLifeLost OnLifeLostDel;
+	public OnLifeLost OnLifeLostDel;                                // tworzenie delagata
 
 	[Inject]
 	private ProjectData _projectData;
@@ -32,7 +32,7 @@ public class GUIGamePlayView : MonoBehaviour
 
 		_achievementUnlockedGamePlay.text = "";
 		
-		OnLifeLostDel += DeleteGUIGamePlayView;
+		OnLifeLostDel += DeleteGUIGamePlayView;                    
 	}
 
 	public void PointEarned(Collider2D collision)
@@ -56,7 +56,7 @@ public class GUIGamePlayView : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))          // stracone życie
 		{
-			OnLifeLostDel();
+			OnLifeLostDel();                                             // wywołanie delegata
             if (_currentPlayerData.CurrentScore > _projectData.EntireList[_projectData.CurrentID].HighScore)
             {
                 SetState(CurrentGameStateService.GameStates.SummarySuccess);

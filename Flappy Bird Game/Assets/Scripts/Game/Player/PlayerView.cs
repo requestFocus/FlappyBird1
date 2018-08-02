@@ -18,7 +18,7 @@ public class PlayerView : MonoBehaviour
 	private void Start()
 	{
 		GUIGamePlayView = FindObjectOfType<GUIGamePlayView>();
-		GUIGamePlayView.OnLifeLostDel += DeletePlayerView;
+		GUIGamePlayView.OnLifeLostDel += DeletePlayerView;                      // rejestracja delegata
 	}
 
 	private void Update()
