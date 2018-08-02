@@ -34,7 +34,7 @@ public class MultiplePlayerStatsView : MonoBehaviour, IDragHandler, IBeginDragHa
 
 	private void Start()
 	{
-		_playerNameLabelPos = new Vector3(300, 330, 0);						
+		_playerNameLabelPos = new Vector3(300, 330, 0);			                    // tymi danymi nalezy sterowac			
 		_highscoreLabelPos = new Vector3(400, 330, 0);
 		_achievementsLabelPos = new Vector3(520, 330, 0);
 
