@@ -34,6 +34,14 @@ public class GUISuccessSummaryView : MonoBehaviour
 		DisplayGUISummaryView();
 	}
 
+    private void Update()                                               // poki co tylko tutaj, pozniej w summarySuccess i summaryFailure
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     private void OnEnable()                                            
 	{
 		_repeatButton.onClick.AddListener(RepeatGame);

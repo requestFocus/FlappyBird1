@@ -23,14 +23,6 @@ public class LoginView : MonoBehaviour
 		_powerButton.onClick.AddListener(PowerOff);
 	}
 
-    private void Update()                                               // poki co tylko tutaj, pozniej w summarySuccess i summaryFailure
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-    }
-
     public void ClickLogo()
 	{
 		if (_nameField.text.Length > 0)

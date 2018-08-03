@@ -30,7 +30,15 @@ public class MainLobbyView : MonoBehaviour
 		ActOnClick(_logoutButton, MenuScreensService.MenuScreens.Login);
 	}
 
-	private void ActOnClick(Button button, MenuScreensService.MenuScreens state)
+    private void Update()                                               // poki co tylko tutaj, pozniej w summarySuccess i summaryFailure
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
+    private void ActOnClick(Button button, MenuScreensService.MenuScreens state)
 	{
 		button.onClick.AddListener(delegate
 		{
