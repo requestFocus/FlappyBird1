@@ -124,9 +124,20 @@ public class GUIGamePlayView : MonoBehaviour
 	private IEnumerator AchievementUnlockedNotification()						// wyswietla info o odblokowaniu achievementu
 	{
 		_achievementUnlockedGamePlay.text = "New achievement!";
-		yield return new WaitForSeconds(2);
-		_achievementUnlockedGamePlay.text = "";
-	}
+        Color color = _achievementUnlockedGamePlay.color;
+        yield return new WaitForSeconds(2);
+
+        for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
+        {   
+            color.a = i;
+            _achievementUnlockedGamePlay.color = color;
+            yield return null;
+        }
+
+        color.a = 1.0f;
+        _achievementUnlockedGamePlay.text = "";
+        _achievementUnlockedGamePlay.color = color;
+    }
 
 
 	public void SetState(CurrentGameStateService.GameStates state)
