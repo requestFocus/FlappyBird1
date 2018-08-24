@@ -15,6 +15,9 @@ public class MainLobbyView : MonoBehaviour
 	[Inject]
 	private DelegateService _delegateService;
 
+    [Inject]
+    private SoundService _soundService;
+
     private void Start()
 	{
 		ActOnClick(_newGameButton, MenuScreensService.MenuScreens.NewGame);
@@ -42,7 +45,8 @@ public class MainLobbyView : MonoBehaviour
 	{
 		button.onClick.AddListener(delegate
 		{
-			Destroy(gameObject);
+            _soundService.PlayOkSound();
+            Destroy(gameObject);
 			_delegateService.ClickLogo(state);
 		});
 	}

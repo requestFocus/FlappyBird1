@@ -24,6 +24,9 @@ public class GUISuccessSummaryView : MonoBehaviour
 	[Inject]
 	private CurrentGameStateService _currentGameStateService;
 
+    [Inject]
+    private SoundService _soundService;
+
 	private void Start()
 	{
 		_nameScoreSummary.text = "";
@@ -50,13 +53,15 @@ public class GUISuccessSummaryView : MonoBehaviour
 
 	public void RepeatGame()                                           
 	{
-		_currentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+        _soundService.PlayOkSound();
+        _currentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		SceneManager.LoadScene("Game");
 	}
 
 	public void BackToMenu()                                           		
 	{
-		_projectData.BackFromGamePlay = true;
+        _soundService.PlayOkSound();
+        _projectData.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
 	}
 

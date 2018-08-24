@@ -17,6 +17,9 @@ public class GUIFailureSummaryView : MonoBehaviour
 	[Inject]
 	private CurrentPlayerData _currentPlayerData;
 
+    [Inject]
+    private SoundService _soundService;
+
 	[Inject]
 	private CurrentGameStateService _currentGameStateService;
 
@@ -45,13 +48,15 @@ public class GUIFailureSummaryView : MonoBehaviour
 
 	public void RepeatGame()                                            // WIDOK SUMMARY
 	{
-		_currentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
+        _soundService.PlayOkSound();
+        _currentGameStateService.CurrentGameState = CurrentGameStateService.GameStates.GamePlay;
 		SceneManager.LoadScene("Game");
 	}
 
 	public void BackToMenu()                                            // WIDOK SUMMARY				
 	{
-		_projectData.BackFromGamePlay = true;
+        _soundService.PlayOkSound();
+        _projectData.BackFromGamePlay = true;
 		SceneManager.LoadScene("Menu");
 	}
 

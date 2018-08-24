@@ -19,6 +19,9 @@ public class AchievementsView : MonoBehaviour
 	[Inject]
 	private MultiplePlayerStatsView _multiplePlayerStatsView;
 
+    [Inject]
+    private SoundService _soundService;
+
 	[SerializeField] private Text _playerNameLabel;
 	[SerializeField] private Text _highscoreLabel;
 	[SerializeField] private Text _achievementsLabel;
@@ -27,7 +30,8 @@ public class AchievementsView : MonoBehaviour
 	{
 		_logoButton.onClick.AddListener(delegate
 		{
-			Destroy(gameObject);
+            _soundService.PlayOkSound();
+            Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
 

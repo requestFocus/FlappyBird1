@@ -26,6 +26,9 @@ public class GUIGamePlayView : MonoBehaviour
 	[Inject]
 	private IntervalAvailabilityStatesService _intervalAvailabilityStatesService;
 
+    [Inject]
+    private SoundService _soundService;
+
 	private void Start()
 	{
 		NotUpdatableGUIGamePlayView();
@@ -37,7 +40,7 @@ public class GUIGamePlayView : MonoBehaviour
 
 	public void PointEarned(Collider2D collision)
 	{
-		if (collision.gameObject.CompareTag("Score"))                            // zdobyty punkt
+        if (collision.gameObject.CompareTag("Score"))                            // zdobyty punkt
 		{
 			_currentPlayerData.CurrentScore = _currentPlayerData.CurrentScore+ 1;
 			_intervalAvailabilityStatesService.IntervalLock = IntervalAvailabilityStatesService.IntervalLockStates.Locked;
@@ -48,7 +51,9 @@ public class GUIGamePlayView : MonoBehaviour
 			{
 				ShowAchievementParticlesNotification();
 			}
-		}
+
+            _soundService.PlayPointEarnedSound();
+        }
 	}
 
 
@@ -65,6 +70,8 @@ public class GUIGamePlayView : MonoBehaviour
             {
                 SetState(CurrentGameStateService.GameStates.SummaryFailure);
             }
+
+            _soundService.PlayCrashSound();
 		}
 	}
 
@@ -79,6 +86,7 @@ public class GUIGamePlayView : MonoBehaviour
 	{
 		ParticleSystem AchievementParticlesInstance = Instantiate(_achievementParticles);
 		AchievementParticlesInstance.Play();
+        _soundService.PlayAchievementSound();
 
 		StartCoroutine(AchievementUnlockedNotification());
 	}

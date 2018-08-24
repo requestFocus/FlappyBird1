@@ -7,6 +7,9 @@ public class LoginView : MonoBehaviour
 	[Inject]
 	private LoginViewService _loginViewService;
 
+    [Inject]
+    private SoundService _soundService;
+
 	[SerializeField] private Button _logoButton;
 	[SerializeField] private InputField _nameField;
 	[SerializeField] private Text _enterYourName;
@@ -17,7 +20,7 @@ public class LoginView : MonoBehaviour
 
 	public void Start()
 	{
-		_enterYourName.text = "Enter your name\nand tap on the logo";
+        _enterYourName.text = "Enter your name\nand tap on the logo";
 
 		_logoButton.onClick.AddListener(ClickLogo);
 		_powerButton.onClick.AddListener(PowerOff);
@@ -25,12 +28,16 @@ public class LoginView : MonoBehaviour
 
     public void ClickLogo()
 	{
-		if (_nameField.text.Length > 0)
-		{
-			_loginViewService.CheckPlayerPrefs(_nameField.text);                         // odpal LoadProfile, sprawdz aktualna liste i przypisz dane do pol obiektu
-			OnLoginViewSetDel(MenuScreensService.MenuScreens.MainMenu);
-			Destroy(gameObject);
-		}
+
+        if (_nameField.text.Length > 0)
+        {
+            _soundService.PlayOkSound();
+            _loginViewService.CheckPlayerPrefs(_nameField.text);                         // odpal LoadProfile, sprawdz aktualna liste i przypisz dane do pol obiektu
+            OnLoginViewSetDel(MenuScreensService.MenuScreens.MainMenu);
+            Destroy(gameObject);
+        }
+        else
+            _soundService.PlayErrorSound();
 	}
 
     public void PowerOff()

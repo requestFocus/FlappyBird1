@@ -19,6 +19,9 @@ public class ProfileView : MonoBehaviour
 	[Inject]
 	private DelegateService _delegateService;
 
+    [Inject]
+    private SoundService _soundService;
+
 	[Inject]
 	private DiContainer _container;
 
@@ -26,7 +29,8 @@ public class ProfileView : MonoBehaviour
 	{
 		_logoButton.onClick.AddListener(delegate
 		{
-			Destroy(gameObject);
+            _soundService.PlayOkSound();
+            Destroy(gameObject);
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
 

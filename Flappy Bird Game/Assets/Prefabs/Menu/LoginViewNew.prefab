@@ -526,6 +526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be2500f996a027419ed61056b36a8b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundService: {fileID: 114830750328182036, guid: 9ff4a355aae0e2d47aa28271dbe6038e,
+    type: 2}
   _logoButton: {fileID: 114675367492644534}
   _nameField: {fileID: 114831143724713834}
   _enterYourName: {fileID: 114921243860720134}
