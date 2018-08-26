@@ -23,6 +23,6 @@ public class CreditsView : MonoBehaviour
 			_delegateService.ClickLogo(MenuScreensService.MenuScreens.MainMenu);
 		});
 
-		_creditsViewText.text = "PROGRAMMING / DESIGN\nMACIEJ NIEŚCIORUK\n\nGRAPHICS/SOUNDS\nINTERNET\n\nMUSIC\nCINNAMON CHASERS - LUV DELUXE\n\nSPECIAL THANKS TO\nMICHAŁ PODYMA";
+		_creditsViewText.text = "PROGRAMMING / DESIGN\nMACIEJ NIEŚCIORUK\n\nGRAPHICS / SOUNDS\nINTERNET\n\nMUSIC\nCINNAMON CHASERS - LUV DELUXE\n\nSPECIAL THANKS TO\nMICHAŁ PODYMA";
 	}
 }
